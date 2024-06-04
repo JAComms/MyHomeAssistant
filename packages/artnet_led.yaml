@@ -1,0 +1,55 @@
+#
+#
+
+light:
+- platform: artnet_led
+  host: 10.10.4.25                      # IP of Art-Net Node
+  max_fps: 25                           # Max 40 per second
+  refresh_every: 0                      # Resend values if no fades are running every x seconds, 0 disables automatic refresh
+  node_type: artnet-controller              # Which protocol to use
+  universes:                            # Support for multiple universes
+    0:                                  # Nr of Universe (see configuration of your Art-Net Node)
+      output_correction: quadratic      # optional: output correction for the whole universe, will be used as default if nothing is set for the channel
+      devices:
+        # Dimmer
+        - channel: 1                    # first channel of dmx dimmer
+          name: Main Lights             # name
+          type: rgbw                     # type
+          transition: 1                 # default duration of fades in sec. Will be overridden by Transition sent from HA
+          output_correction: quadratic  # optional: quadratic, cubic or quadruple. Apply different dimming curves to the output. Default is None which means linear dimming
+          channel_size: 8bit            # width of the channel sent to DMX device, default "8bit", "16bit", "24bit" and "32bit" available.
+
+        - channel: 5
+          name: Dining Lights
+          type: rgbw
+          transition: 1
+          output_correction: quadratic
+          channel_size: 8bit
+
+        - channel: 9
+          name: Kitchen Lights
+          type: rgbw
+          transition: 1
+          output_correction: quadratic
+          channel_size: 8bit
+
+        - channel: 13
+          name: Bed Lights
+          type: rgbw
+          transition: 1
+          output_correction: quadratic
+          channel_size: 8bit
+
+        - channel: 17
+          name: Side Lights
+          type: rgbw
+          transition: 1
+          output_correction: quadratic
+          channel_size: 8bit
+
+        - channel: 21
+          name: Rear Lights
+          type: rgbw
+          transition: 1
+          output_correction: quadratic
+          channel_size: 8bit
