@@ -55,11 +55,8 @@ logger:
 
 # Enable Home Assistant API
 api:
-#  encryption:
-#    key: "Avw96eDXoVgJ3eA66Nr/oukOp84TOXFR9v88Hiv1tu4="
 
 ota:
-#  password: "27483068ce5b4c3647eb94674096c304"
 
 mdns:
   disabled: false
@@ -77,21 +74,18 @@ web_server:
 
 
 external_components:
-#  - source: github://KinDR007/VictronMPPT-ESPHOME@main
-  - source: github://icefest/VictronMPPT-ESPHOME@main
+  - source: github://KinDR007/VictronMPPT-ESPHOME@main
 
 
 wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
-
   # This spawns an AP with the device name and mac address with no password.
   ap: {}
   # Allow rapid re-connection to previously connect WiFi SSID, skipping scan of all SSID
   fast_connect: "${wifi_fast_connect}"
   # Define dns domain / suffix to add to hostname
   domain: "${dns_domain}"
-
 
 captive_portal:
 
@@ -100,7 +94,6 @@ captive_portal:
 #
 #
 #
-
 uart:
   id: com0
   tx_pin: GPIO26  # Not used! The communication is read-only
@@ -122,7 +115,6 @@ globals:
 #
 #
 #
-
 sensor:
 
   #  Sensor uptime in seconds
@@ -177,7 +169,6 @@ sensor:
       name: "Load Current"
 
 
-
   - platform: template
     name: "Energy Total"
     id: energy_total_sensor
@@ -205,7 +196,6 @@ sensor:
 #
 #
 #
-
 button:
   - platform: restart
     name: 'Restart Device'
@@ -225,7 +215,6 @@ button:
 #
 #
 #
-
 text_sensor:
 
   #  Creates a sensor showing when the device was last restarted
@@ -272,7 +261,6 @@ text_sensor:
     lambda: |-
       return {"${project_version}"};
     update_interval: 6h
-    
 
   - platform: victron
     victron_id: victron0
@@ -296,7 +284,6 @@ text_sensor:
 #
 #
 #
-
 binary_sensor:
   - platform: victron
     victron_id: victron0
