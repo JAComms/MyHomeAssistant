@@ -1,0 +1,362 @@
+substitutions:
+   # Default name 
+  name: "victron-inverter"
+   # Default friendly name 
+  friendly_name: "Victron Inverter"
+   # Description as appears in ESPHome & top of webserver page
+  device_description: "Victron Inverter - MultiPlus 12/3000/120-16"
+   # Allows ESP device to be automatically lined to an 'Area' in Home Assistant. Typically used for areas such as 'Lounge Room', 'Kitchen' etc  
+  room: "Energy Management"
+   # Project Name
+  project_name: "Victron Energy.MultiPlus"
+   # Project version denotes the release version of the yaml file, allowing checking of deployed vs latest version
+  project_version: "0.1.0"
+   # Restore the relay (Light switch) upon reboot to state:
+  relay_restore_mode: RESTORE_DEFAULT_OFF
+   # Define a domain for this device to use. i.e. iot.home.lan (so device will appear as athom-smart-plug-v2.iot.home.lan in DNS/DHCP logs)
+  dns_domain: ""
+   # Set your locations latitude and longitude. Useful if you want to use the sun and its location in relation to the horizon to on/off (or as a condition) to control lights.
+  my_latitude: "-34.73503534407444"
+  my_longitude: "149.72998380661014"
+   # Set timezone of the smart plug. Useful if the plug is in a location different to the HA server. Can be entered in unix Country/Area format (i.e. "Australia/Sydney")
+  timezone: "Australia/Sydney"
+   # Set the duration between the sntp service polling ntp.org servers for an update
+  sntp_update_interval: 6h
+   # Network time servers for your region, enter from lowest to highest priority
+  sntp_server_1: "2.au.pool.ntp.org"
+  sntp_server_2: "1.au.pool.ntp.org"
+  sntp_server_3: "0.au.pool.ntp.org"
+   # Enables faster network connections, with last connected SSID being connected to and no full scan for SSID being undertaken   
+  wifi_fast_connect: "true" 
+
+
+esphome:
+  #  Configures these settings to use the substituions defined below
+  name: "${name}"
+  friendly_name: "${friendly_name}"
+  comment: '${device_description}'
+  area: "${room}"
+  name_add_mac_suffix: false
+  project:
+    name: "${project_name}"
+    version: "${project_version}"  
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+  level: INFO    # WARN
+  baud_rate: 0
+  logs:
+    component: ERROR # Fix for issue #4717 "Component xxxxxx took a long time for an operation"
+
+# Enable Home Assistant API
+api:
+#  encryption:
+#    key: "Avw96eDXoVgJ3eA66Nr/oukOp84TOXFR9v88Hiv1tu4="
+
+ota:
+#  password: "27483068ce5b4c3647eb94674096c304"
+
+mdns:
+  disabled: false
+
+web_server:
+  port: 80  
+
+
+#packages:
+#  remote_package:
+#    url: https://github.com/Jacomms/myHomeAssistant/
+#    ref: main 
+#    files: [esphome/victron-energy-multiplus.yaml]
+#    refresh: 0d # optional
+
+
+external_components:
+#  - source: github://KinDR007/VictronMPPT-ESPHOME@main
+  - source: github://icefest/VictronMPPT-ESPHOME@main
+
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # This spawns an AP with the device name and mac address with no password.
+  ap: {}
+  # Allow rapid re-connection to previously connect WiFi SSID, skipping scan of all SSID
+  fast_connect: "${wifi_fast_connect}"
+  # Define dns domain / suffix to add to hostname
+  domain: "${dns_domain}"
+
+
+captive_portal:
+
+
+#########################################################################
+#
+#
+#
+
+uart:
+  id: com0
+  tx_pin: GPIO26  # Not used! The communication is read-only
+  rx_pin: GPIO32
+  baud_rate: 19200
+  rx_buffer_size: 256
+
+victron:
+  id: victron0
+  uart_id: com0
+
+globals:
+  - id: total_energy
+    type: float
+    restore_value: yes
+    initial_value: '0.0'  
+
+#########################################################################
+#
+#
+#
+
+sensor:
+
+  #  Sensor uptime in seconds
+  - platform: uptime
+    name: "Uptime Seconds"
+    id: uptime_seconds
+    update_interval: 3min
+    entity_category: diagnostic
+    internal: True
+
+
+  - platform: victron
+    victron_id: victron0
+    max_power_yesterday:
+      name: "Max Power Yesterday"
+    max_power_today:
+      name: "Max Power Today"
+    yield_total:
+      name: "Yield Total"
+    yield_yesterday:
+      name: "Yield Yesterday"
+    yield_today:
+      name: "Yield Today"
+    panel_voltage:
+      name: "Panel Voltage"
+      id: voltage
+    panel_power:
+      name: "Panel Power"
+      id: active_power
+    battery_current:
+      name: "Panel Current"
+      id: current
+#    battery_current:
+#      name: "Charger Current"      
+    battery_voltage:
+      name: "Battery Voltage"
+#    battery_voltage:
+#      name: "Charger Output Voltage"
+    day_number:
+      name: "Day Number"
+    charging_mode_id:
+      name: "Charging Mode ID"
+    error_code:
+      name: "Error Code"
+#    error_code:
+#      name: "Charger Error Code"
+    tracking_mode_id:
+      name: "Tracking Mode ID"
+#    charging_mode_id:
+#      name: "Charging Mode ID"
+    load_current:
+      name: "Load Current"
+
+
+
+  - platform: template
+    name: "Energy Total"
+    id: energy_total_sensor
+    unit_of_measurement: kWh
+    device_class: "energy"
+    state_class: "total_increasing"
+    icon: "mdi:lightning-bolt"
+    accuracy_decimals: 3
+    lambda: |-
+      return id(total_energy);
+   
+  - platform: total_daily_energy
+    name: "Energy Daily"
+    id: energy_total_daily
+    restore: true
+    power_id: active_power
+    unit_of_measurement: kWh
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+    icon: mdi:hours-24      
+
+
+#########################################################################
+#
+#
+#
+
+button:
+  - platform: restart
+    name: 'Restart Device'
+    entity_category: config
+
+  - platform: factory_reset
+    name: Reset with Default Settings
+    id: Reset
+    entity_category: config
+
+  - platform: safe_mode
+    name: "Safe Mode"
+    internal: false
+    entity_category: config
+
+#########################################################################
+#
+#
+#
+
+text_sensor:
+
+  #  Creates a sensor showing when the device was last restarted
+  - platform: template
+    name: 'Device Last Restart'
+    id: device_last_restart
+    icon: mdi:clock
+    entity_category: diagnostic
+
+  #  Creates sensor for tracking the WiFi IP address
+  - platform: wifi_info
+    ip_address:
+      name: 'WiFi IP Address'
+      icon: mdi:wifi
+      entity_category: diagnostic
+
+  #  Defines the WiFi SSID network to connect to
+    ssid:
+      name: 'WiFi SSID'
+      icon: mdi:wifi-strength-2
+      entity_category: diagnostic
+
+  #  Creates sensor for tracking the WiFi IP MAC address
+    mac_address:
+      name: 'WiFi MAC Address'
+      entity_category: diagnostic
+
+  #  Creates a sensor of the name of installed project
+  - platform: template
+    name: 'Project Name'
+    id: project_name
+    icon: "mdi:label-outline"
+    entity_category: diagnostic
+    lambda: |-
+      return {"${project_name}"};
+    update_interval: 6h
+
+  #  Creates a sensor of the version of installed project
+  - platform: template
+    name: 'Project Version'
+    id: project_version
+    icon: "mdi:label-outline"
+    entity_category: diagnostic
+    lambda: |-
+      return {"${project_version}"};
+    update_interval: 6h
+    
+
+  - platform: victron
+    victron_id: victron0
+    device_type:
+      name: "Device Type"
+    firmware_version:
+      name: "Firmware Version"
+    serial_number:
+      name: "Serial Number"
+#    hardware_number:
+#      name: "Hardware Number"
+    error:
+      name: "Error"
+    charging_mode:
+      name: "Charging Mode"
+    tracking_mode:
+      name: "Tracking Mode"
+
+
+#########################################################################
+#
+#
+#
+
+binary_sensor:
+  - platform: victron
+    victron_id: victron0
+    load_state:
+      name: "Load State"
+    relay_state:
+      name: "Relay State"
+
+#########################################################################
+#
+#
+#
+
+  #  Creates a sensor of the uptime of the device, in formatted days, hours, minutes and seconds
+  #  from : https://community.home-assistant.io/t/uptime-sensor-in-hours-or-days/116392/29
+
+  - platform: template
+    name: "Device Uptime"
+    entity_category: diagnostic
+    lambda: |-
+      int seconds = (id(uptime_seconds).state);
+      int days = seconds / (24 * 3600);
+      seconds = seconds % (24 * 3600);
+      int hours = seconds / 3600;
+      seconds = seconds % 3600;
+      int minutes = seconds /  60;
+      seconds = seconds % 60;
+      if ( days > 3650 ) {
+        return { "Starting up" };
+      } else if ( days ) {
+        return { (String(days) +"d " + String(hours) +"h " + String(minutes) +"m "+ String(seconds) +"s").c_str() };
+      } else if ( hours ) {
+        return { (String(hours) +"h " + String(minutes) +"m "+ String(seconds) +"s").c_str() };
+      } else if ( minutes ) {
+        return { (String(minutes) +"m "+ String(seconds) +"s").c_str() };
+      } else {
+        return { (String(seconds) +"s").c_str() };
+      }
+    icon: mdi:clock-start
+     
+time:
+  - platform: sntp
+    id: sntp_time
+  # Define the timezone of the device
+    timezone: "${timezone}"
+  # Change sync interval from default 5min
+    update_interval: ${sntp_update_interval}
+  # Set specific sntp servers to use
+    servers: 
+      - "${sntp_server_1}"
+      - "${sntp_server_2}"
+      - "${sntp_server_3}"
+  # Publish the time the device was last restarted
+    on_time_sync:
+      then:
+        # Update last restart time, but only once.
+        - if:
+            condition:
+              lambda: 'return id(device_last_restart).state == "";'
+            then:
+              - text_sensor.template.publish:
+                  id: device_last_restart
+                  state: !lambda 'return id(sntp_time).now().strftime("%a %d %b %Y - %I:%M:%S %p");'
