@@ -1,0 +1,142 @@
+esphome:
+  name: victron-solar
+  friendly_name: Victron Solar
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Victron-Solar Fallback Hotspot"
+    password: "S4jGytuZVItf"
+
+mdns:
+  disabled: false
+
+web_server:
+  port: 80  
+
+external_components:
+  - source: github://KinDR007/VictronMPPT-ESPHOME@main
+
+captive_portal:  
+
+uart:
+  id: com0
+  tx_pin: GPIO26  # Not used! The communication is read-only
+  rx_pin: GPIO32
+  baud_rate: 19200
+  rx_buffer_size: 256
+
+victron:
+  id: victron0
+  uart_id: com0
+
+
+globals:
+  - id: total_energy
+    type: float
+    restore_value: yes
+    initial_value: '0.0'  
+
+
+sensor:
+  - platform: victron
+    victron_id: victron0
+    max_power_yesterday:
+      name: "Max Power Yesterday"
+    max_power_today:
+      name: "Max Power Today"
+    yield_total:
+      name: "Yield Total"
+    yield_yesterday:
+      name: "Yield Yesterday"
+    yield_today:
+      name: "Yield Today"
+    panel_voltage:
+      name: "Panel Voltage"
+    panel_power:
+      name: "Panel Power"
+      id: panel_power
+    battery_current:
+      name: "Panel Current"
+    battery_voltage:
+      name: "Battery Voltage"
+    day_number:
+      name: "Day Nmber"
+    charging_mode_id:
+      name: "Charging Mode ID"
+    error_code:
+      name: "Error Code"
+    tracking_mode_id:
+      name: "Tracking Mode ID"
+    load_current:
+      name: "Load Current"
+
+
+  - platform: template
+    name: "Energy Total"
+    id: energy_total_sensor
+    unit_of_measurement: kWh
+    device_class: "energy"
+    state_class: "total_increasing"
+    icon: "mdi:lightning-bolt"
+    accuracy_decimals: 3
+    lambda: |-
+      return id(total_energy);
+   
+  - platform: total_daily_energy
+    name: "Energy Daily"
+    id: energy_total_daily
+    restore: true
+    power_id: panel_power
+    unit_of_measurement: kWh
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+    icon: mdi:hours-24    
+
+
+
+
+text_sensor:
+  - platform: victron
+    victron_id: victron0
+    charging_mode:
+      name: "Charging Mode"
+    error:
+      name: "Error"
+    tracking_mode:
+      name: "Tracking Mode"
+    firmware_version:
+      name: "Firmware Version"
+    device_type:
+      name: "Device Type"
+    serial_number:
+      name: "Serial Number"
+
+binary_sensor:
+  - platform: victron
+    victron_id: victron0
+    load_state:
+      name: "Load State"
+    relay_state:
+      name: "Relay State"
+
+
+time:
+    platform: sntp
