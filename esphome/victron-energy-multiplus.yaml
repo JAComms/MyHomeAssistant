@@ -95,18 +95,17 @@ captive_portal:
 #
 uart:
    # Connection to Victron Inverter
-  id: com0
-  tx_pin: "${scl_pin}"  # GPIO26 Not used! The communication is read-only
-  rx_pin: "${sca_pin}"  # GPIO32
-  baud_rate: 19200
-  rx_buffer_size: 256
+  - id: com0
+    tx_pin: "${scl_pin}"  # GPIO26 Not used! The communication is read-only
+    rx_pin: "${sca_pin}"  # GPIO32
+    baud_rate: 19200
+    rx_buffer_size: 256
 
    # Connection to GPS Receiver
-  id: com1
-  tx_pin: GPIO22  # Not used! The communication is read-only
-  rx_pin: GPIO32
-  baud_rate: 9600
-  rx_buffer_size: 256
+  - id: com1
+    rx_pin: GPIO32
+    baud_rate: 9600
+    rx_buffer_size: 256
 
 victron:
   id: victron0
@@ -118,6 +117,21 @@ globals:
     restore_value: yes
     initial_value: '0.0'  
 
+#gps:    
+#  id: com1
+#    latitude:
+#      name: "Latitude"
+#    longitude:
+#      name: "Longitude"
+#    altitude:
+#      name: "Altitude"
+#    speed:
+#      name: "Speed"
+#    course:
+#      name: "Course"
+#    satellites:
+#      name: "Satellites"
+      
 #########################################################################
 #
 #
