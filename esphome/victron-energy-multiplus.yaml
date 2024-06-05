@@ -50,10 +50,6 @@ esphome:
     name: "${project_name}"
     version: "${project_version}"  
 
-esp32:
-  board: esp32dev
-  framework:
-    type: arduino
 
 # Enable logging
 logger:
