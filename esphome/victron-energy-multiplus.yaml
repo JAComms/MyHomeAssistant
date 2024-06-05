@@ -3,6 +3,7 @@
 #
 #
 
+   # Provides substitutions or variables that are then called elsewhere multiple times in the config
 substitutions:
    # Default name 
   name: "victron-inverter"
@@ -133,45 +134,100 @@ sensor:
   # Victron Inverter sensors
   - platform: victron
     victron_id: victron0
+    
     max_power_yesterday:
       name: "Max Power Yesterday"
+      id: max_power_yesterday
+      accuracy_decimals: 1
+      
     max_power_today:
       name: "Max Power Today"
+      id: max_power_today
+      accuracy_decimals: 1
+      
     yield_total:
       name: "Yield Total"
+      id: yield_total
+      filters:
+        # Multiplication factor from W to kW is 0.001
+        - multiply: 0.001
+      unit_of_measurement: kWh
+      accuracy_decimals: ${accuracy}
+      
     yield_yesterday:
       name: "Yield Yesterday"
+      id: yield_yesterday
+      filters:
+        # Multiplication factor from W to kW is 0.001
+        - multiply: 0.001
+      unit_of_measurement: kWh
+      accuracy_decimals: ${accuracy}
+      
     yield_today:
       name: "Yield Today"
+      id: yield_today
+      filters:
+        # Multiplication factor from W to kW is 0.001
+        - multiply: 0.001
+      unit_of_measurement: kWh
+      accuracy_decimals: ${accuracy}
+      
     panel_voltage:
       name: "Panel Voltage"
-      id: voltage
+      id: panel_voltage
+      accuracy_decimals: 2
+      
     panel_power:
-      name: "Panel Power"
+      name: "Active Power"
       id: active_power
+      accuracy_decimals: 1      
+      
     battery_current:
-      name: "Panel Current"
-      id: current
-#    battery_current:
+      name: "Current"
 #      name: "Charger Current"      
+      id: current
+      accuracy_decimals: 1
+
     battery_voltage:
       name: "Battery Voltage"
-#    battery_voltage:
 #      name: "Charger Output Voltage"
-    day_number:
-      name: "Day Number"
-    charging_mode_id:
-      name: "Charging Mode ID"
-    error_code:
-      name: "Error Code"
-#    error_code:
-#      name: "Charger Error Code"
-    tracking_mode_id:
-      name: "Tracking Mode ID"
-#    charging_mode_id:
-#      name: "Charging Mode ID"
+      accuracy_decimals: 2
+
+# No Battery Management System installed
+#    battery_temperature:
+#      name: "Battery Temperature"
+
+# No Battery Management System installed    
+#    state_of_charge:
+#      name: "Battery SoC"
+
     load_current:
       name: "Load Current"
+      id: load_current
+      
+    day_number:
+      name: "Day Number"
+      id: day_number
+      icon: "mdi:calendar-today"
+      entity_category: diagnostic
+      internal: True      
+      
+    charging_mode_id:
+      name: "Charging Mode ID"
+      id: charging_mode_id
+      internal: True
+      
+    error_code:
+      name: "Error Code"
+      id: error_code
+      internal: True
+
+    tracking_mode_id:
+      name: "Tracking Mode ID"
+      id: tracking_mode_id
+      internal: True
+
+#########################################################
 
   # Reports the total energy (KWh) throught the inverter in its lifetime (or since last reflashed)
   - platform: template
@@ -268,16 +324,25 @@ text_sensor:
       return {"${project_version}"};
     update_interval: 6h
 
+  #  Creates a sensor of the version of installed ESPHome version
+  - platform: version
+    name: "Project ESPHome Version"
+    hide_timestamp: true
+
   - platform: victron
     victron_id: victron0
     device_type:
       name: "Device Type"
+      entity_category: diagnostic
     firmware_version:
       name: "Firmware Version"
+      entity_category: diagnostic
     serial_number:
       name: "Serial Number"
+      entity_category: diagnostic
     hardware_number:
       name: "Hardware Revision"
+      entity_category: diagnostic
     error:
       name: "Error"
     charging_mode:
