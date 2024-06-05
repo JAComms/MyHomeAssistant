@@ -9,7 +9,7 @@ substitutions:
    # Default friendly name 
   friendly_name: "Victron Inverter"
    # Description as appears in ESPHome & top of webserver page
-  device_description: "Victron Inverter - MultiPlus 12/3000/120-16"
+  device_description: "Victron - MultiPlus-II 12/3000/120-16 Inverter/Charger"
    # Allows ESP device to be automatically lined to an 'Area' in Home Assistant. Typically used for areas such as 'Lounge Room', 'Kitchen' etc  
   room: "Energy Management"
    # Project Name
