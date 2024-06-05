@@ -1,3 +1,8 @@
+#########################################################################
+#
+#
+#
+
 substitutions:
    # Default name 
   name: "victron-inverter"
@@ -27,7 +32,11 @@ substitutions:
   sntp_server_2: "1.au.pool.ntp.org"
   sntp_server_3: "0.au.pool.ntp.org"
    # Enables faster network connections, with last connected SSID being connected to and no full scan for SSID being undertaken   
-  wifi_fast_connect: "true" 
+  wifi_fast_connect: "true"
+   # m5 Stack Lite PINS
+  scl_pin: "GPIO21"
+  sca_pin: "GPIO25"
+   
 
 
 esphome:
@@ -36,7 +45,7 @@ esphome:
   friendly_name: "${friendly_name}"
   comment: '${device_description}'
   area: "${room}"
-  name_add_mac_suffix: false
+  name_add_mac_suffix: true
   project:
     name: "${project_name}"
     version: "${project_version}"  
@@ -65,14 +74,6 @@ web_server:
   port: 80  
 
 
-#packages:
-#  remote_package:
-#    url: https://github.com/Jacomms/myHomeAssistant/
-#    ref: main 
-#    files: [esphome/victron-energy-multiplus.yaml]
-#    refresh: 0d # optional
-
-
 external_components:
   - source: github://KinDR007/VictronMPPT-ESPHOME@main
 
@@ -95,10 +96,18 @@ captive_portal:
 #
 #
 uart:
+   # Connection to Victron Inverter
   id: com0
-  tx_pin: GPIO26  # Not used! The communication is read-only
-  rx_pin: GPIO32
+  tx_pin: "${scl_pin}"  # GPIO26 Not used! The communication is read-only
+  rx_pin: "${sca_pin}"  # GPIO32
   baud_rate: 19200
+  rx_buffer_size: 256
+
+   # Connection to GPS Receiver
+  id: com1
+  tx_pin: GPIO22  # Not used! The communication is read-only
+  rx_pin: GPIO32
+  baud_rate: 9600
   rx_buffer_size: 256
 
 victron:
@@ -125,7 +134,7 @@ sensor:
     entity_category: diagnostic
     internal: True
 
-
+  # Victron Inverter sensors
   - platform: victron
     victron_id: victron0
     max_power_yesterday:
@@ -168,7 +177,7 @@ sensor:
     load_current:
       name: "Load Current"
 
-
+  # Reports the total energy (KWh) throught the inverter in its lifetime (or since last reflashed)
   - platform: template
     name: "Energy Total"
     id: energy_total_sensor
@@ -179,7 +188,8 @@ sensor:
     accuracy_decimals: 3
     lambda: |-
       return id(total_energy);
-   
+
+  # Reports the energy (KWh) throught the inverter for the day.
   - platform: total_daily_energy
     name: "Energy Daily"
     id: energy_total_daily
@@ -270,8 +280,8 @@ text_sensor:
       name: "Firmware Version"
     serial_number:
       name: "Serial Number"
-#    hardware_number:
-#      name: "Hardware Number"
+    hardware_number:
+      name: "Hardware Revision"
     error:
       name: "Error"
     charging_mode:
