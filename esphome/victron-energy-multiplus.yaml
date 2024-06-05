@@ -37,7 +37,8 @@ substitutions:
    # m5 Stack Lite PINS
   scl_pin: "GPIO21"
   sca_pin: "GPIO25"
-   
+   # Accuracy of sensors / decimals places
+  accuracy: "3"   
 
 
 esphome:
