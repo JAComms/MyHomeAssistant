@@ -355,9 +355,9 @@ text_sensor:
     serial_number:
       name: "Serial Number"
       entity_category: diagnostic
-    hardware_number:
-      name: "Hardware Revision"
-      entity_category: diagnostic
+#    hardware_number:
+#      name: "Hardware Revision"
+#      entity_category: diagnostic
     error:
       name: "Error"
     charging_mode:
