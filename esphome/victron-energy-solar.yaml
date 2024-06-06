@@ -42,7 +42,7 @@ substitutions:
    # Accuracy of sensors / decimals places
   accuracy: "3"
    #
-  sensor_update_interval: 10s
+  update_interval: 10s
 
 
 esphome:
@@ -109,12 +109,15 @@ uart:
  #   rx_buffer_size: 256
     
 victron:
+    # MPPT Charger #1
   - id: victron0
-    throttle: "${sensor_update_interval}"
     uart_id: com0
+    throttle: "${update_interval}"
+    
+    # MPPT Charger #2
 #  - id: victron1
-#    throttle: 10s  
 #    uart_id: com1    
+#    throttle: "${update_interval}"
 
   # Create variable to track Total_Energy, across reboots
 globals:
@@ -137,11 +140,17 @@ sensor:
     max_power_yesterday:
       name: "Max Power Yesterday"
       id: max_power_yesterday
+      state_class: 'measurement'
+      device_class: "power"
+      unit_of_measurement: 'W'
       accuracy_decimals: 1
 
     max_power_today:
       name: "Max Power Today"
       id: max_power_today
+      state_class: 'measurement' 
+      device_class: "power"
+      unit_of_measurement: 'W'
       accuracy_decimals: 1
     
     yield_total:
@@ -150,6 +159,8 @@ sensor:
       filters:
         # Multiplication factor from W to kW is 0.001
         - multiply: 0.001
+      state_class: 'total' 
+      device_class: "energy"
       unit_of_measurement: kWh
       accuracy_decimals: ${accuracy}
     
@@ -159,6 +170,8 @@ sensor:
       filters:
         # Multiplication factor from W to kW is 0.001
         - multiply: 0.001
+      state_class: 'total'
+      device_class: "energy"
       unit_of_measurement: kWh
       accuracy_decimals: ${accuracy}
 
@@ -168,36 +181,53 @@ sensor:
       filters:
         # Multiplication factor from W to kW is 0.001
         - multiply: 0.001
+      state_class: 'total'
+      device_class: "energy"
       unit_of_measurement: kWh
       accuracy_decimals: ${accuracy}
     
     panel_voltage:
       name: "Panel Voltage"
       id: panel_voltage
+      state_class: 'measurement'
+      device_class: "voltage"
+      unit_of_measurement: 'V'
       icon: "mdi:lightning-bolt-outline"
       accuracy_decimals: 2
     
     panel_power:
       name: "Panel Power"
       id: panel_power
+      state_class: 'measurement'
+      device_class: "power"
+      unit_of_measurement: 'W'
       icon: "mdi:lightning-bolt-outline"
       accuracy_decimals: 1
 
     battery_voltage:
       name: "Battery Voltage"
       id: battery_voltage
+      state_class: 'measurement'
+      device_class: "voltage"
+      unit_of_measurement: 'V'
       icon: "mdi:lightning-bolt-outline"
       accuracy_decimals: 2
 
     battery_voltage_2:
       name: "Battery Voltage 2"
       id: battery_voltage_2
+      state_class: 'measurement'
+      device_class: "voltage"
+      unit_of_measurement: 'V'
       icon: "mdi:lightning-bolt-outline"
       accuracy_decimals: 2      
 
     battery_voltage_3:
       name: "Battery Voltage 3"
       id: battery_voltage_3
+      state_class: 'measurement'
+      device_class: "voltage"
+      unit_of_measurement: 'V'
       icon: "mdi:lightning-bolt-outline"
       accuracy_decimals: 2 
         
@@ -205,6 +235,9 @@ sensor:
     battery_current:
       name: "Battery Current"
       id: battery_current
+      state_class: 'measurement'
+      device_class: "current"
+      unit_of_measurement: 'A'
       icon: "mdi:current-dc"
       accuracy_decimals: 1
 
@@ -212,6 +245,9 @@ sensor:
     battery_current_2:
       name: "Battery Current 2"
       id: battery_current_2
+      state_class: 'measurement'
+      device_class: "current"
+      unit_of_measurement: 'A'
       icon: "mdi:current-dc"
       accuracy_decimals: 1    
 
@@ -219,12 +255,16 @@ sensor:
     battery_current_3:
       name: "Battery Current 3"
       id: battery_current_3
+      state_class: 'measurement'
+      device_class: "current"
+      unit_of_measurement: 'A'
       icon: "mdi:current-dc"
       accuracy_decimals: 1    
 
     day_number:
       name: "Day Number"
       id: day_number
+      state_class: 'total_increasing'
       icon: "mdi:calendar-today"
       entity_category: diagnostic
       internal: True      
@@ -249,21 +289,33 @@ sensor:
     load_current:
       name: "Load Current"
       id: load_current
+      state_class: 'measurement'
+      device_class: "current"
+      unit_of_measurement: 'A'
       icon: "mdi:current-ac"    # Change this to current-dc, if it is a  DC Load
 
     ac_out_voltage:
       name: "AC Out Voltage"
       id: ac_out_voltage
+      state_class: 'measurement'
+      device_class: "voltage"
+      unit_of_measurement: 'V'
       icon: "mdi:current-ac"    # Change this to current-dc, if it is a  DC Load      
 
     ac_out_current:
       name: "AC Out Current"
       id: ac_out_current
+      state_class: 'measurement'
+      device_class: "current"
+      unit_of_measurement: 'A'
       icon: "mdi:current-ac"
 
     ac_out_apparent_power:
-      name: "AC Out Apparent Power"
-      id: ac_out_apparent_power
+      name: "AC Out Power - Apparent"
+      id: ac_out_power_apparent
+      state_class: 'measurement'
+      device_class: "apparent_power"
+      unit_of_measurement: 'W'
       icon: "mdi:lightning-bolt-outline"
 
     device_mode_id:
@@ -280,22 +332,32 @@ sensor:
     battery_temperature:
       name: "Battery Temperature"
       id: battery_temperature
+      state_class: 'measurement'
+      device_class: "temperature"
+      unit_of_measurement: '°C'
       icon: "mdi:temperature-celsius"
 
     instantaneous_power:
       name: "Instantaneous Power"
       id: instantaneous_power
+      state_class: 'measurement'
+      device_class: "power"
+      unit_of_measurement: 'W'
       icon: "mdi:lightning-bolt-outline"
       
     consumed_amp_hours:
       name: "Consumed Amp Hours"
       id: consumed_amp_hours
+      state_class: 'measurement'
       icon: "mdi:hours-12"
 
 # No Battery Management System installed    
     state_of_charge:
       name: "Battery SoC"
       id: battery_soc
+      state_class: 'total'
+      device_class: "energy_storage"
+      unit_of_measurement: '%'
       icon: "mdi:battery-charging"
 
     time_to_go:
@@ -306,41 +368,56 @@ sensor:
     depth_of_the_deepest_discharge:
       name: "Depth of Deepest Discharge"
       id: depth_of_deepest_discharge
+      state_class: 'measurement'
+#      unit_of_measurement: '?'
       icon: "mdi:numeric"
       
     depth_of_the_last_discharge:
       name: "Depth of Last Discharge"
       id: depth_of_last_discharge
+      state_class: 'measurement'
+#      unit_of_measurement: '?'      
       icon: "mdi:numeric"
     
     depth_of_the_average_discharge:
       name: "Depth of Average Discharge"
       id: depth_of_the_average_discharge
+      state_class: 'measurement'
+#      unit_of_measurement: '?'      
       icon: "mdi:numeric"
       
     number_of_charge_cycles:
       name: "Number of Charge Cycles"
       id: number_of_charge_cycles
+      state_class: 'measurement'
       icon: "mdi:counter"
       
     number_of_full_discharges:
       name: "Number of Full Discharges"
       id: number_of_full_discharges
+      state_class: 'measurement'
       icon: "mdi:counter"
       
     cumulative_amp_hours_drawn:
       name: "Cumulative Amp Hours Drawn"
       id: cumulative_amp_hours_drawn
+      state_class: 'total_increasing'
       icon: "mdi:numeric"
     
     min_battery_voltage:
       name: "Battery Voltage - Minimum"
       id: battery_voltage_minium
+      state_class: 'measurement'
+      device_class: "voltage"
+      unit_of_measurement: 'V'
       icon: "mdi:battery-charging-low"
     
     max_battery_voltage:
       name: "Battery Voltage - Maximum"
       id: battery_voltage_maximum
+      state_class: 'measurement'
+      device_class: "voltage"
+      unit_of_measurement: 'V'
       icon: "mdi:battery-charging-high"
       
     last_full_charge:
@@ -356,42 +433,78 @@ sensor:
     number_of_low_main_voltage_alarms:
       name: "Number of Low Main Voltage Alarms"
       id: number_of_low_main_voltage_alarms
+      state_class: 'measurement'
       icon: "mdi:counter"
       
     number_of_high_main_voltage_alarms:
       name: "Number of High Main Voltage Alarms"
       id: number_of_high_main_voltage_alarms
+      state_class: 'measurement'
       icon: "mdi:counter"
       
     number_of_low_auxiliary_voltage_alarms:
       name: "Number of Low Auxiliary Voltage Alarms"
       id: number_of_low_auxiliary_voltage_alarms
+      state_class: 'measurement'
       icon: "mdi:counter"
       
     number_of_high_auxiliary_voltage_alarms:
       name: "Number of High Auxiliary Voltage Alarms"
       id: number_of_high_auxiliary_voltage_alarms
+      state_class: 'measurement'
       icon: "mdi:counter"
       
     min_auxiliary_battery_voltage:
       name: "Auxiliary Battery Voltage - Minimum"
       id: min_auxiliary_battery_voltage
+      state_class: 'measurement'
+      device_class: "voltage"
+      unit_of_measurement: 'V'
       icon: "mdi:numeric"
       
     max_auxiliary_battery_voltage:
       name: "Auxiliary Battery Voltage - Maximum"
       id: max_auxiliary_battery_voltage
+      state_class: 'measurement'
+      device_class: "voltage"
+      unit_of_measurement: 'V'
       icon: "mdi:numeric"
       
     amount_of_discharged_energy:
       name: "Amount of Discharged Energy"
       id: amount_of_discharged_energy
+      state_class: 'total_increasing'
+      device_class: "energy"
+      unit_of_measurement: 'kWh'
+#      filters:
+#        # Multiplication factor from W to kW is 0.001
+#        - multiply: 0.001      
       icon: "mdi:lightning-bolt-outline"
       
     amount_of_charged_energy:
       name: "Amount of Charged Energy"
       id: amount_of_charged_energy
+      state_class: 'total_increasing'
+      device_class: "energy"
+      unit_of_measurement: 'kWh'
+#      filters:
+#        # Multiplication factor from W to kW is 0.001
+#        - multiply: 0.001            
       icon: "mdi:lightning-bolt-outline"
+
+  - platform: template
+    name: "AC Out Power"
+    id: ac_out_power
+    state_class: 'measurement'
+    device_class: "power"
+    unit_of_measurement: 'W'
+    # https://github.com/esphome/issues/issues/2793#issuecomment-988257209
+    lambda: |-
+       auto val = id(ac_voltage).state * id(ac_current).state;
+       if (isnan(val))
+          return {};
+       return val;
+    update_interval: 10s
     
 #########################################################################
 #
