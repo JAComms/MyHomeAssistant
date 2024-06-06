@@ -41,7 +41,7 @@ substitutions:
   sca2_pin: "GPIO22"  
    # Accuracy of sensors / decimals places
   accuracy: "3"
-   #
+   # Throttle Victron sensors to update every x seconds
   update_interval: 10s
 
 
