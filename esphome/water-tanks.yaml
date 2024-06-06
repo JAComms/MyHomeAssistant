@@ -27,6 +27,16 @@ substitutions:
   wifi_fast_connect: "true" 
    # ADC PIN that the water pressure sensor is connected to:
   adc_pin: "35"
+   # Water Tank 1 - Specifications
+  tank1_height: ""     # in CM
+  tank1_length: ""     # in CM
+  tank1_width: ""      # in CM
+  tank1_capacity: ""   # in Litres
+   # Water Tank 2 - Specifications
+  tank2_height: ""     # in CM
+  tank2_length: ""     # in CM
+  tank2_width: ""      # in CM
+  tank2_capacity: ""   # in Litres  
 
 
 esphome:
@@ -149,19 +159,6 @@ sensor:
           - 0.40167 -> 24.1    #  10%
           - 0.00000 -> 0.00    #   0%
 
-#          - 4.15867 -> 241.0   # 100%
-#          - 3.75700 -> 216.9   #  90%
-#          - 3.35533 -> 192.8   #  80%
-#          - 2.95367 -> 168.7   #  70%
-#          - 2.55200 -> 144.6   #  60%
-#          - 2.15033 -> 120.5   #  50%
-#          - 1.74867 -> 96.4    #  40%
-#          - 1.34700 -> 72.3    #  30%
-#          - 0.94533 -> 48.2    #  20%
-#          - 0.54367 -> 24.1    #  10%
-#          - 0.14200 -> 0.00    #   0%
-
-
         # From https://www.sensorsone.com/measurement-to-linear-0-5v-converter/?iunit=cm&irdg=0.8452500672&ilo=0.469&ihi=4.016666&ounit=V&olo=0&ohi=5
       - delta : 0.001 #only send the result if the difference with the last sent result is higher than this
       - offset: 0.01847   # Add 0.01847cm to total, to correct to 0L when voltage is 0.469V
@@ -189,14 +186,12 @@ sensor:
     icon: 'mdi:water-well'
     unit_of_measurement: 'L'
     lambda: |-
-      return id(water_tank_level).state / 100 * 3.14159265359 * 1.19 * 1.19 * 1000.0;
-#
-#      if (id(water_tank_level).state <= 0) {
-#        return {"Empty"};
-#      }
-#      else {
-#        return id(water_tank_level).state / 100 * 3.14159265359 * 1.19 * 1.19 * 1000.0;
-#      }    # height (meters) times pi times radius (meters) squared times 1000 gives litres. 
+      if (id(water_tank_level).state <= 0) {
+        return {"Empty"};
+      }
+      else {
+        return id(water_tank_level).state / 100 * 3.14159265359 * 1.19 * 1.19 * 1000.0;
+      }    # height (meters) times pi times radius (meters) squared times 1000 gives litres. 
 
     # This works if your water tank is a cylinder shape. Otherwise you have to use different calculations.
     # 10,000L with diamter of 2.38m = 224.7792431210859cm height
