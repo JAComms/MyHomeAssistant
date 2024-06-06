@@ -500,7 +500,7 @@ sensor:
     unit_of_measurement: 'W'
     # https://github.com/esphome/issues/issues/2793#issuecomment-988257209
     lambda: |-
-       auto val = id(ac_voltage).state * id(ac_current).state;
+       auto val = id(ac_out_voltage).state * id(ac_out_current).state;
        if (isnan(val))
           return {};
        return val;
