@@ -1,6 +1,7 @@
 #########################################################################
 #
-#
+# ESP32 Based monitoring for the Victron SmartSolar Charge Controller MPPT
+# Based upon https://github.com/KinDR007/VictronMPPT-ESPHOME
 #
 
    # Provides substitutions or variables that are then called elsewhere multiple times in the config
