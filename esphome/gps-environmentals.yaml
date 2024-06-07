@@ -13,6 +13,8 @@ substitutions:
   device_description: "GPS Location, Time and Environmental Data"
    # Allows ESP device to be automatically lined to an 'Area' in Home Assistant. Typically used for areas such as 'Lounge Room', 'Kitchen' etc  
   room: "Utilities"
+   # Name of the asset that is being tracked by the GPS Receiver
+  tracked_asset: "Caravan" 
    # Project Name
   project_name: "JAComms.GPS and Environmental Sensors"
    # Project version denotes the release version of the yaml file, allowing checking of deployed vs latest version
@@ -36,8 +38,8 @@ substitutions:
   scl_pin: "GPIO22"
   i2c_scan: "true"
    # UART_0 / COM0
-  uart0_tx_pin: "GPIO17"
-  uart0_rx_pin: "GPIO19"
+  uart_rx_pin: "GPIO4"
+  uart_tx_pin: "GPIO5"
    # Accuracy of sensors / decimals places
   accuracy: "3"
    # Throttle sensors to update every x seconds
@@ -94,15 +96,15 @@ captive_portal:
 #
 # UART/COM Port and I2C Port Provisioning
 #
-uart:
-    # Connection to GPS Receiver
-  - id: com0
-    tx_pin: "${uart0_tx_pin}"  # Not connected! GPS communication is read-only
-    rx_pin: "${uart0_rx_pin}"  # 
-    baud_rate: 9600
-    rx_buffer_size: 256
 
-    # I2C Bus A
+ # Connection to GPS Receiver
+uart:
+  rx_pin: "${uart_rx_pin}"  # 
+  tx_pin: "${uart_tx_pin}"  # Not connected! GPS communication is read-only
+  baud_rate: 9600
+#  rx_buffer_size: 256
+
+ # I2C Bus A - BME280 Sensor
 i2c:
   scl: "${scl_pin}"
   sda: "${sca_pin}"
@@ -112,35 +114,34 @@ i2c:
 
    # Add GPS receiver support, to allow updating carvan location & solar projections
 gps:    
-  id: gps_receiver
   update_interval: 10s
     latitude:
-      name: "Latitude"
+      name: "GPS Latitude"
       id: gps_latitude
       filters:
         - filter_out: .nan      
     longitude:
-      name: "Longitude"
+      name: "GPS Longitude"
       id: gps_longitude
       filters:
         - filter_out: .nan      
     altitude:
-      name: "Altitude"
+      name: "GPS Altitude"
       id: gps_altitude
       filters:
         - filter_out: .nan      
     speed:
-      name: "Speed"
+      name: "GPS Speed"
       id: gps_speed
       filters:
         - filter_out: .nan      
     course:
-      name: "Course"
+      name: "GPS Course"
       id: gps_course
       filters:
         - filter_out: .nan          
     satellites:
-      name: "Satellites"
+      name: "GPS Satellites"
       id: gps_satellites
       filters:
         - filter_out: .nan            
@@ -152,6 +153,14 @@ gps:
 #
 
 sensor:
+  # Sensor that reports the "Latitude, Longitude" of the asset being tracked
+  - platform: template
+    name: "${tracked_asset} Location"
+    id: 
+    lambda: |-
+        char buf[50];
+        sprintf(buf, "%f, %f", id(gps_latitude).state, id(gps_longitude).state);
+        return std::string(buf);
 
   # BME280 Sensor in I2C Port - Temperature
   - platform: bme280_i2c
