@@ -124,7 +124,7 @@ victron:
 i2c:
   scl: "${sca_pin}"
   sda: "${sca_pin}"
-  scan: "#{i2c_scan}"
+  scan: "${i2c_scan}"
   id: bus_a
 
 globals:
