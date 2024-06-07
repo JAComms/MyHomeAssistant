@@ -109,7 +109,7 @@ i2c:
 
    # Add GPS receiver support, to allow updating carvan location & solar projections
 gps:    
-  id: com0
+  id: gps_receiver
 #    latitude:
 #      name: "Latitude"
 #    longitude:
