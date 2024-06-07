@@ -110,7 +110,7 @@ uart:
     # Connection to GPS Receiver
   - id: com1
 #    tx_pin: "${uart1_tx_pin}"  # Not connected! GPS communication is read-only
-    rx_pin: "${uart1_tx_pin}"  # 
+    rx_pin: "${uart1_rx_pin}"  # 
     baud_rate: 9600
     rx_buffer_size: 256
 
@@ -122,7 +122,7 @@ victron:
 
     # I2C Bus A
 i2c:
-  scl: "${sca_pin}"
+  scl: "${scl_pin}"
   sda: "${sca_pin}"
   scan: "${i2c_scan}"
   id: bus_a
