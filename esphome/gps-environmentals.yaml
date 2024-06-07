@@ -1,1 +1,363 @@
+#########################################################################
 #
+# ESP32 Based monitoring for the GPS Location, Time and Environmental Data
+#
+
+   # Provides substitutions or variables that are then called elsewhere multiple times in the config
+substitutions:
+   # Default name 
+  name: "GPS-Environs"
+   # Default friendly name 
+  friendly_name: "GPS & Environmentals"
+   # Description as appears in ESPHome & top of webserver page
+  device_description: "GPS Location & Time with Environmental Data"
+   # Allows ESP device to be automatically lined to an 'Area' in Home Assistant. Typically used for areas such as 'Lounge Room', 'Kitchen' etc  
+  room: "Utilities"
+   # Project Name
+  project_name: "JAComms.GPS and Environmental Data"
+   # Project version denotes the release version of the yaml file, allowing checking of deployed vs latest version
+  project_version: "0.1.0"
+   # Restore the relay (Light switch) upon reboot to state:
+  relay_restore_mode: RESTORE_DEFAULT_OFF
+   # Define a domain for this device to use. i.e. iot.home.lan (so device will appear as athom-smart-plug-v2.iot.home.lan in DNS/DHCP logs)
+  dns_domain: ""
+   # Set your locations latitude and longitude. Useful if you want to use the sun and its location in relation to the horizon to on/off (or as a condition) to control lights.
+#  my_latitude: "-34.73503534407444"
+#  my_longitude: "149.72998380661014"
+   # Set timezone of the smart plug. Useful if the plug is in a location different to the HA server. Can be entered in unix Country/Area format (i.e. "Australia/Sydney")
+  timezone: "Australia/Sydney"
+   # Set the duration between the sntp service polling ntp.org servers for an update
+  sntp_update_interval: 6h
+   # Network time servers for your region, enter from lowest to highest priority
+  sntp_server_1: "2.au.pool.ntp.org"
+  sntp_server_2: "1.au.pool.ntp.org"
+  sntp_server_3: "0.au.pool.ntp.org"
+   # Enables faster network connections, with last connected SSID being connected to and no full scan for SSID being undertaken   
+  wifi_fast_connect: "true"
+   # m5 Stack Lite PINS
+   # I2C. Note scan enabled by default, if no I2C device, then disable in devices substitutes section
+  sca_pin: "GPIO21"
+  scl_pin: "GPIO22"
+  i2c_scan: "true"
+   # UART_0 / COM0
+  uart0_tx_pin: "GPIO17"
+  uart0_rx_pin: "GPIO19"
+   # UART_1 / COM1
+  uart1_tx_pin: "GPIO26"
+  uart1_rx_pin: "GPIO28"
+   # Accuracy of sensors / decimals places
+  accuracy: "3"
+   # Throttle sensors to update every x seconds
+  update_interval: 10s
+
+esphome:
+  #  Configures these settings to use the substituions defined below
+  name: "${name}"
+  friendly_name: "${friendly_name}"
+  comment: '${device_description}'
+  area: "${room}"
+  name_add_mac_suffix: true
+  # Home Assistant - Minimum version required
+  min_version: 2024.2.1  
+  project:
+    name: "${project_name}"
+    version: "${project_version}"  
+
+# Enable logging
+logger:
+  level: INFO    # WARN
+  baud_rate: 0
+  logs:
+    component: ERROR # Fix for issue #4717 "Component xxxxxx took a long time for an operation"
+
+# Enable Home Assistant API
+api:
+
+ota:
+
+mdns:
+  disabled: false
+
+web_server:
+  port: 80  
+
+external_components:
+#  - source: github://KinDR007/VictronMPPT-ESPHOME@main
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  # This spawns an AP with the device name and mac address with no password.
+  ap: {}
+  # Allow rapid re-connection to previously connect WiFi SSID, skipping scan of all SSID
+  fast_connect: "${wifi_fast_connect}"
+  # Define dns domain / suffix to add to hostname
+  domain: "${dns_domain}"
+
+captive_portal:
+
+#########################################################################
+#
+#
+#
+uart:
+    # Connection to GPS Receiver
+  - id: com0
+    tx_pin: "${uart0_tx_pin}"  # Not connected! GPS communication is read-only
+    rx_pin: "${uart0_rx_pin}"  # 
+    baud_rate: 9600
+    rx_buffer_size: 256
+
+    # I2C Bus A
+i2c:
+  scl: "${scl_pin}"
+  sda: "${sca_pin}"
+  scan: "${i2c_scan}"
+  id: bus_a
+  frequency: 100kHz
+
+   # Add GPS receiver support, to allow updating carvan location & solar projections
+gps:    
+  id: com0
+    latitude:
+      name: "Latitude"
+    longitude:
+      name: "Longitude"
+    altitude:
+      name: "Altitude"
+    speed:
+      name: "Speed"
+    course:
+      name: "Course"
+    satellites:
+      name: "Satellites"
+      
+#########################################################################
+#
+# Sensors - GPS and BME280 Specific
+#
+
+sensor:
+
+  # BME280 Sensor in I2C Port - Temperature
+  - platform: bme280_i2c
+    i2c_id: bus_a
+    address: 0x76
+    update_interval: 30s
+
+    # Temperature sensor - defaults to celcius
+    temperature:
+      name: "Temperature"
+      id: bme280_temperature
+      accuracy_decimals: 1
+      filters:
+        offset: 0.4
+
+    # Pressure sensor - defaults to hPa
+    pressure:
+      name: "Barometric Pressure"
+      id: bme280_pressure
+      accuracy_decimals: 1
+
+    # Relative Humidity sensor
+    humidity:
+      name: "Humidity (Relative)"
+      id: bme280_humidity
+      accuracy_decimals: 1
+      filters:
+        offset: -6.9
+
+  # BME280 Sensor in I2C Port - Absolute Humidity
+  - platform: absolute_humidity
+    name: "Humidity (Absolute)"
+    state_class: 'measurement'
+    accuracy_decimals: 1
+    temperature: bme280_temperature
+    humidity: bme280_humidity
+    equation: Wobus   # Wobus (Default), optional Tetens or Buck
+
+  # BME280 Sensor in I2C Port - Dew Point
+  - platform: template
+    name: "Dew Point"
+    state_class: 'measurement'
+    accuracy_decimals: 1
+    lambda: |-
+      return (243.5*(log(id(bme280_humidity).state/100)+((17.67*id(bme280_temperature).state)/
+      (243.5+id(bme280_temperature).state)))/(17.67-log(id(bme280_humidity).state/100)-
+      ((17.67*id(bme280_temperature).state)/(243.5+id(bme280_temperature).state))));
+    unit_of_measurement: °C
+    icon: 'mdi:thermometer-alert'
+    filters:
+      - filter_out: nan
+
+  # BME280 Sensor in I2C Port - Equivalent Sea Level Pressure (based on 655m Goulburn North)
+  - platform: template
+    name: "BME280 - Pressure (Sea Level)"
+    state_class: 'measurement'
+    accuracy_decimals: 1
+###
+### Update this to call the current altitude from the GPO receiver for "Standard Altitude" is precise
+###
+    lambda: |-
+      const float STANDARD_ALTITUDE = 656; // in meters, see note
+      return id(bme280_pressure).state / powf(1 - ((0.0065 * STANDARD_ALTITUDE) /
+        (id(bme280_temperature).state + (0.0065 * STANDARD_ALTITUDE) + 273.15)), 5.257); // in hPa
+    update_interval: 15s
+    unit_of_measurement: 'hPa'
+
+
+   # Only Altitude OR Equivalent Sea Level Pressure can be run at one time, not both
+#  - platform: template
+#    name: "BME280 - Altitude"
+#    lambda: |-
+#      const float STANDARD_SEA_LEVEL_PRESSURE = 1014.1; //in hPa, see note
+#      return ((id(bme280_temperature).state + 273.15) / 0.0065) *
+#        (powf((STANDARD_SEA_LEVEL_PRESSURE / id(bme280_pressure).state), 0.190234) - 1); // in meter
+#    update_interval: 15s
+#    icon: 'mdi:signal'
+#    unit_of_measurement: 'm'
+
+    
+#########################################################################
+#
+# Sensors - ESPHome generic / device sensors
+#
+
+  #  Sensor uptime in seconds
+  - platform: uptime
+    name: "Uptime Seconds"
+    id: uptime_seconds
+    update_interval: 120s
+    entity_category: diagnostic
+    internal: True
+
+#########################################################################
+#
+# Button - Linked to services to manage ESP Device
+#
+button:
+    # Reboot ESP (Normally)
+  - platform: restart
+    name: 'Restart Device'
+    entity_category: config
+
+    # Reboot ESP back to Factory Default Settings
+  - platform: factory_reset
+    name: Reset with Default Settings
+    id: Reset
+    entity_category: config
+
+    # Reboot ESP in Safe Mode
+  - platform: safe_mode
+    name: "Safe Mode"
+    internal: false
+    entity_category: config
+
+#########################################################################
+#
+# Text Sensors - Device Information
+#
+
+text_sensor:
+
+  #  Creates a sensor showing when the device was last restarted
+  - platform: template
+    name: 'Device Last Restart'
+    id: device_last_restart
+    icon: mdi:clock
+    entity_category: diagnostic
+
+  #  Creates sensor for tracking the WiFi IP address
+  - platform: wifi_info
+    ip_address:
+      name: 'WiFi IP Address'
+      icon: mdi:wifi
+      entity_category: diagnostic
+
+  #  Defines the WiFi SSID network to connect to
+    ssid:
+      name: 'WiFi SSID'
+      icon: mdi:wifi-strength-2
+      entity_category: diagnostic
+
+  #  Creates sensor for tracking the WiFi IP MAC address
+    mac_address:
+      name: 'WiFi MAC Address'
+      entity_category: diagnostic
+
+  #  Creates a sensor of the name of installed project
+  - platform: template
+    name: 'Project Name'
+    id: project_name
+    icon: "mdi:label-outline"
+    entity_category: diagnostic
+    lambda: |-
+      return {"${project_name}"};
+    update_interval: 6h
+
+  #  Creates a sensor of the version of installed project
+  - platform: template
+    name: 'Project Version'
+    id: project_version
+    icon: "mdi:label-outline"
+    entity_category: diagnostic
+    lambda: |-
+      return {"${project_version}"};
+    update_interval: 6h
+
+  #  Creates a sensor of the version of installed ESPHome version
+  - platform: version
+    name: "Project ESPHome Version"
+    entity_category: diagnostic
+    hide_timestamp: true
+    
+#########################################################################
+#
+# Binary Sensors - Device Status and Time Setting
+#
+
+  #  Creates a sensor of the uptime of the device, in formatted days, hours, minutes and seconds
+  #  from : https://community.home-assistant.io/t/uptime-sensor-in-hours-or-days/116392/29
+
+  - platform: template
+    name: "Device Uptime"
+    entity_category: diagnostic
+    lambda: |-
+      int seconds = (id(uptime_seconds).state);
+      int days = seconds / (24 * 3600);
+      seconds = seconds % (24 * 3600);
+      int hours = seconds / 3600;
+      seconds = seconds % 3600;
+      int minutes = seconds /  60;
+      seconds = seconds % 60;
+      if ( days > 3650 ) {
+        return { "Starting up" };
+      } else if ( days ) {
+        return { (String(days) +"d " + String(hours) +"h " + String(minutes) +"m "+ String(seconds) +"s").c_str() };
+      } else if ( hours ) {
+        return { (String(hours) +"h " + String(minutes) +"m "+ String(seconds) +"s").c_str() };
+      } else if ( minutes ) {
+        return { (String(minutes) +"m "+ String(seconds) +"s").c_str() };
+      } else {
+        return { (String(seconds) +"s").c_str() };
+      }
+    icon: mdi:clock-start
+     
+time:
+  - platform: gps
+    id: gps_time
+  # Define the timezone of the device
+    timezone: "${timezone}"
+  # Change sync interval from default 5min
+    update_interval: ${sntp_update_interval}
+  # Publish the time the device was last restarted
+    on_time_sync:
+      then:
+        # Update last restart time, but only once.
+        - if:
+            condition:
+              lambda: 'return id(device_last_restart).state == "";'
+            then:
+              - text_sensor.template.publish:
+                  id: device_last_restart
+                  state: !lambda 'return id(gps_time).now().strftime("%a %d %b %Y - %I:%M:%S %p");'
