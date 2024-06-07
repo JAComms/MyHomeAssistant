@@ -117,21 +117,33 @@ gps:
     latitude:
       name: "Latitude"
       id: gps_latitude
+      filters:
+        - filter_out: .nan      
     longitude:
       name: "Longitude"
       id: gps_longitude
+      filters:
+        - filter_out: .nan      
     altitude:
       name: "Altitude"
       id: gps_altitude
+      filters:
+        - filter_out: .nan      
     speed:
       name: "Speed"
       id: gps_speed
+      filters:
+        - filter_out: .nan      
     course:
       name: "Course"
       id: gps_course
+      filters:
+        - filter_out: .nan          
     satellites:
       name: "Satellites"
       id: gps_satellites
+      filters:
+        - filter_out: .nan            
       entity_category: diagnostic
       
 #########################################################################
