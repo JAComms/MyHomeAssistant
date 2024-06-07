@@ -36,17 +36,20 @@ substitutions:
    # Enables faster network connections, with last connected SSID being connected to and no full scan for SSID being undertaken   
   wifi_fast_connect: "true"
    # m5 Stack Lite PINS
+   # I2C. Note scan disabled by default, if adding an I2C device, then enable in devices substitutes section
+  scl_pin: "GPIO28"
+  sca_pin: "GPIO32"   
+  i2c_scan: "false"
    # UART_0 / COM0
-  scl_pin: "GPIO21"
-  sca_pin: "GPIO25"
+  uart0_tx_pin: "GPIO21"
+  uart0_rx_pin: "GPIO25"
    # UART_1 / COM1
-  scl2_pin: "GPIO28"
-  sca2_pin: "GPIO32"  
+  uart1_tx_pin: "GPIO19"
+  uart1_rx_pin: "GPIO22"  
    # Accuracy of sensors / decimals places
   accuracy: "3"
    # Throttle Victron sensors to update every x seconds
   update_interval: 10s
-
 
 esphome:
   #  Configures these settings to use the substituions defined below
@@ -58,7 +61,6 @@ esphome:
   project:
     name: "${project_name}"
     version: "${project_version}"  
-
 
 # Enable logging
 logger:
@@ -100,15 +102,15 @@ captive_portal:
 uart:
     # Connection to Victron Inverter/Charger
   - id: com0
-    tx_pin: "${scl_pin}"  # GPIO26 Not used! The communication is read-only
-    rx_pin: "${sca_pin}"  # GPIO32 Connect this this GPIO and GND to the first MPPT charger
+    tx_pin: "${uart0_tx_pin}"  # GPIO26 Not used! The communication is read-only
+    rx_pin: "${uart0_rx_pin}"  # GPIO32 Connect this this GPIO and GND to the first MPPT charger
     baud_rate: 19200
     rx_buffer_size: 256
 
     # Connection to GPS Receiver
   - id: com1
-#    tx_pin: "${scl2_pin}"  # Not connected! GPS communication is read-only
-    rx_pin: "${sca2_pin}"  # 
+#    tx_pin: "${uart1_tx_pin}"  # Not connected! GPS communication is read-only
+    rx_pin: "${uart2_tx_pin}"  # 
     baud_rate: 9600
     rx_buffer_size: 256
 
@@ -117,6 +119,13 @@ victron:
   - id: victron0
     uart_id: com0
     throttle: "${update_interval}"
+
+    # I2C Bus A
+i2c:
+  scl: "${sca_pin}"
+  sda: "${sca_pin}"
+  scan: "#{i2c_scan}"
+  id: bus_a
 
 globals:
   - id: total_energy
