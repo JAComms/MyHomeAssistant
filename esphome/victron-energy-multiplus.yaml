@@ -110,7 +110,7 @@ uart:
     # Connection to GPS Receiver
   - id: com1
 #    tx_pin: "${uart1_tx_pin}"  # Not connected! GPS communication is read-only
-    rx_pin: "${uart2_tx_pin}"  # 
+    rx_pin: "${uart1_tx_pin}"  # 
     baud_rate: 9600
     rx_buffer_size: 256
 
