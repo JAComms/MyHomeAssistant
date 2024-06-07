@@ -6,9 +6,9 @@
    # Provides substitutions or variables that are then called elsewhere multiple times in the config
 substitutions:
    # Default name 
-  name: "gps-environs"
+  name: "gps-environmental"
    # Default friendly name 
-  friendly_name: "GPS & Environmentals"
+  friendly_name: "GPS & Environmental Sensors"
    # Description as appears in ESPHome & top of webserver page
   device_description: "GPS Location & Time with Environmental Data"
    # Allows ESP device to be automatically lined to an 'Area' in Home Assistant. Typically used for areas such as 'Lounge Room', 'Kitchen' etc  
