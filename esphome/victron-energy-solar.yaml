@@ -34,15 +34,15 @@ substitutions:
   wifi_fast_connect: "true"
    # m5 Stack Lite PINS
    # I2C. Note scan disabled by default, if adding an I2C device, then enable in devices substitutes section
-  scl_pin: "GPIO4"
-  sca_pin: "GPIO5"   
+  sca_pin: "GPIO21"   
+  scl_pin: "GPIO22"
   i2c_scan: "false"
    # UART_0 / COM0
-  uart0_tx_pin: "GPIO21"
-  uart0_rx_pin: "GPIO25"
+  uart0_tx_pin: "GPIO17"
+  uart0_rx_pin: "GPIO19"
    # UART_1 / COM1
-  uart1_tx_pin: "GPIO19"
-  uart1_rx_pin: "GPIO22"  
+  uart1_tx_pin: "GPIO26"
+  uart1_rx_pin: "GPIO28"  
    # Accuracy of sensors / decimals places
   accuracy: "3"
    # Throttle Victron sensors to update every x seconds
