@@ -146,13 +146,21 @@ gps:
       filters:
         - filter_out: .nan            
       entity_category: diagnostic
-      
+
+
+   # Sun component allows you to track the sun’s position in the sky. Lat / Long updated from GPS entities
+sun: 
+  latitude: !lambda 'return id(gps_latitude).state;'
+  longitude: !lambda 'return id(gps_longitude).state;'
+
+  
 #########################################################################
 #
 # Sensors - GPS and BME280 Specific
 #
 
 sensor:
+
   # Sensor that reports the "Latitude, Longitude" of the asset being tracked
   - platform: template
     name: "${tracked_asset} Location"
@@ -161,6 +169,15 @@ sensor:
         char buf[50];
         sprintf(buf, "%f, %f", id(gps_latitude).state, id(gps_longitude).state);
         return std::string(buf);
+
+  - platform: sun
+    name: Sun Elevation
+    type: elevation
+
+  - platform: sun
+    name: Sun Azimuth
+    type: azimuth
+
 
   # BME280 Sensor in I2C Port - Temperature
   - platform: bme280_i2c
@@ -282,6 +299,18 @@ button:
 #
 
 text_sensor:
+
+  #  Creates a sensor showing when the next sunrise
+  - platform: sun
+    name: "Sun - Next Sunrise"
+    type: sunrise
+    elevation: !lambda 'return id(gps_elevation).state;'
+
+  #  Creates a sensor showing when the next sunset
+  - platform: sun
+    name: "Sun - Next Sunset"
+    type: sunset
+    elevation: !lambda 'return id(gps_elevation).state;'
 
   #  Creates a sensor showing when the device was last restarted
   - platform: template
