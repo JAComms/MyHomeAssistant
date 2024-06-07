@@ -110,18 +110,18 @@ i2c:
    # Add GPS receiver support, to allow updating carvan location & solar projections
 gps:    
   id: com0
-    latitude:
-      name: "Latitude"
-    longitude:
-      name: "Longitude"
-    altitude:
-      name: "Altitude"
-    speed:
-      name: "Speed"
-    course:
-      name: "Course"
-    satellites:
-      name: "Satellites"
+#    latitude:
+#      name: "Latitude"
+#    longitude:
+#      name: "Longitude"
+#    altitude:
+#      name: "Altitude"
+#    speed:
+#      name: "Speed"
+#    course:
+#      name: "Course"
+#    satellites:
+#      name: "Satellites"
       
 #########################################################################
 #
