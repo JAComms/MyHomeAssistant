@@ -235,13 +235,9 @@ sensor:
     name: "BME280 - Pressure (Sea Level)"
     state_class: 'measurement'
     accuracy_decimals: 1
-###
-### Update this to call the current altitude from the GPO receiver for "Standard Altitude" is precise
-###
     lambda: |-
-      const float STANDARD_ALTITUDE = 656; // in meters, see note
-      return id(bme280_pressure).state / powf(1 - ((0.0065 * STANDARD_ALTITUDE) /
-        (id(bme280_temperature).state + (0.0065 * STANDARD_ALTITUDE) + 273.15)), 5.257); // in hPa
+      return id(bme280_pressure).state / powf(1 - ((0.0065 * id(gps_altitude).state) /
+        (id(bme280_temperature).state + (0.0065 * id(gps_altitude).state) + 273.15)), 5.257); // in hPa
     update_interval: 15s
     unit_of_measurement: 'hPa'
 
