@@ -42,6 +42,9 @@ substitutions:
   accuracy: "3"
    # Throttle sensors to update every x seconds
   update_interval: 10s
+   # BME280 sensor offsets, to allow calibrating
+  temperature_offset: "0.0"
+  humidity_offset: "0.0"
 
 esphome:
   #  Configures these settings to use the substituions defined below
@@ -143,7 +146,7 @@ sensor:
       id: bme280_temperature
       accuracy_decimals: 1
       filters:
-        offset: 0.4
+        offset: "${temperature_offset}"
 
     # Pressure sensor - defaults to hPa
     pressure:
@@ -157,7 +160,7 @@ sensor:
       id: bme280_humidity
       accuracy_decimals: 1
       filters:
-        offset: -6.9
+        offset: "${humidity_offset}"
 
   # BME280 Sensor in I2C Port - Absolute Humidity
   - platform: absolute_humidity
