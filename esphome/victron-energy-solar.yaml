@@ -106,7 +106,7 @@ uart:
 
  # - id: com1
  #   tx_pin: "${uart1_tx_pin}"  # Not connected! The communication is read-only
- #   rx_pin: "${uart1_tx_pin}"  # Connect this this GPIO and GND to the second MPPT charger
+ #   rx_pin: "${uart1_rx_pin}"  # Connect this this GPIO and GND to the second MPPT charger
  #   baud_rate: 19200
  #   rx_buffer_size: 256
     
@@ -123,7 +123,7 @@ victron:
 
     # I2C Bus A
 i2c:
-  scl: "${sca_pin}"
+  scl: "${scl_pin}"
   sda: "${sca_pin}"
   scan: "${i2c_scan}"
   id: bus_a
