@@ -24,7 +24,7 @@ substitutions:
    # Set your locations latitude and longitude. Useful if you want to use the sun and its location in relation to the horizon to on/off (or as a condition) to control lights.
 #  my_latitude: "-34.73503534407444"
 #  my_longitude: "149.72998380661014"
-   # Set timezone of the smart plug. Useful if the plug is in a location different to the HA server. Can be entered in unix Country/Area format (i.e. "Australia/Sydney")
+   # Set timezone of the device. Useful if the plug is in a location different to the HA server. Can be entered in unix Country/Area format (i.e. "Australia/Sydney")
   timezone: "Australia/Sydney"
    # Set the duration between the sntp service polling ntp.org servers for an update
   sntp_update_interval: 6h
