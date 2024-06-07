@@ -110,7 +110,7 @@ i2c:
    # Add GPS receiver support, to allow updating carvan location & solar projections
 gps:    
   id: gps_receiver
-  update_interval: "${update_interval}"
+  update_interval: 10s
     latitude:
       name: "Latitude"
     longitude:
