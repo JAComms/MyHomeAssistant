@@ -116,16 +116,23 @@ gps:
   update_interval: 10s
     latitude:
       name: "Latitude"
+      id: gps_latitude
     longitude:
       name: "Longitude"
+      id: gps_longitude
     altitude:
       name: "Altitude"
+      id: gps_altitude
     speed:
       name: "Speed"
+      id: gps_speed
     course:
       name: "Course"
+      id: gps_course
     satellites:
       name: "Satellites"
+      id: gps_satellites
+      entity_category: diagnostic
       
 #########################################################################
 #
