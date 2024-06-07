@@ -106,7 +106,7 @@ uart:
 
  # - id: com1
  #   tx_pin: "${uart1_tx_pin}"  # Not connected! The communication is read-only
- #   rx_pin: "${uart2_tx_pin}"  # Connect this this GPIO and GND to the second MPPT charger
+ #   rx_pin: "${uart1_tx_pin}"  # Connect this this GPIO and GND to the second MPPT charger
  #   baud_rate: 19200
  #   rx_buffer_size: 256
     
