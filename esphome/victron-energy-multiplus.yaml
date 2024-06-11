@@ -675,7 +675,7 @@ text_sensor:
       icon: "mdi:numeric"
       entity_category: diagnostic
 
-    hardware_number:
+    hardware_revision:
       name: "Hardware Revision"
       entity_category: diagnostic
 
