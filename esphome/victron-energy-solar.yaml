@@ -661,9 +661,9 @@ text_sensor:
       icon: "mdi:numeric"
       entity_category: diagnostic
 
-#    hardware_number:
-#      name: "Hardware Revision"
-#      entity_category: diagnostic
+    hardware_number:
+      name: "Hardware Revision"
+      entity_category: diagnostic
 
     error:
       name: "Error"
