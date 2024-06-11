@@ -17,7 +17,7 @@ substitutions:
    # Project Name
   project_name: "Victron Energy.SmartSolar Charge Controller MPPT"
    # Project version denotes the release version of the yaml file, allowing checking of deployed vs latest version
-  project_version: "0.1.2"
+  project_version: "0.1.3"
    # Restore the relay (Light switch) upon reboot to state:
   relay_restore_mode: RESTORE_DEFAULT_OFF
    # Define a domain for this device to use. i.e. iot.home.lan (so device will appear as athom-smart-plug-v2.iot.home.lan in DNS/DHCP logs)
