@@ -50,6 +50,16 @@ substitutions:
   com1_tx_pin: "GPIO26"
   com1_rx_pin: "GPIO28"  
 
+########################## END OF SUBSTITUTIONS ##########################
+#
+#  Details of the solar installation at this location
+
+  # Number of PV Panels at the site
+#  pv_panel_qty: 4
+  # Size in Watts of the PV Panels
+#  pv_panel_size: 250
+
+#########################################################################
 
 esphome:
   #  Configures these settings to use the substituions defined below
