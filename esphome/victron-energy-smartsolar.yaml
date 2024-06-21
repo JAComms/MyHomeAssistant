@@ -32,21 +32,24 @@ substitutions:
   sntp_server_3: "0.au.pool.ntp.org"
    # Enables faster network connections, with last connected SSID being connected to and no full scan for SSID being undertaken   
   wifi_fast_connect: "true"
+   # Accuracy of sensors / decimals places
+  accuracy: "3"
+   # Throttle Victron sensors to update every x seconds
+  update_interval: 10s  
+   #########################
    # m5 Stack Lite PINS
+   #
    # I2C. Note scan disabled by default, if adding an I2C device, then enable in devices substitutes section
   sca_pin: "GPIO21"   
   scl_pin: "GPIO22"
   i2c_scan: "false"
-   # UART_0 / COM0
+   # UART_0 / COM0 GPIO PINS
   com0_tx_pin: "GPIO17"
   com0_rx_pin: "GPIO19"
-   # UART_1 / COM1
+   # UART_1 / COM1 GPIO PINS
   com1_tx_pin: "GPIO26"
   com1_rx_pin: "GPIO28"  
-   # Accuracy of sensors / decimals places
-  accuracy: "3"
-   # Throttle Victron sensors to update every x seconds
-  update_interval: 10s
+
 
 esphome:
   #  Configures these settings to use the substituions defined below
