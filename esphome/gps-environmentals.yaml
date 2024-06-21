@@ -362,7 +362,7 @@ text_sensor:
     
 #########################################################################
 #
-# Binary Sensors - Device Status and Time Setting
+# Text Sensors - Device Status and Time Setting
 #
 
   #  Creates a sensor of the uptime of the device, in formatted days, hours, minutes and seconds
