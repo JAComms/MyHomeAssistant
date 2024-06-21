@@ -38,11 +38,11 @@ substitutions:
   scl_pin: "GPIO22"
   i2c_scan: "false"
    # UART_0 / COM0
-  uart0_tx_pin: "GPIO17"
-  uart0_rx_pin: "GPIO19"
+  com0_tx_pin: "GPIO17"
+  com0_rx_pin: "GPIO19"
    # UART_1 / COM1
-  uart1_tx_pin: "GPIO26"
-  uart1_rx_pin: "GPIO28"  
+  com1_tx_pin: "GPIO26"
+  com1_rx_pin: "GPIO28"  
    # Accuracy of sensors / decimals places
   accuracy: "3"
    # Throttle Victron sensors to update every x seconds
@@ -99,16 +99,17 @@ captive_portal:
 #
 #
 uart:
-   # Connection to Victron Inverter
+   # Connection to Victron SmartSolar Charge Controller MPPT #1
   - id: com0
-    tx_pin: "${uart0_tx_pin}"  # GPIO26 Not used! The communication is read-only
-    rx_pin: "${uart0_rx_pin}"  # GPIO32 Connect this this GPIO and GND to the first MPPT charger
+    tx_pin: "${com0_tx_pin}"  # GPIO26 Not used! The communication is read-only
+    rx_pin: "${com0_rx_pin}"  # GPIO32 Connect this this GPIO and GND to the first MPPT charger
     baud_rate: 19200
     rx_buffer_size: 256
-
+    
+   # Connection to Victron SmartSolar Charge Controller MPPT #2
  # - id: com1
- #   tx_pin: "${uart1_tx_pin}"  # Not connected! The communication is read-only
- #   rx_pin: "${uart1_rx_pin}"  # Connect this this GPIO and GND to the second MPPT charger
+ #   tx_pin: "${com1_tx_pin}"  # Not connected! The communication is read-only
+ #   rx_pin: "${com1_rx_pin}"  # Connect this this GPIO and GND to the second MPPT charger
  #   baud_rate: 19200
  #   rx_buffer_size: 256
     
