@@ -50,16 +50,20 @@ substitutions:
   com1_tx_pin: "GPIO26"
   com1_rx_pin: "GPIO28"  
 
-########################## END OF SUBSTITUTIONS ##########################
+#########################################################################
 #
 #  Details of the solar installation at this location
-
+#
+   # Battery capacity in Wh
+  battery_capacity_wh: "5760.0"
+   # Battery Voltage (i.e. 12 / 24 / 48 Volt)
+  battery_voltage_rating: "48"  
   # Number of PV Panels at the site
 #  pv_panel_qty: 4
   # Size in Watts of the PV Panels
 #  pv_panel_size: 250
 
-#########################################################################
+########################## END OF SUBSTITUTIONS ##########################
 
 esphome:
   #  Configures these settings to use the substituions defined below
@@ -544,6 +548,51 @@ sensor:
     entity_category: diagnostic
     internal: True
 
+  - platform: template             # for 1 cell of battery
+    name: "Battery Voltage S1"     # Based on 48V 13S pack
+    id: battery_voltage_s1
+    icon: "mdi:battery"
+    unit_of_measurement: V
+    device_class: "voltage"
+    lambda: |-
+      if ((((id(battery_voltage).state) / 13) > 48.0) || (((id(battery_voltage).state) / 13) < 3.2)) {
+        return NAN;
+      }
+      return ((id(battery_voltage).state) / 13);
+    update_interval: 10s
+    accuracy_decimals: ${accuracy}
+
+     # Calculates an approximate battery SoC based on voltage
+  - platform: template           # Battery working percent
+    name: "Battery SoC"          # Cycles between 3.7v - 4.17v for each 12V Battery
+    id: battery_soc              # Update 14.0 in lambda to be the difference between voltage 0% and 100% value
+    icon: "mdi:battery"          # 42V is voltage of discharged & 56V is a full 48V battery
+    unit_of_measurement: "%"
+    accuracy_decimals: 1
+    lambda: |-
+      float voltage = id(battery_voltage).state;
+      if (voltage <= 42.0) {
+        return 0.0;
+      } else if (voltage >= 56.0) {
+        return 100.0;
+      } else {
+        return (voltage - 42.0) * (100.0 / 14.0);
+      }
+    update_interval: 15s
+
+     # Calculates an approximate remaining Watts in the battery, based on SoC %
+  - platform: template
+    name: "Battery SoC Power"
+    id: battery_soc_power
+    unit_of_measurement: "W"
+    accuracy_decimals: 0
+    icon: "mdi:battery"
+    lambda: |-
+      const float batteryCapacity = "${battery_capacity_wh}"; // Capacity of the battery in Wh
+      float soc = id(battery_soc).state;
+      float remainingPower = batteryCapacity * soc / 100.0;
+      return remainingPower;
+   
     # Calculates the Total Energy that has been generated / passed through the device
     # in its lifetime or since last reflashed
   - platform: template
@@ -582,13 +631,13 @@ button:
 
     # Reboot ESP back to Factory Default Settings
   - platform: factory_reset
-    name: Reset with Default Settings
+    name: 'Reset with Default Settings'
     id: Reset
     entity_category: config
 
     # Reboot ESP in Safe Mode
   - platform: safe_mode
-    name: "Safe Mode"
+    name: 'Safe Mode'
     internal: false
     entity_category: config
 
