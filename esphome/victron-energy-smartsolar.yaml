@@ -11,7 +11,7 @@ substitutions:
    # Default friendly name 
   friendly_name: "Victron Solar"
    # Description as appears in ESPHome & top of webserver page
-  device_description: "Victron - SmartSolar Charge Controller MPPT 250/70-Tr"
+  device_description: "Victron - SmartSolar Charge Controller MPPT 250 | 70-Tr"
    # Allows ESP device to be automatically lined to an 'Area' in Home Assistant. Typically used for areas such as 'Lounge Room', 'Kitchen' etc  
   room: "Energy Management"
    # Project Name
@@ -32,38 +32,21 @@ substitutions:
   sntp_server_3: "0.au.pool.ntp.org"
    # Enables faster network connections, with last connected SSID being connected to and no full scan for SSID being undertaken   
   wifi_fast_connect: "true"
-   # Accuracy of sensors / decimals places
-  accuracy: "3"
-   # Throttle Victron sensors to update every x seconds
-  update_interval: 10s  
-   #########################
    # m5 Stack Lite PINS
-   #
    # I2C. Note scan disabled by default, if adding an I2C device, then enable in devices substitutes section
   sca_pin: "GPIO21"   
   scl_pin: "GPIO22"
   i2c_scan: "false"
-   # UART_0 / COM0 GPIO PINS
-  com0_tx_pin: "GPIO17"
-  com0_rx_pin: "GPIO35"
-   # UART_1 / COM1 GPIO PINS
-  com1_tx_pin: "GPIO26"
-  com1_rx_pin: "GPIO28"  
-
-#########################################################################
-#
-#  Details of the solar installation at this location
-#
-   # Battery capacity in Wh
-  battery_capacity_wh: "5760.0"
-   # Battery Voltage (i.e. 12 / 24 / 48 Volt)
-  battery_voltage_rating: "48"  
-  # Number of PV Panels at the site
-#  pv_panel_qty: 4
-  # Size in Watts of the PV Panels
-#  pv_panel_size: 250
-
-########################## END OF SUBSTITUTIONS ##########################
+   # UART_0 / COM0
+  uart0_tx_pin: "GPIO17"
+  uart0_rx_pin: "GPIO19"
+   # UART_1 / COM1
+  uart1_tx_pin: "GPIO26"
+  uart1_rx_pin: "GPIO28"  
+   # Accuracy of sensors / decimals places
+  accuracy: "3"
+   # Throttle Victron sensors to update every x seconds
+  update_interval: 10s
 
 esphome:
   #  Configures these settings to use the substituions defined below
@@ -116,17 +99,16 @@ captive_portal:
 #
 #
 uart:
-   # Connection to Victron SmartSolar Charge Controller MPPT #1
+   # Connection to Victron Inverter
   - id: com0
-    tx_pin: "${com0_tx_pin}"  # GPIO26 Not used! The communication is read-only
-    rx_pin: "${com0_rx_pin}"  # GPIO32 Connect this this GPIO and GND to the first MPPT charger
+    tx_pin: "${uart0_tx_pin}"  # GPIO26 Not used! The communication is read-only
+    rx_pin: "${uart0_rx_pin}"  # GPIO32 Connect this this GPIO and GND to the first MPPT charger
     baud_rate: 19200
     rx_buffer_size: 256
-    
-   # Connection to Victron SmartSolar Charge Controller MPPT #2
+
  # - id: com1
- #   tx_pin: "${com1_tx_pin}"  # Not connected! The communication is read-only
- #   rx_pin: "${com1_rx_pin}"  # Connect this this GPIO and GND to the second MPPT charger
+ #   tx_pin: "${uart1_tx_pin}"  # Not connected! The communication is read-only
+ #   rx_pin: "${uart1_rx_pin}"  # Connect this this GPIO and GND to the second MPPT charger
  #   baud_rate: 19200
  #   rx_buffer_size: 256
     
@@ -221,7 +203,7 @@ sensor:
       state_class: 'measurement'
       device_class: "voltage"
       unit_of_measurement: 'V'
-      icon: "mdi:lightning-bolt-outline"
+#      icon: "mdi:lightning-bolt-outline"
       accuracy_decimals: 2
     
     panel_power:
@@ -230,7 +212,7 @@ sensor:
       state_class: 'measurement'
       device_class: "power"
       unit_of_measurement: 'W'
-      icon: "mdi:lightning-bolt-outline"
+#      icon: "mdi:lightning-bolt-outline"
       accuracy_decimals: 1
 
     battery_voltage:
@@ -239,7 +221,7 @@ sensor:
       state_class: 'measurement'
       device_class: "voltage"
       unit_of_measurement: 'V'
-      icon: "mdi:lightning-bolt-outline"
+#      icon: "mdi:lightning-bolt-outline"
       accuracy_decimals: 2
 
     battery_voltage_2:
@@ -248,7 +230,7 @@ sensor:
       state_class: 'measurement'
       device_class: "voltage"
       unit_of_measurement: 'V'
-      icon: "mdi:lightning-bolt-outline"
+#      icon: "mdi:lightning-bolt-outline"
       accuracy_decimals: 2      
 
     battery_voltage_3:
@@ -257,7 +239,7 @@ sensor:
       state_class: 'measurement'
       device_class: "voltage"
       unit_of_measurement: 'V'
-      icon: "mdi:lightning-bolt-outline"
+#      icon: "mdi:lightning-bolt-outline"
       accuracy_decimals: 2 
         
 # This many not work for MPPT
@@ -267,7 +249,7 @@ sensor:
       state_class: 'measurement'
       device_class: "current"
       unit_of_measurement: 'A'
-      icon: "mdi:current-dc"
+#      icon: "mdi:current-dc"
       accuracy_decimals: 1
 
 # This many not work for MPPT
@@ -277,7 +259,7 @@ sensor:
       state_class: 'measurement'
       device_class: "current"
       unit_of_measurement: 'A'
-      icon: "mdi:current-dc"
+#      icon: "mdi:current-dc"
       accuracy_decimals: 1    
 
 # This many not work for MPPT
@@ -287,14 +269,14 @@ sensor:
       state_class: 'measurement'
       device_class: "current"
       unit_of_measurement: 'A'
-      icon: "mdi:current-dc"
+#      icon: "mdi:current-dc"
       accuracy_decimals: 1    
 
     day_number:
       name: "Day Number"
       id: day_number
       state_class: 'total_increasing'
-      icon: "mdi:calendar-today"
+ #     icon: "mdi:calendar-today"
       entity_category: diagnostic
       internal: True      
 
@@ -321,7 +303,7 @@ sensor:
       state_class: 'measurement'
       device_class: "current"
       unit_of_measurement: 'A'
-      icon: "mdi:current-ac"    # Change this to current-dc, if it is a  DC Load
+#      icon: "mdi:current-ac"    # Change this to current-dc, if it is a  DC Load
 
     ac_out_voltage:
       name: "AC Out Voltage"
@@ -329,7 +311,7 @@ sensor:
       state_class: 'measurement'
       device_class: "voltage"
       unit_of_measurement: 'V'
-      icon: "mdi:current-ac"    # Change this to current-dc, if it is a  DC Load      
+#      icon: "mdi:current-ac"    # Change this to current-dc, if it is a  DC Load      
 
     ac_out_current:
       name: "AC Out Current"
@@ -337,7 +319,7 @@ sensor:
       state_class: 'measurement'
       device_class: "current"
       unit_of_measurement: 'A'
-      icon: "mdi:current-ac"
+#      icon: "mdi:current-ac"
 
     ac_out_apparent_power:
       name: "AC Out Power - Apparent"
@@ -345,17 +327,17 @@ sensor:
       state_class: 'measurement'
       device_class: "apparent_power"
       unit_of_measurement: 'W'
-      icon: "mdi:lightning-bolt-outline"
+#      icon: "mdi:lightning-bolt-outline"
 
     device_mode_id:
       name: "Device Mode ID"
       id: device_mode_id
-      icon: "mdi:identifier"
+#      icon: "mdi:identifier"
       
     warning_code:
       name: "Warning Code"
       id: warning_code
-      icon: "mdi:message-alert-outline"
+#      icon: "mdi:message-alert-outline"
 
 # No Battery Management System installed
     battery_temperature:
@@ -364,7 +346,7 @@ sensor:
       state_class: 'measurement'
       device_class: "temperature"
       unit_of_measurement: '°C'
-      icon: "mdi:temperature-celsius"
+#      icon: "mdi:temperature-celsius"
 
     instantaneous_power:
       name: "Instantaneous Power"
@@ -372,13 +354,13 @@ sensor:
       state_class: 'measurement'
       device_class: "power"
       unit_of_measurement: 'W'
-      icon: "mdi:lightning-bolt-outline"
+#      icon: "mdi:lightning-bolt-outline"
       
     consumed_amp_hours:
       name: "Consumed Amp Hours"
       id: consumed_amp_hours
       state_class: 'measurement'
-      icon: "mdi:hours-12"
+#      icon: "mdi:hours-12"
 
 # No Battery Management System installed    
     state_of_charge:
@@ -387,51 +369,51 @@ sensor:
       state_class: 'total'
       device_class: "energy_storage"
       unit_of_measurement: '%'
-      icon: "mdi:battery-charging"
+#      icon: "mdi:battery-charging"
 
     time_to_go:
       name: "Time to Go"
       id: time_to_go
-      icon: "mdi:timer-check-outline"
+#      icon: "mdi:timer-check-outline"
       
     depth_of_the_deepest_discharge:
       name: "Depth of Deepest Discharge"
       id: depth_of_deepest_discharge
       state_class: 'measurement'
 #      unit_of_measurement: '?'
-      icon: "mdi:numeric"
+#      icon: "mdi:numeric"
       
     depth_of_the_last_discharge:
       name: "Depth of Last Discharge"
       id: depth_of_last_discharge
       state_class: 'measurement'
 #      unit_of_measurement: '?'      
-      icon: "mdi:numeric"
+#      icon: "mdi:numeric"
     
     depth_of_the_average_discharge:
       name: "Depth of Average Discharge"
       id: depth_of_the_average_discharge
       state_class: 'measurement'
 #      unit_of_measurement: '?'      
-      icon: "mdi:numeric"
+#      icon: "mdi:numeric"
       
     number_of_charge_cycles:
       name: "Number of Charge Cycles"
       id: number_of_charge_cycles
       state_class: 'measurement'
-      icon: "mdi:counter"
+#      icon: "mdi:counter"
       
     number_of_full_discharges:
       name: "Number of Full Discharges"
       id: number_of_full_discharges
       state_class: 'measurement'
-      icon: "mdi:counter"
+#      icon: "mdi:counter"
       
     cumulative_amp_hours_drawn:
       name: "Cumulative Amp Hours Drawn"
       id: cumulative_amp_hours_drawn
       state_class: 'total_increasing'
-      icon: "mdi:numeric"
+#      icon: "mdi:numeric"
     
     min_battery_voltage:
       name: "Battery Voltage - Minimum"
@@ -439,7 +421,7 @@ sensor:
       state_class: 'measurement'
       device_class: "voltage"
       unit_of_measurement: 'V'
-      icon: "mdi:battery-charging-low"
+#      icon: "mdi:battery-charging-low"
     
     max_battery_voltage:
       name: "Battery Voltage - Maximum"
@@ -447,41 +429,41 @@ sensor:
       state_class: 'measurement'
       device_class: "voltage"
       unit_of_measurement: 'V'
-      icon: "mdi:battery-charging-high"
+#      icon: "mdi:battery-charging-high"
       
     last_full_charge:
       name: "Last Full Charge"
       id: last_full_charge
-      icon: "mdi:calendar-range"
+#      icon: "mdi:calendar-range"
       
     number_of_automatic_synchronizations:
       name: "Number of Automatic Synchronizations"
       id: number_of_automatic_synchronizations
-      icon: "mdi:battery-sync-outline"
+#      icon: "mdi:battery-sync-outline"
       
     number_of_low_main_voltage_alarms:
       name: "Number of Low Main Voltage Alarms"
       id: number_of_low_main_voltage_alarms
       state_class: 'measurement'
-      icon: "mdi:counter"
+ #     icon: "mdi:counter"
       
     number_of_high_main_voltage_alarms:
       name: "Number of High Main Voltage Alarms"
       id: number_of_high_main_voltage_alarms
       state_class: 'measurement'
-      icon: "mdi:counter"
+#      icon: "mdi:counter"
       
     number_of_low_auxiliary_voltage_alarms:
       name: "Number of Low Auxiliary Voltage Alarms"
       id: number_of_low_auxiliary_voltage_alarms
       state_class: 'measurement'
-      icon: "mdi:counter"
+#      icon: "mdi:counter"
       
     number_of_high_auxiliary_voltage_alarms:
       name: "Number of High Auxiliary Voltage Alarms"
       id: number_of_high_auxiliary_voltage_alarms
       state_class: 'measurement'
-      icon: "mdi:counter"
+#      icon: "mdi:counter"
       
     min_auxiliary_battery_voltage:
       name: "Auxiliary Battery Voltage - Minimum"
@@ -489,7 +471,7 @@ sensor:
       state_class: 'measurement'
       device_class: "voltage"
       unit_of_measurement: 'V'
-      icon: "mdi:numeric"
+  #    icon: "mdi:numeric"
       
     max_auxiliary_battery_voltage:
       name: "Auxiliary Battery Voltage - Maximum"
@@ -497,7 +479,7 @@ sensor:
       state_class: 'measurement'
       device_class: "voltage"
       unit_of_measurement: 'V'
-      icon: "mdi:numeric"
+ #     icon: "mdi:numeric"
       
     amount_of_discharged_energy:
       name: "Amount of Discharged Energy"
@@ -508,7 +490,7 @@ sensor:
 #      filters:
 #        # Multiplication factor from W to kW is 0.001
 #        - multiply: 0.001      
-      icon: "mdi:lightning-bolt-outline"
+#      icon: "mdi:lightning-bolt-outline"
       
     amount_of_charged_energy:
       name: "Amount of Charged Energy"
@@ -519,7 +501,7 @@ sensor:
 #      filters:
 #        # Multiplication factor from W to kW is 0.001
 #        - multiply: 0.001            
-      icon: "mdi:lightning-bolt-outline"
+#      icon: "mdi:lightning-bolt-outline"
 
   - platform: template
     name: "AC Out Power"
@@ -548,51 +530,6 @@ sensor:
     entity_category: diagnostic
     internal: True
 
-  - platform: template             # for 1 cell of battery
-    name: "Battery Voltage S1"     # Based on 48V 13S pack
-    id: battery_voltage_s1
-    icon: "mdi:battery"
-    unit_of_measurement: V
-    device_class: "voltage"
-    lambda: |-
-      if ((((id(battery_voltage).state) / 13) > 48.0) || (((id(battery_voltage).state) / 13) < 3.2)) {
-        return NAN;
-      }
-      return ((id(battery_voltage).state) / 13);
-    update_interval: 10s
-    accuracy_decimals: ${accuracy}
-
-     # Calculates an approximate battery SoC based on voltage
-  - platform: template           # Battery working percent
-    name: "Battery SoC"          # Cycles between 3.7v - 4.17v for each 12V Battery
-    id: battery_soc              # Update 14.0 in lambda to be the difference between voltage 0% and 100% value
-    icon: "mdi:battery"          # 42V is voltage of discharged & 56V is a full 48V battery
-    unit_of_measurement: "%"
-    accuracy_decimals: 1
-    lambda: |-
-      float voltage = id(battery_voltage).state;
-      if (voltage <= 42.0) {
-        return 0.0;
-      } else if (voltage >= 56.0) {
-        return 100.0;
-      } else {
-        return (voltage - 42.0) * (100.0 / 14.0);
-      }
-    update_interval: 15s
-
-     # Calculates an approximate remaining Watts in the battery, based on SoC %
-  - platform: template
-    name: "Battery SoC Power"
-    id: battery_soc_power
-    unit_of_measurement: "W"
-    accuracy_decimals: 0
-    icon: "mdi:battery"
-    lambda: |-
-      const float batteryCapacity = "${battery_capacity_wh}"; // Capacity of the battery in Wh
-      float soc = id(battery_soc).state;
-      float remainingPower = batteryCapacity * soc / 100.0;
-      return remainingPower;
-   
     # Calculates the Total Energy that has been generated / passed through the device
     # in its lifetime or since last reflashed
   - platform: template
@@ -627,17 +564,20 @@ button:
     # Reboot ESP (Normally)
   - platform: restart
     name: 'Restart Device'
+    icon: mdi:restart-alert
     entity_category: config
-
+    
     # Reboot ESP back to Factory Default Settings
   - platform: factory_reset
-    name: 'Reset with Default Settings'
+    name: Reset with Default Settings
     id: Reset
+    icon: mdi:restart-alert
     entity_category: config
 
     # Reboot ESP in Safe Mode
   - platform: safe_mode
-    name: 'Safe Mode'
+    name: "Safe Mode"
+    icon: mdi:restart-alert
     internal: false
     entity_category: config
 
@@ -652,15 +592,15 @@ binary_sensor:
     
     load_state:
       name: "Load State"
-      icon: "mdi:state-machine"
+#      icon: "mdi:state-machine"
       id: load_state
       entity_category: diagnostic
     
     relay_state:
       name: "Relay State"
-      icon: "mdi:state-machine"
+#      icon: "mdi:state-machine"
       id: relay_state
-      entity_category: diagnostic
+      entity_category: diagnostic    
 
 #########################################################################
 #
@@ -739,12 +679,12 @@ text_sensor:
 
     firmware_version:
       name: "Firmware Version"
-      icon: "mdi:numeric"
+#      icon: "mdi:numeric"
       entity_category: diagnostic
 
     serial_number:
       name: "Serial Number"
-      icon: "mdi:numeric"
+#      icon: "mdi:numeric"
       entity_category: diagnostic
 
     hardware_revision:
@@ -761,12 +701,12 @@ text_sensor:
       
     alarm_condition_active:
       name: "Alarm Condition Active"
-      icon: "mdi:alarm-light-outline"
+#      icon: "mdi:alarm-light-outline"
       entity_category: diagnostic
       
     alarm_reason:
       name: "Alarm Reason"
-      icon: "mdi:alert-circle-outline"
+#      icon: "mdi:alert-circle-outline"
       entity_category: diagnostic
       
     model_description:
@@ -775,14 +715,14 @@ text_sensor:
       
     charging_mode:
       name: "Charging Mode"
-      icon: "mdi:battery-charging-outline"
+#      icon: "mdi:battery-charging-outline"
       entity_category: diagnostic
       
     tracking_mode:
       name: "Tracking Mode"
       icon: "mdi:radar"
       entity_category: diagnostic    
-
+    
 #########################################################################
 #
 # Text Sensors - Device Status and Time Setting
