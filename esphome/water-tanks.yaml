@@ -46,6 +46,7 @@ esphome:
   comment: '${device_description}'
   area: "${room}"
   name_add_mac_suffix: false
+  min_version: 2024.6.0
   project:
     name: "${project_name}"
     version: "${project_version}"  
@@ -66,6 +67,7 @@ logger:
 api:
 
 ota:
+  - platform: esphome
 
 mdns:
   disabled: false
