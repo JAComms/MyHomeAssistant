@@ -594,6 +594,27 @@ button:
 
 #########################################################################
 #
+# Binary Sensors - Victron
+#
+
+binary_sensor:
+  - platform: victron
+    victron_id: victron0
+    
+    load_state:
+      name: "Load State"
+      icon: "mdi:state-machine"
+      id: load_state
+      entity_category: diagnostic
+    
+    relay_state:
+      name: "Relay State"
+      icon: "mdi:state-machine"
+      id: relay_state
+      entity_category: diagnostic
+
+#########################################################################
+#
 # Text Sensors - Device Information
 #
 
@@ -713,27 +734,6 @@ text_sensor:
       icon: "mdi:radar"
       entity_category: diagnostic    
     
-#########################################################################
-#
-# Binary Sensors - Victron
-#
-
-binary_sensor:
-  - platform: victron
-    victron_id: victron0
-    
-    load_state:
-      name: "Load State"
-      icon: "mdi:state-machine"
-      id: load_state
-      entity_category: diagnostic
-    
-    relay_state:
-      name: "Relay State"
-      icon: "mdi:state-machine"
-      id: relay_state
-      entity_category: diagnostic
-
 #########################################################################
 #
 # Text Sensors - Device Status and Time Setting
