@@ -45,7 +45,7 @@ substitutions:
   i2c_scan: "false"
    # UART_0 / COM0 GPIO PINS
   com0_tx_pin: "GPIO17"
-  com0_rx_pin: "GPIO19"
+  com0_rx_pin: "GPIO35"
    # UART_1 / COM1 GPIO PINS
   com1_tx_pin: "GPIO26"
   com1_rx_pin: "GPIO28"  
