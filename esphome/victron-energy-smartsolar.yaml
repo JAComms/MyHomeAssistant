@@ -41,7 +41,7 @@ substitutions:
 
    # UART_0 / COM0
   uart0_tx_pin: "GPIO26"
-  uart0_rx_pin: "GPIO28"
+  uart0_rx_pin: "GPIO32"
 
 #  UART_1 / COM1
   uart1_tx_pin: "GPIO4"
