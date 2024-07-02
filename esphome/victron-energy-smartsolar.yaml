@@ -32,21 +32,27 @@ substitutions:
   sntp_server_3: "2.au.pool.ntp.org"
    # Enables faster network connections, with last connected SSID being connected to and no full scan for SSID being undertaken   
   wifi_fast_connect: "true"
+  
    # m5 Stack Lite PINS
    # I2C. Note scan disabled by default, if adding an I2C device, then enable in devices substitutes section
-#  sca_pin: "GPIO21"   
-#  scl_pin: "GPIO22"
-#  i2c_scan: "false"
+  sca_pin: "GPIO21"   
+  scl_pin: "GPIO22"
+  i2c_scan: "false"
+
    # UART_0 / COM0
-  uart0_tx_pin: "GPIO1"
-  uart0_rx_pin: "GPIO3"
+  uart0_tx_pin: "GPIO26"
+  uart0_rx_pin: "GPIO28"
+
 #  UART_1 / COM1
-#  uart1_tx_pin: "GPIO26"
-#  uart1_rx_pin: "GPIO28"  
+  uart1_tx_pin: "GPIO26"
+  uart1_rx_pin: "GPIO28"  
+
    # Accuracy of sensors / decimals places
   accuracy: "3"
    # Throttle Victron sensors to update every x seconds
   update_interval: 10s
+
+#########################################################################
 
 esphome:
   #  Configures these settings to use the substituions defined below
@@ -101,8 +107,8 @@ captive_portal:
 uart:
    # Connection to Victron Inverter
   - id: com0
-    tx_pin: GPIO26  # GPIO26 Not used! The communication is read-only
-    rx_pin: GPIO32  # GPIO32 Connect this this GPIO and GND to the first MPPT charger
+    tx_pin: uart0_tx_pin  # GPIO26 Not used! The communication is read-only
+    rx_pin: uart0_rx_pin  # GPIO32 Connect this this GPIO and GND to the first MPPT charger
     baud_rate: 19200
     rx_buffer_size: 256
 
