@@ -44,8 +44,8 @@ substitutions:
   uart0_rx_pin: "GPIO28"
 
 #  UART_1 / COM1
-  uart1_tx_pin: "GPIO26"
-  uart1_rx_pin: "GPIO28"  
+  uart1_tx_pin: "GPIO4"
+  uart1_rx_pin: "GPIO5"  
 
    # Accuracy of sensors / decimals places
   accuracy: "3"
