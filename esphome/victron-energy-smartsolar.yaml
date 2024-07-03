@@ -17,7 +17,7 @@ substitutions:
    # Project Name
   project_name: "Victron Energy.SmartSolar Charge Controller MPPT"
    # Project version denotes the release version of the yaml file, allowing checking of deployed vs latest version
-  project_version: "0.1.4"
+  project_version: "0.1.5"
    # Restore the relay (Light switch) upon reboot to state:
   relay_restore_mode: RESTORE_DEFAULT_OFF
    # Define a domain for this device to use. i.e. iot.home.lan (so device will appear as athom-smart-plug-v2.iot.home.lan in DNS/DHCP logs)
@@ -52,53 +52,27 @@ substitutions:
    # Throttle Victron sensors to update every x seconds
   update_interval: 5s
 
+
 #########################################################################
+#
+# Remote Packages to be utilised
+#
 
-esphome:
-  #  Configures these settings to use the substituions defined below
-  name: "${name}"
-  friendly_name: "${friendly_name}"
-  comment: '${device_description}'
-  area: "${location}"
-  name_add_mac_suffix: true
-  min_version: 2024.6.0
-  project:
-    name: "${project_name}"
-    version: "${project_version}"  
-  
-# Enable logging
-logger:
-  level: INFO    # WARN
-  baud_rate: 0
-  logs:
-    component: ERROR # Fix for issue #4717 "Component xxxxxx took a long time for an operation"
+dashboard_import:
+  package_import_url: github://roving-ronin/myhomeassistant/esphome/environmental-monitor-v1.yaml@main
+  import_full_config: false
 
-# Enable Home Assistant API
-api:
-
-ota:
-  - platform: esphome
-
-mdns:
-  disabled: false
-
-web_server:
-  port: 80  
+packages:
+  base-config:      !include common/base-configuration.yaml
+  wifi-config:      !include common/network-wifi.yaml
 
 external_components:
+# Victron Components
+# https://github.com/KinDR007/VictronMPPT-ESPHOME
   - source: github://KinDR007/VictronMPPT-ESPHOME@main
-  
-wifi:
-  ssid: !secret wifi_ssid
-  password: !secret wifi_password
-  # This spawns an AP with the device name and mac address with no password.
-  ap: {}
-  # Allow rapid re-connection to previously connect WiFi SSID, skipping scan of all SSID
-  fast_connect: "${wifi_fast_connect}"
-  # Define dns domain / suffix to add to hostname
-  domain: "${dns_domain}"
-
-captive_portal:  
+# Dentra Components - Adds 'Platform - Energy Statistics'
+# https://github.com/dentra/esphome-components/tree/master/components/energy_statistics
+  - source: github://dentra/esphome-components
 
 #########################################################################
 #
@@ -528,14 +502,6 @@ sensor:
 # Sensors - ESPHome generic / device sensors
 #
 
-  #  Sensor uptime in seconds
-  - platform: uptime
-    name: "Uptime Seconds"
-    id: uptime_seconds
-    update_interval: 120s
-    entity_category: diagnostic
-    internal: True
-
     # Calculates the Total Energy that has been generated / passed through the device
     # in its lifetime or since last reflashed
   - platform: template
@@ -552,7 +518,7 @@ sensor:
     # Calculates the Energy that has been generated / passed through the device for the
     # day or since rebooted (during the day)
   - platform: total_daily_energy
-    name: "Energy Daily"
+    name: "Energy Today"
     id: energy_total_daily
     restore: true
     power_id: panel_power
@@ -562,30 +528,29 @@ sensor:
       - multiply: 0.001
     icon: mdi:hours-24    
 
-#########################################################################
+#####################################################################
 #
-# Button - Linked to services to manage ESP Device
+# Function added by the Dentra Components
 #
-button:
-    # Reboot ESP (Normally)
-  - platform: restart
-    name: 'Restart Device'
-    icon: mdi:restart-alert
-    entity_category: config
-    
-    # Reboot ESP back to Factory Default Settings
-  - platform: factory_reset
-    name: Reset with Default Settings
-    id: Reset
-    icon: mdi:restart-alert
-    entity_category: config
 
-    # Reboot ESP in Safe Mode
-  - platform: safe_mode
-    name: "Safe Mode"
-    icon: mdi:restart-alert
-    internal: false
-    entity_category: config
+     # Dentra Components - Define the id of the sensor tracking 'Total Energy' used
+  - platform: "energy_statistics"
+    total: energy_total_sensor
+
+     # Dentra Components - Adds Energy Yesterday
+    energy_yesterday:
+      name: "Energy Yesterday"
+      accuracy_decimals: 3
+
+     # Dentra Components - Adds Energy Week
+    energy_week:
+      name: "Energy Week"
+      accuracy_decimals: 3
+
+     # Dentra Components - Adds Energy Month
+    energy_month:
+      name: "Energy Month"
+      accuracy_decimals: 3
 
 #########################################################################
 #
@@ -610,66 +575,10 @@ binary_sensor:
 
 #########################################################################
 #
-# Text Sensors - Device Information
+# Text Sensors - Victron
 #
 
 text_sensor:
-
-  #  Creates a sensor showing when the device was last restarted
-  - platform: template
-    name: 'Device Last Restart'
-    id: device_last_restart
-    icon: mdi:clock
-    entity_category: diagnostic
-
-  #  Creates sensor for tracking the WiFi IP address
-  - platform: wifi_info
-    ip_address:
-      name: 'WiFi IP Address'
-      icon: mdi:wifi
-      entity_category: diagnostic
-
-  #  Defines the WiFi SSID network to connect to
-    ssid:
-      name: 'WiFi SSID'
-      icon: mdi:wifi-strength-2
-      entity_category: diagnostic
-
-  #  Creates sensor for tracking the WiFi IP MAC address
-    mac_address:
-      name: 'WiFi MAC Address'
-      entity_category: diagnostic
-
-  #  Creates a sensor of the name of installed project
-  - platform: template
-    name: 'Project Name'
-    id: project_name
-    icon: "mdi:label-outline"
-    entity_category: diagnostic
-    lambda: |-
-      return {"${project_name}"};
-    update_interval: 6h
-
-  #  Creates a sensor of the version of installed project
-  - platform: template
-    name: 'Project Version'
-    id: project_version
-    icon: "mdi:label-outline"
-    entity_category: diagnostic
-    lambda: |-
-      return {"${project_version}"};
-    update_interval: 6h
-
-  #  Creates a sensor of the version of installed ESPHome version
-  - platform: version
-    name: "Project ESPHome Version"
-    entity_category: diagnostic
-    hide_timestamp: true
-
-#########################################################################
-#
-# Text Sensors - Victron
-#    
 
   - platform: victron
     victron_id: victron0
@@ -730,57 +639,3 @@ text_sensor:
       entity_category: diagnostic    
     
 #########################################################################
-#
-# Text Sensors - Device Status and Time Setting
-#
-
-  #  Creates a sensor of the uptime of the device, in formatted days, hours, minutes and seconds
-  #  from : https://community.home-assistant.io/t/uptime-sensor-in-hours-or-days/116392/29
-
-  - platform: template
-    name: "Device Uptime"
-    entity_category: diagnostic
-    lambda: |-
-      int seconds = (id(uptime_seconds).state);
-      int days = seconds / (24 * 3600);
-      seconds = seconds % (24 * 3600);
-      int hours = seconds / 3600;
-      seconds = seconds % 3600;
-      int minutes = seconds /  60;
-      seconds = seconds % 60;
-      if ( days > 3650 ) {
-        return { "Starting up" };
-      } else if ( days ) {
-        return { (String(days) +"d " + String(hours) +"h " + String(minutes) +"m "+ String(seconds) +"s").c_str() };
-      } else if ( hours ) {
-        return { (String(hours) +"h " + String(minutes) +"m "+ String(seconds) +"s").c_str() };
-      } else if ( minutes ) {
-        return { (String(minutes) +"m "+ String(seconds) +"s").c_str() };
-      } else {
-        return { (String(seconds) +"s").c_str() };
-      }
-    icon: mdi:clock-start
-     
-time:
-  - platform: sntp
-    id: sntp_time
-  # Define the timezone of the device
-    timezone: "${timezone}"
-  # Change sync interval from default 5min
-    update_interval: ${sntp_update_interval}
-  # Set specific sntp servers to use
-    servers: 
-      - "${sntp_server_1}"
-      - "${sntp_server_2}"
-      - "${sntp_server_3}"
-  # Publish the time the device was last restarted
-    on_time_sync:
-      then:
-        # Update last restart time, but only once.
-        - if:
-            condition:
-              lambda: 'return id(device_last_restart).state == "";'
-            then:
-              - text_sensor.template.publish:
-                  id: device_last_restart
-                  state: !lambda 'return id(sntp_time).now().strftime("%a %d %b %Y - %I:%M:%S %p");'
