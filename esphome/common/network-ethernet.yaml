@@ -1,0 +1,80 @@
+#########################################################################
+#
+# Substitutions
+#
+
+# Define the type of ethernet controller on the device
+# See: https://esphome.io/components/ethernet.html
+# Supported chipsets are: LAN8720, RTL8201, DP83848, IP101, JL1101
+#                         KSZ8081, KSZ8081RNA & W5500 (SPI)
+
+   # Configuration entries for RMII chips
+  ether_type: "LAN8720"
+   # The MDC pin of the board. Usually this is GPIO23.
+  ether_mdc_pin: "GPIO23"
+   # The MDIO pin of the board. Usually this is GPIO18.
+  ether_mdio_pin: "GPIO18"
+   # (Optional, string): The clock mode of the data lines. See your board’s datasheet for more details.
+  ether_clock_mode: "GPIO0_IN"
+   # (Optional, Pin Schema): The pin controlling the power/reset status of the Ethernet controller.
+  ether_power_pin: "GPIO16"
+
+   # The static IP address the device is to utilise.
+  network_ip: ""
+   # The Gateway (router) to be utilised by the static IP.
+  network_gateway: ""
+   # The subnet mask of the static IP address.
+  network_subnet: "255.255.255.0"
+   # Primary DNS server to be utilised
+  dns_server1: "8.8.8.8"
+   # Secondary DNS server to be utilised
+  dns_server2: "1.1.1.1"
+
+#########################################################################
+#
+# Configuration to add Ethernet network connection to ESP Devices
+#
+
+ # Configure the network device
+ethernet:
+  type: ${ether_type}
+  mdc_pin: ${ether_mdc_pin}
+  mdio_pin: ${ether_mdio_pin}
+  clk_mode: ${ether_clock_mode}
+  phy_addr: 1
+  power_pin: ${ether_power_pin}
+  domain: "${dns_domain}"
+
+ # Define a static IP address (optional)
+  manual_ip:
+    static_ip: ${network_ip}
+    gateway: ${network_gateway}
+    subnet: ${network_subnet}
+    dns1: ${dns_server1}
+    dns2: ${dns_server2}
+
+##########################################################################
+#
+# Sensors - Ethernet Specific
+#
+
+text_sensor:
+  - platform: ethernet_info
+    ip_address:
+      name: ESP IP Address
+      address_0:
+        name: ESP IP Address
+#      address_1:
+#        name: ESP IP Address 1
+#      address_2:
+#        name: ESP IP Address 2
+#      address_3:
+#        name: ESP IP Address 3
+#      address_4:
+#        name: ESP IP Address 4
+    dns_address:
+      name: ESP DNS Address
+    mac_address:
+      name: ESP MAC Address
+
+##########################################################################
