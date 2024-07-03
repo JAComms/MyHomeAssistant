@@ -1,0 +1,224 @@
+#########################################################################
+#
+# ESP828x and ESP32 Settings, common across all WiFi Connected Devices
+#
+
+substitutions:
+   # Allows ESP device to be automatically lined to an 'Area' in Home Assistant. Typically used for areas such as 'Lounge Room', 'Kitchen' etc  
+  location: ""
+   # The phase in the home power supply, upon which this device is utilsed. 1p = A. 3p = A, B or C.  (myHome GPO 1 = Phase C, GPO 2 = Phase A, GPO 3 = Phase B)  
+  power_circuit: "TBA"  
+   # Set the update interval for sensors
+  sensor_update_interval: 10s   
+   # Define a domain for this device to use. i.e. iot.home.lan (so device will appear as athom-smart-plug-v2.iot.home.lan in DNS/DHCP logs)
+  dns_domain: ""
+   # Set timezone of the smart plug. Useful if the plug is in a location different to the HA server. Can be entered in unix Country/Area format (i.e. "Australia/Sydney")
+  timezone: "Australia/Sydney"
+   # Set the duration between the sntp service polling ntp.org servers for an update
+  sntp_update_interval: 6h
+   # Network time servers for your region, enter from lowest to highest priority
+  sntp_server_1: "0.au.pool.ntp.org"
+  sntp_server_2: "1.au.pool.ntp.org"
+  sntp_server_3: "2.au.pool.ntp.org"
+   # Enables faster network connections, with last connected SSID being connected to and no full scan for SSID being undertaken   
+  wifi_fast_connect: "true"
+   # Define logging level: NONE, ERROR, WARN, INFO, DEBUG (Default), VERBOSE, VERY_VERBOSE
+  log_level: "INFO"
+   # Enable or disable the use of IPv6 networking on the device
+  ipv6_enable: "false"
+ 
+
+#########################################################################
+
+esphome:
+   # Configures these settings to use the substitutions defined below
+  name: "${name}"
+  friendly_name: "${friendly_name}"
+  comment: '${device_description}'
+  area: "${location}"
+  name_add_mac_suffix: true
+  min_version: 2024.6.0
+  project:
+    name: "${project_name}"
+    version: "${project_version}"
+
+#########################################################################
+
+preferences:
+   # Enable to allow storing of 'Read Total' between reboots and flashing.
+  flash_write_interval: 5min
+
+api:
+
+ota:
+  - platform: esphome
+  
+logger:
+  level: ${log_level}
+  baud_rate: 0
+  logs:
+    component: ERROR # Fix for issue #4717 "Component xxxxxx took a long time for an operation"
+
+mdns:
+  disabled: false
+
+web_server:
+  port: 80
+
+network:
+  enable_ipv6: ${ipv6_enable}
+
+#########################################################################
+#
+# Remote Packages to be utilised
+#
+
+# dashboard_import:
+#  package_import_url: github://roving-ronin/myhomeassistant/esphome/common/base-configuration.yaml@main
+#  import_full_config: false
+
+#packages:
+#  device_base: !include common/base-configuration-wifi.yaml
+#  device_version: !include common/everything-presence-one-sen0395-stable.yaml
+#  sen0395_base: !include common/sen0395-common.yaml
+
+#########################################################################
+#
+# Binary Sensors
+#
+
+binary_sensor:
+  - platform: status
+    name: "Device Status"
+    id: device_status
+    entity_category: diagnostic
+
+##########################################################################
+#
+# Sensors
+#
+
+sensor:
+
+   # Sensor uptime in seconds
+  - platform: uptime
+    name: "Uptime Seconds"
+    id: uptime_seconds
+    update_interval: 3min
+    entity_category: diagnostic
+    internal: True
+
+##########################################################################
+#
+# Buttons - To trigger actions, such as reboot, reset
+#
+
+button:
+  - platform: restart
+    name: 'Restart Device'
+    entity_category: config
+
+  - platform: factory_reset
+    name: Reset with Default Settings
+    id: Reset
+    entity_category: config
+
+  - platform: safe_mode
+    name: "Safe Mode"
+    internal: false
+    entity_category: config
+
+##########################################################################
+#
+# Text Sensors
+#
+
+text_sensor:
+
+   # Creates a sensor showing when the device was last restarted
+  - platform: template
+    name: 'Device Last Restart'
+    id: device_last_restart
+    icon: mdi:clock
+    entity_category: diagnostic
+
+   # Creates a sensor of the name of installed project
+  - platform: template
+    name: 'Project Name'
+    id: project_name
+    icon: "mdi:label-outline"
+    entity_category: diagnostic
+    lambda: |-
+      return {"${project_name}"};
+    update_interval: 6h
+
+   # Creates a sensor of the version of installed project
+  - platform: template
+    name: 'Project Version'
+    id: project_version
+    icon: "mdi:label-outline"
+    entity_category: diagnostic
+    lambda: |-
+      return {"${project_version}"};
+    update_interval: 6h
+
+  #  Creates a sensor showing power circuit / phase of the device
+  - platform: template
+    name: 'Power Circuit'
+    id: power_circuit
+    icon: "mdi:electric-switch"
+    entity_category: diagnostic
+    lambda: |-
+      return {"${power_circuit}"};
+    update_interval: 6h
+
+   # Creates a sensor of the uptime of the device, in formatted days, hours, minutes and seconds
+   # from : https://community.home-assistant.io/t/uptime-sensor-in-hours-or-days/116392/29
+  - platform: template
+    name: "Device Uptime"
+    entity_category: diagnostic
+    lambda: |-
+      int seconds = (id(uptime_seconds).state);
+      int days = seconds / (24 * 3600);
+      seconds = seconds % (24 * 3600);
+      int hours = seconds / 3600;
+      seconds = seconds % 3600;
+      int minutes = seconds /  60;
+      seconds = seconds % 60;
+      if ( days > 3650 ) {
+        return { "Starting up" };
+      } else if ( days ) {
+        return { (String(days) +"d " + String(hours) +"h " + String(minutes) +"m "+ String(seconds) +"s").c_str() };
+      } else if ( hours ) {
+        return { (String(hours) +"h " + String(minutes) +"m "+ String(seconds) +"s").c_str() };
+      } else if ( minutes ) {
+        return { (String(minutes) +"m "+ String(seconds) +"s").c_str() };
+      } else {
+        return { (String(seconds) +"s").c_str() };
+      }
+    icon: mdi:clock-start
+
+   # Updates the system time using SNTP. Upon boot also publishes when the device was started.
+time:
+  - platform: sntp
+    id: sntp_time
+  # Define the timezone of the device
+    timezone: "${timezone}"
+  # Change sync interval from default 5min
+    update_interval: ${sntp_update_interval}
+  # Set specific sntp servers to use
+    servers: 
+      - "${sntp_server_1}"
+      - "${sntp_server_2}"
+      - "${sntp_server_3}"
+  # Publish the time the device was last restarted
+    on_time_sync:
+      then:
+        # Update last restart time, but only once.
+        - if:
+            condition:
+              lambda: 'return id(device_last_restart).state == "";'
+            then:
+              - text_sensor.template.publish:
+                  id: device_last_restart
+                  state: !lambda 'return id(sntp_time).now().strftime("%a %d %b %Y - %I:%M:%S %p");'
