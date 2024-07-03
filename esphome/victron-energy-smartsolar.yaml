@@ -50,7 +50,7 @@ substitutions:
    # Accuracy of sensors / decimals places
   accuracy: "3"
    # Throttle Victron sensors to update every x seconds
-  update_interval: 10s
+  update_interval: 5s
 
 #########################################################################
 
