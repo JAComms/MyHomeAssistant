@@ -11,7 +11,7 @@ substitutions:
    # Default friendly name 
   friendly_name: "Victron Solar"
    # Description as appears in ESPHome & top of webserver page
-  device_description: "Victron - SmartSolar Charge Controller MPPT 250 | 70-Tr"
+  device_description: "Victron - SmartSolar Charge Controller MPPT 250|70"
    # Allows ESP device to be automatically lined to an 'Area' in Home Assistant. Typically used for areas such as 'Lounge Room', 'Kitchen' etc  
   location: "Energy Management"
    # Project Name
