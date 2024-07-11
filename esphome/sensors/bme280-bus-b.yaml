@@ -64,6 +64,16 @@ sensor:
     humidity: bme280b_humidity
     equation: Wobus   # Wobus (Default), optional Tetens or Buck
 
+   # Pressure in kPa
+#  - platform: template
+#    name: "${bme_sensor2_location}Pressure (kPa)"
+#    state_class: 'measurement'
+#    accuracy_decimals: 2
+#    lambda: |-
+#      return id(bme280b_pressure).state / 10.0 ;
+#    update_interval: 15s
+#    unit_of_measurement: 'kPa'
+
    # BME280 Sensor in I2C Port - Dew Point
   - platform: template
     name: "${bme_sensor2_location}Dew Point"
