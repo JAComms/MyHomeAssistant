@@ -1,0 +1,5 @@
+#
+#  https://github.com/JAComms/MyHomeAssistant/blob/main/esphome/boards/kincony-esp32-s3-core.yaml
+#
+#  https://github.com/JAComms/MyHomeAssistant/blob/main/esphome/common/base-configuration.yaml
+#  https://github.com/JAComms/MyHomeAssistant/blob/main/esphome/common/network-ethernet.yaml
