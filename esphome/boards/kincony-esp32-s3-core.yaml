@@ -1,0 +1,208 @@
+esphome:
+  name: s3
+  friendly_name: s3
+  platformio_options:
+    board_build.flash_mode: dio
+
+esp32:
+  board: esp32-s3-devkitc-1
+  framework:
+    type: esp-idf
+
+# Enable logging
+logger: 
+  hardware_uart: USB_SERIAL_JTAG
+
+ethernet:
+  type: W5500
+  clk_pin: GPIO43
+  mosi_pin: GPIO44
+  miso_pin: GPIO42
+  cs_pin: GPIO41
+  interrupt_pin: GPIO2
+  reset_pin: GPIO1
+
+uart:
+  - id: uart_485
+    baud_rate: 9600
+    debug:
+      direction: BOTH
+      dummy_receiver: true
+      after:
+        timeout: 10ms
+    tx_pin: 16
+    rx_pin: 15
+
+  - id: uart_sim7600
+    baud_rate: 115200
+    debug:
+      direction: BOTH
+      dummy_receiver: true
+      after:
+        timeout: 10ms
+      sequence:
+        - lambda: UARTDebug::log_string(direction, bytes);
+    tx_pin: 18
+    rx_pin: 17
+
+switch:
+  - platform: uart
+    uart_id: uart_485
+    name: "RS485 Button"
+    data: [0x11, 0x22, 0x33, 0x44, 0x55]
+
+  - platform: uart
+    uart_id: uart_sim7600
+    name: "UART 4G"
+    data: "AT+CGSN\r\n" # read 4G SIM7600 ID
+
+binary_sensor:
+
+  - platform: gpio
+    name: "S3 TMP1"
+    pin: 
+      number: 8
+      inverted: true
+
+  - platform: gpio
+    name: "S3 TMP2"
+    pin: 
+      number: 40
+      inverted: true
+
+  - platform: gpio
+    name: "S3 DL"
+    pin: 
+      number: 0
+      inverted: true
+
+  - platform: gpio
+    name: "S3 SDA"
+    pin: 
+      number: 39
+      inverted: true
+      mode:
+        input: true
+        pullup: true
+
+  - platform: gpio
+    name: "S3 SCL"
+    pin: 
+      number: 38
+      inverted: true
+      mode:
+        input: true
+        pullup: true
+
+  - platform: gpio
+    name: "S3 IO10"
+    pin: 
+      number: 10
+      inverted: true
+      mode:
+        input: true
+        pullup: true
+
+  - platform: gpio
+    name: "S3 IO11"
+    pin: 
+      number: 11
+      inverted: true
+      mode:
+        input: true
+        pullup: true
+
+  - platform: gpio
+    name: "S3 IO12"
+    pin: 
+      number: 12
+      inverted: true
+      mode:
+        input: true
+        pullup: true
+
+  - platform: gpio
+    name: "S3 IO13"
+    pin: 
+      number: 13
+      inverted: true
+      mode:
+        input: true
+        pullup: true
+
+  - platform: gpio
+    name: "S3 IO14"
+    pin: 
+      number: 14
+      inverted: true
+      mode:
+        input: true
+        pullup: true
+
+  - platform: gpio
+    name: "S3 IO21"
+    pin: 
+      number: 21
+      inverted: true
+      mode:
+        input: true
+        pullup: true
+
+  - platform: gpio
+    name: "S3 IO47"
+    pin: 
+      number: 47
+      inverted: true
+      mode:
+        input: true
+        pullup: true
+
+  - platform: gpio
+    name: "S3 IO48"
+    pin: 
+      number: 48
+      inverted: true
+      mode:
+        input: true
+        pullup: true
+
+sensor:
+
+  - platform: adc
+    pin: 4
+    name: "S3 IO04 Current"
+    update_interval: 2s
+    unit_of_measurement: V
+    attenuation: 11db
+    filters:
+      - multiply: 5
+
+  - platform: adc
+    pin: 5
+    name: "S3 IO05 Current"
+    update_interval: 2s
+    unit_of_measurement: V
+    attenuation: 11db
+    filters:
+      - multiply: 5
+
+  - platform: adc
+    pin: 6
+    name: "S3 IO06 Current"
+    update_interval: 2s
+    unit_of_measurement: V
+    attenuation: 11db
+    filters:
+      - multiply: 5
+
+  - platform: adc
+    pin: 7
+    name: "S3 IO07 Current"
+    update_interval: 2s
+    unit_of_measurement: V
+    attenuation: 11db
+    filters:
+      - multiply: 5
+
+web_server:
+  port: 80
