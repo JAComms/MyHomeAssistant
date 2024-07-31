@@ -1,3 +1,18 @@
+#########################################################################
+#
+# Kincony S3 Core Board - Settings
+#
+esp32:
+  flash_size: 16MB
+
+sensor:
+
+   # ESP32 Internal Temperature
+  - platform: internal_temperature
+    name: "Device Temperature"
+
+
+
 esphome:
   name: s3
   friendly_name: s3
