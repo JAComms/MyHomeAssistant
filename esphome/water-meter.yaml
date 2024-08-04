@@ -139,6 +139,7 @@ sensor:
     filters:
       - lambda: return (x / 2.0);       # 1 pulse = 0.5L
     #  Uses the above pulse_meter and adds sensor and calculations for tracking current litres
+
     total:
       name: 'Meter Reading'
       id: meter_reading
@@ -157,7 +158,7 @@ sensor:
           - lambda: |-
               static float previous_water_meter_litres_value = 0.0;
               float current_water_meter_litres_value = id(meter_reading).state;
-              id(total_litres) += current_water_meter_litres_value - previous_water_meter_litres_value;
+              id(meter_total_litres) += current_water_meter_litres_value - previous_water_meter_litres_value;
               previous_water_meter_litres_value = current_water_meter_litres_value;
 
 
