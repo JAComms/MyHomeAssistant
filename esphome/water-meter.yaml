@@ -1,0 +1,80 @@
+#########################################################################
+#
+# Water Meter with Reed Switch - Based on ESP82660
+#
+#
+
+   # Provides substitutions or variables that are then called elsewhere multiple times in the config
+substitutions:
+   # Default name
+  name: "water-meter"
+   # Default friendly name  
+  friendly_name: "Water Meter"
+   # Description as appears in ESPHome & top of webserver page
+  device_description: "UPDATE THIS"
+   # Allows ESP device to be automatically lined to an 'Area' in Home Assistant. Typically used for areas such as 'Lounge Room', 'Kitchen' etc  
+  location: "Utility Meters"
+   # Project Name
+  project_name: "JAComms - Water Meter"
+   # Project version denotes the release version of the yaml file, allowing checking of deployed vs latest version
+  project_version: "0.1.0"
+   # Restore the relay (GPO switch) upon reboot to state:
+  relay_restore_mode: RESTORE_DEFAULT_OFF
+   # Disable sensors
+  disable_entities: "false"
+
+
+
+# GPIO5 - Input from Water Meter
+# GPIO4 - Relay controll (Unused)
+
+
+########################## End of Substitutions #########################
+#
+# Defines the type of ESP chip used on the device. 
+# Must be in the local devices configuration file.
+#
+
+
+
+#########################################################################
+#
+# Enable Home Assistant API
+#
+
+api:
+  services:
+  # Define service that calls the 'button:' defined below to reset the Water - Current Reading'
+    - service: reset_total_energy
+      then:
+        - button.press:
+            id: button_reset_water_reading
+
+
+#########################################################################
+
+button:
+  #  Reset the total energy entity (Water - Current Reading)
+  - platform: template
+    name: 'Water Meter - Reset Reading'
+    entity_category: config
+    id: button_reset_water_reading
+    on_press:
+      - pulse_meter.set_total_pulses:
+          id: water_meter_flow_rate
+          value: 0
+
+
+#######################################################################################
+
+globals:
+  #  Globals for use with pulse meter, to allow storing and setting a base reading for water meter
+  - id: water_meter_total_litres
+    type: float
+    restore_value: yes
+   # Change initial value to 0 to reset, or enter your actual meter reading to start counting lifetime total from that number 
+#    initial_value: "0"
+
+#######################################################################################
+
+
