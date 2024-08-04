@@ -17,7 +17,7 @@ substitutions:
    # Project Name
   project_name: "JAComms.Water Meter"
    # Project version denotes the release version of the yaml file, allowing checking of deployed vs latest version
-  project_version: "1.0.1"
+  project_version: "1.0.2"
    # Restore the relay (GPO switch) upon reboot to state:
   relay_restore_mode: RESTORE_DEFAULT_OFF
    # Disable sensors
@@ -141,7 +141,7 @@ sensor:
     #  Uses the above pulse_meter and adds sensor and calculations for tracking current litres
 
     total:
-      name: 'Meter Reading'
+      name: 'Reading'
       id: meter_reading
       unit_of_measurement: "L"
       icon: "mdi:water"
