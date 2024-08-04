@@ -17,7 +17,7 @@ substitutions:
    # Project Name
   project_name: "JAComms.Water Meter"
    # Project version denotes the release version of the yaml file, allowing checking of deployed vs latest version
-  project_version: "0.1.0"
+  project_version: "0.1.1"
    # Restore the relay (GPO switch) upon reboot to state:
   relay_restore_mode: RESTORE_DEFAULT_OFF
    # Disable sensors
@@ -106,8 +106,8 @@ sensor:
 #
 
   - platform: pulse_counter
-    name: "Pulse Counter"
-    id: pulse_counter
+    name: "Pulse Count"
+    id: pulse_count
     pin:
       number: ${water_meter_pin}
       allow_other_uses: true
