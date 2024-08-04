@@ -22,12 +22,14 @@ substitutions:
   relay_restore_mode: RESTORE_DEFAULT_OFF
    # Disable sensors
   disable_entities: "false"
-
-   #
+  
+   # GPIO PIN that the Reed Switch sensor is connected to
   water_meter_pin: "5"
 
    # Type of ESP board being used. Used to populate the variable in /board/esp8266.yaml
   esp_board_type: "esp01_1m"
+   # For ESP8266 type boards, restore the saved values written to flash memory (i.e. Globals) after a reboot
+  restore_from_flash: "true"
 
 # GPIO5 - Input from Water Meter
 # GPIO4 - Relay controll (Unused)
