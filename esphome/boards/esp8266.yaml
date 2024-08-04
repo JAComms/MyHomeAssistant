@@ -7,7 +7,7 @@ esphome:
   platform: ESP8266
   board: ${esp_board_type}
   esp8266_restore_from_flash: ${restore_from_flash}
-  build_path: ./build/${node_name}
+  build_path: ./build/${name}
 
 preferences:
   # Enable to allow storing of 'Read Total' between reboots and flashing.
