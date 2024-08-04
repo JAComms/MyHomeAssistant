@@ -17,7 +17,7 @@ substitutions:
    # Project Name
   project_name: "JAComms.Water Meter"
    # Project version denotes the release version of the yaml file, allowing checking of deployed vs latest version
-  project_version: "0.1.1"
+  project_version: "1.0.1"
    # Restore the relay (GPO switch) upon reboot to state:
   relay_restore_mode: RESTORE_DEFAULT_OFF
    # Disable sensors
@@ -164,8 +164,8 @@ sensor:
 
   #  Adds the 'Reading Since Reset' that tracks the LIFETIME total of m3
   - platform: template
-    name: "Meter - Reading (Since Last Reset)"
-    id: meter_reading_since_last_reset
+    name: "Reading (Since Last Reset)"
+    id: reading_since_last_reset
     unit_of_measurement: "L"
     device_class: water
     state_class: "total_increasing"
