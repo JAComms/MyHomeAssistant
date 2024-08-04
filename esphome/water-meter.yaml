@@ -26,21 +26,30 @@ substitutions:
    #
   water_meter_pin: "5"
 
+   # Type of ESP board being used. Used to populate the variable in /board/esp8266.yaml
+  esp_board_type: "esp01_1m"
 
 # GPIO5 - Input from Water Meter
 # GPIO4 - Relay controll (Unused)
 
 
 ########################## End of Substitutions #########################
+
+
+#########################################################################
 #
-# Defines the type of ESP chip used on the device. 
-# Must be in the local devices configuration file.
+# Remote Packages to be utilised
 #
 
-esp8266:
-  board: esp01_1m
-  framework:
-    type: arduino  
+dashboard_import:
+  package_import_url: github://jacomm/myhomeassistant/esphome/water-meter.yaml@main
+  import_full_config: false
+
+packages:
+  base-config:     !include common/base-configuration.yaml
+  wifi-config:     !include common/network-wifi.yaml
+  water-sensor:    !include sensors/reed-switch-water.yaml
+  esp-board:       !include boards/esp8266.yaml
 
 #########################################################################
 #
