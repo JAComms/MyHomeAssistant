@@ -72,12 +72,12 @@ api:
 button:
   #  Reset the total energy entity (Water - Current Reading)
   - platform: template
-    name: 'Water Meter - Reset Reading'
+    name: 'Reset Reading'
     entity_category: config
     id: button_reset_water_reading
     on_press:
       - pulse_meter.set_total_pulses:
-          id: water_meter_flow_rate
+          id: flow_rate
           value: 0
 
 ##########################################################################
@@ -87,7 +87,7 @@ button:
 
 globals:
   #  Globals for use with pulse meter, to allow storing and setting a base reading for water meter
-  - id: water_meter_total_litres
+  - id: total_litres
     type: float
     restore_value: yes
    # Change initial value to 0 to reset, or enter your actual meter reading to start counting lifetime total from that number 
@@ -106,8 +106,8 @@ sensor:
 #
 
   - platform: pulse_counter
-    name: "Water Meter - Pulse Counter"
-    id: pulse_water_meter
+    name: "Pulse Counter"
+    id: pulse_counter
     pin:
       number: ${water_meter_pin}
       allow_other_uses: true
@@ -119,8 +119,8 @@ sensor:
 
 
   - platform: pulse_meter
-    name: "Water Meter - Flow Rate"
-    id: "water_meter_flow_rate"
+    name: "Flow Rate"
+    id: "flow_rate"
     unit_of_measurement: "L/min"
     state_class: measurement
     device_class: water
@@ -140,8 +140,8 @@ sensor:
       - lambda: return (x / 2.0);       # 1 pulse = 0.5L
     #  Uses the above pulse_meter and adds sensor and calculations for tracking current litres
     total:
-      name: 'Water Meter - Reading'
-      id: water_meter_reading
+      name: 'Meter Reading'
+      id: meter_reading
       unit_of_measurement: "L"
       icon: "mdi:water"
       state_class: "total_increasing"
@@ -156,15 +156,15 @@ sensor:
         then:
           - lambda: |-
               static float previous_water_meter_litres_value = 0.0;
-              float current_water_meter_litres_value = id(water_meter_reading).state;
-              id(water_meter_total_litres) += current_water_meter_litres_value - previous_water_meter_litres_value;
+              float current_water_meter_litres_value = id(meter_reading).state;
+              id(total_litres) += current_water_meter_litres_value - previous_water_meter_litres_value;
               previous_water_meter_litres_value = current_water_meter_litres_value;
 
 
   #  Adds the 'Reading Since Reset' that tracks the LIFETIME total of m3
   - platform: template
-    name: "Water Meter - Reading (Since Last Reset)"
-    id: water_meter_reading_since_last_reset
+    name: "Meter - Reading (Since Last Reset)"
+    id: meter_reading_since_last_reset
     unit_of_measurement: "L"
     device_class: water
     state_class: "total_increasing"
@@ -172,7 +172,7 @@ sensor:
     accuracy_decimals: 2
     # The number 5251.07 should be replaced with your own gas meters physical reading
     lambda: |-
-          return (id(water_meter_total_litres) + 0);
+          return (id(meter_total_litres) + 0);
     # Set interval that updates are sent to HA instance
     update_interval: 15s
     filters:
