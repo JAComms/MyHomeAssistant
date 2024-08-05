@@ -171,7 +171,7 @@ sensor:
     state_class: "total_increasing"
     icon: "mdi:counter"
     accuracy_decimals: 2
-    # The number 5251.07 should be replaced with your own gas meters physical reading
+    # The number 5251.07 should be replaced with your own water meters physical reading
     lambda: |-
           return (id(meter_total_litres) + 0);
     # Set interval that updates are sent to HA instance
