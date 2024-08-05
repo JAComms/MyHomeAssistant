@@ -32,7 +32,7 @@ substitutions:
   restore_from_flash: "true"
 
 # GPIO5 - Input from Water Meter
-# GPIO4 - Relay controll (Unused)
+# GPIO4 - Relay control (Unused)
 
 
 ########################## End of Substitutions #########################
