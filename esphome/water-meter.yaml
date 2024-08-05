@@ -149,8 +149,7 @@ sensor:
       device_class: water
       accuracy_decimals: 2
       filters:
-#        - lambda: return (x / 2000.0);   # 1 pulse = 0.5L
-        - lambda: return (x / 2);   # 1 pulse = 0.5L
+        - lambda: return (x / 2000.0);   # 1 pulse = 0.5L. 2000 pulses = 1,000L / 1m3
         - delta : 0.001
 #        - multiply: 0.5
     #  Adds the calculation for 'Reading Total' 
