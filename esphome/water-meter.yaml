@@ -24,7 +24,7 @@ substitutions:
   disable_entities: "false"
   
    # GPIO PIN that the Reed Switch sensor is connected to
-  water_meter_pin: ""  # 5
+  water_meter_pin: ""  # GPIO5
 
    # Type of ESP board being used. Used to populate the variable in /board/esp8266.yaml
   esp_board_type: "esp01_1m"   # This value is an ESP8266
