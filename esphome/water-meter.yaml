@@ -17,7 +17,7 @@ substitutions:
    # Project Name
   project_name: "JAComms.Water Meter"
    # Project version denotes the release version of the yaml file, allowing checking of deployed vs latest version
-  project_version: "1.0.3"
+  project_version: "1.0.4"
    # Restore the relay (GPO switch) upon reboot to state:
   relay_restore_mode: RESTORE_DEFAULT_OFF
    # Disable sensors
@@ -111,7 +111,7 @@ sensor:
     pin:
       number: ${water_meter_pin}
       allow_other_uses: true
-      inverted: false                             # true
+      inverted: true
       mode:
         input: true
         pullup: true
@@ -129,7 +129,7 @@ sensor:
     pin:
       number: ${water_meter_pin}
       allow_other_uses: true
-      inverted: false                             # true
+      inverted: true
       mode:
         input: true
         pullup: true
@@ -138,8 +138,8 @@ sensor:
     timeout: 1min
     filters:
       - lambda: return (x / 2.0);       # 1 pulse = 0.5L
-    #  Uses the above pulse_meter and adds sensor and calculations for tracking current litres
 
+    #  Uses the above pulse_meter and adds sensor and calculations for tracking current litres
     total:
       name: 'Reading'
       id: meter_reading
@@ -149,7 +149,8 @@ sensor:
       device_class: water
       accuracy_decimals: 2
       filters:
-        - lambda: return (x / 2000.0);   # 1 pulse = 0.5L
+#        - lambda: return (x / 2000.0);   # 1 pulse = 0.5L
+        - lambda: return (x / 2);   # 1 pulse = 0.5L
         - delta : 0.001
 #        - multiply: 0.5
     #  Adds the calculation for 'Reading Total' 
