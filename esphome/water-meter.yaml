@@ -111,7 +111,7 @@ sensor:
     pin:
       number: ${water_meter_pin}
       allow_other_uses: true
-      inverted: true
+      inverted: false                             # true
       mode:
         input: true
         pullup: true
@@ -129,7 +129,7 @@ sensor:
     pin:
       number: ${water_meter_pin}
       allow_other_uses: true
-      inverted: true
+      inverted: false                             # true
       mode:
         input: true
         pullup: true
