@@ -431,16 +431,16 @@ binary_sensor:
 #  - DC 8-12V logical "1"
 #
 
-    # Input 1 - Assigned Function
-#  - platform: gpio
-#    name: 'Digital Input 01'
-#    id: input1
-#    pin:
-#      pcf8574: pcf8574_hub_in_1
-#      number: 0
-#      mode: INPUT
-#      inverted: true
-#    internal: false
+   # Input 1 - Assigned Function
+  - platform: gpio
+    name: 'Water Meter - Binary Sensor'
+    id: water_meter_binary_sensor
+    pin:
+      pcf8574: pcf8574_hub_in_1
+      number: 0
+      mode: INPUT
+      inverted: true
+    internal: false
 
 
     # Input 2 - Assigned Function
@@ -651,16 +651,15 @@ sensor:
 #sensor:
   -   platform: pulse_counter
     name: "Water Meter - Pulse Counter"
-    id: pulse_water_meter
-    pin:
-      pcf8574: pcf8574_hub_in_1
-      number: 0
-      allow_other_uses: true
-      inverted: false
-      mode:
-        input: true
-        pullup: true
+    id: water_meter_pulse_counter                              #pulse_water_meter
+    internal_filter: 13us
+    pin: water_meter_binary_sensor
     update_interval : 5s
+    unit_of_measurement: 'pulses'
+    accuracy_decimals: 0
+    filters:
+      - multiply: 0.5
+
 
   - platform: pulse_meter
     name: "Water Meter - Flow Rate"
@@ -670,14 +669,7 @@ sensor:
     device_class: water
     icon: "mdi:pump"
     accuracy_decimals: 2
-    pin:
-      pcf8574: pcf8574_hub_in_1
-      number: 0
-      allow_other_uses: true
-      inverted: true
-      mode:
-        input: true
-        pullup: true
+    pin: water_meter_binary_sensor
     internal_filter_mode: PULSE
     internal_filter: 100ms
     timeout: 1min
