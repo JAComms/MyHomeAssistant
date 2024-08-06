@@ -648,15 +648,15 @@ sensor:
 # Digital Input Port 1 - 4-20mA
 #
 
-
-  - platform: pulse_counter
+#sensor:
+  -   platform: pulse_counter
     name: "Water Meter - Pulse Counter"
     id: pulse_water_meter
     pin:
       pcf8574: pcf8574_hub_in_1
       number: 0
       allow_other_uses: true
-      inverted: true
+      inverted: false
       mode:
         input: true
         pullup: true
