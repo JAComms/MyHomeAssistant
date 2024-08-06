@@ -22,7 +22,7 @@ substitutions:
   # Project Name
   project_name: "Kincony.KC868-A16"
   # Project version denotes the release version of the yaml file, allowing checking of deployed vs latest version
-  project_version: "0.0.8"
+  project_version: "1.0.8"
   # Restore the relay (GPO switch) upon reboot to state:
   relay_restore_mode: RESTORE_DEFAULT_OFF
   # Disable sensors
@@ -41,7 +41,7 @@ substitutions:
    # BME 280 / BME680 Sensor
    #
    # Location of BME280/680 Sensor #1. Used to prefix sensor if there are two. Leave empty if only 1. Add a " - " to the end of each entry if used.
-  bme_sensor1_location: "Garage - "
+  bme_sensor1_location: "Outside - "
    # Location of BME280/680 Sensor #2. Used to prefix sensor if there are two. Leave empty if only 1. Add a " - " to the end of each entry if used.
   bme_sensor2_location: ""
    # Calibrate the outpute of the temperature sensor(s).
@@ -81,14 +81,6 @@ packages:
 #  ethernet-config: !include common/network-ethernet-lan8720.yaml
   bme280-sensors:  !include sensors/bme280-bus-a.yaml
 
-# ADD GAS AND WATER SENSORS
-
-#################################################
-#
-#  COME BACK AND FIX UP - REVERT TO TEMPLATE YAML
-#
-
-
 
 #########################################################################
 #
@@ -96,8 +88,8 @@ packages:
 #
 
 sun:
-  latitude: -34.766914°
-  longitude: 149.732026°
+  latitude: -34.726460°
+  longitude: 149.724503°
   id: sun_home
 
 #########################################################################
@@ -431,17 +423,16 @@ binary_sensor:
 #  - DC 8-12V logical "1"
 #
 
-   # Input 1 - Assigned Function
+    # Input 1 - Assigned Function
   - platform: gpio
-    name: 'Water Meter - Binary Sensor'
-    id: water_meter_binary_sensor
+    name: 'Digital Input 01'
+    id: input1
     pin:
       pcf8574: pcf8574_hub_in_1
       number: 0
       mode: INPUT
       inverted: true
-    internal: false
-
+    internal: true
 
     # Input 2 - Assigned Function
   - platform: gpio
@@ -640,92 +631,6 @@ sensor:
   - platform: sun
     name: Sun Azimuth
     type: azimuth
-
-
-
-################################################################################
-#
-# Digital Input Port 1 - 4-20mA
-#
-
-#sensor:
-  -   platform: pulse_counter
-    name: "Water Meter - Pulse Counter"
-    id: water_meter_pulse_counter                              #pulse_water_meter
-    internal_filter: 13us
-    pin: water_meter_binary_sensor
-    update_interval : 5s
-    unit_of_measurement: 'pulses'
-    accuracy_decimals: 0
-    filters:
-      - multiply: 0.5
-
-
-  - platform: pulse_meter
-    name: "Water Meter - Flow Rate"
-    id: "water_meter_flow_rate"
-    unit_of_measurement: "L/min"
-    state_class: measurement
-    device_class: water
-    icon: "mdi:pump"
-    accuracy_decimals: 2
-    pin: water_meter_binary_sensor
-    internal_filter_mode: PULSE
-    internal_filter: 100ms
-    timeout: 1min
-    filters:
-      - lambda: return (x / 2.0);       # 1 pulse = 0.5L
-    #  Uses the above pulse_meter and adds sensor and calculations for tracking current litres
-    total:
-      name: 'Water Meter - Reading'
-      id: water_meter_reading
-      unit_of_measurement: "L"
-      icon: "mdi:water"
-      state_class: "total_increasing"
-      device_class: water
-      accuracy_decimals: 2
-      filters:
-        - lambda: return (x / 2000.0);   # 1 pulse = 0.5L
-        - delta : 0.001
-#        - multiply: 0.5
-    #  Adds the calculation for 'Reading Total' 
-      on_value: 
-        then:
-          - lambda: |-
-              static float previous_water_meter_litres_value = 0.0;
-              float current_water_meter_litres_value = id(water_meter_reading).state;
-              id(water_meter_total_litres) += current_water_meter_litres_value - previous_water_meter_litres_value;
-              previous_water_meter_litres_value = current_water_meter_litres_value;
-
-
-  #  Adds the 'Reading Since Reset' that tracks the LIFETIME total of m3
-  - platform: template
-    name: "Water Meter - Reading (Since Last Reset)"
-    id: water_meter_reading_since_last_reset
-    unit_of_measurement: "L"
-    device_class: water
-    state_class: "total_increasing"
-    icon: "mdi:counter"
-    accuracy_decimals: 2
-    # The number 5251.07 should be replaced with your own gas meters physical reading
-    lambda: |-
-          return (id(water_meter_total_litres) + 0);
-    # Set interval that updates are sent to HA instance
-    update_interval: 15s
-    filters:
-      - delta : 0.001
-
-#########################################################################################
-
-
-
-
-
-
-
-
-
-
 
 ################################################################################
 #
@@ -1062,7 +967,79 @@ sensor:
   # Utility - Water Meter
   #
 
-#############################################################################################
+  - platform: pulse_counter
+    name: "Water Meter - Pulse Counter"
+    id: pulse_water_meter
+    pin:
+      number: 33
+      allow_other_uses: true
+      inverted: true
+      mode:
+        input: true
+        pullup: true
+    update_interval : 15s
+
+
+  - platform: pulse_meter
+    name: "Water Meter - Flow Rate"
+    id: "water_meter_flow_rate"
+    unit_of_measurement: "L/min"
+    state_class: measurement
+    device_class: water
+    icon: "mdi:pump"
+    accuracy_decimals: 2
+    pin:
+      number: 33
+      allow_other_uses: true
+      inverted: true
+      mode:
+        input: true
+        pullup: true
+    internal_filter_mode: PULSE
+    internal_filter: 100ms
+    timeout: 1min
+    filters:
+      - lambda: return (x / 2.0);       # 1 pulse = 0.5L
+    #  Uses the above pulse_meter and adds sensor and calculations for tracking current litres
+    total:
+      name: 'Water Meter - Reading'
+      id: water_meter_reading
+      unit_of_measurement: "L"
+      icon: "mdi:water"
+      state_class: "total_increasing"
+      device_class: water
+      accuracy_decimals: 2
+      filters:
+        - lambda: return (x / 2000.0);   # 1 pulse = 0.5L
+        - delta : 0.001
+#        - multiply: 0.5
+    #  Adds the calculation for 'Reading Total' 
+      on_value: 
+        then:
+          - lambda: |-
+              static float previous_water_meter_litres_value = 0.0;
+              float current_water_meter_litres_value = id(water_meter_reading).state;
+              id(water_meter_total_litres) += current_water_meter_litres_value - previous_water_meter_litres_value;
+              previous_water_meter_litres_value = current_water_meter_litres_value;
+
+
+  #  Adds the 'Reading Since Reset' that tracks the LIFETIME total of m3
+  - platform: template
+    name: "Water Meter - Reading (Since Last Reset)"
+    id: water_meter_reading_since_last_reset
+    unit_of_measurement: "L"
+    device_class: water
+    state_class: "total_increasing"
+    icon: "mdi:counter"
+    accuracy_decimals: 2
+    # The number 5251.07 should be replaced with your own gas meters physical reading
+    lambda: |-
+          return (id(water_meter_total_litres) + 0);
+    # Set interval that updates are sent to HA instance
+    update_interval: 15s
+    filters:
+      - delta : 0.001
+
 
 # sensor:
   - platform: copy
