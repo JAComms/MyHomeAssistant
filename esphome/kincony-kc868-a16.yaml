@@ -887,8 +887,6 @@ sensor:
       mode:
         input: true
         pullup: true
-    filters:
-      - lambda: return (x / 2.0);       # 1 pulse = 0.5L
     update_interval : 15s
 
   - platform: pulse_meter
@@ -979,6 +977,8 @@ sensor:
       mode:
         input: true
         pullup: true
+    filters:
+      - lambda: return (x / 2.0);       # 1 pulse = 0.5L
     update_interval : 15s
 
 
