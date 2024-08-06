@@ -1019,7 +1019,7 @@ sensor:
         then:
           - lambda: |-
               static float previous_water_meter_litres_value = 0.0;
-              float current_water_meter_litres_value = id(water_meter_reading).state;
+              float current_water_meter_litres_value = id(water_meter_consumed).state;
               id(water_meter_total_litres) += current_water_meter_litres_value - previous_water_meter_litres_value;
               previous_water_meter_litres_value = current_water_meter_litres_value;
 
