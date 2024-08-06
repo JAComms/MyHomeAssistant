@@ -1004,8 +1004,8 @@ sensor:
       - lambda: return (x / 2.0);       # 1 pulse = 0.5L
     #  Uses the above pulse_meter and adds sensor and calculations for tracking current litres
     total:
-      name: 'Water Meter - Consumed (L)'
-      id: water_meter_consumed
+      name: 'Water Meter - Consumed'
+      id: water_meter_consumed_litres
       unit_of_measurement: "L"
       icon: "mdi:water"
       state_class: "total_increasing"
