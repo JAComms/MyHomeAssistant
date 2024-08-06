@@ -1002,15 +1002,16 @@ sensor:
       - lambda: return (x / 2.0);       # 1 pulse = 0.5L
     #  Uses the above pulse_meter and adds sensor and calculations for tracking current litres
     total:
-      name: 'Water Meter - Reading'
-      id: water_meter_reading
+      name: 'Water Meter - Consumed (L)'
+      id: water_meter_consumed
       unit_of_measurement: "L"
       icon: "mdi:water"
       state_class: "total_increasing"
       device_class: water
       accuracy_decimals: 2
       filters:
-        - lambda: return (x / 2000.0);   # 1 pulse = 0.5L
+#        - lambda: return (x / 2000.0);   # 1 pulse = 0.5L.  This gives Kilo Litres
+        - lambda: return (x / 2.0);   # 1 pulse = 0.5L.   This gives Litres
         - delta : 0.001
 #        - multiply: 0.5
     #  Adds the calculation for 'Reading Total' 
