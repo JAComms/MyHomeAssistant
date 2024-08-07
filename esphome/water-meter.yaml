@@ -118,6 +118,7 @@ sensor:
       rising_edge: DISABLE
       falling_edge: INCREMENT   
     filters:
+      - skip_initial: 2
       - lambda: return (x / 2.0);       # 1 pulse = 0.5L
     update_interval : 5s
     total:
