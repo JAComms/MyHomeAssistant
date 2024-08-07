@@ -98,7 +98,7 @@ sun:
 #
 
 api:
-  # Define service that calls the 'button:' defined below to reset the Gas Meter - Current Reading'
+  # Define service that calls the 'button:' defined below to reset the Gas - Current Reading'
   services:
     - service: reset_total_energy
       then:
@@ -116,12 +116,12 @@ api:
 button:
   #  Reset the total energy entity (Gas - Current Reading)
   - platform: template
-    name: 'Gas Meter - Reset Reading'
+    name: 'Gas - Reset Reading'
     entity_category: config
     id: button_reset_gas_reading
     on_press:
       - pulse_meter.set_total_pulses:
-          id: gas_meter_flow_rate
+          id: gas_flow_rate
           value: 0
 
   #  Reset the total energy entity (Water - Current Reading)
@@ -131,7 +131,7 @@ button:
     id: button_reset_water_reading
     on_press:
       - pulse_meter.set_total_pulses:
-          id: water_meter_flow_rate
+          id: water_flow_rate
           value: 0
 
 #########################################################################
@@ -163,7 +163,7 @@ globals:
    # Change initial value to 0 to reset, or enter your actual meter reading to start counting lifetime total from that number 
 #    initial_value: "0"
   #  Globals for use with pulse meter, to allow storing and setting a base reading for water meter
-  - id: water_meter_total_litres
+  - id: water_consumed_total_litres
     type: float
     restore_value: yes
    # Change initial value to 0 to reset, or enter your actual meter reading to start counting lifetime total from that number 
@@ -878,8 +878,8 @@ sensor:
   #
 
   - platform: pulse_counter
-    name: "Gas Meter - Pulse Counter"
-    id: pulse_gas_meter
+    name: "Gas - Pulse Counter"
+    id: gas_pulse_counter
     pin:
       number: 32
       allow_other_uses: true
@@ -890,8 +890,8 @@ sensor:
     update_interval : 15s
 
   - platform: pulse_meter
-    name: 'Gas Meter - Flow Rate'
-    id: "gas_meter_flow_rate"
+    name: 'Gas - Flow Rate'
+    id: "gas_flow_rate"
     unit_of_measurement: "L/min" # "m³/h"
     state_class: measurement
 #    device_class: volume
@@ -912,8 +912,8 @@ sensor:
 #      - multiply: 10.0
     #  Uses the above pulse_meter and adds sensor and calculations for tracking m3
     total:    
-      id: gas_meter_reading_m3
-      name: 'Gas Meter - Reading (m³)'
+      id: gas_consumed_m3
+      name: 'Gas - Consumed (m³)'
       unit_of_measurement: "m³"
       icon: "mdi:counter"
       state_class: "total_increasing"
@@ -927,27 +927,27 @@ sensor:
         then:
           - lambda: |-
               static float previous_gas_m3_value = 0.0;
-              float current_gas_m3_value = id(gas_meter_reading_m3).state;
+              float current_gas_m3_value = id(gas_consumed_m3).state;
               id(gas_total_m3) += current_gas_m3_value - previous_gas_m3_value;
               previous_gas_m3_value = current_gas_m3_value;
 
 
   - platform: template
-    name: "Gas Meter - Reading (MJ)"
-    id: gas_meter_reading_mj
+    name: "Gas - Consumed (MJ)"
+    id: gas_consumed_mj
     unit_of_measurement: "MJ"
     device_class: energy
     state_class: "total_increasing"
     icon: "mdi:counter"
     accuracy_decimals: 3   
     lambda: |-
-      return (id(gas_meter_reading_m3).state * 0.952 * 38.77);
+      return (id(gas_consumed_m3).state * 0.952 * 38.77);
 
 
   #  Adds the 'Reading Since Reset' that tracks the LIFETIME total of m3
   - platform: template
-    name: "Gas Meter - Reading (Since Last Reset)"
-    id: gas_meter_reading_since_last_reset
+    name: "Gas - Consumed (Since Reset)"
+    id: gas_meter_consumed_since_reset
     unit_of_measurement: "m³"
     device_class: gas
     state_class: "total_increasing"
@@ -968,8 +968,8 @@ sensor:
   #
 
   - platform: pulse_counter
-    name: "Water Meter - Pulse Counter"
-    id: pulse_water_meter
+    name: "Water - Pulse Counter"
+    id: water_pulse_counter
     pin:
       number: 33
       allow_other_uses: true
@@ -983,8 +983,8 @@ sensor:
 
 
   - platform: pulse_meter
-    name: "Water Meter - Flow Rate"
-    id: "water_meter_flow_rate"
+    name: "Water - Flow Rate"
+    id: water_flow_rate
     unit_of_measurement: "L/min"
     state_class: measurement
     device_class: water
@@ -1004,8 +1004,8 @@ sensor:
       - lambda: return (x / 2.0);       # 1 pulse = 0.5L
     #  Uses the above pulse_meter and adds sensor and calculations for tracking current litres
     total:
-      name: 'Water Meter - Consumed'
-      id: water_meter_consumed_litres
+      name: 'Water - Consumed'
+      id: water_consumed_litres
       unit_of_measurement: "L"
       icon: "mdi:water"
       state_class: "total_increasing"
@@ -1020,16 +1020,16 @@ sensor:
       on_value: 
         then:
           - lambda: |-
-              static float previous_water_meter_litres_value = 0.0;
-              float current_water_meter_litres_value = id(water_meter_consumed_litres).state;
-              id(water_meter_total_litres) += current_water_meter_litres_value - previous_water_meter_litres_value;
-              previous_water_meter_litres_value = current_water_meter_litres_value;
+              static float previous_water_consumed_litres_value = 0.0;
+              float current_water_consumed_litres_value = id(water_consumed_litres).state;
+              id(water_consumed_total_litres) += current_water_consumed_litres_value - previous_water_consumed_litres_value;
+              previous_water_consumed_litres_value = current_water_consumed_litres_value;
 
 
   #  Adds the 'Reading Since Reset' that tracks the LIFETIME total of m3
   - platform: template
-    name: "Water Meter - Reading (Since Last Reset)"
-    id: water_meter_reading_since_last_reset
+    name: "Water Meter - Reading"
+    id: water_meter_reading
     unit_of_measurement: "L"
     device_class: water
     state_class: "total_increasing"
@@ -1037,7 +1037,7 @@ sensor:
     accuracy_decimals: 2
     # The number 5251.07 should be replaced with your own gas meters physical reading
     lambda: |-
-          return (id(water_meter_total_litres) + 0);
+          return (id(water_consumed_total_litres) + 0);
     # Set interval that updates are sent to HA instance
     update_interval: 15s
     filters:
