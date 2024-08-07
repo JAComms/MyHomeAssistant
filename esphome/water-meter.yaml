@@ -114,9 +114,9 @@ sensor:
       mode:
         input: true
         pullup: true
-    count_mode:
-      rising_edge: INCREMENT
-      falling_edge: DISABLE
+#    count_mode:
+#      rising_edge: INCREMENT
+#      falling_edge: DISABLE
     filters:
       - skip_initial: 2
       - lambda: return (x / 2.0);       # 1 pulse = 0.5L
