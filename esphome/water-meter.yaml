@@ -115,7 +115,9 @@ sensor:
       mode:
         input: true
         pullup: true
-    update_interval : 15s
+    filters:
+      - lambda: return (x / 2.0);       # 1 pulse = 0.5L
+    update_interval : 5s
 
 
   - platform: pulse_meter
@@ -141,15 +143,16 @@ sensor:
 
     #  Uses the above pulse_meter and adds sensor and calculations for tracking current litres
     total:
-      name: 'Reading'
-      id: meter_reading
+      name: 'Water Meter - Consumed'
+      id: water_meter_consumed_litres
       unit_of_measurement: "L"
       icon: "mdi:water"
       state_class: "total_increasing"
       device_class: water
       accuracy_decimals: 2
       filters:
-        - lambda: return (x / 2000.0);   # 1 pulse = 0.5L. 2000 pulses = 1,000L / 1m3
+#        - lambda: return (x / 2000.0);   # 1 pulse = 0.5L.  This gives Kilo Litres
+        - lambda: return (x / 2.0);   # 1 pulse = 0.5L.   This gives Litres
         - delta : 0.001
 #        - multiply: 0.5
     #  Adds the calculation for 'Reading Total' 
@@ -157,8 +160,8 @@ sensor:
         then:
           - lambda: |-
               static float previous_water_meter_litres_value = 0.0;
-              float current_water_meter_litres_value = id(meter_reading).state;
-              id(meter_total_litres) += current_water_meter_litres_value - previous_water_meter_litres_value;
+              float current_water_meter_litres_value = id(water_meter_consumed_litres).state;
+              id(water_meter_total_litres) += current_water_meter_litres_value - previous_water_meter_litres_value;
               previous_water_meter_litres_value = current_water_meter_litres_value;
 
 
