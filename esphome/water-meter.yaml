@@ -114,10 +114,16 @@ sensor:
       mode:
         input: true
         pullup: true
+    count_mode:
+      rising_edge: DISABLE
+      falling_edge: INCREMENT   
     filters:
       - lambda: return (x / 2.0);       # 1 pulse = 0.5L
     update_interval : 5s
-
+    total:
+      unit_of_measurement: 'pulses'
+      name: "Total Pulse Counts"
+      id: pulse_count_total
 
   - platform: pulse_meter
     name: "Flow Rate"
