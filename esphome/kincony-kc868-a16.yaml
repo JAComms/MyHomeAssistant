@@ -887,7 +887,7 @@ sensor:
       mode:
         input: true
         pullup: true
-    update_interval : 15s
+    update_interval : 5s
 
   - platform: pulse_meter
     name: 'Gas - Flow Rate'
