@@ -86,7 +86,7 @@ button:
 #
 
 globals:
-  - id: water_meter_total_litres
+  - id: water_total_litres
     type: float
     restore_value: yes
    # Change initial value to 0 to reset, or enter your actual meter reading to start counting lifetime total from that number 
@@ -142,8 +142,8 @@ sensor:
 
     #  Uses the above pulse_meter and adds sensor and calculations for tracking current litres
     total:
-      name: 'Water Meter - Consumed'
-      id: water_meter_consumed_litres
+      name: 'Water Consumed'
+      id: water_consumed_litres
       unit_of_measurement: "L"
       icon: "mdi:water"
       state_class: "total_increasing"
@@ -158,10 +158,10 @@ sensor:
       on_value: 
         then:
           - lambda: |-
-              static float previous_water_meter_litres_value = 0.0;
-              float current_water_meter_litres_value = id(water_meter_consumed_litres).state;
-              id(water_meter_total_litres) += current_water_meter_litres_value - previous_water_meter_litres_value;
-              previous_water_meter_litres_value = current_water_meter_litres_value;
+              static float previous_water_litres_value = 0.0;
+              float current_water_litres_value = id(water_consumed_litres).state;
+              id(water_total_litres) += current_water_litres_value - previous_water_litres_value;
+              previous_water_litres_value = current_water_litres_value;
 
 
   #  Adds the 'Reading Since Reset' that tracks the LIFETIME total of m3
@@ -175,7 +175,7 @@ sensor:
     accuracy_decimals: 2
     # The number 5251.07 should be replaced with your own water meters physical reading
     lambda: |-
-          return (id(meter_total_litres) + 0);
+          return (id(water_total_litres) + 0);
     # Set interval that updates are sent to HA instance
     update_interval: 15s
     filters:
