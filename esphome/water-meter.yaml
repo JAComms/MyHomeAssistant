@@ -122,7 +122,7 @@ sensor:
     update_interval : 5s
     total:
       unit_of_measurement: 'pulses'
-      name: "Total Pulse Counts"
+      name: "Pulse Count Total"
       id: pulse_count_total
 
   - platform: pulse_meter
