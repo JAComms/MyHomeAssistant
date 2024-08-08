@@ -946,8 +946,8 @@ sensor:
 
   #  Adds the 'Reading Since Reset' that tracks the LIFETIME total of m3
   - platform: template
-    name: "Gas - Consumed (Since Reset)"
-    id: gas_meter_consumed_since_reset
+    name: "Gas Meter - Reading"
+    id: gas_meter_reading
     unit_of_measurement: "m³"
     device_class: gas
     state_class: "total_increasing"
