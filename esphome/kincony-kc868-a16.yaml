@@ -1008,7 +1008,7 @@ sensor:
       icon: "mdi:water"
       state_class: "total_increasing"
       device_class: water
-      accuracy_decimals: 2
+      accuracy_decimals: 0
       filters:
 #        - lambda: return (x / 1000.0);   # 1 pulse = 1L.  This gives Kilo Litres
         - delta : 0.001
