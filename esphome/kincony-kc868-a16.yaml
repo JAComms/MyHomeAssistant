@@ -908,10 +908,8 @@ sensor:
     internal_filter_mode: PULSE
     internal_filter: 100ms
     timeout: 3min
-    update_interval: 1s
     filters:
       - multiply: 10.0   # 1 pulse = 10L
-      - delta : 0.001    # Only send updates if reading changes by at least
 
     #  Uses the above pulse_meter and adds sensor and calculations for tracking m3
     total:    
@@ -930,10 +928,8 @@ sensor:
               float current_gas_m3_value = id(gas_consumed_m3).state;
               id(gas_total_m3) += current_gas_m3_value - previous_gas_m3_value;
               previous_gas_m3_value = current_gas_m3_value;
-      update_interval: 1s
       filters:
         - multiply: 0.01   # 100 pulses = 1,000L = 1m3
-        - delta : 0.001    # Only send updates if reading changes by at least
 
 
   - platform: template
@@ -1007,10 +1003,8 @@ sensor:
     internal_filter_mode: PULSE
     internal_filter: 100ms
     timeout: 3min
-    update_interval : 1s
     filters:
       - multiply: 5.0  # Each pulse equals 5 liters
-      - delta : 0.001
 
 
     #  Uses the above pulse_meter and adds sensor and calculations for tracking current litres
@@ -1033,7 +1027,6 @@ sensor:
       filters:
 #        - lambda: return (x / 200.0);   # 1 pulse = 5L.  This gives Kilo Litres
         - multiply: 5.0  # Each pulse equals 5 liters
-        - delta : 0.001
 
 
   #  Adds the 'Reading Since Reset' that tracks the LIFETIME total of m3
