@@ -602,7 +602,7 @@ sensor:
      # Dentra Components - Adds Energy Today. Persistents if restarted
     energy_today:
       name: "${ct_sensor_1_name} - Energy Today"
-      id: total_energy_today
+      id: ${ct_sensor_1_name}_total_energy_today
       accuracy_decimals: 3
       icon: "mdi:hours-24"
       web_server_sorting_weight: '1'
@@ -610,7 +610,7 @@ sensor:
      # Dentra Components - Adds Energy Yesterday
     energy_yesterday:
       name: "${ct_sensor_1_name} - Energy Yesterday"
-      id: total_energy_yesterday
+      id: ${ct_sensor_1_name}_total_energy_yesterday
       accuracy_decimals: 3
       icon: "mdi:calendar-today-outline"
       web_server_sorting_weight: '1'
@@ -618,7 +618,7 @@ sensor:
      # Dentra Components - Adds Energy Week
     energy_week:
       name: "${ct_sensor_1_name} - Energy Week"
-      id: total_energy_week
+      id: ${ct_sensor_1_name}_total_energy_week
       accuracy_decimals: 3
       icon: "mdi:calendar-week"
       web_server_sorting_weight: '1'
@@ -626,7 +626,7 @@ sensor:
      # Dentra Components - Adds Energy Month
     energy_month:
       name: "${ct_sensor_1_name} - Energy Month"
-      id: total_energy_month
+      id: ${ct_sensor_1_name}_total_energy_month
       accuracy_decimals: 3
       icon: "mdi:calendar-month"
       web_server_sorting_weight: '1'   
