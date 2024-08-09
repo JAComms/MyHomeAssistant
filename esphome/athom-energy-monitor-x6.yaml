@@ -60,7 +60,7 @@ preferences:
 
 logger:
   baud_rate: 115200
-  level: DEBUG
+  level:  ${log_level}
   hardware_uart: UART0
 
 #########################################################################
