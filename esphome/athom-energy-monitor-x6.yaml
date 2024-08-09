@@ -13,7 +13,7 @@ substitutions:
   # Define a domain for this device to use. i.e. iot.home.lan (so device will appear as athom-smart-plug-v2.iot.home.lan in DNS/DHCP logs)
   dns_domain: ""
   # Set timezone of the smart plug. Useful if the plug is in a location different to the HA server. Can be entered in unix Country/Area format (i.e. "Australia/Sydney")
-  timezone: ""
+  timezone: "Australia/Sydney"
   # Enables faster network connections, with last connected SSID being connected to and no full scan for SSID being undertaken
   wifi_fast_connect: "false"
 
@@ -30,28 +30,6 @@ substitutions:
   cs_pin:        GPIO6
 #############################ESP32C3###########################
 
-#############################ESP32-WROOM-32D###########################
-  # bl0906_tx_pin: GPIO12
-  # bl0906_rx_pin: GPIO14
-  # button_pin:    GPIO0
-  # led_pin:       GPIO15
-  # backlight_pin: GPIO33
-  # clk_pin:       GPIO16
-  # mosi_pin:      GPIO17
-  # reset_pin:     GPIO5
-  # dc_pin:        GPIO18
-  # cs_pin:        GPIO19
-#############################ESP32-WROOM-32D###########################
-esphome:
-  name: "${name}"
-  friendly_name: "${friendly_name}"
-  area: "${room}"
-  name_add_mac_suffix: true
-  min_version: 2024.6.0
-  project:
-    name: "${project_name}"
-    version: "${project_version}"
-
 esp32:
   board: esp32-c3-devkitm-1
   flash_size: 4MB
@@ -60,54 +38,49 @@ esp32:
     type: arduino
     version: recommended
 
-# esp32:
-#   board: esp32dev
-#   flash_size: 4MB
-#   variant: ESP32
-#   framework:
-#     type: arduino
-#     version: recommended
-
 preferences:
   flash_write_interval: 5min
-
-api:
-  # reboot_timeout: 0s
-
-ota:
-  - platform: esphome
 
 logger:
   baud_rate: 115200
   # level: VERY_VERBOSE
   hardware_uart: UART0
 
-mdns:
-  disabled: false
-
-web_server:
-  port: 80
-
-wifi:
-  ap: {}
-  fast_connect: "${wifi_fast_connect}"
-  domain: "${dns_domain}"
-
-captive_portal:
+#########################################################################
+#
+# Remote Packages to be utilised
+#
 
 dashboard_import:
-  package_import_url: github://athom-tech/esp32-configs/athom-energy-monitor-x6.yaml
+  package_import_url: github://jacomms/myhomeassistant/athom-energy-monitor-x6.yaml
+
+packages:
+  base-config:         !include common/base-configuration.yaml
+  wifi-config:         !include common/network-wifi.yaml
 
 external_components:
   - source: github://athom-tech/esp32-configs@main
     components: bl0906
     refresh: 0s
 
+# Dentra Components - Adds 'Platform - Energy Statistics'
+# https://github.com/dentra/esphome-components/tree/master/components/energy_statistics
+  - source: github://dentra/esphome-components
+    components: energy_statistics
+    refresh: 0s
+
+#####################################################################
+#
+# Globals - Store values between reboots
+#
+
 globals:
+
   - id: id_Energy_sum_persist
     type: float
     restore_value: yes
     initial_value: '0.0'
+
   - id: id_Energy_sum_lastvalue
     type: float
     restore_value: no
@@ -117,6 +90,7 @@ globals:
     type: float
     restore_value: yes
     initial_value: '0.0'
+
   - id: id_Energy_1_lastvalue
     type: float
     restore_value: no
@@ -126,6 +100,7 @@ globals:
     type: float
     restore_value: yes
     initial_value: '0.0'
+
   - id: id_Energy_2_lastvalue
     type: float
     restore_value: no
@@ -135,6 +110,7 @@ globals:
     type: float
     restore_value: yes
     initial_value: '0.0'
+
   - id: id_Energy_3_lastvalue
     type: float
     restore_value: no
@@ -144,6 +120,7 @@ globals:
     type: float
     restore_value: yes
     initial_value: '0.0'
+  
   - id: id_Energy_4_lastvalue
     type: float
     restore_value: no
@@ -153,6 +130,7 @@ globals:
     type: float
     restore_value: yes
     initial_value: '0.0'
+  
   - id: id_Energy_5_lastvalue
     type: float
     restore_value: no
@@ -162,16 +140,27 @@ globals:
     type: float
     restore_value: yes
     initial_value: '0.0'
+  
   - id: id_Energy_6_lastvalue
     type: float
     restore_value: no
     initial_value: '0.0'
+
+#####################################################################
+#
+# Define the COMs Port
+#
 
 uart:
   tx_pin: "$bl0906_tx_pin"
   rx_pin: "$bl0906_rx_pin"
   baud_rate: 19200
   id: uart_bl0906
+
+#####################################################################
+#
+# Lights
+#
 
 light:
   - platform: status_led
@@ -180,10 +169,12 @@ light:
     disabled_by_default: true
     pin: $led_pin
 
+#####################################################################
+#
+# Binary Sensors
+#
+
 binary_sensor:
-  - platform: status
-    name: "Status"
-    entity_category: diagnostic
 
   - platform: gpio
     pin:
@@ -198,92 +189,138 @@ binary_sensor:
         then:
           - button.press: Reset
 
+#####################################################################
+#
+# Sensors
+#
+
 sensor:
-  - platform: uptime
-    name: "Uptime Sensor"
-    id: uptime_sensor
-    entity_category: diagnostic
-    internal: true
-
-  - platform: wifi_signal
-    name: "WiFi Signal dB"
-    id: wifi_signal_db
-    update_interval: 60s
-    entity_category: "diagnostic"
-
-  - platform: copy
-    source_id: wifi_signal_db
-    name: "WiFi Signal Percent"
-    filters:
-      - lambda: return min(max(2 * (x + 100.0), 0.0), 100.0);
-    unit_of_measurement: "Signal %"
-    entity_category: "diagnostic"
-    device_class: ""
 
   - platform: bl0906
     update_interval: "${update_interval}"
+
     Frequency:
       name: 'Frequency'
       id: 'Frequency'
+
     Temperature:
       name: 'Temperature'
       id: 'Temperature'
+
     Voltage:
       name: 'Voltage'
       id: 'Voltage'
-    Current_1:
-      name: 'Current_1'
-      id: 'Current_1'
-    Current_2:
-      name: 'Current_2'
-      id: 'Current_2'
-    Current_3:
-      name: 'Current_3'
-      id: 'Current_3'
-    Current_4:
-      name: 'Current_4'
-      id: 'Current_4'
-    Current_5:
-      name: 'Current_5'
-      id: 'Current_5'
-    Current_6:
-      name: 'Current_6'
-      id: 'Current_6'
+
+#######################
+#
+# CT Sensor - 1
+#
+
     Power_1:
       name: 'Power_1'
       id: 'Power_1'
+
+    Current_1:
+      name: 'Current_1'
+      id: 'Current_1'
+
+    Energy_1:
+      id: 'Energy_1'
+
+#######################
+#
+# CT Sensor - 2
+#
+
     Power_2:
       name: 'Power_2'
       id: 'Power_2'
-    Power_3:
+      
+    Current_2:
+      name: 'Current_2'
+      id: 'Current_2'
+
+    Energy_2:
+      id: 'Energy_2'
+
+#######################
+#
+# CT Sensor - 3
+#
+
+     Power_3:
       name: 'Power_3'
       id: 'Power_3'
+
+    Current_3:
+      name: 'Current_3'
+      id: 'Current_3'
+
+    Energy_3:
+      id: 'Energy_3'
+
+#######################
+#
+# CT Sensor - 4
+#
+
     Power_4:
       name: 'Power_4'
       id: 'Power_4'
+
+    Current_4:
+      name: 'Current_4'
+      id: 'Current_4'
+
+    Energy_4:
+      id: 'Energy_4'
+
+#######################
+#
+# CT Sensor - 5
+#
+
     Power_5:
       name: 'Power_5'
       id: 'Power_5'
+
+    Current_5:
+      name: 'Current_5'
+      id: 'Current_5'
+
+    Energy_5:
+      id: 'Energy_5'
+      
+#######################
+#
+# CT Sensor - 6
+#
+
     Power_6:
       name: 'Power_6'
       id: 'Power_6'
-    Energy_1:
-      id: 'Energy_1'
-    Energy_2:
-      id: 'Energy_2'
-    Energy_3:
-      id: 'Energy_3'
-    Energy_4:
-      id: 'Energy_4'
-    Energy_5:
-      id: 'Energy_5'
+
+    Current_6:
+      name: 'Current_6'
+      id: 'Current_6'
+
     Energy_6:
       id: 'Energy_6'
-    Energy_sum:
-      id: 'Energy_sum'
+    
+  
+#######################
+#
+# Sensors - Sum Totals
+#
+
     Power_sum:
       name: 'Power_sum'
       id: 'Power_sum'
+
+    Energy_sum:
+      id: 'Energy_sum'
+    
+
 
   - platform: copy
     name: 'Energy_sum'
@@ -439,79 +476,4 @@ sensor:
           }
           return id(id_Energy_6_persist);
 
-button:
-  - platform: restart
-    name: "Restart"
-    entity_category: config
-
-  - platform: factory_reset
-    name: "Factory Reset"
-    id: Reset
-    entity_category: config
-
-  - platform: safe_mode
-    name: "Safe Mode"
-    internal: false
-    entity_category: config
-
-text_sensor:
-  - platform: wifi_info
-    ip_address:
-      name: "IP Address"
-      id: ip_address
-      entity_category: diagnostic
-    ssid:
-      name: "Connected SSID"
-      id: ssid
-      entity_category: diagnostic
-    mac_address:
-      name: "Mac Address"
-      id: mac_address
-      entity_category: diagnostic
-
-  - platform: template
-    name: "Last Restart"
-    id: device_last_restart
-    icon: mdi:clock
-    entity_category: diagnostic
-    device_class: timestamp
-
-  - platform: template
-    name: "Uptime"
-    id: uptimes
-    icon: mdi:clock-start
-    entity_category: diagnostic
-    lambda: |-
-      int seconds = (id(uptime_sensor).state);
-      int days = seconds / (24 * 3600);
-      seconds = seconds % (24 * 3600);
-      int hours = seconds / 3600;
-      seconds = seconds % 3600;
-      int minutes = seconds /  60;
-      seconds = seconds % 60;
-      if ( days > 3650 ) {
-        return { "Starting up" };
-      } else if ( days ) {
-        return { (String(days) +"d " + String(hours) +"h " + String(minutes) +"m "+ String(seconds) +"s").c_str() };
-      } else if ( hours ) {
-        return { (String(hours) +"h " + String(minutes) +"m "+ String(seconds) +"s").c_str() };
-      } else if ( minutes ) {
-        return { (String(minutes) +"m "+ String(seconds) +"s").c_str() };
-      } else {
-        return { (String(seconds) +"s").c_str() };
-      }
-
-time:
-  - platform: sntp
-    id: sntp_time
-    timezone: "${timezone}"
-    update_interval: 360min
-    on_time_sync:
-      then:
-        - if:
-            condition:
-              lambda: 'return id(device_last_restart).state == "";'
-            then:
-              - text_sensor.template.publish:
-                  id: device_last_restart
-                  state: !lambda 'return id(sntp_time).now().strftime("%a %d %b %Y - %I:%M:%S %p");'
+#####################################################################
