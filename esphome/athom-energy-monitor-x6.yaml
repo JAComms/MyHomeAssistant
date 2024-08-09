@@ -1,14 +1,17 @@
-****** TO BE EDITED TO UTILISE JACOMMS FRAMEWORK  *******
-
+#########################################################################
+#
+# Athom Energy Monitor - 6 Channel
+# See: https://www.athom.tech/blank-1/6-ch-energy-meter-made-for-esphome
+#
 
 substitutions:
   name: "athom-energy-monitor"
   friendly_name: "Athom Energy Monitor"
   # Allows ESP device to be automatically lined to an 'Area' in Home Assistant. Typically used for areas such as 'Lounge Room', 'Kitchen' etc
   room: ""
-  device_description: "athom bl0906 energy monitor (6 channels)"
-  project_name: "Athom Technology.Athom Energy Monitor(6 Channels)"
-  project_version: "2.0.1"
+  device_description: "Athom - Energy Monitor (6 channels)"
+  project_name: "Athom Technology.Energy Monitor(6 Channels)"
+  project_version: "2.0.2"
   update_interval: 5s
   # Define a domain for this device to use. i.e. iot.home.lan (so device will appear as athom-smart-plug-v2.iot.home.lan in DNS/DHCP logs)
   dns_domain: ""
@@ -17,6 +20,15 @@ substitutions:
   # Enables faster network connections, with last connected SSID being connected to and no full scan for SSID being undertaken
   wifi_fast_connect: "false"
 
+  # Names to describe the usage of each CT sensor. i.e. Lights, GPO1, Grid etc. Used to then prefix all the associated sensors.
+  ct_sensor_1_name: "CT 1"
+  ct_sensor_2_name: "CT 2"
+  ct_sensor_3_name: "CT 3"
+  ct_sensor_4_name: "CT 4"
+  ct_sensor_5_name: "CT 5"
+  ct_sensor_6_name: "CT 6"
+  
+   
 #############################ESP32C3###########################
   bl0906_tx_pin: GPIO7
   bl0906_rx_pin: GPIO8
@@ -76,15 +88,17 @@ external_components:
 
 globals:
 
-  - id: id_Energy_sum_persist
+  - id: id_total_energy_persist
     type: float
     restore_value: yes
     initial_value: '0.0'
 
-  - id: id_Energy_sum_lastvalue
+  - id: id_total_energy_lastvalue
     type: float
     restore_value: no
     initial_value: '0.0'
+
+#######################
 
   - id: id_Energy_1_persist
     type: float
@@ -96,6 +110,8 @@ globals:
     restore_value: no
     initial_value: '0.0'
 
+#######################
+
   - id: id_Energy_2_persist
     type: float
     restore_value: yes
@@ -105,6 +121,8 @@ globals:
     type: float
     restore_value: no
     initial_value: '0.0'
+
+#######################
 
   - id: id_Energy_3_persist
     type: float
@@ -116,6 +134,8 @@ globals:
     restore_value: no
     initial_value: '0.0'
 
+#######################
+
   - id: id_Energy_4_persist
     type: float
     restore_value: yes
@@ -126,6 +146,8 @@ globals:
     restore_value: no
     initial_value: '0.0'
 
+#######################
+
   - id: id_Energy_5_persist
     type: float
     restore_value: yes
@@ -135,6 +157,8 @@ globals:
     type: float
     restore_value: no
     initial_value: '0.0'
+
+#######################
 
   - id: id_Energy_6_persist
     type: float
@@ -168,6 +192,7 @@ light:
     id: blue_led
     disabled_by_default: true
     pin: $led_pin
+    web_server_sorting_weight: ''
 
 #####################################################################
 #
@@ -188,6 +213,7 @@ binary_sensor:
         - ON for at least 4s
         then:
           - button.press: Reset
+    web_server_sorting_weight: ''
 
 #####################################################################
 #
@@ -199,17 +225,20 @@ sensor:
   - platform: bl0906
     update_interval: "${update_interval}"
 
-    Frequency:
-      name: 'Frequency'
-      id: 'Frequency'
-
     Temperature:
       name: 'Temperature'
       id: 'Temperature'
+      web_server_sorting_weight: ''
+
+    Frequency:
+      name: 'Frequency'
+      id: 'Frequency'
+      web_server_sorting_weight: ''
 
     Voltage:
       name: 'Voltage'
       id: 'Voltage'
+      web_server_sorting_weight: ''
 
 #######################
 #
@@ -217,15 +246,19 @@ sensor:
 #
 
     Power_1:
-      name: 'Power_1'
+      name: "${ct_sensor_1_name} - Power"
       id: 'Power_1'
+      web_server_sorting_weight: ''
 
     Current_1:
-      name: 'Current_1'
+      name: "${ct_sensor_1_name} - Current"
       id: 'Current_1'
+      web_server_sorting_weight: ''
 
     Energy_1:
+      name: "${ct_sensor_1_name} - Energy"
       id: 'Energy_1'
+      web_server_sorting_weight: ''
 
 #######################
 #
@@ -233,31 +266,39 @@ sensor:
 #
 
     Power_2:
-      name: 'Power_2'
+      name: "${ct_sensor_2_name} - Power"
       id: 'Power_2'
-      
+      web_server_sorting_weight: ''
+
     Current_2:
-      name: 'Current_2'
+      name: "${ct_sensor_2_name} - Current"
       id: 'Current_2'
+      web_server_sorting_weight: ''
 
     Energy_2:
+      name: "${ct_sensor_2_name} - Energy"
       id: 'Energy_2'
+      web_server_sorting_weight: ''
 
 #######################
 #
 # CT Sensor - 3
 #
 
-     Power_3:
-      name: 'Power_3'
+    Power_3:
+      name: "${ct_sensor_3_name} - Power"
       id: 'Power_3'
+      web_server_sorting_weight: ''
 
     Current_3:
-      name: 'Current_3'
+      name: "${ct_sensor_3_name} - Current"
       id: 'Current_3'
+      web_server_sorting_weight: ''
 
     Energy_3:
+      name: "${ct_sensor_3_name} - Energy"
       id: 'Energy_3'
+      web_server_sorting_weight: ''
 
 #######################
 #
@@ -265,31 +306,39 @@ sensor:
 #
 
     Power_4:
-      name: 'Power_4'
+      name: "${ct_sensor_4_name} - Power"
       id: 'Power_4'
+      web_server_sorting_weight: ''
 
     Current_4:
-      name: 'Current_4'
+      name: "${ct_sensor_4_name} - Current"
       id: 'Current_4'
+      web_server_sorting_weight: ''
 
     Energy_4:
+      name: "${ct_sensor_4_name} - Energy"
       id: 'Energy_4'
-
+      web_server_sorting_weight: ''
+      
 #######################
 #
 # CT Sensor - 5
 #
 
     Power_5:
-      name: 'Power_5'
+      name: "${ct_sensor_5_name} - Power"
       id: 'Power_5'
+      web_server_sorting_weight: ''
 
     Current_5:
-      name: 'Current_5'
+      name: "${ct_sensor_5_name} - Current"
       id: 'Current_5'
+      web_server_sorting_weight: ''
 
     Energy_5:
+      name: "${ct_sensor_5_name} - Energy"
       id: 'Energy_5'
+      web_server_sorting_weight: ''
       
 #######################
 #
@@ -297,15 +346,19 @@ sensor:
 #
 
     Power_6:
-      name: 'Power_6'
+      name: "${ct_sensor_6_name} - Power"
       id: 'Power_6'
+      web_server_sorting_weight: ''
 
     Current_6:
-      name: 'Current_6'
+      name: "${ct_sensor_6_name} - Current"
       id: 'Current_6'
+      web_server_sorting_weight: ''
 
     Energy_6:
+      name: "${ct_sensor_6_name} - Energy"
       id: 'Energy_6'
+      web_server_sorting_weight: ''
     
   
 #######################
@@ -314,35 +367,39 @@ sensor:
 #
 
     Power_sum:
-      name: 'Power_sum'
-      id: 'Power_sum'
+      name: 'Total - Power'
+      id: 'total_power'
+      web_server_sorting_weight: ''
 
     Energy_sum:
-      id: 'Energy_sum'
+      name: 'Total - Energy'
+      id: 'total_energy'
+      internal: true
     
-
+#####################################################################
 
   - platform: copy
-    name: 'Energy_sum'
-    id: Energy_sum_persist
-    source_id: Energy_sum
+    name: 'total_energy'
+    id: total_energy_persist
+    source_id: total_energy
     filters:
       - lambda: |-
-          if(id(id_Energy_sum_lastvalue) == 0.0  )
+          if(id(id_total_energy_lastvalue) == 0.0  )
           {
-            id(id_Energy_sum_lastvalue) = id(Energy_sum).state;
+            id(id_total_energy_lastvalue) = id(total_energy).state;
           }
-          if(x < id(id_Energy_sum_persist))
+          if(x < id(id_total_energy_persist))
           {
-            float delta =  x - id(id_Energy_sum_lastvalue);
-            id(id_Energy_sum_persist) += delta;
-            id(id_Energy_sum_lastvalue) = x;
+            float delta =  x - id(id_total_energy_lastvalue);
+            id(id_total_energy_persist) += delta;
+            id(id_total_energy_lastvalue) = x;
           }
           else
           {
-            id(id_Energy_sum_persist) = x;
+            id(id_total_energy_persist) = x;
           }
-          return id(id_Energy_sum_persist);
+          return id(id_total_energy_persist);
+    internal: true
 
   - platform: copy
     name: 'Energy_1'
@@ -365,7 +422,8 @@ sensor:
             id(id_Energy_1_persist) = x;
           }
           return id(id_Energy_1_persist);
-
+    internal: true
+    
   - platform: copy
     name: 'Energy_2'
     id: Energy_2_persist
@@ -387,7 +445,8 @@ sensor:
             id(id_Energy_2_persist) = x;
           }
           return id(id_Energy_2_persist);
-
+    internal: true
+    
   - platform: copy
     name: 'Energy_3'
     id: Energy_3_persist
@@ -409,7 +468,8 @@ sensor:
             id(id_Energy_3_persist) = x;
           }
           return id(id_Energy_3_persist);                    
-
+    internal: true
+    
   - platform: copy
     name: 'Energy_4'
     id: Energy_4_persist
@@ -431,7 +491,8 @@ sensor:
             id(id_Energy_4_persist) = x;
           }
           return id(id_Energy_4_persist);
-
+    internal: true
+    
   - platform: copy
     name: 'Energy_5'
     id: Energy_5_persist
@@ -453,7 +514,8 @@ sensor:
             id(id_Energy_5_persist) = x;
           }
           return id(id_Energy_5_persist);
-
+    internal: true
+    
   - platform: copy
     name: 'Energy_6'
     id: Energy_6_persist
@@ -475,5 +537,298 @@ sensor:
             id(id_Energy_6_persist) = x;
           }
           return id(id_Energy_6_persist);
+    internal: true
+
+#####################################################################
+#
+# Function added by the Dentra Components
+#
+
+#######################
+#
+# CT Sensor - Total of ALL
+#
+     # Dentra Components - Define the id of the sensor tracking 'Total Energy' used
+  - platform: "energy_statistics"
+    total: total_energy_persist
+    
+     # Dentra Components - Adds Energy Today. Persistents if restarted
+    energy_today:
+      name: "Total - Energy Today"
+      id: total_energy_today
+      accuracy_decimals: 3
+      icon: "mdi:hours-24"
+      web_server_sorting_weight: ''
+
+     # Dentra Components - Adds Energy Yesterday
+    energy_yesterday:
+      name: "Total - Energy Yesterday"
+      id: total_energy_yesterday
+      accuracy_decimals: 3
+      icon: "mdi:calendar-today-outline"
+      web_server_sorting_weight: ''
+
+     # Dentra Components - Adds Energy Week
+    energy_week:
+      name: "Total - Energy Week"
+      id: total_energy_week
+      accuracy_decimals: 3
+      icon: "mdi:calendar-week"
+      web_server_sorting_weight: ''
+
+     # Dentra Components - Adds Energy Month
+    energy_month:
+      name: "Total - Energy Month"
+      id: total_energy_month
+      accuracy_decimals: 3
+      icon: "mdi:calendar-month"
+      web_server_sorting_weight: ''   
+
+
+#######################
+#
+# CT Sensor - 1
+#
+
+  - platform: "energy_statistics"
+    total: Energy_1_persist
+
+     # Dentra Components - Adds Energy Today. Persistents if restarted
+    energy_today:
+      name: "${ct_sensor_1_name} - Energy Today"
+      id: total_energy_today
+      accuracy_decimals: 3
+      icon: "mdi:hours-24"
+      web_server_sorting_weight: ''
+
+     # Dentra Components - Adds Energy Yesterday
+    energy_yesterday:
+      name: "${ct_sensor_1_name} - Energy Yesterday"
+      id: total_energy_yesterday
+      accuracy_decimals: 3
+      icon: "mdi:calendar-today-outline"
+      web_server_sorting_weight: ''
+
+     # Dentra Components - Adds Energy Week
+    energy_week:
+      name: "${ct_sensor_1_name} - Energy Week"
+      id: total_energy_week
+      accuracy_decimals: 3
+      icon: "mdi:calendar-week"
+      web_server_sorting_weight: ''
+
+     # Dentra Components - Adds Energy Month
+    energy_month:
+      name: "${ct_sensor_1_name} - Energy Month"
+      id: total_energy_month
+      accuracy_decimals: 3
+      icon: "mdi:calendar-month"
+      web_server_sorting_weight: ''   
+
+
+#######################
+#
+# CT Sensor - 2
+#
+
+  - platform: "energy_statistics"
+    total: Energy_2_persist
+
+     # Dentra Components - Adds Energy Today. Persistents if restarted
+    energy_today:
+      name: "${ct_sensor_2_name} - Energy Today"
+      id: total_energy_today
+      accuracy_decimals: 3
+      icon: "mdi:hours-24"
+      web_server_sorting_weight: ''
+
+     # Dentra Components - Adds Energy Yesterday
+    energy_yesterday:
+      name: "${ct_sensor_2_name} - Energy Yesterday"
+      id: total_energy_yesterday
+      accuracy_decimals: 3
+      icon: "mdi:calendar-today-outline"
+      web_server_sorting_weight: ''
+
+     # Dentra Components - Adds Energy Week
+    energy_week:
+      name: "${ct_sensor_2_name} - Energy Week"
+      id: total_energy_week
+      accuracy_decimals: 3
+      icon: "mdi:calendar-week"
+      web_server_sorting_weight: ''
+
+     # Dentra Components - Adds Energy Month
+    energy_month:
+      name: "${ct_sensor_2_name} - Energy Month"
+      id: total_energy_month
+      accuracy_decimals: 3
+      icon: "mdi:calendar-month"
+      web_server_sorting_weight: ''   
+
+
+#######################
+#
+# CT Sensor - 3
+#
+
+  - platform: "energy_statistics"
+    total: Energy_3_persist
+
+     # Dentra Components - Adds Energy Today. Persistents if restarted
+    energy_today:
+      name: "${ct_sensor_3_name} - Energy Today"
+      id: total_energy_today
+      accuracy_decimals: 3
+      icon: "mdi:hours-24"
+      web_server_sorting_weight: ''
+
+     # Dentra Components - Adds Energy Yesterday
+    energy_yesterday:
+      name: "${ct_sensor_3_name} - Energy Yesterday"
+      id: total_energy_yesterday
+      accuracy_decimals: 3
+      icon: "mdi:calendar-today-outline"
+      web_server_sorting_weight: ''
+
+     # Dentra Components - Adds Energy Week
+    energy_week:
+      name: "${ct_sensor_3_name} - Energy Week"
+      id: total_energy_week
+      accuracy_decimals: 3
+      icon: "mdi:calendar-week"
+      web_server_sorting_weight: ''
+
+     # Dentra Components - Adds Energy Month
+    energy_month:
+      name: "${ct_sensor_3_name} - Energy Month"
+      id: total_energy_month
+      accuracy_decimals: 3
+      icon: "mdi:calendar-month"
+      web_server_sorting_weight: ''   
+
+
+#######################
+#
+# CT Sensor - 4
+#
+
+  - platform: "energy_statistics"
+    total: Energy_4_persist
+
+     # Dentra Components - Adds Energy Today. Persistents if restarted
+    energy_today:
+      name: "${ct_sensor_4_name} - Energy Today"
+      id: total_energy_today
+      accuracy_decimals: 3
+      icon: "mdi:hours-24"
+      web_server_sorting_weight: ''
+
+     # Dentra Components - Adds Energy Yesterday
+    energy_yesterday:
+      name: "${ct_sensor_4_name} - Energy Yesterday"
+      id: total_energy_yesterday
+      accuracy_decimals: 3
+      icon: "mdi:calendar-today-outline"
+      web_server_sorting_weight: ''
+
+     # Dentra Components - Adds Energy Week
+    energy_week:
+      name: "${ct_sensor_4_name} - Energy Week"
+      id: total_energy_week
+      accuracy_decimals: 3
+      icon: "mdi:calendar-week"
+      web_server_sorting_weight: ''
+
+     # Dentra Components - Adds Energy Month
+    energy_month:
+      name: "${ct_sensor_4_name} - Energy Month"
+      id: total_energy_month
+      accuracy_decimals: 3
+      icon: "mdi:calendar-month"
+      web_server_sorting_weight: ''   
+
+
+#######################
+#
+# CT Sensor - 5
+#
+
+  - platform: "energy_statistics"
+    total: Energy_5_persist
+
+     # Dentra Components - Adds Energy Today. Persistents if restarted
+    energy_today:
+      name: "${ct_sensor_5_name} - Energy Today"
+      id: total_energy_today
+      accuracy_decimals: 3
+      icon: "mdi:hours-24"
+      web_server_sorting_weight: ''
+
+     # Dentra Components - Adds Energy Yesterday
+    energy_yesterday:
+      name: "${ct_sensor_5_name} - Energy Yesterday"
+      id: total_energy_yesterday
+      accuracy_decimals: 3
+      icon: "mdi:calendar-today-outline"
+      web_server_sorting_weight: ''
+
+     # Dentra Components - Adds Energy Week
+    energy_week:
+      name: "${ct_sensor_5_name} - Energy Week"
+      id: total_energy_week
+      accuracy_decimals: 3
+      icon: "mdi:calendar-week"
+      web_server_sorting_weight: ''
+
+     # Dentra Components - Adds Energy Month
+    energy_month:
+      name: "${ct_sensor_5_name} - Energy Month"
+      id: total_energy_month
+      accuracy_decimals: 3
+      icon: "mdi:calendar-month"
+      web_server_sorting_weight: ''   
+
+
+#######################
+#
+# CT Sensor - 6
+#
+
+  - platform: "energy_statistics"
+    total: Energy_6_persist
+
+     # Dentra Components - Adds Energy Today. Persistents if restarted
+    energy_today:
+      name: "${ct_sensor_6_name} - Energy Today"
+      id: total_energy_today
+      accuracy_decimals: 3
+      icon: "mdi:hours-24"
+      web_server_sorting_weight: ''
+
+     # Dentra Components - Adds Energy Yesterday
+    energy_yesterday:
+      name: "${ct_sensor_6_name} - Energy Yesterday"
+      id: total_energy_yesterday
+      accuracy_decimals: 3
+      icon: "mdi:calendar-today-outline"
+      web_server_sorting_weight: ''
+
+     # Dentra Components - Adds Energy Week
+    energy_week:
+      name: "${ct_sensor_6_name} - Energy Week"
+      id: total_energy_week
+      accuracy_decimals: 3
+      icon: "mdi:calendar-week"
+      web_server_sorting_weight: ''
+
+     # Dentra Components - Adds Energy Month
+    energy_month:
+      name: "${ct_sensor_6_name} - Energy Month"
+      id: total_energy_month
+      accuracy_decimals: 3
+      icon: "mdi:calendar-month"
+      web_server_sorting_weight: ''    
+
 
 #####################################################################
