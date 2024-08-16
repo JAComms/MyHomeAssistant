@@ -416,25 +416,25 @@ sensor:
 
   - platform: copy
     name: 'Energy_1'
-    id: Energy_1_persist
-    source_id: Energy_1
+    id: energy_1_persist
+    source_id: energy_1
     filters:
       - lambda: |-
-          if(id(id_Energy_1_lastvalue) == 0.0  )
+          if(id(id_energy_1_lastvalue) == 0.0  )
           {
-            id(id_Energy_1_lastvalue) = id(Energy_1).state;
+            id(id_energy_1_lastvalue) = id(energy_1).state;
           }
-          if(x < id(id_Energy_1_persist))
+          if(x < id(id_energy_1_persist))
           {
-            float delta =  x - id(id_Energy_1_lastvalue);
-            id(id_Energy_1_persist) += delta;
-            id(id_Energy_1_lastvalue) = x;
+            float delta =  x - id(id_energy_1_lastvalue);
+            id(id_energy_1_persist) += delta;
+            id(id_energy_1_lastvalue) = x;
           }
           else
           {
-            id(id_Energy_1_persist) = x;
+            id(id_energy_1_persist) = x;
           }
-          return id(id_Energy_1_persist);
+          return id(id_energy_1_persist);
     internal: true
     
   - platform: copy
