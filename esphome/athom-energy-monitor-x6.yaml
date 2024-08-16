@@ -16,7 +16,7 @@ substitutions:
   # Project Name
   project_name: "Athom Technology.Energy Monitor(6 Channels)"
   # Project version denotes the release version of the yaml file, allowing checking of deployed vs latest version
-  project_version: "2.0.2"
+  project_version: "2.0.3"
   # The phase in the home power supply, upon which this plug is utilsed. 1p = A. 3p = A, B or C.  (myHome GPO 1 = Phase C, GPO 2 = Phase A, GPO 3 = Phase B)
   power_circuit: "TBC"  
   # Sensor update interval
@@ -106,72 +106,72 @@ globals:
 
 #######################
 
-  - id: id_Energy_1_persist
+  - id: id_energy_1_persist
     type: float
     restore_value: yes
     initial_value: '0.0'
 
-  - id: id_Energy_1_lastvalue
+  - id: id_energy_1_lastvalue
     type: float
     restore_value: no
     initial_value: '0.0'
 
 #######################
 
-  - id: id_Energy_2_persist
+  - id: id_energy_2_persist
     type: float
     restore_value: yes
     initial_value: '0.0'
 
-  - id: id_Energy_2_lastvalue
+  - id: id_energy_2_lastvalue
     type: float
     restore_value: no
     initial_value: '0.0'
 
 #######################
 
-  - id: id_Energy_3_persist
+  - id: id_energy_3_persist
     type: float
     restore_value: yes
     initial_value: '0.0'
 
-  - id: id_Energy_3_lastvalue
+  - id: id_energy_3_lastvalue
     type: float
     restore_value: no
     initial_value: '0.0'
 
 #######################
 
-  - id: id_Energy_4_persist
+  - id: id_energy_4_persist
     type: float
     restore_value: yes
     initial_value: '0.0'
   
-  - id: id_Energy_4_lastvalue
+  - id: id_energy_4_lastvalue
     type: float
     restore_value: no
     initial_value: '0.0'
 
 #######################
 
-  - id: id_Energy_5_persist
+  - id: id_energy_5_persist
     type: float
     restore_value: yes
     initial_value: '0.0'
   
-  - id: id_Energy_5_lastvalue
+  - id: id_energy_5_lastvalue
     type: float
     restore_value: no
     initial_value: '0.0'
 
 #######################
 
-  - id: id_Energy_6_persist
+  - id: id_energy_6_persist
     type: float
     restore_value: yes
     initial_value: '0.0'
   
-  - id: id_Energy_6_lastvalue
+  - id: id_energy_6_lastvalue
     type: float
     restore_value: no
     initial_value: '0.0'
