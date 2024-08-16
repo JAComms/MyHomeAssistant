@@ -378,15 +378,16 @@ sensor:
 # Sensors - Sum Totals
 #
 
-    power_sum:
+    total_energy:
+      name: 'Total - Energy'
+      id: 'energy_total'
+      internal: true
+
+    total_power:
       name: 'Total - Power'
       id: 'total_power'
       web_server_sorting_weight: '1'
 
-    energy_sum:
-      name: 'Total - Energy'
-      id: 'total_energy'
-      internal: true
     
 #####################################################################
 
