@@ -231,17 +231,17 @@ sensor:
   - platform: bl0906
     update_interval: "${update_interval}"
 
-    Temperature:
+    temperature:
       name: 'Temperature'
       id: 'Temperature'
       web_server_sorting_weight: '1'
 
-    Frequency:
+    frequency:
       name: 'Frequency'
       id: 'Frequency'
       web_server_sorting_weight: '1'
 
-    Voltage:
+    voltage:
       name: 'Voltage'
       id: 'Voltage'
       web_server_sorting_weight: '1'
@@ -251,17 +251,17 @@ sensor:
 # CT Sensor - 1
 #
 
-    Power_1:
+    power_1:
       name: "${ct_sensor_1_name} - Power"
       id: 'Power_1'
       web_server_sorting_weight: '1'
 
-    Current_1:
+    current_1:
       name: "${ct_sensor_1_name} - Current"
       id: 'Current_1'
       web_server_sorting_weight: '1'
 
-    Energy_1:
+    energy_1:
       name: "${ct_sensor_1_name} - Energy"
       id: 'Energy_1'
       web_server_sorting_weight: '1'
@@ -271,17 +271,17 @@ sensor:
 # CT Sensor - 2
 #
 
-    Power_2:
+    power_2:
       name: "${ct_sensor_2_name} - Power"
       id: 'Power_2'
       web_server_sorting_weight: '1'
 
-    Current_2:
+    current_2:
       name: "${ct_sensor_2_name} - Current"
       id: 'Current_2'
       web_server_sorting_weight: '1'
 
-    Energy_2:
+    energy_2:
       name: "${ct_sensor_2_name} - Energy"
       id: 'Energy_2'
       web_server_sorting_weight: '1'
@@ -291,17 +291,17 @@ sensor:
 # CT Sensor - 3
 #
 
-    Power_3:
+    power_3:
       name: "${ct_sensor_3_name} - Power"
       id: 'Power_3'
       web_server_sorting_weight: '1'
 
-    Current_3:
+    current_3:
       name: "${ct_sensor_3_name} - Current"
       id: 'Current_3'
       web_server_sorting_weight: '1'
 
-    Energy_3:
+    energy_3:
       name: "${ct_sensor_3_name} - Energy"
       id: 'Energy_3'
       web_server_sorting_weight: '1'
@@ -311,17 +311,17 @@ sensor:
 # CT Sensor - 4
 #
 
-    Power_4:
+    power_4:
       name: "${ct_sensor_4_name} - Power"
       id: 'Power_4'
       web_server_sorting_weight: '1'
 
-    Current_4:
+    current_4:
       name: "${ct_sensor_4_name} - Current"
       id: 'Current_4'
       web_server_sorting_weight: '1'
 
-    Energy_4:
+    energy_4:
       name: "${ct_sensor_4_name} - Energy"
       id: 'Energy_4'
       web_server_sorting_weight: '1'
@@ -331,17 +331,17 @@ sensor:
 # CT Sensor - 5
 #
 
-    Power_5:
+    power_5:
       name: "${ct_sensor_5_name} - Power"
       id: 'Power_5'
       web_server_sorting_weight: '1'
 
-    Current_5:
+    current_5:
       name: "${ct_sensor_5_name} - Current"
       id: 'Current_5'
       web_server_sorting_weight: '1'
 
-    Energy_5:
+    energy_5:
       name: "${ct_sensor_5_name} - Energy"
       id: 'Energy_5'
       web_server_sorting_weight: '1'
@@ -351,17 +351,17 @@ sensor:
 # CT Sensor - 6
 #
 
-    Power_6:
+    power_6:
       name: "${ct_sensor_6_name} - Power"
       id: 'Power_6'
       web_server_sorting_weight: '1'
 
-    Current_6:
+    current_6:
       name: "${ct_sensor_6_name} - Current"
       id: 'Current_6'
       web_server_sorting_weight: '1'
 
-    Energy_6:
+    energy_6:
       name: "${ct_sensor_6_name} - Energy"
       id: 'Energy_6'
       web_server_sorting_weight: '1'
@@ -372,12 +372,12 @@ sensor:
 # Sensors - Sum Totals
 #
 
-    Power_sum:
+    power_sum:
       name: 'Total - Power'
       id: 'total_power'
       web_server_sorting_weight: '1'
 
-    Energy_sum:
+    energy_sum:
       name: 'Total - Energy'
       id: 'total_energy'
       internal: true
