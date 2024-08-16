@@ -604,7 +604,7 @@ sensor:
 #
 
   - platform: "energy_statistics"
-    total: Energy_1_persist
+    total: energy_1_persist
 
      # Dentra Components - Adds Energy Today. Persistents if restarted
     energy_today:
