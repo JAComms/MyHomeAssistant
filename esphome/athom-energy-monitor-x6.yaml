@@ -251,9 +251,6 @@ sensor:
 # CT Sensor - 1
 #
 
-    channel_2:
-
-
     channel_1:
       power:
         name: "${ct_sensor_1_name} - Power"
