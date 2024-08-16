@@ -439,117 +439,117 @@ sensor:
     
   - platform: copy
     name: 'Energy_2'
-    id: Energy_2_persist
-    source_id: Energy_2
+    id: energy_2_persist
+    source_id: energy_2
     filters:
       - lambda: |-
-          if(id(id_Energy_2_lastvalue) == 0.0  )
+          if(id(id_energy_2_lastvalue) == 0.0  )
           {
-            id(id_Energy_2_lastvalue) = id(Energy_2).state;
+            id(id_energy_2_lastvalue) = id(energy_2).state;
           }
-          if(x < id(id_Energy_2_persist))
+          if(x < id(id_energy_2_persist))
           {
-            float delta =  x - id(id_Energy_2_lastvalue);
-            id(id_Energy_2_persist) += delta;
-            id(id_Energy_2_lastvalue) = x;
+            float delta =  x - id(id_energy_2_lastvalue);
+            id(id_energy_2_persist) += delta;
+            id(id_energy_2_lastvalue) = x;
           }
           else
           {
-            id(id_Energy_2_persist) = x;
+            id(id_energy_2_persist) = x;
           }
-          return id(id_Energy_2_persist);
+          return id(id_energy_2_persist);
     internal: true
     
   - platform: copy
     name: 'Energy_3'
-    id: Energy_3_persist
-    source_id: Energy_3
+    id: energy_3_persist
+    source_id: energy_3
     filters:
       - lambda: |-
-          if(id(id_Energy_3_lastvalue) == 0.0  )
+          if(id(id_energy_3_lastvalue) == 0.0  )
           {
-            id(id_Energy_3_lastvalue) = id(Energy_3).state;
+            id(id_energy_3_lastvalue) = id(energy_3).state;
           }
-          if(x < id(id_Energy_3_persist))
+          if(x < id(id_energy_3_persist))
           {
-            float delta =  x - id(id_Energy_3_lastvalue);
-            id(id_Energy_3_persist) += delta;
-            id(id_Energy_3_lastvalue) = x;
+            float delta =  x - id(id_energy_3_lastvalue);
+            id(id_energy_3_persist) += delta;
+            id(id_energy_3_lastvalue) = x;
           }
           else
           {
-            id(id_Energy_3_persist) = x;
+            id(id_energy_3_persist) = x;
           }
-          return id(id_Energy_3_persist);                    
+          return id(id_energy_3_persist);                    
     internal: true
     
   - platform: copy
     name: 'Energy_4'
-    id: Energy_4_persist
-    source_id: Energy_4
+    id: energy_4_persist
+    source_id: energy_4
     filters:
       - lambda: |-
-          if(id(id_Energy_4_lastvalue) == 0.0  )
+          if(id(id_energy_4_lastvalue) == 0.0  )
           {
-            id(id_Energy_4_lastvalue) = id(Energy_4).state;
+            id(id_energy_4_lastvalue) = id(energy_4).state;
           }
-          if(x < id(id_Energy_4_persist))
+          if(x < id(id_energy_4_persist))
           {
-            float delta =  x - id(id_Energy_4_lastvalue);
-            id(id_Energy_4_persist) += delta;
-            id(id_Energy_4_lastvalue) = x;
+            float delta =  x - id(id_energy_4_lastvalue);
+            id(id_energy_4_persist) += delta;
+            id(id_energy_4_lastvalue) = x;
           }
           else
           {
-            id(id_Energy_4_persist) = x;
+            id(id_energy_4_persist) = x;
           }
-          return id(id_Energy_4_persist);
+          return id(id_energy_4_persist);
     internal: true
     
   - platform: copy
     name: 'Energy_5'
-    id: Energy_5_persist
-    source_id: Energy_5
+    id: energy_5_persist
+    source_id: energy_5
     filters:
       - lambda: |-
-          if(id(id_Energy_5_lastvalue) == 0.0  )
+          if(id(id_energy_5_lastvalue) == 0.0  )
           {
-            id(id_Energy_5_lastvalue) = id(Energy_5).state;
+            id(id_energy_5_lastvalue) = id(energy_5).state;
           }
-          if(x < id(id_Energy_5_persist))
+          if(x < id(id_energy_5_persist))
           {
-            float delta =  x - id(id_Energy_5_lastvalue);
-            id(id_Energy_5_persist) += delta;
-            id(id_Energy_5_lastvalue) = x;
+            float delta =  x - id(id_energy_5_lastvalue);
+            id(id_energy_5_persist) += delta;
+            id(id_energy_5_lastvalue) = x;
           }
           else
           {
-            id(id_Energy_5_persist) = x;
+            id(id_energy_5_persist) = x;
           }
-          return id(id_Energy_5_persist);
+          return id(id_energy_5_persist);
     internal: true
     
   - platform: copy
     name: 'Energy_6'
-    id: Energy_6_persist
-    source_id: Energy_6
+    id: energy_6_persist
+    source_id: energy_6
     filters:
       - lambda: |-
-          if(id(id_Energy_6_lastvalue) == 0.0  )
+          if(id(id_energy_6_lastvalue) == 0.0  )
           {
-            id(id_Energy_6_lastvalue) = id(Energy_6).state;
+            id(id_energy_6_lastvalue) = id(energy_6).state;
           }
-          if(x < id(id_Energy_6_persist))
+          if(x < id(id_energy_6_persist))
           {
-            float delta =  x - id(id_Energy_6_lastvalue);
-            id(id_Energy_6_persist) += delta;
-            id(id_Energy_6_lastvalue) = x;
+            float delta =  x - id(id_energy_6_lastvalue);
+            id(id_energy_6_persist) += delta;
+            id(id_energy_6_lastvalue) = x;
           }
           else
           {
-            id(id_Energy_6_persist) = x;
+            id(id_energy_6_persist) = x;
           }
-          return id(id_Energy_6_persist);
+          return id(id_energy_6_persist);
     internal: true
 
 #####################################################################
@@ -645,7 +645,7 @@ sensor:
 #
 
   - platform: "energy_statistics"
-    total: Energy_2_persist
+    total: energy_2_persist
 
      # Dentra Components - Adds Energy Today. Persistents if restarted
     energy_today:
@@ -686,7 +686,7 @@ sensor:
 #
 
   - platform: "energy_statistics"
-    total: Energy_3_persist
+    total: energy_3_persist
 
      # Dentra Components - Adds Energy Today. Persistents if restarted
     energy_today:
@@ -727,7 +727,7 @@ sensor:
 #
 
   - platform: "energy_statistics"
-    total: Energy_4_persist
+    total: energy_4_persist
 
      # Dentra Components - Adds Energy Today. Persistents if restarted
     energy_today:
@@ -768,7 +768,7 @@ sensor:
 #
 
   - platform: "energy_statistics"
-    total: Energy_5_persist
+    total: energy_5_persist
 
      # Dentra Components - Adds Energy Today. Persistents if restarted
     energy_today:
@@ -809,7 +809,7 @@ sensor:
 #
 
   - platform: "energy_statistics"
-    total: Energy_6_persist
+    total: energy_6_persist
 
      # Dentra Components - Adds Energy Today. Persistents if restarted
     energy_today:
