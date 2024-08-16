@@ -380,7 +380,7 @@ sensor:
 
     total_energy:
       name: 'Total - Energy'
-      id: 'energy_total'
+      id: 'total_energy'
       internal: true
 
     total_power:
