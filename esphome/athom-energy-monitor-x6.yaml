@@ -219,7 +219,7 @@ binary_sensor:
         - ON for at least 4s
         then:
           - button.press: Reset
-    entity_category: control
+    entity_category: config
     web_server_sorting_weight: '-19'
 
 #####################################################################
