@@ -198,7 +198,7 @@ light:
     id: blue_led
     disabled_by_default: true
     pin: $led_pin
-    web_server_sorting_weight: '1'
+    web_server_sorting_weight: '-20'
 
 #####################################################################
 #
@@ -219,8 +219,8 @@ binary_sensor:
         - ON for at least 4s
         then:
           - button.press: Reset
-    entity_category: config
-    web_server_sorting_weight: '2'
+    entity_category: control
+    web_server_sorting_weight: '-19'
 
 #####################################################################
 #
@@ -235,17 +235,17 @@ sensor:
     temperature:
       name: 'Temperature'
       id: 'Temperature'
-      web_server_sorting_weight: '1'
+      web_server_sorting_weight: '-10'
 
     frequency:
       name: 'Frequency'
       id: 'Frequency'
-      web_server_sorting_weight: '1'
+      web_server_sorting_weight: '-9'
 
     voltage:
       name: 'Voltage'
       id: 'Voltage'
-      web_server_sorting_weight: '1'
+      web_server_sorting_weight: '-8'
 
 #######################
 #
