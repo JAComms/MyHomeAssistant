@@ -4,6 +4,14 @@
 # See: https://www.athom.tech/blank-1/6-ch-energy-meter-made-for-esphome
 #
 
+#########################################################################
+#
+# TO DO: 
+#  1. Correct the ordering number for web server (max 50).
+#  2. Fix/replace SUM sensors to have ABC = Grid Totals
+#  3. Update Energy Meters to show Grid Total D/Yes/W/M/Y
+#
+
 substitutions:
   # Default name
   name: "athom-energy-monitor"
