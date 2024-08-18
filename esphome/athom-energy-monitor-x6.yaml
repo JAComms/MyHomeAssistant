@@ -189,19 +189,6 @@ uart:
 
 #####################################################################
 #
-# Lights
-#
-
-light:
-  - platform: status_led
-    name: "Status LED"
-    id: blue_led
-    disabled_by_default: true
-    pin: $led_pin
-    web_server_sorting_weight: '1'
-
-#####################################################################
-#
 # Binary Sensors
 #
 
@@ -219,7 +206,21 @@ binary_sensor:
         - ON for at least 4s
         then:
           - button.press: Reset
+    entity_category: config
     web_server_sorting_weight: '1'
+
+#####################################################################
+#
+# Lights
+#
+
+light:
+  - platform: status_led
+    name: "Status LED"
+    id: blue_led
+    disabled_by_default: true
+    pin: $led_pin
+    web_server_sorting_weight: '2'
 
 #####################################################################
 #
@@ -234,17 +235,17 @@ sensor:
     temperature:
       name: 'Temperature'
       id: 'Temperature'
-      web_server_sorting_weight: '1'
+      web_server_sorting_weight: '11'
 
     frequency:
       name: 'Frequency'
       id: 'Frequency'
-      web_server_sorting_weight: '1'
+      web_server_sorting_weight: '12'
 
     voltage:
       name: 'Voltage'
       id: 'Voltage'
-      web_server_sorting_weight: '1'
+      web_server_sorting_weight: '13'
 
 #######################
 #
@@ -255,17 +256,17 @@ sensor:
       power:
         name: "${ct_sensor_1_name} - Power"
         id: 'power_1'
-        web_server_sorting_weight: '1'
+        web_server_sorting_weight: '14'
 
       current:
         name: "${ct_sensor_1_name} - Current"
         id: 'current_1'
-        web_server_sorting_weight: '1'
+        web_server_sorting_weight: '15'
 
       energy:
-        name: "${ct_sensor_1_name} - Energy"
+        name: "${ct_sensor_1_name} - Energy Total"
         id: 'energy_1'
-        web_server_sorting_weight: '1'
+        web_server_sorting_weight: '16'
 
 #######################
 #
@@ -276,17 +277,17 @@ sensor:
       power:
         name: "${ct_sensor_2_name} - Power"
         id: 'power_2'
-        web_server_sorting_weight: '1'
+        web_server_sorting_weight: '17'
 
       current:
         name: "${ct_sensor_2_name} - Current"
         id: 'current_2'
-        web_server_sorting_weight: '1'
+        web_server_sorting_weight: '18'
 
       energy:
-        name: "${ct_sensor_2_name} - Energy"
+        name: "${ct_sensor_2_name} - Energy Total"
         id: 'energy_2'
-        web_server_sorting_weight: '1'
+        web_server_sorting_weight: '19'
 
 #######################
 #
@@ -297,17 +298,17 @@ sensor:
       power:
         name: "${ct_sensor_3_name} - Power"
         id: 'power_3'
-        web_server_sorting_weight: '1'
+        web_server_sorting_weight: '20'
 
       current:
         name: "${ct_sensor_3_name} - Current"
         id: 'current_3'
-        web_server_sorting_weight: '1'
+        web_server_sorting_weight: '21'
 
       energy:
-        name: "${ct_sensor_3_name} - Energy"
+        name: "${ct_sensor_3_name} - Energy Total"
         id: 'energy_3'
-        web_server_sorting_weight: '1'
+        web_server_sorting_weight: '21'
 
 #######################
 #
@@ -318,17 +319,17 @@ sensor:
       power:
         name: "${ct_sensor_4_name} - Power"
         id: 'power_4'
-        web_server_sorting_weight: '1'
+        web_server_sorting_weight: '23'
 
       current:
         name: "${ct_sensor_4_name} - Current"
         id: 'current_4'
-        web_server_sorting_weight: '1'
+        web_server_sorting_weight: '24'
 
       energy:
-        name: "${ct_sensor_4_name} - Energy"
+        name: "${ct_sensor_4_name} - Energy Total"
         id: 'energy_4'
-        web_server_sorting_weight: '1'
+        web_server_sorting_weight: '25'
       
 #######################
 #
@@ -339,17 +340,17 @@ sensor:
       power:
         name: "${ct_sensor_5_name} - Power"
         id: 'power_5'
-        web_server_sorting_weight: '1'
+        web_server_sorting_weight: '26'
 
       current:
         name: "${ct_sensor_5_name} - Current"
         id: 'current_5'
-        web_server_sorting_weight: '1'
+        web_server_sorting_weight: '27'
 
       energy:
-        name: "${ct_sensor_5_name} - Energy"
+        name: "${ct_sensor_5_name} - Energy Total"
         id: 'energy_5'
-        web_server_sorting_weight: '1'
+        web_server_sorting_weight: '28'
       
 #######################
 #
@@ -360,17 +361,17 @@ sensor:
       power:
         name: "${ct_sensor_6_name} - Power"
         id: 'power_6'
-        web_server_sorting_weight: '1'
+        web_server_sorting_weight: '29'
 
       current:
         name: "${ct_sensor_6_name} - Current"
         id: 'current_6'
-        web_server_sorting_weight: '1'
+        web_server_sorting_weight: '30'
 
       energy:
-        name: "${ct_sensor_6_name} - Energy"
+        name: "${ct_sensor_6_name} - Energy Total"
         id: 'energy_6'
-        web_server_sorting_weight: '1'
+        web_server_sorting_weight: '31'
     
   
 #######################
@@ -386,7 +387,7 @@ sensor:
     total_power:
       name: 'Total - Power'
       id: 'total_power'
-      web_server_sorting_weight: '1'
+      web_server_sorting_weight: '5'
 
     
 #####################################################################
@@ -571,7 +572,7 @@ sensor:
       id: total_energy_today
       accuracy_decimals: 3
       icon: "mdi:hours-24"
-      web_server_sorting_weight: '1'
+      web_server_sorting_weight: '6'
 
      # Dentra Components - Adds Energy Yesterday
     energy_yesterday:
@@ -579,7 +580,7 @@ sensor:
       id: total_energy_yesterday
       accuracy_decimals: 3
       icon: "mdi:calendar-today-outline"
-      web_server_sorting_weight: '1'
+      web_server_sorting_weight: '7'
 
      # Dentra Components - Adds Energy Week
     energy_week:
@@ -587,7 +588,7 @@ sensor:
       id: total_energy_week
       accuracy_decimals: 3
       icon: "mdi:calendar-week"
-      web_server_sorting_weight: '1'
+      web_server_sorting_weight: '8'
 
      # Dentra Components - Adds Energy Month
     energy_month:
@@ -595,7 +596,7 @@ sensor:
       id: total_energy_month
       accuracy_decimals: 3
       icon: "mdi:calendar-month"
-      web_server_sorting_weight: '1'   
+      web_server_sorting_weight: '9'   
 
 
 #######################
@@ -612,7 +613,7 @@ sensor:
       id: ct_sensor_1_total_energy_today
       accuracy_decimals: 3
       icon: "mdi:hours-24"
-      web_server_sorting_weight: '1'
+      web_server_sorting_weight: '32'
 
      # Dentra Components - Adds Energy Yesterday
     energy_yesterday:
@@ -620,7 +621,7 @@ sensor:
       id: ct_sensor_1_total_energy_yesterday
       accuracy_decimals: 3
       icon: "mdi:calendar-today-outline"
-      web_server_sorting_weight: '1'
+      web_server_sorting_weight: '33'
 
      # Dentra Components - Adds Energy Week
     energy_week:
@@ -628,7 +629,7 @@ sensor:
       id: ct_sensor_1_total_energy_week
       accuracy_decimals: 3
       icon: "mdi:calendar-week"
-      web_server_sorting_weight: '1'
+      web_server_sorting_weight: '34'
 
      # Dentra Components - Adds Energy Month
     energy_month:
@@ -636,7 +637,7 @@ sensor:
       id: ct_sensor_1_total_energy_month
       accuracy_decimals: 3
       icon: "mdi:calendar-month"
-      web_server_sorting_weight: '1'   
+      web_server_sorting_weight: '35'   
 
 
 #######################
@@ -653,7 +654,7 @@ sensor:
       id: ct_sensor_2_total_energy_today
       accuracy_decimals: 3
       icon: "mdi:hours-24"
-      web_server_sorting_weight: '1'
+      web_server_sorting_weight: '36'
 
      # Dentra Components - Adds Energy Yesterday
     energy_yesterday:
@@ -661,7 +662,7 @@ sensor:
       id: ct_sensor_2_total_energy_yesterday
       accuracy_decimals: 3
       icon: "mdi:calendar-today-outline"
-      web_server_sorting_weight: '1'
+      web_server_sorting_weight: '37'
 
      # Dentra Components - Adds Energy Week
     energy_week:
@@ -669,7 +670,7 @@ sensor:
       id: ct_sensor_2_total_energy_week
       accuracy_decimals: 3
       icon: "mdi:calendar-week"
-      web_server_sorting_weight: '1'
+      web_server_sorting_weight: '38'
 
      # Dentra Components - Adds Energy Month
     energy_month:
@@ -677,7 +678,7 @@ sensor:
       id: ct_sensor_2_total_energy_month
       accuracy_decimals: 3
       icon: "mdi:calendar-month"
-      web_server_sorting_weight: '1'   
+      web_server_sorting_weight: '39'   
 
 
 #######################
@@ -694,7 +695,7 @@ sensor:
       id: ct_sensor_3_total_energy_today
       accuracy_decimals: 3
       icon: "mdi:hours-24"
-      web_server_sorting_weight: '1'
+      web_server_sorting_weight: '40'
 
      # Dentra Components - Adds Energy Yesterday
     energy_yesterday:
@@ -702,7 +703,7 @@ sensor:
       id: ct_sensor_3_total_energy_yesterday
       accuracy_decimals: 3
       icon: "mdi:calendar-today-outline"
-      web_server_sorting_weight: '1'
+      web_server_sorting_weight: '41'
 
      # Dentra Components - Adds Energy Week
     energy_week:
@@ -710,7 +711,7 @@ sensor:
       id: ct_sensor_3_total_energy_week
       accuracy_decimals: 3
       icon: "mdi:calendar-week"
-      web_server_sorting_weight: '1'
+      web_server_sorting_weight: '42'
 
      # Dentra Components - Adds Energy Month
     energy_month:
@@ -718,7 +719,7 @@ sensor:
       id: ct_sensor_3_total_energy_month
       accuracy_decimals: 3
       icon: "mdi:calendar-month"
-      web_server_sorting_weight: '1'   
+      web_server_sorting_weight: '43'   
 
 
 #######################
@@ -735,7 +736,7 @@ sensor:
       id: ct_sensor_4_total_energy_today
       accuracy_decimals: 3
       icon: "mdi:hours-24"
-      web_server_sorting_weight: '1'
+      web_server_sorting_weight: '44'
 
      # Dentra Components - Adds Energy Yesterday
     energy_yesterday:
@@ -743,7 +744,7 @@ sensor:
       id: ct_sensor_4_total_energy_yesterday
       accuracy_decimals: 3
       icon: "mdi:calendar-today-outline"
-      web_server_sorting_weight: '1'
+      web_server_sorting_weight: '45'
 
      # Dentra Components - Adds Energy Week
     energy_week:
@@ -751,7 +752,7 @@ sensor:
       id: ct_sensor_4_total_energy_week
       accuracy_decimals: 3
       icon: "mdi:calendar-week"
-      web_server_sorting_weight: '1'
+      web_server_sorting_weight: '46'
 
      # Dentra Components - Adds Energy Month
     energy_month:
@@ -759,7 +760,7 @@ sensor:
       id: ct_sensor_4_total_energy_month
       accuracy_decimals: 3
       icon: "mdi:calendar-month"
-      web_server_sorting_weight: '1'   
+      web_server_sorting_weight: '47'   
 
 
 #######################
@@ -776,7 +777,7 @@ sensor:
       id: ct_sensor_5_total_energy_today
       accuracy_decimals: 3
       icon: "mdi:hours-24"
-      web_server_sorting_weight: '1'
+      web_server_sorting_weight: '48'
 
      # Dentra Components - Adds Energy Yesterday
     energy_yesterday:
@@ -784,7 +785,7 @@ sensor:
       id: ct_sensor_5_total_energy_yesterday
       accuracy_decimals: 3
       icon: "mdi:calendar-today-outline"
-      web_server_sorting_weight: '1'
+      web_server_sorting_weight: '49'
 
      # Dentra Components - Adds Energy Week
     energy_week:
@@ -792,7 +793,7 @@ sensor:
       id: ct_sensor_5_total_energy_week
       accuracy_decimals: 3
       icon: "mdi:calendar-week"
-      web_server_sorting_weight: '1'
+      web_server_sorting_weight: '50
 
      # Dentra Components - Adds Energy Month
     energy_month:
@@ -800,7 +801,7 @@ sensor:
       id: ct_sensor_5_total_energy_month
       accuracy_decimals: 3
       icon: "mdi:calendar-month"
-      web_server_sorting_weight: '1'   
+      web_server_sorting_weight: '51'   
 
 
 #######################
@@ -817,7 +818,7 @@ sensor:
       id: ct_sensor_6_total_energy_today
       accuracy_decimals: 3
       icon: "mdi:hours-24"
-      web_server_sorting_weight: '1'
+      web_server_sorting_weight: '52'
 
      # Dentra Components - Adds Energy Yesterday
     energy_yesterday:
@@ -825,7 +826,7 @@ sensor:
       id: ct_sensor_6_total_energy_yesterday
       accuracy_decimals: 3
       icon: "mdi:calendar-today-outline"
-      web_server_sorting_weight: '1'
+      web_server_sorting_weight: '53'
 
      # Dentra Components - Adds Energy Week
     energy_week:
@@ -833,7 +834,7 @@ sensor:
       id: ct_sensor_6_total_energy_week
       accuracy_decimals: 3
       icon: "mdi:calendar-week"
-      web_server_sorting_weight: '1'
+      web_server_sorting_weight: '54'
 
      # Dentra Components - Adds Energy Month
     energy_month:
@@ -841,7 +842,7 @@ sensor:
       id: ct_sensor_6_total_energy_month
       accuracy_decimals: 3
       icon: "mdi:calendar-month"
-      web_server_sorting_weight: '1'    
+      web_server_sorting_weight: '55'    
 
 
 #####################################################################
