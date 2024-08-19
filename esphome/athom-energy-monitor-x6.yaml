@@ -38,7 +38,11 @@ substitutions:
   ct_sensor_4_name: "CT 4"      # CT 4
   ct_sensor_5_name: "CT 5"      # CT 5
   ct_sensor_6_name: "CT 6"      # CT 6
-  
+
+  # Define the ID of the CT's that are connected to the Grid/Mains Phase A, B and C. Utilise the already defined id's of power1 ---> power6.
+  grid_phase_a_ct: "power1"  
+  grid_phase_b_ct: "power2"
+  grid_phase_b_ct: "power3"
    
 #############################ESP32C3###########################
 
@@ -236,6 +240,7 @@ binary_sensor:
     entity_category: config
     web_server_sorting_weight: '-19'
 
+
 #####################################################################
 #
 # Sensors
@@ -393,17 +398,44 @@ sensor:
 # Sensors - Sum Totals
 #
 
-    total_energy:
-      name: 'Total - Energy'
-      id: 'total_energy'
-      internal: true
+#    total_energy:
+#      name: 'Total - Energy'
+#      id: 'total_energy'
+#      internal: true
 
-    total_power:
-      name: 'Total - Power'
-      id: 'total_power'
-      web_server_sorting_weight: '1'
+#    total_power:
+#      name: 'Total - Power'
+#      id: 'total_power'
+#      web_server_sorting_weight: '1'
 
+
+
+#####################################################################
+#
+# Template Sensors
+#
+
+  - platform: template
+    name: "Grid Power - Total Nett"
+    id: grid_power_total_nett
+    device_class: power
+    state_class: "measurement"
+    unit_of_measurement: "W"
+    icon: mdi:transmission-tower
+    lambda: |-
+      return id(power_1).state + id(power_2).state + id(power_3).state;
+    update_interval: 5s
     
+#      {% set grid_phase_a = states('sensor.inverter_pv_1_current') %}
+#      {% set grid_phase_b = states('sensor.inverter_pv_1_current') %}
+#      {% set grid_phase_c = states('sensor.inverter_pv_1_current') %}
+
+# mdi:transmission-tower-export
+# mdi:transmission-tower-import
+
+
+
+
 #####################################################################
 
   - platform: copy
