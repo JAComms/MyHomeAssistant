@@ -93,15 +93,14 @@ packages:
 #
 
 external_components:
+
 # Athom - Components for BL0906 power monitoring sensor
   - source: github://athom-tech/esp32-configs@main
     components: bl0906
     refresh: 0s
 
-
 # Dentra Components - Adds 'Platform - Energy Statistics'
 # https://github.com/dentra/esphome-components/tree/master/components/energy_statistics
-external_components:
   - source: github://roving-ronin/myhomeassistant/components
     refresh: 5s
 
@@ -398,10 +397,10 @@ sensor:
 # Sensors - Sum Totals
 #
 
-#    total_energy:
-#      name: 'Total - Energy'
-#      id: 'total_energy'
-#      internal: true
+    total_energy:
+      name: 'Total - Energy'
+      id: 'total_energy'
+      internal: true
 
 #    total_power:
 #      name: 'Total - Power'
