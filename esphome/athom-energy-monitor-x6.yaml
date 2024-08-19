@@ -14,7 +14,7 @@
 
 substitutions:
   # Default name
-  name: "athom-energy-monitor"
+  name: "energy-monitor"
   # Default friendly name
   friendly_name: "Athom Energy Monitor"
   # Description as appears in ESPHome & top of webserver page  
@@ -22,9 +22,9 @@ substitutions:
   # Allows ESP device to be automatically lined to an 'Area' in Home Assistant. Typically used for areas such as 'Lounge Room', 'Kitchen' etc
   location: "Switchboards"
   # Project Name
-  project_name: "Athom Technology.Energy Monitor(6 Channels)"
+  project_name: "Athom Technology.Energy Monitor (6 Channels)"
   # Project version denotes the release version of the yaml file, allowing checking of deployed vs latest version
-  project_version: "2.0.3a"
+  project_version: "2.0.3b"
   # The phase in the home power supply, upon which this plug is utilsed. 1p = A. 3p = A, B or C.  (myHome GPO 1 = Phase C, GPO 2 = Phase A, GPO 3 = Phase B)
   power_circuit: "TBC"  
   # Sensor update interval
@@ -32,12 +32,12 @@ substitutions:
 
 
   # Names to describe the usage of each CT sensor. i.e. Lights, GPO1, Grid etc. Used to then prefix all the associated sensors.
-  ct_sensor_1_name: "CT 1"
-  ct_sensor_2_name: "CT 2"
-  ct_sensor_3_name: "CT 3"
-  ct_sensor_4_name: "CT 4"
-  ct_sensor_5_name: "CT 5"
-  ct_sensor_6_name: "CT 6"
+  ct_sensor_1_name: "CT 1"      # CT 1
+  ct_sensor_2_name: "CT 2"      # CT 2
+  ct_sensor_3_name: "CT 3"      # CT 3
+  ct_sensor_4_name: "CT 4"      # CT 4
+  ct_sensor_5_name: "CT 5"      # CT 5
+  ct_sensor_6_name: "CT 6"      # CT 6
   
    
 #############################ESP32C3###########################
@@ -83,17 +83,23 @@ packages:
   base-config:         !include common/base-configuration.yaml
   wifi-config:         !include common/network-wifi.yaml
 
+#####################################################################
+#
+# External Components
+#
+
 external_components:
 # Athom - Components for BL0906 power monitoring sensor
   - source: github://athom-tech/esp32-configs@main
     components: bl0906
     refresh: 0s
 
+
 # Dentra Components - Adds 'Platform - Energy Statistics'
 # https://github.com/dentra/esphome-components/tree/master/components/energy_statistics
-  - source: github://dentra/esphome-components
-    components: energy_statistics
-    refresh: 0s
+external_components:
+  - source: github://roving-ronin/myhomeassistant/components
+    refresh: 5s
 
 #####################################################################
 #
