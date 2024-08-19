@@ -285,28 +285,28 @@ sensor:
       unit_of_measurement: 'A'
 #      icon: "mdi:current-ac"    # Change this to current-dc, if it is a  DC Load
 
-    ac_out_voltage:
-      name: "AC Out Voltage"
-      id: ac_out_voltage
-      state_class: 'measurement'
-      device_class: "voltage"
-      unit_of_measurement: 'V'
+#    ac_out_voltage:
+#      name: "AC Out Voltage"
+#      id: ac_out_voltage
+#      state_class: 'measurement'
+#      device_class: "voltage"
+#      unit_of_measurement: 'V'
 #      icon: "mdi:current-ac"    # Change this to current-dc, if it is a  DC Load      
 
-    ac_out_current:
-      name: "AC Out Current"
-      id: ac_out_current
-      state_class: 'measurement'
-      device_class: "current"
-      unit_of_measurement: 'A'
+#    ac_out_current:
+#      name: "AC Out Current"
+#      id: ac_out_current
+#      state_class: 'measurement'
+#      device_class: "current"
+#      unit_of_measurement: 'A'
 #      icon: "mdi:current-ac"
 
-    ac_out_apparent_power:
-      name: "AC Out Power - Apparent"
-      id: ac_out_power_apparent
-      state_class: 'measurement'
-      device_class: "apparent_power"
-      unit_of_measurement: 'W'
+#    ac_out_apparent_power:
+#      name: "AC Out Power - Apparent"
+#      id: ac_out_power_apparent
+#      state_class: 'measurement'
+#      device_class: "apparent_power"
+#      unit_of_measurement: 'W'
 #      icon: "mdi:lightning-bolt-outline"
 
     device_mode_id:
@@ -483,19 +483,19 @@ sensor:
 #        - multiply: 0.001            
 #      icon: "mdi:lightning-bolt-outline"
 
-  - platform: template
-    name: "AC Out Power"
-    id: ac_out_power
-    state_class: 'measurement'
-    device_class: "power"
-    unit_of_measurement: 'W'
-    # https://github.com/esphome/issues/issues/2793#issuecomment-988257209
-    lambda: |-
-       auto val = id(ac_out_voltage).state * id(ac_out_current).state;
-       if (isnan(val))
-          return {};
-       return val;
-    update_interval: 10s
+#  - platform: template
+#    name: "AC Out Power"
+#    id: ac_out_power
+#    state_class: 'measurement'
+#    device_class: "power"
+#    unit_of_measurement: 'W'
+#    # https://github.com/esphome/issues/issues/2793#issuecomment-988257209
+#    lambda: |-
+#       auto val = id(ac_out_voltage).state * id(ac_out_current).state;
+#       if (isnan(val))
+#          return {};
+#       return val;
+#    update_interval: 10s
     
 #########################################################################
 #
