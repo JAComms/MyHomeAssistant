@@ -42,7 +42,7 @@ substitutions:
   # Define the ID of the CT's that are connected to the Grid/Mains Phase A, B and C. Utilise the already defined id's of power1 ---> power6.
   grid_phase_a_ct: "power1"  
   grid_phase_b_ct: "power2"
-  grid_phase_b_ct: "power3"
+  grid_phase_c_ct: "power3"
    
 #############################ESP32C3###########################
 
