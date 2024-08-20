@@ -899,33 +899,30 @@ sensor:
     energy_today:
       name: "${ct_sensor_6_name} - Energy Today"
       id: ct_sensor_6_total_energy_today
-      accuracy_decimals: 3
-      icon: "mdi:hours-24"
       web_server_sorting_weight: '1'
 
      # Dentra Components - Adds Energy Yesterday
     energy_yesterday:
       name: "${ct_sensor_6_name} - Energy Yesterday"
       id: ct_sensor_6_total_energy_yesterday
-      accuracy_decimals: 3
-      icon: "mdi:calendar-today-outline"
       web_server_sorting_weight: '1'
 
      # Dentra Components - Adds Energy Week
     energy_week:
       name: "${ct_sensor_6_name} - Energy Week"
       id: ct_sensor_6_total_energy_week
-      accuracy_decimals: 3
-      icon: "mdi:calendar-week"
       web_server_sorting_weight: '1'
 
      # Dentra Components - Adds Energy Month
     energy_month:
       name: "${ct_sensor_6_name} - Energy Month"
       id: ct_sensor_6_total_energy_month
-      accuracy_decimals: 3
-      icon: "mdi:calendar-month"
       web_server_sorting_weight: '1'    
 
+     # Dentra Components - Adds Energy Year
+    energy_month:
+      name: "${ct_sensor_6_name} - Energy Year"
+      id: ct_sensor_6_total_energy_year
+      web_server_sorting_weight: '1'    
 
 #####################################################################
