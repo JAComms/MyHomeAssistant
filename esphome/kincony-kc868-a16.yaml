@@ -1037,6 +1037,7 @@ sensor:
       filters:
 #        - lambda: return (x / 200.0);   # 1 pulse = 5L.  This gives Kilo Litres
         - multiply: 5.0  # Each pulse equals 5 liters
+      internal: true
 
 
   #  Adds the 'Reading Since Reset' that tracks the LIFETIME total of m3
