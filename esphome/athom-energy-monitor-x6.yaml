@@ -24,7 +24,7 @@ substitutions:
   # Project Name
   project_name: "Athom Technology.Energy Monitor (6 Channels)"
   # Project version denotes the release version of the yaml file, allowing checking of deployed vs latest version
-  project_version: "2.0.3c"
+  project_version: "2.0.3d"
   # The phase in the home power supply, upon which this plug is utilsed. 1p = A. 3p = A, B or C.  (myHome GPO 1 = Phase C, GPO 2 = Phase A, GPO 3 = Phase B)
   power_circuit: "TBC"  
   # Sensor update interval
@@ -102,7 +102,7 @@ external_components:
 # Dentra Components - Adds 'Platform - Energy Statistics'
 # https://github.com/dentra/esphome-components/tree/master/components/energy_statistics
   - source: github://roving-ronin/myhomeassistant/components
-    refresh: 5s
+    refresh: 0s
 
 #####################################################################
 #
@@ -111,17 +111,30 @@ external_components:
 
 globals:
 
-  - id: id_total_energy_persist
+  - id: id_total_import_energy_persist
     type: float
     restore_value: yes
     initial_value: '0.0'
 
-  - id: id_total_energy_lastvalue
+  - id: id_total_import_energy_lastvalue
     type: float
     restore_value: no
     initial_value: '0.0'
 
 #######################
+
+  - id: id_total_export_energy_persist
+    type: float
+    restore_value: yes
+    initial_value: '0.0'
+
+  - id: id_total_export_energy_lastvalue
+    type: float
+    restore_value: no
+    initial_value: '0.0'
+
+#######################
+
 
   - id: id_energy_1_persist
     type: float
@@ -432,33 +445,58 @@ sensor:
 # mdi:transmission-tower-export
 # mdi:transmission-tower-import
 
+#####################################################################
 
+  - platform: copy
+    name: 'total_import_energy'
+    id: total_import_energy_persist
+    source_id: total_import_energy
+    filters:
+      - lambda: |-
+          if(id(id_total_import_energy_lastvalue) == 0.0  )
+          {
+            id(id_total_import_energy_lastvalue) = id(total_import_energy).state;
+          }
+          if(x < id(id_total_import_energy_persist))
+          {
+            float delta =  x - id(id_total_import_energy_lastvalue);
+            id(id_total_import_energy_persist) += delta;
+            id(id_total_import_energy_lastvalue) = x;
+          }
+          else
+          {
+            id(id_total_import_energy_persist) = x;
+          }
+          return id(id_total_import_energy_persist);
+    internal: true
+
+
+  - platform: copy
+    name: 'total_export_energy'
+    id: total_export_energy_persist
+    source_id: total_export_energy
+    filters:
+      - lambda: |-
+          if(id(id_total_export_energy_lastvalue) == 0.0  )
+          {
+            id(id_total_export_energy_lastvalue) = id(total_export_energy).state;
+          }
+          if(x < id(id_total_export_energy_persist))
+          {
+            float delta =  x - id(id_total_export_energy_lastvalue);
+            id(id_total_export_energy_persist) += delta;
+            id(id_total_export_energy_lastvalue) = x;
+          }
+          else
+          {
+            id(id_total_export_energy_persist) = x;
+          }
+          return id(id_total_export_energy_persist);
+    internal: true
 
 
 #####################################################################
 
-  - platform: copy
-    name: 'total_energy'
-    id: total_energy_persist
-    source_id: total_energy
-    filters:
-      - lambda: |-
-          if(id(id_total_energy_lastvalue) == 0.0  )
-          {
-            id(id_total_energy_lastvalue) = id(total_energy).state;
-          }
-          if(x < id(id_total_energy_persist))
-          {
-            float delta =  x - id(id_total_energy_lastvalue);
-            id(id_total_energy_persist) += delta;
-            id(id_total_energy_lastvalue) = x;
-          }
-          else
-          {
-            id(id_total_energy_persist) = x;
-          }
-          return id(id_total_energy_persist);
-    internal: true
 
   - platform: copy
     name: 'Energy_1'
