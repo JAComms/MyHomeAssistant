@@ -616,16 +616,16 @@ binary_sensor:
 #  Text Sensors:
 #
 
-text_sensor:
-  - platform: sun
-    name: Sun Next Sunrise
-    type: sunrise
-    update_interval: 60min
+#text_sensor:
+#  - platform: sun
+#    name: Sun Next Sunrise
+#    type: sunrise
+#    update_interval: 60min
     
-  - platform: sun
-    name: Sun Next Sunset
-    type: sunset
-    update_interval: 60min
+#  - platform: sun
+#    name: Sun Next Sunset
+#    type: sunset
+#    update_interval: 60min
 
 
 ################################################################################
@@ -636,12 +636,12 @@ text_sensor:
 sensor:
 
   # Provides the Sun elevation and Azimuth, based upon the Lat & Long set above
-  - platform: sun
-    name: Sun Elevation
-    type: elevation
-  - platform: sun
-    name: Sun Azimuth
-    type: azimuth
+#  - platform: sun
+#    name: Sun Elevation
+#    type: elevation
+#  - platform: sun
+#    name: Sun Azimuth
+#    type: azimuth
 
 ################################################################################
 #
