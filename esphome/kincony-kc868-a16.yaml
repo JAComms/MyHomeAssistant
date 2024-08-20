@@ -84,6 +84,16 @@ packages:
 
 #########################################################################
 #
+# Custom Components to be utilised
+#
+
+external_components:
+  - source: github://roving-ronin/myhomeassistant/components
+    refresh: 0s
+
+
+#########################################################################
+#
 # Sun Azimuth and Elevation for Home Address
 #
 
@@ -1045,7 +1055,38 @@ sensor:
     filters:
       - delta : 0.001
 
+  ################################################################################
+  #
+  # Custom Component - Water (Consumption) Statistics
+  #
+  #
 
+# sensor:
+  - platform: "water_statistics"
+    total: water_consumed_total
+
+    water_today:
+      name: "Water - Consumed Today"
+      id: water_consumed_today
+    
+    water_yesterday:
+      name: "Water - Consumed Yesterday"
+      id: water_consumed_yesterday
+    
+    water_week:
+      name: "Water - Consumed Week"
+      id: water_consumed_week
+    
+    water_month:
+      name: "Water - Consumed Month"
+      id: water_consumed_month
+    
+    water_year:
+      name: "Water - Consumed Year"
+      id: water_consumed_year
+
+  ################################################################################
+  
 # sensor:
   - platform: copy
     source_id: water_tank_voltage
