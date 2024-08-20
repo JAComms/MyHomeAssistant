@@ -91,17 +91,6 @@ external_components:
   - source: github://roving-ronin/myhomeassistant/components
     refresh: 0s
 
-
-#########################################################################
-#
-# Sun Azimuth and Elevation for Home Address
-#
-
-sun:
-  latitude: -34.726460°
-  longitude: 149.724503°
-  id: sun_home
-
 #########################################################################
 #
 # Enable Home Assistant API
