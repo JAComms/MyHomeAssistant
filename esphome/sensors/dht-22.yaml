@@ -28,14 +28,14 @@ sensor:
         offset: ${humidity_offset}    
     update_interval: 60s
 
-   # BME280 Sensor in I2C Port - Absolute Humidity
+   # DHT Sensor - Absolute Humidity
   - platform: absolute_humidity
     name: "${dht_location}Humidity (Absolute)"
     temperature: dht_temperature
     humidity: dht_humidity
     equation: Wobus   # Wobus (Default), optional Tetens or Buck
 
-   # BME280 Sensor in I2C Port - Dew Point
+   # DHT Sensor - Dew Point
   - platform: template
     name: "${dht_location}Dew Point"
     unit_of_measurement: °C
