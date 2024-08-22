@@ -1,1 +1,46 @@
+#########################################################################
+#
+# Pacakge to configure the use of a device with a DHT sensor
+#
+  
+#########################################################################
+#
+# Sensors - Specific to the DHT sensor.
+#
 
+sensor:
+
+  - platform: dht
+    pin: GPIO14
+    
+    temperature:
+      name: "${dht_location}Temperature"
+      accuracy_decimals: 1
+      filters:
+        offset: ${temperature_offset}
+        
+    humidity:
+      name: "${dht_location}Humidity"
+      accuracy_decimals: 1
+      filters:
+        offset: ${humidity_offset}    
+    update_interval: 60s
+
+   # BME280 Sensor in I2C Port - Absolute Humidity
+  - platform: absolute_humidity
+    name: "${bme_sensor1_location}Humidity (Absolute)"
+    temperature: bme280a_temperature
+    humidity: bme280a_humidity
+    equation: Wobus   # Wobus (Default), optional Tetens or Buck
+
+   # BME280 Sensor in I2C Port - Dew Point
+  - platform: template
+    name: "${bme_sensor1_location}Dew Point"
+    unit_of_measurement: °C
+    icon: 'mdi:thermometer-alert'    
+    lambda: |-
+      return (243.5*(log(id(bme280a_humidity).state/100)+((17.67*id(bme280a_temperature).state)/
+      (243.5+id(bme280a_temperature).state)))/(17.67-log(id(bme280a_humidity).state/100)-
+      ((17.67*id(bme280a_temperature).state)/(243.5+id(bme280a_temperature).state))));
+
+#########################################################################
