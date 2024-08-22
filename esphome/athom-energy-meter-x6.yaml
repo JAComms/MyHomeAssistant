@@ -104,6 +104,43 @@ external_components:
   - source: github://roving-ronin/myhomeassistant/components
     refresh: 0s
 
+
+#####################################################################
+#
+# Button - Reset Energy Sensors
+#
+
+button:
+
+  - platform: template
+    name: Reset Energy
+    entity_category: config
+    on_press:
+      then:
+        - globals.set:
+            id: id_Energy_1_persist
+            value: '0.0'
+        - globals.set:
+            id: id_Energy_2_persist
+            value: '0.0'
+        - globals.set:
+            id: id_Energy_3_persist
+            value: '0.0'
+        - globals.set:
+            id: id_Energy_4_persist
+            value: '0.0'
+        - globals.set:
+            id: id_Energy_5_persist
+            value: '0.0'
+        - globals.set:
+            id: id_Energy_6_persist
+            value: '0.0'
+        - globals.set:
+            id: id_Energy_sum_persist
+            value: '0.0'
+        - bl0906.reset_energy: id_bl0906
+
+
 #####################################################################
 #
 # Globals - Store values between reboots
@@ -228,7 +265,7 @@ light:
     id: blue_led
     disabled_by_default: true
     pin: $led_pin
-    web_server_sorting_weight: '-20'
+#    web_server_sorting_weight: '-20'
 
 #####################################################################
 #
@@ -250,7 +287,7 @@ binary_sensor:
         then:
           - button.press: Reset
     entity_category: config
-    web_server_sorting_weight: '-19'
+#    web_server_sorting_weight: '-19'
 
 
 #####################################################################
@@ -267,17 +304,17 @@ sensor:
     temperature:
       name: 'Temperature'
       id: 'Temperature'
-      web_server_sorting_weight: '-10'
+  #    web_server_sorting_weight: '-10'
 
     frequency:
       name: 'Frequency'
       id: 'Frequency'
-      web_server_sorting_weight: '-9'
+  #    web_server_sorting_weight: '-9'
 
     voltage:
       name: 'Voltage'
       id: 'Voltage'
-      web_server_sorting_weight: '-8'
+  #    web_server_sorting_weight: '-8'
 
 #######################
 #
@@ -288,17 +325,17 @@ sensor:
       power:
         name: "${ct_sensor_1_name} - Power"
         id: 'power_1'
-        web_server_sorting_weight: '1'
+    #    web_server_sorting_weight: '1'
 
       current:
         name: "${ct_sensor_1_name} - Current"
         id: 'current_1'
-        web_server_sorting_weight: '1'
+    #    web_server_sorting_weight: '1'
 
       energy:
         name: "${ct_sensor_1_name} - Energy"
         id: 'energy_1'
-        web_server_sorting_weight: '1'
+    #    web_server_sorting_weight: '1'
 
 #######################
 #
@@ -309,17 +346,17 @@ sensor:
       power:
         name: "${ct_sensor_2_name} - Power"
         id: 'power_2'
-        web_server_sorting_weight: '1'
+    #    web_server_sorting_weight: '1'
 
       current:
         name: "${ct_sensor_2_name} - Current"
         id: 'current_2'
-        web_server_sorting_weight: '1'
+    #    web_server_sorting_weight: '1'
 
       energy:
         name: "${ct_sensor_2_name} - Energy"
         id: 'energy_2'
-        web_server_sorting_weight: '1'
+    #    web_server_sorting_weight: '1'
 
 #######################
 #
@@ -330,17 +367,17 @@ sensor:
       power:
         name: "${ct_sensor_3_name} - Power"
         id: 'power_3'
-        web_server_sorting_weight: '1'
+    #    web_server_sorting_weight: '1'
 
       current:
         name: "${ct_sensor_3_name} - Current"
         id: 'current_3'
-        web_server_sorting_weight: '1'
+    #    web_server_sorting_weight: '1'
 
       energy:
         name: "${ct_sensor_3_name} - Energy"
         id: 'energy_3'
-        web_server_sorting_weight: '1'
+    #    web_server_sorting_weight: '1'
 
 #######################
 #
@@ -351,17 +388,17 @@ sensor:
       power:
         name: "${ct_sensor_4_name} - Power"
         id: 'power_4'
-        web_server_sorting_weight: '1'
+    #    web_server_sorting_weight: '1'
 
       current:
         name: "${ct_sensor_4_name} - Current"
         id: 'current_4'
-        web_server_sorting_weight: '1'
+    #    web_server_sorting_weight: '1'
 
       energy:
         name: "${ct_sensor_4_name} - Energy"
         id: 'energy_4'
-        web_server_sorting_weight: '1'
+    #    web_server_sorting_weight: '1'
       
 #######################
 #
@@ -372,17 +409,17 @@ sensor:
       power:
         name: "${ct_sensor_5_name} - Power"
         id: 'power_5'
-        web_server_sorting_weight: '1'
+    #    web_server_sorting_weight: '1'
 
       current:
         name: "${ct_sensor_5_name} - Current"
         id: 'current_5'
-        web_server_sorting_weight: '1'
+    #    web_server_sorting_weight: '1'
 
       energy:
         name: "${ct_sensor_5_name} - Energy"
         id: 'energy_5'
-        web_server_sorting_weight: '1'
+    #    web_server_sorting_weight: '1'
       
 #######################
 #
@@ -393,17 +430,17 @@ sensor:
       power:
         name: "${ct_sensor_6_name} - Power"
         id: 'power_6'
-        web_server_sorting_weight: '1'
+    #    web_server_sorting_weight: '1'
 
       current:
         name: "${ct_sensor_6_name} - Current"
         id: 'current_6'
-        web_server_sorting_weight: '1'
+    #    web_server_sorting_weight: '1'
 
       energy:
         name: "${ct_sensor_6_name} - Energy"
         id: 'energy_6'
-        web_server_sorting_weight: '1'
+    #    web_server_sorting_weight: '1'
     
   
 #######################
@@ -421,8 +458,8 @@ sensor:
 #
 
   - platform: template
-    name: "Grid Power - Total Nett"
-    id: grid_power_total_nett
+    name: "Grid - Power Total"
+    id: grid_power_total
     device_class: power
     state_class: "measurement"
     unit_of_measurement: "W"
@@ -440,52 +477,52 @@ sensor:
 
 #####################################################################
 
-  - platform: copy
-    name: 'total_import_energy'
-    id: total_import_energy_persist
-    source_id: total_import_energy
-    filters:
-      - lambda: |-
-          if(id(id_total_import_energy_lastvalue) == 0.0  )
-          {
-            id(id_total_import_energy_lastvalue) = id(total_import_energy).state;
-          }
-          if(x < id(id_total_import_energy_persist))
-          {
-            float delta =  x - id(id_total_import_energy_lastvalue);
-            id(id_total_import_energy_persist) += delta;
-            id(id_total_import_energy_lastvalue) = x;
-          }
-          else
-          {
-            id(id_total_import_energy_persist) = x;
-          }
-          return id(id_total_import_energy_persist);
-    internal: true
+#  - platform: copy
+#    name: 'total_import_energy'
+#    id: total_import_energy_persist
+#    source_id: total_import_energy
+#    filters:
+#      - lambda: |-
+#          if(id(id_total_import_energy_lastvalue) == 0.0  )
+#          {
+#            id(id_total_import_energy_lastvalue) = id(total_import_energy).state;
+#          }
+#          if(x < id(id_total_import_energy_persist))
+#          {
+#            float delta =  x - id(id_total_import_energy_lastvalue);
+#            id(id_total_import_energy_persist) += delta;
+#            id(id_total_import_energy_lastvalue) = x;
+#          }
+#          else
+#          {
+#            id(id_total_import_energy_persist) = x;
+#          }
+#          return id(id_total_import_energy_persist);
+#    internal: true
 
 
-  - platform: copy
-    name: 'total_export_energy'
-    id: total_export_energy_persist
-    source_id: total_export_energy
-    filters:
-      - lambda: |-
-          if(id(id_total_export_energy_lastvalue) == 0.0  )
-          {
-            id(id_total_export_energy_lastvalue) = id(total_export_energy).state;
-          }
-          if(x < id(id_total_export_energy_persist))
-          {
-            float delta =  x - id(id_total_export_energy_lastvalue);
-            id(id_total_export_energy_persist) += delta;
-            id(id_total_export_energy_lastvalue) = x;
-          }
-          else
-          {
-            id(id_total_export_energy_persist) = x;
-          }
-          return id(id_total_export_energy_persist);
-    internal: true
+#  - platform: copy
+#    name: 'total_export_energy'
+#    id: total_export_energy_persist
+#    source_id: total_export_energy
+#    filters:
+#      - lambda: |-
+#          if(id(id_total_export_energy_lastvalue) == 0.0  )
+#          {
+#            id(id_total_export_energy_lastvalue) = id(total_export_energy).state;
+#          }
+#          if(x < id(id_total_export_energy_persist))
+#          {
+#            float delta =  x - id(id_total_export_energy_lastvalue);
+#            id(id_total_export_energy_persist) += delta;
+#            id(id_total_export_energy_lastvalue) = x;
+#          }
+3          else
+#          {
+#            id(id_total_export_energy_persist) = x;
+#          }
+#          return id(id_total_export_energy_persist);
+#    internal: true
 
 
 #####################################################################
@@ -628,271 +665,5 @@ sensor:
           }
           return id(id_energy_6_persist);
     internal: true
-
-#####################################################################
-#
-# Function added by the Dentra Components
-#
-
-#######################
-#
-# CT Sensor - Total of ALL
-#
-     # Dentra Components - Define the id of the sensor tracking 'Total Energy' used
-  - platform: "energy_statistics"
-    total: total_energy_persist
-    
-     # Dentra Components - Adds Energy Today. Persistents if restarted
-    energy_today:
-      name: "Total - Energy Today"
-      id: total_energy_today
-      web_server_sorting_weight: '1'
-
-     # Dentra Components - Adds Energy Yesterday
-    energy_yesterday:
-      name: "Total - Energy Yesterday"
-      id: total_energy_yesterday
-      web_server_sorting_weight: '1'
-
-     # Dentra Components - Adds Energy Week
-    energy_week:
-      name: "Total - Energy Week"
-      id: total_energy_week
-      web_server_sorting_weight: '1'
-
-     # Dentra Components - Adds Energy Month
-    energy_month:
-      name: "Total - Energy Month"
-      id: total_energy_month
-      web_server_sorting_weight: '1'   
-
-
-#######################
-#
-# CT Sensor - 1
-#
-
-  - platform: "energy_statistics"
-    total: energy_1_persist
-
-     # Dentra Components - Adds Energy Today. Persistents if restarted
-    energy_today:
-      name: "${ct_sensor_1_name} - Energy Today"
-      id: ct_sensor_1_total_energy_today
-      web_server_sorting_weight: '1'
-
-     # Dentra Components - Adds Energy Yesterday
-    energy_yesterday:
-      name: "${ct_sensor_1_name} - Energy Yesterday"
-      id: ct_sensor_1_total_energy_yesterday
-      web_server_sorting_weight: '1'
-
-     # Dentra Components - Adds Energy Week
-    energy_week:
-      name: "${ct_sensor_1_name} - Energy Week"
-      id: ct_sensor_1_total_energy_week
-      web_server_sorting_weight: '1'
-
-     # Dentra Components - Adds Energy Month
-    energy_month:
-      name: "${ct_sensor_1_name} - Energy Month"
-      id: ct_sensor_1_total_energy_month
-      web_server_sorting_weight: '1'   
-
-     # Dentra Components - Adds Energy Year
-    energy_month:
-      name: "${ct_sensor_1_name} - Energy Year"
-      id: ct_sensor_1_total_energy_year
-      web_server_sorting_weight: '1'    
-
-#######################
-#
-# CT Sensor - 2
-#
-
-  - platform: "energy_statistics"
-    total: energy_2_persist
-
-     # Dentra Components - Adds Energy Today. Persistents if restarted
-    energy_today:
-      name: "${ct_sensor_2_name} - Energy Today"
-      id: ct_sensor_2_total_energy_today
-      web_server_sorting_weight: '1'
-
-     # Dentra Components - Adds Energy Yesterday
-    energy_yesterday:
-      name: "${ct_sensor_2_name} - Energy Yesterday"
-      id: ct_sensor_2_total_energy_yesterday
-      web_server_sorting_weight: '1'
-
-     # Dentra Components - Adds Energy Week
-    energy_week:
-      name: "${ct_sensor_2_name} - Energy Week"
-      id: ct_sensor_2_total_energy_week
-      web_server_sorting_weight: '1'
-
-     # Dentra Components - Adds Energy Month
-    energy_month:
-      name: "${ct_sensor_2_name} - Energy Month"
-      id: ct_sensor_2_total_energy_month
-      web_server_sorting_weight: '1'   
-
-     # Dentra Components - Adds Energy Year
-    energy_month:
-      name: "${ct_sensor_2_name} - Energy Year"
-      id: ct_sensor_2_total_energy_year
-      web_server_sorting_weight: '1'    
-
-#######################
-#
-# CT Sensor - 3
-#
-
-  - platform: "energy_statistics"
-    total: energy_3_persist
-
-     # Dentra Components - Adds Energy Today. Persistents if restarted
-    energy_today:
-      name: "${ct_sensor_3_name} - Energy Today"
-      id: ct_sensor_3_total_energy_today
-      web_server_sorting_weight: '1'
-
-     # Dentra Components - Adds Energy Yesterday
-    energy_yesterday:
-      name: "${ct_sensor_3_name} - Energy Yesterday"
-      id: ct_sensor_3_total_energy_yesterday
-      web_server_sorting_weight: '1'
-
-     # Dentra Components - Adds Energy Week
-    energy_week:
-      name: "${ct_sensor_3_name} - Energy Week"
-      id: ct_sensor_3_total_energy_week
-      web_server_sorting_weight: '1'
-
-     # Dentra Components - Adds Energy Month
-    energy_month:
-      name: "${ct_sensor_3_name} - Energy Month"
-      id: ct_sensor_3_total_energy_month
-      web_server_sorting_weight: '1'   
-
-     # Dentra Components - Adds Energy Year
-    energy_month:
-      name: "${ct_sensor_3_name} - Energy Year"
-      id: ct_sensor_3_total_energy_year
-      web_server_sorting_weight: '1'    
-
-#######################
-#
-# CT Sensor - 4
-#
-
-  - platform: "energy_statistics"
-    total: energy_4_persist
-
-     # Dentra Components - Adds Energy Today. Persistents if restarted
-    energy_today:
-      name: "${ct_sensor_4_name} - Energy Today"
-      id: ct_sensor_4_total_energy_today
-      web_server_sorting_weight: '1'
-
-     # Dentra Components - Adds Energy Yesterday
-    energy_yesterday:
-      name: "${ct_sensor_4_name} - Energy Yesterday"
-      id: ct_sensor_4_total_energy_yesterday
-      web_server_sorting_weight: '1'
-
-     # Dentra Components - Adds Energy Week
-    energy_week:
-      name: "${ct_sensor_4_name} - Energy Week"
-      id: ct_sensor_4_total_energy_week
-      web_server_sorting_weight: '1'
-
-     # Dentra Components - Adds Energy Month
-    energy_month:
-      name: "${ct_sensor_4_name} - Energy Month"
-      id: ct_sensor_4_total_energy_month
-      web_server_sorting_weight: '1'   
-
-     # Dentra Components - Adds Energy Year
-    energy_month:
-      name: "${ct_sensor_4_name} - Energy Year"
-      id: ct_sensor_4_total_energy_year
-      web_server_sorting_weight: '1'    
-
-#######################
-#
-# CT Sensor - 5
-#
-
-  - platform: "energy_statistics"
-    total: energy_5_persist
-
-     # Dentra Components - Adds Energy Today. Persistents if restarted
-    energy_today:
-      name: "${ct_sensor_5_name} - Energy Today"
-      id: ct_sensor_5_total_energy_today
-      web_server_sorting_weight: '1'
-
-     # Dentra Components - Adds Energy Yesterday
-    energy_yesterday:
-      name: "${ct_sensor_5_name} - Energy Yesterday"
-      id: ct_sensor_5_total_energy_yesterday
-      web_server_sorting_weight: '1'
-
-     # Dentra Components - Adds Energy Week
-    energy_week:
-      name: "${ct_sensor_5_name} - Energy Week"
-      id: ct_sensor_5_total_energy_week
-      web_server_sorting_weight: '1'
-
-     # Dentra Components - Adds Energy Month
-    energy_month:
-      name: "${ct_sensor_5_name} - Energy Month"
-      id: ct_sensor_5_total_energy_month
-      web_server_sorting_weight: '1'   
-
-     # Dentra Components - Adds Energy Year
-    energy_month:
-      name: "${ct_sensor_5_name} - Energy Year"
-      id: ct_sensor_5_total_energy_year
-      web_server_sorting_weight: '1'    
-
-#######################
-#
-# CT Sensor - 6
-#
-
-  - platform: "energy_statistics"
-    total: energy_6_persist
-
-     # Dentra Components - Adds Energy Today. Persistents if restarted
-    energy_today:
-      name: "${ct_sensor_6_name} - Energy Today"
-      id: ct_sensor_6_total_energy_today
-      web_server_sorting_weight: '1'
-
-     # Dentra Components - Adds Energy Yesterday
-    energy_yesterday:
-      name: "${ct_sensor_6_name} - Energy Yesterday"
-      id: ct_sensor_6_total_energy_yesterday
-      web_server_sorting_weight: '1'
-
-     # Dentra Components - Adds Energy Week
-    energy_week:
-      name: "${ct_sensor_6_name} - Energy Week"
-      id: ct_sensor_6_total_energy_week
-      web_server_sorting_weight: '1'
-
-     # Dentra Components - Adds Energy Month
-    energy_month:
-      name: "${ct_sensor_6_name} - Energy Month"
-      id: ct_sensor_6_total_energy_month
-      web_server_sorting_weight: '1'    
-
-     # Dentra Components - Adds Energy Year
-    energy_month:
-      name: "${ct_sensor_6_name} - Energy Year"
-      id: ct_sensor_6_total_energy_year
-      web_server_sorting_weight: '1'    
 
 #####################################################################
