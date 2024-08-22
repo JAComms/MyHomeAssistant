@@ -517,7 +517,7 @@ sensor:
 #            id(id_total_export_energy_persist) += delta;
 #            id(id_total_export_energy_lastvalue) = x;
 #          }
-3          else
+#          else
 #          {
 #            id(id_total_export_energy_persist) = x;
 #          }
