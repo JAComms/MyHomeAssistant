@@ -118,25 +118,25 @@ button:
     on_press:
       then:
         - globals.set:
-            id: id_Energy_1_persist
+            id: id_energy_1_persist
             value: '0.0'
         - globals.set:
-            id: id_Energy_2_persist
+            id: id_energy_2_persist
             value: '0.0'
         - globals.set:
-            id: id_Energy_3_persist
+            id: id_energy_3_persist
             value: '0.0'
         - globals.set:
-            id: id_Energy_4_persist
+            id: id_energy_4_persist
             value: '0.0'
         - globals.set:
-            id: id_Energy_5_persist
+            id: id_energy_5_persist
             value: '0.0'
         - globals.set:
-            id: id_Energy_6_persist
+            id: id_energy_6_persist
             value: '0.0'
         - globals.set:
-            id: id_Energy_sum_persist
+            id: id_energy_sum_persist
             value: '0.0'
         - bl0906.reset_energy: id_bl0906
 
