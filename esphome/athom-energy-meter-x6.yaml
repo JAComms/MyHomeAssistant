@@ -152,24 +152,24 @@ button:
 
 globals:
 
-  - id: id_total_import_energy_persist
+  - id: id_total_energy_import_persist
     type: float
     restore_value: yes
     initial_value: '0.0'
 
-  - id: id_total_import_energy_lastvalue
+  - id: id_total_energy_import_lastvalue
     type: float
     restore_value: no
     initial_value: '0.0'
 
 #######################
 
-  - id: id_total_export_energy_persist
+  - id: id_total_energy_export_persist
     type: float
     restore_value: yes
     initial_value: '0.0'
 
-  - id: id_total_export_energy_lastvalue
+  - id: id_total_energy_export_lastvalue
     type: float
     restore_value: no
     initial_value: '0.0'
