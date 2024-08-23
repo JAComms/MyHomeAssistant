@@ -8,7 +8,7 @@ substitutions:
   # Default name
   name: "energy-meter"
   # Default friendly name
-  friendly_name: "Athom Energy Meter"
+  friendly_name: "Energy Meter"
   # Description as appears in ESPHome & top of webserver page  
   device_description: "Athom - Energy Meter (BL0906 6 channels)"
   # Allows ESP device to be automatically lined to an 'Area' in Home Assistant. Typically used for areas such as 'Lounge Room', 'Kitchen' etc
