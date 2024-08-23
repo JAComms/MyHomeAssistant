@@ -115,6 +115,7 @@ button:
   - platform: template
     name: Reset Energy
     entity_category: config
+    icon: mdi:restart-alert
     on_press:
       then:
         - globals.set:
@@ -338,7 +339,7 @@ sensor:
       energy:
         name: "${ct_sensor_1_name} - Energy"
         id: 'energy_1'
-        web_server_sorting_weight: '1'
+        internal: true
 
 #######################
 #
@@ -359,7 +360,7 @@ sensor:
       energy:
         name: "${ct_sensor_2_name} - Energy"
         id: 'energy_2'
-        web_server_sorting_weight: '1'
+        internal: true
 
 #######################
 #
@@ -380,7 +381,7 @@ sensor:
       energy:
         name: "${ct_sensor_3_name} - Energy"
         id: 'energy_3'
-        web_server_sorting_weight: '1'
+        internal: true
 
 #######################
 #
@@ -401,7 +402,7 @@ sensor:
       energy:
         name: "${ct_sensor_4_name} - Energy"
         id: 'energy_4'
-        web_server_sorting_weight: '1'
+        internal: true
       
 #######################
 #
@@ -422,7 +423,7 @@ sensor:
       energy:
         name: "${ct_sensor_5_name} - Energy"
         id: 'energy_5'
-        web_server_sorting_weight: '1'
+        internal: true
       
 #######################
 #
@@ -443,7 +444,7 @@ sensor:
       energy:
         name: "${ct_sensor_6_name} - Energy"
         id: 'energy_6'
-        web_server_sorting_weight: '1'
+        internal: true
     
   
 #######################
@@ -460,6 +461,7 @@ sensor:
 # Template Sensors
 #
 
+    # Show the NETT Power coming from or going to the Grid/Mains. Derived from CT1, CT2 and CT3 Power
   - platform: template
     name: "Grid - Power Total"
     id: grid_power_total
@@ -471,6 +473,32 @@ sensor:
       return id(power_1).state + id(power_2).state + id(power_3).state;
     update_interval: 5s
     web_server_sorting_weight: '1'
+
+    # Show the Import Power coming from the Grid/Mains. Derived from CT1, CT2 and CT3 Power
+  - platform: template
+    name: "Grid - Power Import"
+    id: grid_power_import
+    device_class: power
+    state_class: "measurement"
+    unit_of_measurement: "W"
+    icon: mdi:transmission-tower-import
+    lambda: |-
+      return max(0.0f, id(power_1).state + id(power_2).state + id(power_3).state);
+    update_interval: ${update_interval}
+    web_server_sorting_weight: '-49'
+
+    # Show the Export Power going to the Grid/Mains. Derived from CT1, CT2 and CT3 Power
+  - platform: template
+    name: "Grid - Power Export"
+    id: grid_power_export
+    device_class: power
+    state_class: "measurement"
+    unit_of_measurement: "W"
+    icon: mdi:transmission-tower-export
+    lambda: |-
+      return max(0.0f, -id(power_1).state + id(power_2).state + id(power_3).state);
+    update_interval: ${update_interval}
+    web_server_sorting_weight: '-48'    
 
 
   - platform: template
@@ -485,9 +513,6 @@ sensor:
     update_interval: 5s
     web_server_sorting_weight: '1'
 
-#      {% set grid_phase_a = states('sensor.inverter_pv_1_current') %}
-#      {% set grid_phase_b = states('sensor.inverter_pv_1_current') %}
-#      {% set grid_phase_c = states('sensor.inverter_pv_1_current') %}
 
 # mdi:transmission-tower-export
 # mdi:transmission-tower-import
