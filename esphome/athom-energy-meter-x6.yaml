@@ -334,7 +334,7 @@ sensor:
       current:
         name: "${ct_sensor_1_name} - Current"
         id: 'current_1'
-        web_server_sorting_weight: '1'
+        web_server_sorting_weight: '2'
 
       energy:
         name: "${ct_sensor_1_name} - Energy"
@@ -350,12 +350,12 @@ sensor:
       power:
         name: "${ct_sensor_2_name} - Power"
         id: 'power_2'
-        web_server_sorting_weight: '1'
+        web_server_sorting_weight: '3'
 
       current:
         name: "${ct_sensor_2_name} - Current"
         id: 'current_2'
-        web_server_sorting_weight: '1'
+        web_server_sorting_weight: '4'
 
       energy:
         name: "${ct_sensor_2_name} - Energy"
@@ -371,12 +371,12 @@ sensor:
       power:
         name: "${ct_sensor_3_name} - Power"
         id: 'power_3'
-        web_server_sorting_weight: '1'
+        web_server_sorting_weight: '5'
 
       current:
         name: "${ct_sensor_3_name} - Current"
         id: 'current_3'
-        web_server_sorting_weight: '1'
+        web_server_sorting_weight: '6'
 
       energy:
         name: "${ct_sensor_3_name} - Energy"
@@ -392,12 +392,12 @@ sensor:
       power:
         name: "${ct_sensor_4_name} - Power"
         id: 'power_4'
-        web_server_sorting_weight: '1'
+        web_server_sorting_weight: '7'
 
       current:
         name: "${ct_sensor_4_name} - Current"
         id: 'current_4'
-        web_server_sorting_weight: '1'
+        web_server_sorting_weight: '8'
 
       energy:
         name: "${ct_sensor_4_name} - Energy"
@@ -413,12 +413,12 @@ sensor:
       power:
         name: "${ct_sensor_5_name} - Power"
         id: 'power_5'
-        web_server_sorting_weight: '1'
+        web_server_sorting_weight: '9'
 
       current:
         name: "${ct_sensor_5_name} - Current"
         id: 'current_5'
-        web_server_sorting_weight: '1'
+        web_server_sorting_weight: '10'
 
       energy:
         name: "${ct_sensor_5_name} - Energy"
@@ -434,12 +434,12 @@ sensor:
       power:
         name: "${ct_sensor_6_name} - Power"
         id: 'power_6'
-        web_server_sorting_weight: '1'
+        web_server_sorting_weight: '11'
 
       current:
         name: "${ct_sensor_6_name} - Current"
         id: 'current_6'
-        web_server_sorting_weight: '1'
+        web_server_sorting_weight: '12'
 
       energy:
         name: "${ct_sensor_6_name} - Energy"
@@ -472,7 +472,7 @@ sensor:
     lambda: |-
       return id(power_1).state + id(power_2).state + id(power_3).state;
     update_interval: 5s
-    web_server_sorting_weight: '1'
+    web_server_sorting_weight: '-50'
 
     # Show the Import Power coming from the Grid/Mains. Derived from CT1, CT2 and CT3 Power
   - platform: template
@@ -526,6 +526,7 @@ sensor:
     time_unit: h
     restore: true
     icon: mdi:transmission-tower-export
+    web_server_sorting_weight: '-35'
 
 
     # Show the Total (Lifetime) Energy FROM the Mains/Grid. 
@@ -540,59 +541,7 @@ sensor:
     lambda: |-
       return id(energy_1).state + id(energy_2).state + id(energy_3).state;
     update_interval: 5s
-    web_server_sorting_weight: '1'
-
-
-
-
-#####################################################################
-
-#  - platform: copy
-#    name: 'total_import_energy'
-#    id: total_import_energy_persist
-#    source_id: total_import_energy
-#    filters:
-#      - lambda: |-
-#          if(id(id_total_import_energy_lastvalue) == 0.0  )
-#          {
-#            id(id_total_import_energy_lastvalue) = id(total_import_energy).state;
-#          }
-#          if(x < id(id_total_import_energy_persist))
-#          {
-#            float delta =  x - id(id_total_import_energy_lastvalue);
-#            id(id_total_import_energy_persist) += delta;
-#            id(id_total_import_energy_lastvalue) = x;
-#          }
-#          else
-#          {
-#            id(id_total_import_energy_persist) = x;
-#          }
-#          return id(id_total_import_energy_persist);
-#    internal: true
-
-
-#  - platform: copy
-#    name: 'total_export_energy'
-#    id: total_export_energy_persist
-#    source_id: total_export_energy
-#    filters:
-#      - lambda: |-
-#          if(id(id_total_export_energy_lastvalue) == 0.0  )
-#          {
-#            id(id_total_export_energy_lastvalue) = id(total_export_energy).state;
-#          }
-#          if(x < id(id_total_export_energy_persist))
-#          {
-#            float delta =  x - id(id_total_export_energy_lastvalue);
-#            id(id_total_export_energy_persist) += delta;
-#            id(id_total_export_energy_lastvalue) = x;
-#          }
-#          else
-#          {
-#            id(id_total_export_energy_persist) = x;
-#          }
-#          return id(id_total_export_energy_persist);
-#    internal: true
+    web_server_sorting_weight: '-41'
 
 
 #####################################################################
