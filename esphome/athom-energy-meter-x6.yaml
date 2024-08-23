@@ -493,7 +493,7 @@ sensor:
     id: grid_power_export
     device_class: power
     state_class: "measurement"
-    unit_of_measurement: "kW"
+    unit_of_measurement: "W"
     icon: mdi:transmission-tower-export
     lambda: |-
       return max(0.0f, -id(power_1).state + id(power_2).state + id(power_3).state);
@@ -509,7 +509,7 @@ sensor:
     id: grid_power_export_kw
     device_class: power
     state_class: "measurement"
-    unit_of_measurement: "W"
+    unit_of_measurement: "kW"
     icon: mdi:transmission-tower-export
     lambda: |-
       return max(0.0f, -id(power_1).state + id(power_2).state + id(power_3).state);
