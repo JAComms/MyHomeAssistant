@@ -518,8 +518,8 @@ sensor:
 
     # Conver the 'grid_power_export_kw' sensor into kWh, giving a sensor recoding the Lifetime Energy Export.
   - platform: integration
-    name: "Grid Energy - Total Export"
-    id: grid_energy_total_export
+    name: "Grid Energy - Export Total"
+    id: grid_energy_export_total
     sensor: grid_power_export_kw
     device_class: energy
     state_class: total_increasing
@@ -532,8 +532,8 @@ sensor:
     # Show the Total (Lifetime) Energy FROM the Mains/Grid. 
     # The component for the BL0906 sensor is configured as 'State_Class_Total' so only reports upon the IMPORTED energy, not exported.
   - platform: template
-    name: "Grid Energy - Total Import"
-    id: grid_energy_total_import
+    name: "Grid Energy - Import Total"
+    id: grid_energy_import_total
     device_class: energy
     state_class: "measurement"
     unit_of_measurement: "kWh"
@@ -552,7 +552,7 @@ sensor:
 
      # Dentra Components - Define the id of the sensor tracking 'Total Energy' used
   - platform: "energy_statistics"
-    total: grid_energy_total_import
+    total: grid_energy_import_total
     
      # Dentra Components - Adds Energy Today. Persistents if restarted, unlike 'total_daily_energy'
     energy_today:
@@ -591,7 +591,7 @@ sensor:
 
      # Dentra Components - Define the id of the sensor tracking 'Total Energy' used
   - platform: "energy_statistics"
-    total: grid_energy_total_export
+    total: grid_energy_export_total
     
      # Dentra Components - Adds Energy Today. Persistents if restarted, unlike 'total_daily_energy'
     energy_today:
