@@ -534,22 +534,6 @@ sensor:
 
 
 
-  # The power sensor to convert, can be any power sensor
-  - platform: bl0906
-    power:
-      id: my_power
-      filters:
-        # Multiplication factor from W to kW is 0.001
-        - multiply: 0.001
-      unit_of_measurement: kW
-
-
-
-
-
-
-
-
 
 
 
