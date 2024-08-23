@@ -268,7 +268,7 @@ light:
     id: blue_led
     disabled_by_default: true
     pin: $led_pin
-#    web_server_sorting_weight: '-20'
+    web_server_sorting_weight: '-20'
 
 #####################################################################
 #
@@ -290,7 +290,7 @@ binary_sensor:
         then:
           - button.press: Reset
     entity_category: config
-#    web_server_sorting_weight: '-19'
+    web_server_sorting_weight: '-19'
 
 
 #####################################################################
@@ -307,17 +307,17 @@ sensor:
     temperature:
       name: 'Temperature'
       id: 'Temperature'
-  #    web_server_sorting_weight: '-10'
+      web_server_sorting_weight: '-10'
 
     frequency:
       name: 'Frequency'
       id: 'Frequency'
-  #    web_server_sorting_weight: '-9'
+      web_server_sorting_weight: '-9'
 
     voltage:
       name: 'Voltage'
       id: 'Voltage'
-  #    web_server_sorting_weight: '-8'
+      web_server_sorting_weight: '-8'
 
 #######################
 #
@@ -328,17 +328,17 @@ sensor:
       power:
         name: "${ct_sensor_1_name} - Power"
         id: 'power_1'
-    #    web_server_sorting_weight: '1'
+        web_server_sorting_weight: '1'
 
       current:
         name: "${ct_sensor_1_name} - Current"
         id: 'current_1'
-    #    web_server_sorting_weight: '1'
+        web_server_sorting_weight: '1'
 
       energy:
         name: "${ct_sensor_1_name} - Energy"
         id: 'energy_1'
-    #    web_server_sorting_weight: '1'
+        web_server_sorting_weight: '1'
 
 #######################
 #
@@ -349,17 +349,17 @@ sensor:
       power:
         name: "${ct_sensor_2_name} - Power"
         id: 'power_2'
-    #    web_server_sorting_weight: '1'
+        web_server_sorting_weight: '1'
 
       current:
         name: "${ct_sensor_2_name} - Current"
         id: 'current_2'
-    #    web_server_sorting_weight: '1'
+        web_server_sorting_weight: '1'
 
       energy:
         name: "${ct_sensor_2_name} - Energy"
         id: 'energy_2'
-    #    web_server_sorting_weight: '1'
+        web_server_sorting_weight: '1'
 
 #######################
 #
@@ -370,17 +370,17 @@ sensor:
       power:
         name: "${ct_sensor_3_name} - Power"
         id: 'power_3'
-    #    web_server_sorting_weight: '1'
+        web_server_sorting_weight: '1'
 
       current:
         name: "${ct_sensor_3_name} - Current"
         id: 'current_3'
-    #    web_server_sorting_weight: '1'
+        web_server_sorting_weight: '1'
 
       energy:
         name: "${ct_sensor_3_name} - Energy"
         id: 'energy_3'
-    #    web_server_sorting_weight: '1'
+        web_server_sorting_weight: '1'
 
 #######################
 #
@@ -391,17 +391,17 @@ sensor:
       power:
         name: "${ct_sensor_4_name} - Power"
         id: 'power_4'
-    #    web_server_sorting_weight: '1'
+        web_server_sorting_weight: '1'
 
       current:
         name: "${ct_sensor_4_name} - Current"
         id: 'current_4'
-    #    web_server_sorting_weight: '1'
+        web_server_sorting_weight: '1'
 
       energy:
         name: "${ct_sensor_4_name} - Energy"
         id: 'energy_4'
-    #    web_server_sorting_weight: '1'
+        web_server_sorting_weight: '1'
       
 #######################
 #
@@ -412,17 +412,17 @@ sensor:
       power:
         name: "${ct_sensor_5_name} - Power"
         id: 'power_5'
-    #    web_server_sorting_weight: '1'
+        web_server_sorting_weight: '1'
 
       current:
         name: "${ct_sensor_5_name} - Current"
         id: 'current_5'
-    #    web_server_sorting_weight: '1'
+        web_server_sorting_weight: '1'
 
       energy:
         name: "${ct_sensor_5_name} - Energy"
         id: 'energy_5'
-    #    web_server_sorting_weight: '1'
+        web_server_sorting_weight: '1'
       
 #######################
 #
@@ -433,17 +433,17 @@ sensor:
       power:
         name: "${ct_sensor_6_name} - Power"
         id: 'power_6'
-    #    web_server_sorting_weight: '1'
+        web_server_sorting_weight: '1'
 
       current:
         name: "${ct_sensor_6_name} - Current"
         id: 'current_6'
-    #    web_server_sorting_weight: '1'
+        web_server_sorting_weight: '1'
 
       energy:
         name: "${ct_sensor_6_name} - Energy"
         id: 'energy_6'
-    #    web_server_sorting_weight: '1'
+        web_server_sorting_weight: '1'
     
   
 #######################
