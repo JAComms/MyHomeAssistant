@@ -516,6 +516,18 @@ sensor:
     update_interval: ${update_interval}
     internal: false
 
+    # Conver the 'grid_power_export_kw' sensor into kWh, giving a sensor recoding the Lifetime Energy Export.
+  - platform: integration
+    name: "Grid - Energy Total (Export)"
+    id: grid_energy_total_exmport
+    sensor: grid_power_export_kw
+    device_class: energy
+    state_class: total_increasing
+    time_unit: h
+    restore: true
+    icon: mdi:transmission-tower-export
+
+
     # Show the Total (Lifetime) Energy FROM the Mains/Grid. 
     # The component for the BL0906 sensor is configured as 'State_Class_Total' so only reports upon the IMPORTED energy, not exported.
   - platform: template
@@ -529,7 +541,6 @@ sensor:
       return id(energy_1).state + id(energy_2).state + id(energy_3).state;
     update_interval: 5s
     web_server_sorting_weight: '1'
-
 
 
 
