@@ -113,7 +113,7 @@ external_components:
 button:
 
   - platform: template
-    name: Reset Energy
+    name: Reset - Total Energy
     entity_category: config
     icon: mdi:restart-alert
     on_press:
@@ -144,6 +144,25 @@ button:
             value: '0.0'
         - bl0906.reset_energy: id_bl0906
 
+  - platform: template
+    name: "Reset - Grid Energy Timeframes"
+    entity_category: config
+    icon: mdi:restart-alert
+    on_press:
+      then:
+        # Reset export energy
+        - globals.set:
+            id: total_export_energy
+            value: '0.0'
+        - lambda: |-
+            id(grid_energy_export_total).publish_state(0.0);
+
+        # Reset import energy
+        - globals.set:
+            id: total_import_energy
+            value: '0.0'
+        - lambda: |-
+            id(grid_energy_import_total).publish_state(0.0);
 
 #####################################################################
 #
