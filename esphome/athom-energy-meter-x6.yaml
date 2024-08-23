@@ -137,10 +137,10 @@ button:
             id: id_energy_6_persist
             value: '0.0'
         - globals.set:
-            id: id_total_import_energy_persist
+            id: total_import_energy_persist
             value: '0.0'
         - globals.set:
-            id: id_total_export_energy_persist
+            id: total_export_energy_persist
             value: '0.0'
         - bl0906.reset_energy: id_bl0906
 
