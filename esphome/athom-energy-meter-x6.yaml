@@ -152,12 +152,12 @@ button:
 
 globals:
 
-  - id: total_export_energy_lastvalue
+  - id: total_export_energy_persist
     type: float
     restore_value: yes
     initial_value: '0.0'
 
-  - id: id_total_energy_import_lastvalue
+  - id: total_import_energy_persist
     type: float
     restore_value: no
     initial_value: '0.0'
@@ -528,7 +528,7 @@ sensor:
     accuracy_decimals: 3
     filters:
       # Add the accumulated value from the global variable
-      - lambda: return x + id(total_export_energy_lastvalue);
+      - lambda: return x + id(total_export_energy_persist);
     restore: true
     icon: mdi:transmission-tower-export
     web_server_sorting_weight: '-35'
