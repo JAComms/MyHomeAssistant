@@ -559,7 +559,7 @@ sensor:
       id: grid_energy_total_import_today
       accuracy_decimals: 3
       icon: "mdi:hours-24"
-      web_server_sorting_weight: '-40'
+      web_server_sorting_weight: '-46'
 
      # Dentra Components - Adds Energy Yesterday
     energy_yesterday:
@@ -567,7 +567,7 @@ sensor:
       id: grid_energy_total_import_yesterday
       accuracy_decimals: 3
       icon: "mdi:calendar-today"
-      web_server_sorting_weight: '-39'
+      web_server_sorting_weight: '-45'
 
      # Dentra Components - Adds Energy Week
     energy_week:
@@ -575,7 +575,7 @@ sensor:
       id: grid_energy_total_import_week
       accuracy_decimals: 3
       icon: "mdi:calendar-week"
-      web_server_sorting_weight: '-38'
+      web_server_sorting_weight: '-44'
 
      # Dentra Components - Adds Energy Month
     energy_month:
@@ -583,14 +583,14 @@ sensor:
       id: grid_energy_total_import_month
       accuracy_decimals: 3
       icon: "mdi:calendar-month"
-      web_server_sorting_weight: '-37'
+      web_server_sorting_weight: '-43'
 
     energy_year:
       name: "Grid Energy - Total Import Year"
       id: grid_energy_total_import_year
       accuracy_decimals: 3
       icon: "mdi:calendar-text"
-      web_server_sorting_weight: '-36'
+      web_server_sorting_weight: '-42'
 
 
 #####################################################################
