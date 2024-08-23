@@ -463,7 +463,7 @@ sensor:
 
     # Show the NETT Power coming from or going to the Grid/Mains. Derived from CT1, CT2 and CT3 Power
   - platform: template
-    name: "Grid - Power Total"
+    name: "Grid Power - Total"
     id: grid_power_total
     device_class: power
     state_class: "measurement"
@@ -519,7 +519,7 @@ sensor:
     # Conver the 'grid_power_export_kw' sensor into kWh, giving a sensor recoding the Lifetime Energy Export.
   - platform: integration
     name: "Grid Energy - Total (Export)"
-    id: grid_energy_total_exmport
+    id: grid_energy_total_export
     sensor: grid_power_export_kw
     device_class: energy
     state_class: total_increasing
@@ -542,6 +542,59 @@ sensor:
       return id(energy_1).state + id(energy_2).state + id(energy_3).state;
     update_interval: 5s
     web_server_sorting_weight: '-41'
+
+
+#####################################################################
+#
+# Energy IMPORT - Today / Yesterday / Week / Month / Year sensors
+#
+
+     # Dentra Components - Define the id of the sensor tracking 'Total Energy' used
+  - platform: "energy_statistics"
+    total: grid_energy_total_import
+    
+     # Dentra Components - Adds Energy Today. Persistents if restarted, unlike 'total_daily_energy'
+    energy_today:
+      name: "- Today"
+      id: grid_energy_total_import_today
+      accuracy_decimals: 3
+      icon: "mdi:hours-24"
+      web_server_sorting_weight: '-40'
+
+     # Dentra Components - Adds Energy Yesterday
+    energy_yesterday:
+      name: "- Yesterday"
+      id: grid_energy_total_import_yesterday
+      accuracy_decimals: 3
+      icon: "mdi:calendar-today"
+      web_server_sorting_weight: '-39'
+
+     # Dentra Components - Adds Energy Week
+    energy_week:
+      name: "- Week"
+      id: grid_energy_total_import_week
+      accuracy_decimals: 3
+      icon: "mdi:calendar-week"
+      web_server_sorting_weight: '-38'
+
+     # Dentra Components - Adds Energy Month
+    energy_month:
+      name: "- Month"
+      id: grid_energy_total_import_month
+      accuracy_decimals: 3
+      icon: "mdi:calendar-month"
+      web_server_sorting_weight: '-37'
+
+    energy_year:
+      name: "- Year"
+      id: grid_energy_total_import_year
+      accuracy_decimals: 3
+      icon: "mdi:calendar-text"
+      web_server_sorting_weight: '-36'
+
+
+
+
 
 
 #####################################################################
