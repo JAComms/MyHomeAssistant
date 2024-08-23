@@ -152,14 +152,14 @@ button:
       then:
         # Reset export energy
         - globals.set:
-            id: total_export_energy
+            id: total_export_energy_persist
             value: '0.0'
         - lambda: |-
             id(grid_energy_export_total).publish_state(0.0);
 
         # Reset import energy
         - globals.set:
-            id: total_import_energy
+            id: total_import_energy_persist
             value: '0.0'
         - lambda: |-
             id(grid_energy_import_total).publish_state(0.0);
