@@ -555,7 +555,7 @@ sensor:
     
      # Dentra Components - Adds Energy Today. Persistents if restarted, unlike 'total_daily_energy'
     energy_today:
-      name: "- Today"
+      name: "Grid Energy - Total Import Today"
       id: grid_energy_total_import_today
       accuracy_decimals: 3
       icon: "mdi:hours-24"
@@ -563,7 +563,7 @@ sensor:
 
      # Dentra Components - Adds Energy Yesterday
     energy_yesterday:
-      name: "- Yesterday"
+      name: "Grid Energy - Total Import Yesterday"
       id: grid_energy_total_import_yesterday
       accuracy_decimals: 3
       icon: "mdi:calendar-today"
@@ -571,7 +571,7 @@ sensor:
 
      # Dentra Components - Adds Energy Week
     energy_week:
-      name: "- Week"
+      name: "Grid Energy - Total Import Week"
       id: grid_energy_total_import_week
       accuracy_decimals: 3
       icon: "mdi:calendar-week"
@@ -579,14 +579,14 @@ sensor:
 
      # Dentra Components - Adds Energy Month
     energy_month:
-      name: "- Month"
+      name: "Grid Energy - Total Import Month"
       id: grid_energy_total_import_month
       accuracy_decimals: 3
       icon: "mdi:calendar-month"
       web_server_sorting_weight: '-37'
 
     energy_year:
-      name: "- Year"
+      name: "Grid Energy - Total Import Year"
       id: grid_energy_total_import_year
       accuracy_decimals: 3
       icon: "mdi:calendar-text"
