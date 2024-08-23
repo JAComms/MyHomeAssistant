@@ -475,7 +475,7 @@ sensor:
 
   - platform: template
     name: "Grid - Energy Total"
-    id: grid_power_total
+    id: grid_energy_total
     device_class: energy
     state_class: "measurement"
     unit_of_measurement: "kWh"
