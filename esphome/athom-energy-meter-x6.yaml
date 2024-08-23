@@ -29,6 +29,8 @@ substitutions:
   power_circuit: "TBC"  
   # Sensor update interval
   update_interval: 5s
+  # Hide, by making 'internal', the individual CT's energy sensors
+  hide_surplus_energy_sensors: "true"
 
 
   # Names to describe the usage of each CT sensor. i.e. Lights, GPO1, Grid etc. Used to then prefix all the associated sensors.
@@ -144,25 +146,7 @@ button:
             value: '0.0'
         - bl0906.reset_energy: id_bl0906
 
-  - platform: template
-    name: "Reset - Grid Energy Timeframes"
-    entity_category: config
-    icon: mdi:restart-alert
-    on_press:
-      then:
-        # Reset export energy
-        - globals.set:
-            id: total_export_energy_persist
-            value: '0.0'
-        - lambda: |-
-            id(grid_energy_export_total).publish_state(0.0);
-
-        # Reset import energy
-        - globals.set:
-            id: total_import_energy_persist
-            value: '0.0'
-        - lambda: |-
-            id(grid_energy_import_total).publish_state(0.0);
+# COMMENT: Not sure if total_import_energy_persist and total_export_energy_persist are resetting when button pushed. Last time had to hit 'Factory Reset to Default' to wipe them.
 
 #####################################################################
 #
@@ -170,6 +154,8 @@ button:
 #
 
 globals:
+
+#######################
 
   - id: total_export_energy_persist
     type: float
@@ -182,19 +168,6 @@ globals:
     initial_value: '0.0'
 
 #######################
-
-  - id: id_total_energy_export_persist
-    type: float
-    restore_value: yes
-    initial_value: '0.0'
-
-  - id: id_total_energy_export_lastvalue
-    type: float
-    restore_value: no
-    initial_value: '0.0'
-
-#######################
-
 
   - id: id_energy_1_persist
     type: float
@@ -358,7 +331,7 @@ sensor:
       energy:
         name: "${ct_sensor_1_name} - Energy"
         id: 'energy_1'
-        internal: true
+        internal: ${hide_surplus_energy_sensors}
 
 #######################
 #
@@ -379,7 +352,7 @@ sensor:
       energy:
         name: "${ct_sensor_2_name} - Energy"
         id: 'energy_2'
-        internal: true
+        internal: ${hide_surplus_energy_sensors}
 
 #######################
 #
@@ -400,7 +373,7 @@ sensor:
       energy:
         name: "${ct_sensor_3_name} - Energy"
         id: 'energy_3'
-        internal: true
+        internal: ${hide_surplus_energy_sensors}
 
 #######################
 #
@@ -421,7 +394,7 @@ sensor:
       energy:
         name: "${ct_sensor_4_name} - Energy"
         id: 'energy_4'
-        internal: true
+        internal: ${hide_surplus_energy_sensors}
       
 #######################
 #
@@ -442,7 +415,7 @@ sensor:
       energy:
         name: "${ct_sensor_5_name} - Energy"
         id: 'energy_5'
-        internal: true
+        internal: ${hide_surplus_energy_sensors}
       
 #######################
 #
@@ -463,7 +436,7 @@ sensor:
       energy:
         name: "${ct_sensor_6_name} - Energy"
         id: 'energy_6'
-        internal: true
+        internal: ${hide_surplus_energy_sensors}
     
   
 #######################
@@ -473,7 +446,7 @@ sensor:
     total_energy:
       name: 'Total - Energy'
       id: 'total_energy'
-      internal: true
+      internal: ${hide_surplus_energy_sensors}
 
 #####################################################################
 #
@@ -533,7 +506,7 @@ sensor:
     lambda: |-
       return max(0.0f, -id(power_1).state + id(power_2).state + id(power_3).state);
     update_interval: ${update_interval}
-    internal: true
+    internal: ${hide_surplus_energy_sensors}
 
     # Conver the 'grid_power_export_kw' sensor into kWh, giving a sensor recoding the Lifetime Energy Export.
   - platform: integration
