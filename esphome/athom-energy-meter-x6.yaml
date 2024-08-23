@@ -470,7 +470,21 @@ sensor:
     lambda: |-
       return id(power_1).state + id(power_2).state + id(power_3).state;
     update_interval: 5s
-    
+    web_server_sorting_weight: '1'
+
+
+  - platform: template
+    name: "Grid - Energy Total"
+    id: grid_power_total
+    device_class: energy
+    state_class: "measurement"
+    unit_of_measurement: "kWh"
+    icon: mdi:lightning-bolt
+    lambda: |-
+      return id(energy_1).state + id(energy_2).state + id(energy_3).state;
+    update_interval: 5s
+    web_server_sorting_weight: '1'
+
 #      {% set grid_phase_a = states('sensor.inverter_pv_1_current') %}
 #      {% set grid_phase_b = states('sensor.inverter_pv_1_current') %}
 #      {% set grid_phase_c = states('sensor.inverter_pv_1_current') %}
