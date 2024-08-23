@@ -518,7 +518,7 @@ sensor:
 
     # Conver the 'grid_power_export_kw' sensor into kWh, giving a sensor recoding the Lifetime Energy Export.
   - platform: integration
-    name: "Grid Energy - Total (Export)"
+    name: "Grid Energy - Total Export"
     id: grid_energy_total_export
     sensor: grid_power_export_kw
     device_class: energy
@@ -532,7 +532,7 @@ sensor:
     # Show the Total (Lifetime) Energy FROM the Mains/Grid. 
     # The component for the BL0906 sensor is configured as 'State_Class_Total' so only reports upon the IMPORTED energy, not exported.
   - platform: template
-    name: "Grid Energy - Total (Import)"
+    name: "Grid Energy - Total Import"
     id: grid_energy_total_import
     device_class: energy
     state_class: "measurement"
@@ -593,8 +593,53 @@ sensor:
       web_server_sorting_weight: '-36'
 
 
+#####################################################################
+#
+# Energy EXPORT - Today / Yesterday / Week / Month / Year sensors
+#
 
+     # Dentra Components - Define the id of the sensor tracking 'Total Energy' used
+  - platform: "energy_statistics"
+    total: grid_energy_total_export
+    
+     # Dentra Components - Adds Energy Today. Persistents if restarted, unlike 'total_daily_energy'
+    energy_today:
+      name: "Grid Energy - Total Export Today"
+      id: grid_energy_total_export_today
+      accuracy_decimals: 3
+      icon: "mdi:hours-24"
+      web_server_sorting_weight: '-40'
 
+     # Dentra Components - Adds Energy Yesterday
+    energy_yesterday:
+      name: "Grid Energy - Total Export Yesterday"
+      id: grid_energy_total_export_yesterday
+      accuracy_decimals: 3
+      icon: "mdi:calendar-today"
+      web_server_sorting_weight: '-39'
+
+     # Dentra Components - Adds Energy Week
+    energy_week:
+      name: "Grid Energy - Total Export Week"
+      id: grid_energy_total_export_week
+      accuracy_decimals: 3
+      icon: "mdi:calendar-week"
+      web_server_sorting_weight: '-38'
+
+     # Dentra Components - Adds Energy Month
+    energy_month:
+      name: "Grid Energy - Total Export Month"
+      id: grid_energy_total_export_month
+      accuracy_decimals: 3
+      icon: "mdi:calendar-month"
+      web_server_sorting_weight: '-37'
+
+    energy_year:
+      name: "Grid Energy - Total Export Year"
+      id: grid_energy_total_exmport_year
+      accuracy_decimals: 3
+      icon: "mdi:calendar-text"
+      web_server_sorting_weight: '-36'
 
 
 #####################################################################
