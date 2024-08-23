@@ -476,7 +476,7 @@ sensor:
 
     # Show the Import Power coming from the Grid/Mains. Derived from CT1, CT2 and CT3 Power
   - platform: template
-    name: "Grid - Power Import"
+    name: "Grid Power - Import"
     id: grid_power_import
     device_class: power
     state_class: "measurement"
@@ -489,7 +489,7 @@ sensor:
 
     # Show the Export Power going to the Grid/Mains. Derived from CT1, CT2 and CT3 Power
   - platform: template
-    name: "Grid - Power Export"
+    name: "Grid Power - Export"
     id: grid_power_export
     device_class: power
     state_class: "measurement"
@@ -505,7 +505,7 @@ sensor:
     # Show the Export Power going to the Grid/Mains. Derived from CT1, CT2 and CT3 Power
     # Same as above sensor, but converts from Watts to KiloWatts, to be used Integration sensor to provide 'Energy Total Export' sensor
   - platform: template
-    name: "Grid - Power Export kW"
+    name: "Grid Power - Export kW"
     id: grid_power_export_kw
     device_class: power
     state_class: "measurement"
@@ -514,11 +514,11 @@ sensor:
     lambda: |-
       return max(0.0f, -id(power_1).state + id(power_2).state + id(power_3).state);
     update_interval: ${update_interval}
-    internal: false
+    internal: true
 
     # Conver the 'grid_power_export_kw' sensor into kWh, giving a sensor recoding the Lifetime Energy Export.
   - platform: integration
-    name: "Grid - Energy Total (Export)"
+    name: "Grid Energy - Total (Export)"
     id: grid_energy_total_exmport
     sensor: grid_power_export_kw
     device_class: energy
@@ -531,7 +531,7 @@ sensor:
     # Show the Total (Lifetime) Energy FROM the Mains/Grid. 
     # The component for the BL0906 sensor is configured as 'State_Class_Total' so only reports upon the IMPORTED energy, not exported.
   - platform: template
-    name: "Grid - Energy Total (Import)"
+    name: "Grid Energy - Total (Import)"
     id: grid_energy_total_import
     device_class: energy
     state_class: "measurement"
@@ -544,18 +544,6 @@ sensor:
 
 
 
-
-
-
-
-
-
-
-
-
-
-# mdi:transmission-tower-export
-# mdi:transmission-tower-import
 
 #####################################################################
 
