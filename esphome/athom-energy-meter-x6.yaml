@@ -152,7 +152,7 @@ button:
 
 globals:
 
-  - id: id_total_energy_import_persist
+  - id: total_export_energy_lastvalue
     type: float
     restore_value: yes
     initial_value: '0.0'
@@ -524,6 +524,11 @@ sensor:
     device_class: energy
     state_class: total_increasing
     time_unit: h
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 3
+    filters:
+      # Add the accumulated value from the global variable
+      - lambda: return x + id(total_export_energy_lastvalue);
     restore: true
     icon: mdi:transmission-tower-export
     web_server_sorting_weight: '-35'
