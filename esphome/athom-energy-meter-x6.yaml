@@ -493,18 +493,34 @@ sensor:
     id: grid_power_export
     device_class: power
     state_class: "measurement"
+    unit_of_measurement: "kW"
+    icon: mdi:transmission-tower-export
+    lambda: |-
+      return max(0.0f, -id(power_1).state + id(power_2).state + id(power_3).state);
+    filters:
+      - multiply: 0.001
+    update_interval: ${update_interval}
+    web_server_sorting_weight: '-48'    
+
+    # Show the Export Power going to the Grid/Mains. Derived from CT1, CT2 and CT3 Power
+    # Same as above sensor, but converts from Watts to KiloWatts, to be used Integration sensor to provide 'Energy Total Export' sensor
+  - platform: template
+    name: "Grid - Power Export kW"
+    id: grid_power_export_kw
+    device_class: power
+    state_class: "measurement"
     unit_of_measurement: "W"
     icon: mdi:transmission-tower-export
     lambda: |-
       return max(0.0f, -id(power_1).state + id(power_2).state + id(power_3).state);
     update_interval: ${update_interval}
-    web_server_sorting_weight: '-48'    
+    internal: false
 
     # Show the Total (Lifetime) Energy FROM the Mains/Grid. 
     # The component for the BL0906 sensor is configured as 'State_Class_Total' so only reports upon the IMPORTED energy, not exported.
   - platform: template
-    name: "Grid - Energy Total Imported"
-    id: grid_energy_total_imported
+    name: "Grid - Energy Total (Import)"
+    id: grid_energy_total_import
     device_class: energy
     state_class: "measurement"
     unit_of_measurement: "kWh"
@@ -513,6 +529,34 @@ sensor:
       return id(energy_1).state + id(energy_2).state + id(energy_3).state;
     update_interval: 5s
     web_server_sorting_weight: '1'
+
+
+
+
+
+  # The power sensor to convert, can be any power sensor
+  - platform: bl0906
+    power:
+      id: my_power
+      filters:
+        # Multiplication factor from W to kW is 0.001
+        - multiply: 0.001
+      unit_of_measurement: kW
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # mdi:transmission-tower-export
