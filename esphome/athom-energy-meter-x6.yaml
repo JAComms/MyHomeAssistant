@@ -524,7 +524,7 @@ sensor:
     name: "Grid Energy - Import Total"
     id: grid_energy_import_total
     device_class: energy
-    state_class: "measurement"
+    state_class: total_increasing
     unit_of_measurement: "kWh"
     accuracy_decimals: 3
     icon: mdi:transmission-tower-import
