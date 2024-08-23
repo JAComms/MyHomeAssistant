@@ -555,39 +555,39 @@ sensor:
     
      # Dentra Components - Adds Energy Today. Persistents if restarted, unlike 'total_daily_energy'
     energy_today:
-      name: "Grid Energy - Total Import Today"
-      id: grid_energy_total_import_today
+      name: "Grid Energy - Import Today"
+      id: grid_energy_import_today
       accuracy_decimals: 3
       icon: "mdi:hours-24"
       web_server_sorting_weight: '-46'
 
      # Dentra Components - Adds Energy Yesterday
     energy_yesterday:
-      name: "Grid Energy - Total Import Yesterday"
-      id: grid_energy_total_import_yesterday
+      name: "Grid Energy - Import Yesterday"
+      id: grid_energy_import_yesterday
       accuracy_decimals: 3
       icon: "mdi:calendar-today"
       web_server_sorting_weight: '-45'
 
      # Dentra Components - Adds Energy Week
     energy_week:
-      name: "Grid Energy - Total Import Week"
-      id: grid_energy_total_import_week
+      name: "Grid Energy - Import Week"
+      id: grid_energy_import_week
       accuracy_decimals: 3
       icon: "mdi:calendar-week"
       web_server_sorting_weight: '-44'
 
      # Dentra Components - Adds Energy Month
     energy_month:
-      name: "Grid Energy - Total Import Month"
-      id: grid_energy_total_import_month
+      name: "Grid Energy - Import Month"
+      id: grid_energy_import_month
       accuracy_decimals: 3
       icon: "mdi:calendar-month"
       web_server_sorting_weight: '-43'
 
     energy_year:
-      name: "Grid Energy - Total Import Year"
-      id: grid_energy_total_import_year
+      name: "Grid Energy - Import Year"
+      id: grid_energy_import_year
       accuracy_decimals: 3
       icon: "mdi:calendar-text"
       web_server_sorting_weight: '-42'
@@ -604,39 +604,39 @@ sensor:
     
      # Dentra Components - Adds Energy Today. Persistents if restarted, unlike 'total_daily_energy'
     energy_today:
-      name: "Grid Energy - Total Export Today"
-      id: grid_energy_total_export_today
+      name: "Grid Energy - Export Today"
+      id: grid_energy_export_today
       accuracy_decimals: 3
       icon: "mdi:hours-24"
       web_server_sorting_weight: '-40'
 
      # Dentra Components - Adds Energy Yesterday
     energy_yesterday:
-      name: "Grid Energy - Total Export Yesterday"
-      id: grid_energy_total_export_yesterday
+      name: "Grid Energy - Export Yesterday"
+      id: grid_energy_export_yesterday
       accuracy_decimals: 3
       icon: "mdi:calendar-today"
       web_server_sorting_weight: '-39'
 
      # Dentra Components - Adds Energy Week
     energy_week:
-      name: "Grid Energy - Total Export Week"
-      id: grid_energy_total_export_week
+      name: "Grid Energy - Export Week"
+      id: grid_energy_export_week
       accuracy_decimals: 3
       icon: "mdi:calendar-week"
       web_server_sorting_weight: '-38'
 
      # Dentra Components - Adds Energy Month
     energy_month:
-      name: "Grid Energy - Total Export Month"
-      id: grid_energy_total_export_month
+      name: "Grid Energy - Export Month"
+      id: grid_energy_export_month
       accuracy_decimals: 3
       icon: "mdi:calendar-month"
       web_server_sorting_weight: '-37'
 
     energy_year:
-      name: "Grid Energy - Total Export Year"
-      id: grid_energy_total_exmport_year
+      name: "Grid Energy - Export Year"
+      id: grid_energy_export_year
       accuracy_decimals: 3
       icon: "mdi:calendar-text"
       web_server_sorting_weight: '-36'
