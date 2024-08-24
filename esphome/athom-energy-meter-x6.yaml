@@ -494,7 +494,7 @@ sensor:
     unit_of_measurement: "kW"
     icon: mdi:transmission-tower-export
     lambda: |-
-      return max(0.0f, -id(power_1).state + id(power_2).state + id(power_3).state);
+      return max(0.0f, -id(power_1).state + -id(power_2).state + -id(power_3).state);
     filters:
       - multiply: 0.001
     update_interval: ${update_interval}
