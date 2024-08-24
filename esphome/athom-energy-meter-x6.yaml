@@ -553,7 +553,7 @@ sensor:
       - multiply: 0.001
     update_interval: ${update_interval}
     web_server_sorting_weight: '-47'
-    internal: true
+    internal: false
 
     # Conver the 'grid_power_export_kw' sensor into kWh, giving a sensor recoding the Lifetime Energy Export.
   - platform: integration
