@@ -568,7 +568,7 @@ sensor:
     filters:
       # Add the accumulated value from the global variable
       - lambda: return x + id(total_export_energy_persist);
-    restore: true
+#    restore: true
     icon: mdi:transmission-tower-export
     web_server_sorting_weight: '-35'
 
