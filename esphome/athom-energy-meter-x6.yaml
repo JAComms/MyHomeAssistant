@@ -113,22 +113,22 @@ button:
     on_press:
       then:
         - globals.set:
-            id: id_energy_1_persist
+            id: id_energy_1_import_persist
             value: '0.0'
         - globals.set:
-            id: id_energy_2_persist
+            id: id_energy_2_import_persist
             value: '0.0'
         - globals.set:
-            id: id_energy_3_persist
+            id: id_energy_3_import_persist
             value: '0.0'
         - globals.set:
-            id: id_energy_4_persist
+            id: id_energy_4_import_persist
             value: '0.0'
         - globals.set:
-            id: id_energy_5_persist
+            id: id_energy_5_import_persist
             value: '0.0'
         - globals.set:
-            id: id_energy_6_persist
+            id: id_energy_6_import_persist
             value: '0.0'
         - globals.set:
             id: total_import_energy_persist
@@ -161,7 +161,7 @@ globals:
 
 #######################
 
-  - id: id_energy_1_persist
+  - id: id_energy_1_import_persist
     type: float
     restore_value: yes
     initial_value: '0.0'
@@ -173,7 +173,7 @@ globals:
 
 #######################
 
-  - id: id_energy_2_persist
+  - id: id_energy_2_import_persist
     type: float
     restore_value: yes
     initial_value: '0.0'
@@ -185,7 +185,7 @@ globals:
 
 #######################
 
-  - id: id_energy_3_persist
+  - id: id_energy_3_import_persist
     type: float
     restore_value: yes
     initial_value: '0.0'
@@ -197,7 +197,7 @@ globals:
 
 #######################
 
-  - id: id_energy_4_persist
+  - id: id_energy_4_import_persist
     type: float
     restore_value: yes
     initial_value: '0.0'
@@ -209,7 +209,7 @@ globals:
 
 #######################
 
-  - id: id_energy_5_persist
+  - id: id_energy_5_import_persist
     type: float
     restore_value: yes
     initial_value: '0.0'
@@ -221,7 +221,7 @@ globals:
 
 #######################
 
-  - id: id_energy_6_persist
+  - id: id_energy_6_import_persist
     type: float
     restore_value: yes
     initial_value: '0.0'
@@ -459,20 +459,8 @@ sensor:
     state_class: "measurement"
     unit_of_measurement: "W"
     icon: mdi:transmission-tower
-#    lambda: |-
-#      return id(power_1).state + id(power_2).state + id(power_3).state;
     lambda: |-
-      float sum = 0.0f;
-      if (id(power_1).state > 0.0f) {
-        sum += id(power_1).state;
-      }
-      if (id(power_2).state > 0.0f) {
-        sum += id(power_2).state;
-      }
-      if (id(power_3).state > 0.0f) {
-        sum += id(power_3).state;
-      }
-      return sum > 0.0f ? sum : 0.0f;
+      return id(power_1).state + id(power_2).state + id(power_3).state;
     update_interval: 5s
     web_server_sorting_weight: '-50'
 
@@ -672,7 +660,7 @@ sensor:
 
   - platform: copy
     name: 'Energy_1'
-    id: energy_1_persist
+    id: energy_1_import_persist
     source_id: energy_1
     filters:
       - lambda: |-
@@ -680,22 +668,22 @@ sensor:
           {
             id(id_energy_1_lastvalue) = id(energy_1).state;
           }
-          if(x < id(id_energy_1_persist))
+          if(x < id(id_energy_1_import_persist))
           {
             float delta =  x - id(id_energy_1_lastvalue);
-            id(id_energy_1_persist) += delta;
+            id(id_energy_1_import_persist) += delta;
             id(id_energy_1_lastvalue) = x;
           }
           else
           {
-            id(id_energy_1_persist) = x;
+            id(id_energy_1_import_persist) = x;
           }
-          return id(id_energy_1_persist);
+          return id(id_energy_1_import_persist);
     internal: true
     
   - platform: copy
     name: 'Energy_2'
-    id: energy_2_persist
+    id: energy_2_import_persist
     source_id: energy_2
     filters:
       - lambda: |-
@@ -703,22 +691,22 @@ sensor:
           {
             id(id_energy_2_lastvalue) = id(energy_2).state;
           }
-          if(x < id(id_energy_2_persist))
+          if(x < id(id_energy_2_import_persist))
           {
             float delta =  x - id(id_energy_2_lastvalue);
-            id(id_energy_2_persist) += delta;
+            id(id_energy_2_import_persist) += delta;
             id(id_energy_2_lastvalue) = x;
           }
           else
           {
-            id(id_energy_2_persist) = x;
+            id(id_energy_2_import_persist) = x;
           }
-          return id(id_energy_2_persist);
+          return id(id_energy_2_import_persist);
     internal: true
     
   - platform: copy
     name: 'Energy_3'
-    id: energy_3_persist
+    id: energy_3_import_persist
     source_id: energy_3
     filters:
       - lambda: |-
@@ -726,22 +714,22 @@ sensor:
           {
             id(id_energy_3_lastvalue) = id(energy_3).state;
           }
-          if(x < id(id_energy_3_persist))
+          if(x < id(id_energy_3_import_persist))
           {
             float delta =  x - id(id_energy_3_lastvalue);
-            id(id_energy_3_persist) += delta;
+            id(id_energy_3_import_persist) += delta;
             id(id_energy_3_lastvalue) = x;
           }
           else
           {
-            id(id_energy_3_persist) = x;
+            id(id_energy_3_import_persist) = x;
           }
-          return id(id_energy_3_persist);                    
+          return id(id_energy_3_import_persist);                    
     internal: true
     
   - platform: copy
     name: 'Energy_4'
-    id: energy_4_persist
+    id: energy_4_import_persist
     source_id: energy_4
     filters:
       - lambda: |-
@@ -749,22 +737,22 @@ sensor:
           {
             id(id_energy_4_lastvalue) = id(energy_4).state;
           }
-          if(x < id(id_energy_4_persist))
+          if(x < id(id_energy_4_import_persist))
           {
             float delta =  x - id(id_energy_4_lastvalue);
-            id(id_energy_4_persist) += delta;
+            id(id_energy_4_import_persist) += delta;
             id(id_energy_4_lastvalue) = x;
           }
           else
           {
-            id(id_energy_4_persist) = x;
+            id(id_energy_4_import_persist) = x;
           }
-          return id(id_energy_4_persist);
+          return id(id_energy_4_import_persist);
     internal: true
     
   - platform: copy
     name: 'Energy_5'
-    id: energy_5_persist
+    id: energy_5_import_persist
     source_id: energy_5
     filters:
       - lambda: |-
@@ -772,22 +760,22 @@ sensor:
           {
             id(id_energy_5_lastvalue) = id(energy_5).state;
           }
-          if(x < id(id_energy_5_persist))
+          if(x < id(id_energy_5_import_persist))
           {
             float delta =  x - id(id_energy_5_lastvalue);
-            id(id_energy_5_persist) += delta;
+            id(id_energy_5_import_persist) += delta;
             id(id_energy_5_lastvalue) = x;
           }
           else
           {
-            id(id_energy_5_persist) = x;
+            id(id_energy_5_import_persist) = x;
           }
-          return id(id_energy_5_persist);
+          return id(id_energy_5_import_persist);
     internal: true
     
   - platform: copy
     name: 'Energy_6'
-    id: energy_6_persist
+    id: energy_6_import_persist
     source_id: energy_6
     filters:
       - lambda: |-
@@ -795,17 +783,17 @@ sensor:
           {
             id(id_energy_6_lastvalue) = id(energy_6).state;
           }
-          if(x < id(id_energy_6_persist))
+          if(x < id(id_energy_6_import_persist))
           {
             float delta =  x - id(id_energy_6_lastvalue);
-            id(id_energy_6_persist) += delta;
+            id(id_energy_6_import_persist) += delta;
             id(id_energy_6_lastvalue) = x;
           }
           else
           {
-            id(id_energy_6_persist) = x;
+            id(id_energy_6_import_persist) = x;
           }
-          return id(id_energy_6_persist);
+          return id(id_energy_6_import_persist);
     internal: true
 
 #####################################################################
