@@ -493,8 +493,20 @@ sensor:
     state_class: "measurement"
     unit_of_measurement: "kW"
     icon: mdi:transmission-tower-export
+#    lambda: |-
+#      return max(0.0f, -id(power_1).state + -id(power_2).state + -id(power_3).state);
     lambda: |-
-      return max(0.0f, -id(power_1).state + -id(power_2).state + -id(power_3).state);
+      float sum = 0.0f;
+      if (id(power_1).state < 0.0f) {
+        sum += id(power_1).state;
+      }
+      if (id(power_2).state < 0.0f) {
+        sum += id(power_2).state;
+      }
+      if (id(power_3).state < 0.0f) {
+        sum += id(power_3).state;
+      }
+      return sum < 0.0f ? sum : 0.0f;
     filters:
       - multiply: 0.001
     update_interval: ${update_interval}
