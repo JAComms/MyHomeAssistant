@@ -151,7 +151,7 @@ globals:
 
   - id: total_export_energy_persist
     type: float
-    restore_value: yes
+    restore_value: no
     initial_value: '0.0'
 
   - id: total_import_energy_persist
