@@ -480,7 +480,7 @@ sensor:
     unit_of_measurement: "W"
     icon: mdi:transmission-tower-export
     lambda: |-
-      return max(0.0f, -id(power_1).state + id(power_2).state + id(power_3).state);
+      return max(0.0f, -id(power_1).state + -id(power_2).state + -id(power_3).state);
     update_interval: ${update_interval}
     web_server_sorting_weight: '-48'    
 
