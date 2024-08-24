@@ -481,8 +481,6 @@ sensor:
     icon: mdi:transmission-tower-export
     lambda: |-
       return max(0.0f, -id(power_1).state + id(power_2).state + id(power_3).state);
-    filters:
-      - multiply: 0.001
     update_interval: ${update_interval}
     web_server_sorting_weight: '-48'    
 
@@ -497,8 +495,10 @@ sensor:
     icon: mdi:transmission-tower-export
     lambda: |-
       return max(0.0f, -id(power_1).state + id(power_2).state + id(power_3).state);
+    filters:
+      - multiply: 0.001
     update_interval: ${update_interval}
-    internal: ${hide_surplus_energy_sensors}
+    internal: false # ${hide_surplus_energy_sensors}
 
     # Conver the 'grid_power_export_kw' sensor into kWh, giving a sensor recoding the Lifetime Energy Export.
   - platform: integration
