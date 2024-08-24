@@ -75,7 +75,7 @@ logger:
 #
 
 dashboard_import:
-  package_import_url: github://jacomms/myhomeassistant/athom-energy-monitor-x6.yaml
+  package_import_url: github://jacomms/myhomeassistant/athom-energy-monitor-x6.yaml@main
 
 packages:
   base-config:         !include common/base-configuration.yaml
