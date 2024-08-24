@@ -22,7 +22,7 @@ substitutions:
   # Sensor update interval
   update_interval: 5s
   # Hide, by making 'internal', the individual CT's energy sensors
-  hide_non_grid_energy_sensors: "true"
+  hide_non_grid_energy_sensors: "false"
 
 
   # Names to describe the usage of each CT sensor. i.e. Lights, GPO1, Grid etc. Used to then prefix all the associated sensors.
