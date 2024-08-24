@@ -22,7 +22,7 @@ substitutions:
   # Sensor update interval
   update_interval: 5s
   # Hide, by making 'internal', the individual CT's energy sensors
-  hide_surplus_energy_sensors: "true"
+  hide_non_grid_energy_sensors: "true"
 
 
   # Names to describe the usage of each CT sensor. i.e. Lights, GPO1, Grid etc. Used to then prefix all the associated sensors.
@@ -321,9 +321,10 @@ sensor:
         web_server_sorting_weight: '2'
 
       energy:
-        name: "${ct_sensor_1_name} - Energy"
+        name: "${ct_sensor_1_name} - Energy Total"
         id: 'energy_1'
-        internal: ${hide_surplus_energy_sensors}
+        web_server_sorting_weight: '3'
+        internal: true
 
 #######################
 #
@@ -334,17 +335,18 @@ sensor:
       power:
         name: "${ct_sensor_2_name} - Power"
         id: 'power_2'
-        web_server_sorting_weight: '3'
+        web_server_sorting_weight: '4'
 
       current:
         name: "${ct_sensor_2_name} - Current"
         id: 'current_2'
-        web_server_sorting_weight: '4'
+        web_server_sorting_weight: '5'
 
       energy:
-        name: "${ct_sensor_2_name} - Energy"
+        name: "${ct_sensor_2_name} - Energy Total"
         id: 'energy_2'
-        internal: ${hide_surplus_energy_sensors}
+        web_server_sorting_weight: '6'
+        internal: true
 
 #######################
 #
@@ -355,17 +357,18 @@ sensor:
       power:
         name: "${ct_sensor_3_name} - Power"
         id: 'power_3'
-        web_server_sorting_weight: '5'
+        web_server_sorting_weight: '7'
 
       current:
         name: "${ct_sensor_3_name} - Current"
         id: 'current_3'
-        web_server_sorting_weight: '6'
+        web_server_sorting_weight: '8'
 
       energy:
-        name: "${ct_sensor_3_name} - Energy"
+        name: "${ct_sensor_3_name} - Energy Total"
         id: 'energy_3'
-        internal: ${hide_surplus_energy_sensors}
+        web_server_sorting_weight: '9'
+        internal: true
 
 #######################
 #
@@ -376,17 +379,18 @@ sensor:
       power:
         name: "${ct_sensor_4_name} - Power"
         id: 'power_4'
-        web_server_sorting_weight: '7'
+        web_server_sorting_weight: '10'
 
       current:
         name: "${ct_sensor_4_name} - Current"
         id: 'current_4'
-        web_server_sorting_weight: '8'
+        web_server_sorting_weight: '11'
 
       energy:
-        name: "${ct_sensor_4_name} - Energy"
+        name: "${ct_sensor_4_name} - Energy Total"
         id: 'energy_4'
-        internal: ${hide_surplus_energy_sensors}
+        web_server_sorting_weight: '12'
+        internal: ${hide_non_grid_energy_sensors}
       
 #######################
 #
@@ -397,17 +401,18 @@ sensor:
       power:
         name: "${ct_sensor_5_name} - Power"
         id: 'power_5'
-        web_server_sorting_weight: '9'
+        web_server_sorting_weight: '13'
 
       current:
         name: "${ct_sensor_5_name} - Current"
         id: 'current_5'
-        web_server_sorting_weight: '10'
+        web_server_sorting_weight: '14'
 
       energy:
-        name: "${ct_sensor_5_name} - Energy"
+        name: "${ct_sensor_5_name} - Energy Total"
         id: 'energy_5'
-        internal: ${hide_surplus_energy_sensors}
+        web_server_sorting_weight: '15'
+        internal: ${hide_non_grid_energy_sensors}
       
 #######################
 #
@@ -418,17 +423,18 @@ sensor:
       power:
         name: "${ct_sensor_6_name} - Power"
         id: 'power_6'
-        web_server_sorting_weight: '11'
+        web_server_sorting_weight: '16'
 
       current:
         name: "${ct_sensor_6_name} - Current"
         id: 'current_6'
-        web_server_sorting_weight: '12'
+        web_server_sorting_weight: '17'
 
       energy:
-        name: "${ct_sensor_6_name} - Energy"
+        name: "${ct_sensor_6_name} - Energy Total"
         id: 'energy_6'
-        internal: ${hide_surplus_energy_sensors}
+        web_server_sorting_weight: '18'
+        internal: ${hide_non_grid_energy_sensors}
     
   
 #######################
@@ -438,7 +444,7 @@ sensor:
     total_energy:
       name: 'Total - Energy'
       id: 'total_energy'
-      internal: ${hide_surplus_energy_sensors}
+      internal: true
 
 #####################################################################
 #
@@ -547,7 +553,7 @@ sensor:
       - multiply: 0.001
     update_interval: ${update_interval}
     web_server_sorting_weight: '-47'
-    internal: false # ${hide_surplus_energy_sensors}
+    internal: true
 
     # Conver the 'grid_power_export_kw' sensor into kWh, giving a sensor recoding the Lifetime Energy Export.
   - platform: integration
