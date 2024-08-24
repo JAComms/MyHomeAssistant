@@ -166,7 +166,7 @@ globals:
     restore_value: yes
     initial_value: '0.0'
 
-  - id: id_energy_1_lastvalue
+  - id: id_energy_1_import_lastvalue
     type: float
     restore_value: no
     initial_value: '0.0'
@@ -178,7 +178,7 @@ globals:
     restore_value: yes
     initial_value: '0.0'
 
-  - id: id_energy_2_lastvalue
+  - id: id_energy_2_import_lastvalue
     type: float
     restore_value: no
     initial_value: '0.0'
@@ -190,7 +190,7 @@ globals:
     restore_value: yes
     initial_value: '0.0'
 
-  - id: id_energy_3_lastvalue
+  - id: id_energy_3_import_lastvalue
     type: float
     restore_value: no
     initial_value: '0.0'
@@ -202,7 +202,7 @@ globals:
     restore_value: yes
     initial_value: '0.0'
   
-  - id: id_energy_4_lastvalue
+  - id: id_energy_4_import_lastvalue
     type: float
     restore_value: no
     initial_value: '0.0'
@@ -214,7 +214,7 @@ globals:
     restore_value: yes
     initial_value: '0.0'
   
-  - id: id_energy_5_lastvalue
+  - id: id_energy_5_import_lastvalue
     type: float
     restore_value: no
     initial_value: '0.0'
@@ -226,7 +226,7 @@ globals:
     restore_value: yes
     initial_value: '0.0'
   
-  - id: id_energy_6_lastvalue
+  - id: id_energy_6_import_lastvalue
     type: float
     restore_value: no
     initial_value: '0.0'
@@ -664,15 +664,15 @@ sensor:
     source_id: energy_1
     filters:
       - lambda: |-
-          if(id(id_energy_1_lastvalue) == 0.0  )
+          if(id(id_energy_1_import_lastvalue) == 0.0  )
           {
-            id(id_energy_1_lastvalue) = id(energy_1).state;
+            id(id_energy_1_import_lastvalue) = id(energy_1).state;
           }
           if(x < id(id_energy_1_import_persist))
           {
-            float delta =  x - id(id_energy_1_lastvalue);
+            float delta =  x - id(id_energy_1_import_lastvalue);
             id(id_energy_1_import_persist) += delta;
-            id(id_energy_1_lastvalue) = x;
+            id(id_energy_1_import_lastvalue) = x;
           }
           else
           {
@@ -687,15 +687,15 @@ sensor:
     source_id: energy_2
     filters:
       - lambda: |-
-          if(id(id_energy_2_lastvalue) == 0.0  )
+          if(id(id_energy_2_import_lastvalue) == 0.0  )
           {
-            id(id_energy_2_lastvalue) = id(energy_2).state;
+            id(id_energy_2_import_lastvalue) = id(energy_2).state;
           }
           if(x < id(id_energy_2_import_persist))
           {
-            float delta =  x - id(id_energy_2_lastvalue);
+            float delta =  x - id(id_energy_2_import_lastvalue);
             id(id_energy_2_import_persist) += delta;
-            id(id_energy_2_lastvalue) = x;
+            id(id_energy_2_import_lastvalue) = x;
           }
           else
           {
@@ -710,15 +710,15 @@ sensor:
     source_id: energy_3
     filters:
       - lambda: |-
-          if(id(id_energy_3_lastvalue) == 0.0  )
+          if(id(id_energy_3_import_lastvalue) == 0.0  )
           {
-            id(id_energy_3_lastvalue) = id(energy_3).state;
+            id(id_energy_3_import_lastvalue) = id(energy_3).state;
           }
           if(x < id(id_energy_3_import_persist))
           {
-            float delta =  x - id(id_energy_3_lastvalue);
+            float delta =  x - id(id_energy_3_import_lastvalue);
             id(id_energy_3_import_persist) += delta;
-            id(id_energy_3_lastvalue) = x;
+            id(id_energy_3_import_lastvalue) = x;
           }
           else
           {
@@ -733,15 +733,15 @@ sensor:
     source_id: energy_4
     filters:
       - lambda: |-
-          if(id(id_energy_4_lastvalue) == 0.0  )
+          if(id(id_energy_4_import_lastvalue) == 0.0  )
           {
-            id(id_energy_4_lastvalue) = id(energy_4).state;
+            id(id_energy_4_import_lastvalue) = id(energy_4).state;
           }
           if(x < id(id_energy_4_import_persist))
           {
-            float delta =  x - id(id_energy_4_lastvalue);
+            float delta =  x - id(id_energy_4_import_lastvalue);
             id(id_energy_4_import_persist) += delta;
-            id(id_energy_4_lastvalue) = x;
+            id(id_energy_4_import_lastvalue) = x;
           }
           else
           {
@@ -756,15 +756,15 @@ sensor:
     source_id: energy_5
     filters:
       - lambda: |-
-          if(id(id_energy_5_lastvalue) == 0.0  )
+          if(id(id_energy_5_import_lastvalue) == 0.0  )
           {
-            id(id_energy_5_lastvalue) = id(energy_5).state;
+            id(id_energy_5_import_lastvalue) = id(energy_5).state;
           }
           if(x < id(id_energy_5_import_persist))
           {
-            float delta =  x - id(id_energy_5_lastvalue);
+            float delta =  x - id(id_energy_5_import_lastvalue);
             id(id_energy_5_import_persist) += delta;
-            id(id_energy_5_lastvalue) = x;
+            id(id_energy_5_import_lastvalue) = x;
           }
           else
           {
@@ -779,15 +779,15 @@ sensor:
     source_id: energy_6
     filters:
       - lambda: |-
-          if(id(id_energy_6_lastvalue) == 0.0  )
+          if(id(id_energy_6_import_lastvalue) == 0.0  )
           {
-            id(id_energy_6_lastvalue) = id(energy_6).state;
+            id(id_energy_6_import_lastvalue) = id(energy_6).state;
           }
           if(x < id(id_energy_6_import_persist))
           {
-            float delta =  x - id(id_energy_6_lastvalue);
+            float delta =  x - id(id_energy_6_import_lastvalue);
             id(id_energy_6_import_persist) += delta;
-            id(id_energy_6_lastvalue) = x;
+            id(id_energy_6_import_lastvalue) = x;
           }
           else
           {
