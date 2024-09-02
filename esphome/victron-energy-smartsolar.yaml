@@ -72,7 +72,8 @@ external_components:
   - source: github://KinDR007/VictronMPPT-ESPHOME@main
 # Dentra Components - Adds 'Platform - Energy Statistics'
 # https://github.com/dentra/esphome-components/tree/master/components/energy_statistics
-  - source: github://dentra/esphome-components
+  - source: github://roving-ronin/myhomeassistant/components@main
+    refresh: 5s
 
 #########################################################################
 #
