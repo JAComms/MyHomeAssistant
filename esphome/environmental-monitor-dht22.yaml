@@ -57,7 +57,7 @@ substitutions:
 #packages:
   base-config:      !include common/base-configuration.yaml
   ethernet-config:  !include common/network-ethernet-lan8720.yaml
-  dht-sensor:       !include sensors/dht-22.yaml
+#  dht-sensor:       !include sensors/dht-22.yaml
 #  wifi-config:      !include common/network-wifi.yaml
 
 
