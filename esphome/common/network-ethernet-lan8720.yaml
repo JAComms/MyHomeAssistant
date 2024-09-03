@@ -36,15 +36,25 @@ substitutions:
 # Configuration to add Ethernet network connection to ESP Devices
 #
 
- # Configure the network device
+
 ethernet:
-  type: ${ether_type}
-  mdc_pin: ${ether_mdc_pin}
-  mdio_pin: ${ether_mdio_pin}
-  clk_mode: ${ether_clock_mode}
+  type: LAN8720
+  mdc_pin: GPIO23
+  mdio_pin: GPIO18
+  clk_mode: GPIO0_IN
   phy_addr: 1
-  power_pin: ${ether_power_pin}
+  power_pin: GPIO16
   domain: "${dns_domain}"
+
+ # Configure the network device
+#ethernet:
+#  type: ${ether_type}
+#  mdc_pin: ${ether_mdc_pin}
+#  mdio_pin: ${ether_mdio_pin}
+#  clk_mode: ${ether_clock_mode}
+#  phy_addr: 1
+#  power_pin: ${ether_power_pin}
+#  domain: "${dns_domain}"
 
  # Define a static IP address (optional)
   manual_ip:
