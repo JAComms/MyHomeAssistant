@@ -27,7 +27,7 @@ substitutions:
    # DHT PIN
   dht_pin: "GPIO14"      # 
   # Location of DHT sensor.
-  dht_location: ""
+  dht_location: "TBC"
    # Calibrate the outpute of the temperature sensor(s).
   temperature_offset: "0.0"
    # Calibrate the outpute of the humidity sensor(s).
