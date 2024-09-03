@@ -54,7 +54,7 @@ substitutions:
   package_import_url: github://JAComms/myhomeassistant/esphome/environmental-monitor-dht22.yaml@main
   import_full_config: false
 
-#packages:
+packages:
   base-config:      !include common/base-configuration.yaml
 #  ethernet-config:  !include common/network-ethernet-lan8720.yaml
 #  dht-sensor:       !include sensors/dht-22.yaml
