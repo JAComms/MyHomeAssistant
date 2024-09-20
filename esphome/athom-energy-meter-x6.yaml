@@ -89,9 +89,9 @@ packages:
 external_components:
 
 # Athom - Components for BL0906 power monitoring sensor
-  - source: github://athom-tech/esp32-configs@main
-    components: bl0906
-    refresh: 0s
+#  - source: github://athom-tech/esp32-configs@main
+#    components: bl0906
+#    refresh: 0s
 
 # Dentra Components - Adds 'Platform - Energy Statistics'
 # https://github.com/dentra/esphome-components/tree/master/components/energy_statistics
