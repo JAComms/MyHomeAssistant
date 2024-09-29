@@ -22,7 +22,7 @@ substitutions:
   # Project Name
   project_name: "Kincony.KC868-A16"
   # Project version denotes the release version of the yaml file, allowing checking of deployed vs latest version
-  project_version: "1.2.2"
+  project_version: "1.3.0"
   # Restore the relay (GPO switch) upon reboot to state:
   relay_restore_mode: RESTORE_DEFAULT_OFF
   # Disable sensors
@@ -97,42 +97,52 @@ external_components:
 #
 
 api:
-  # Define service that calls the 'button:' defined below to reset the Gas - Current Reading'
+  # Define service that calls the 'button:' defined below to reset the Gas Meter - Current Reading'
   services:
     - service: reset_total_energy
       then:
         - button.press:
-            id: button_reset_gas_reading
+            id: button_reset_gas_statistics
 
   # Define service that calls the 'button:' defined below to reset the Water - Current Reading'
     - service: reset_total_energy
       then:
         - button.press:
-            id: button_reset_water_reading
+            id: button_reset_water_statistics
 
 #########################################################################
 
 button:
   #  Reset the total energy entity (Gas - Current Reading)
   - platform: template
-    name: 'Gas - Reset Reading'
+    name: 'Reset - Gas Statistics'
     entity_category: config
-    id: button_reset_gas_reading
+    icon: 'mdi:trash-can-outline'
+    id: button_reset_gas_statistics
     on_press:
       - lambda: |-
+          // Reset the total gas readings (m3 and MJ)
+          id(gas_total_mj) = 0;
           id(gas_total_m3) = 0;
-          id(gas_consumed_mj).state = 0;
-          id(gas_consumed_m3).state = 0;
+
+          // Reset the gas statistics, as stored by the custom components
+          id(gas_statistics_component).reset_statistics();
+          id(gas_statistics_mj_component).reset_statistics();
 
   #  Reset the total energy entity (Water - Current Reading)
   - platform: template
-    name: 'Water Meter - Reset Reading'
+    name: 'Reset - Water Statistics'
     entity_category: config
-    id: button_reset_water_reading
+    icon: 'mdi:trash-can-outline'
+    id: button_reset_water_statistics
     on_press:
       - lambda: |-
-          id(water_consumed_total_litres) = 0;
-          id(water_consumed_litres).state = 0;
+          // Reset the total water reading
+          id(town_water_used_total_litres) = 0;
+          id(town_water_used_litres).state = 0;
+
+          // Reset the gas statistics, as stored by the custom components
+          id(town_water_statistics_component).reset_statistics();
 
 #########################################################################
 #
@@ -149,23 +159,41 @@ button:
 
    # Optional manual IP
 # manual_ip:
-# static_ip: 10.0.5.15
-# gateway: 10.0.5.1
+# static_ip: 10.10.4.164
+# gateway: 10.10.4.1
 # subnet: 255.255.255.0
 
 #######################################################################################
 
 globals:
+
+  - id: gas_pressure_factor
+    type: float
+    restore_value: true
+#    initial_value: '0.9864'  # Default value for Pressure Factor
+
+  - id: gas_heating_value
+    type: float
+    restore_value: true
+#    initial_value: '37.98'  # Default value for Heating Value
+
+  - id: gas_total_mj
+    type: float
+    restore_value: yes
+   # Change initial value to 0 to reset, or enter your actual meter reading to start counting lifetime total from that number 
+#    initial_value: "0.0"
+
   #  Globals for use with pulse meter, to allow storing and setting a base reading for gas meter
   - id: gas_total_m3
     type: float
-    restore_value: true
+    restore_value: yes
    # Change initial value to 0 to reset, or enter your actual meter reading to start counting lifetime total from that number 
-#    initial_value: "0"
+#    initial_value: "0.000"
+
   #  Globals for use with pulse meter, to allow storing and setting a base reading for water meter
-  - id: water_consumed_total_litres
+  - id: town_water_used_total_litres
     type: float
-    restore_value: true
+    restore_value: yes
    # Change initial value to 0 to reset, or enter your actual meter reading to start counting lifetime total from that number 
 #    initial_value: "0"
 
@@ -887,7 +915,8 @@ sensor:
       mode:
         input: true
         pullup: true
-
+    web_server_sorting_weight: '10'
+    
 
   - platform: pulse_meter
     name: 'Gas - Flow Rate'
@@ -912,45 +941,77 @@ sensor:
 
     #  Uses the above pulse_meter and adds sensor and calculations for tracking m3
     total:    
-      id: gas_consumed_m3
-      name: 'Gas - Consumed (m³)'
+      name: 'Gas - Used (m³)'
+      id: gas_used_m3
       unit_of_measurement: "m³"
       icon: "mdi:counter"
       state_class: "total_increasing"
       device_class: gas
       accuracy_decimals: 3
+      internal: true
     #  Adds the calculation for providing a reading since device last booted / reset
       on_value: 
         then:
           - lambda: |-
               static float previous_gas_m3_value = 0.0;
-              float current_gas_m3_value = id(gas_consumed_m3).state;
-              id(gas_total_m3) += current_gas_m3_value - previous_gas_m3_value;
+              float current_gas_m3_value = id(gas_used_m3).state;
+              float delta_m3 = current_gas_m3_value - previous_gas_m3_value;
+
+              // Update gas total in m³
+              id(gas_total_m3) += delta_m3;
+
+              // Calculate MJ using current pressure and heating values
+              float delta_mj = delta_m3 * id(input_gas_pressure_factor).state * id(input_gas_heating_value).state;
+
+              // Update gas total in MJ
+              id(gas_total_mj) += delta_mj;
+
               previous_gas_m3_value = current_gas_m3_value;
       filters:
         - multiply: 0.01   # 100 pulses = 1,000L = 1m3
+#    web_server_sorting_weight: '11'
 
 
-  - platform: template
-    name: "Gas - Consumed (MJ)"
-    id: gas_consumed_mj
-    unit_of_measurement: "MJ"
-    device_class: energy
-    state_class: "total_increasing"
-    icon: "mdi:counter"
-    accuracy_decimals: 3
-    # With EACH QUARTERLY GAS BILL update the Jemena Pressure Factor and Heating Value below.   
-    # Formula - (Gas Consumed x Pressure Factor x Heating Value) = Usage MJ
-    lambda: |-
-      return (id(gas_consumed_m3).state * 0.9864 * 37.98);
-    update_interval: 1s
-    filters:
-      - delta : 0.001      
+  ################################################################################
+  #
+  # Custom Component - Gas m3 (Consumption) Statistics
+  #
+
+  - platform: "gas_statistics"
+    id: gas_statistics_component
+    total: gas_used_total
+
+    gas_today:
+      name: "Gas - Used Today"
+      id: gas_used_today
+      web_server_sorting_weight: '12'
+    
+    gas_yesterday:
+      name: "Gas - Used Yesterday"
+      id: gas_used_yesterday
+      web_server_sorting_weight: '13'
+
+    gas_week:
+      name: "Gas - Used Week"
+      id: gas_used_week
+      web_server_sorting_weight: '14'
+    
+    gas_month:
+      name: "Gas - Used Month"
+      id: gas_used_month
+      web_server_sorting_weight: '15'
+
+    gas_year:
+      name: "Gas - Used Year"
+      id: gas_used_year
+      web_server_sorting_weight: '16'
+
+  ################################################################################
 
   #  Adds the 'Reading Since Reset' that tracks the LIFETIME total of m3
   - platform: template
-    name: "Gas - Consumed Total"
-    id: gas_consumed_total
+    name: "Gas - Used Total"
+    id: gas_used_total
     unit_of_measurement: "m³"
     device_class: gas
     state_class: "total_increasing"
@@ -958,11 +1019,65 @@ sensor:
     accuracy_decimals: 3
     # The number 5251.07 should be replaced with your own gas meters physical reading
     lambda: |-
-          return (id(gas_total_m3) + 0);
+          return id(gas_total_m3);
     # Set interval that updates are sent to HA instance
     update_interval: 1s
     filters:
       - delta : 0.001
+    web_server_sorting_weight: '17'
+
+  ################################################################################
+  #
+  # Custom Component - Gas MJ (Consumption) Statistics
+  #
+
+  - platform: "gas_statistics_mj"
+    id: gas_statistics_mj_component
+    total: gas_used_total_mj
+
+    gas_today:
+      name: "Gas - Used Today (MJ)"
+      id: gas_used_today_mj
+      web_server_sorting_weight: '18'
+    
+    gas_yesterday:
+      name: "Gas - Used Yesterday (MJ)"
+      id: gas_used_yesterday_mj
+      web_server_sorting_weight: '19'
+
+    gas_week:
+      name: "Gas - Used Week (MJ)"
+      id: gas_used_week_mj
+      web_server_sorting_weight: '20'
+    
+    gas_month:
+      name: "Gas - Used Month (MJ)"
+      id: gas_used_month_mj
+      web_server_sorting_weight: '21'
+
+    gas_year:
+      name: "Gas - Used Year (MJ)"
+      id: gas_used_year_mj
+      web_server_sorting_weight: '22'
+
+  ################################################################################
+  
+  - platform: template
+    name: "Gas - Used Total (MJ)"
+    id: gas_used_total_mj
+    unit_of_measurement: "MJ"
+    device_class: energy
+    state_class: "total_increasing"
+    icon: "mdi:counter"
+    accuracy_decimals: 3   
+    # With EACH QUARTERLY GAS BILL update the Jemena Pressure Factor and Heating Value below.   
+    # Formula - (Gas Used x Pressure Factor x Heating Value) = Usage MJ
+    lambda: |-
+       return id(gas_total_mj);
+    update_interval: 1s
+    filters:
+      - delta : 0.001
+    web_server_sorting_weight: '23'
 
   ################################################################################
   #
@@ -982,7 +1097,7 @@ sensor:
         pullup: true
     filters:
       - multiply: 5.0  # Convert pulse count to liters
-
+    web_server_sorting_weight: '25'
 
   - platform: pulse_meter
     name: "Water - Flow Rate"
@@ -1004,12 +1119,12 @@ sensor:
     timeout: 3min
     filters:
       - multiply: 5.0  # Each pulse equals 5 liters. The water counter 'helper' in Home Assistant must still be set to 'step size' = 5.
-
+    web_server_sorting_weight: '26'
 
     #  Uses the above pulse_meter and adds sensor and calculations for tracking current litres
     total:
-      name: 'Water - Consumed'
-      id: water_consumed_litres
+      name: 'Town Water - Used'
+      id: town_water_used_litres
       unit_of_measurement: "L"
       icon: "mdi:water"
       state_class: "total_increasing"
@@ -1019,31 +1134,31 @@ sensor:
       on_value: 
         then:
           - lambda: |-
-              static float previous_water_consumed_litres_value = 0.0;
-              float current_water_consumed_litres_value = id(water_consumed_litres).state;
-              id(water_consumed_total_litres) += current_water_consumed_litres_value - previous_water_consumed_litres_value;
-              previous_water_consumed_litres_value = current_water_consumed_litres_value;
+              static float previous_town_water_used_litres_value = 0.0;
+              float current_town_water_used_litres_value = id(town_water_used_litres).state;
+              id(town_water_used_total_litres) += current_town_water_used_litres_value - previous_town_water_used_litres_value;
+              previous_town_water_used_litres_value = current_town_water_used_litres_value;
       filters:
-#        - lambda: return (x / 200.0);   # 1 pulse = 5L.  This gives Kilo Litres
         - multiply: 5.0  # Each pulse equals 5 liters
       internal: true
 
 
   #  Adds the 'Reading Since Reset' that tracks the LIFETIME total of m3
   - platform: template
-    name: "Water - Consumed Total"
-    id: water_consumed_total
+    name: "Town Water - Used Total"
+    id: town_water_used_total
     unit_of_measurement: "L"
     device_class: water
     state_class: "total_increasing"
     icon: "mdi:counter"
-    accuracy_decimals: 0
+    accuracy_decimals: 0   # As water meter only registers every 10L
     lambda: |-
-          return (id(water_consumed_total_litres) );
-#    # Set interval that updates are sent to HA instance
+          return (id(town_water_used_total_litres) );
+    # Set interval that updates are sent to HA instance
     update_interval: 1s
     filters:
       - delta : 0.001
+    web_server_sorting_weight: '33'
 
   ################################################################################
   #
@@ -1053,27 +1168,33 @@ sensor:
 
 # sensor:
   - platform: "water_statistics"
-    total: water_consumed_total
+    id: town_water_statistics_component
+    total: town_water_used_total
 
     water_today:
-      name: "Water - Consumed Today"
-      id: water_consumed_today
+      name: "Town Water - Used Today"
+      id: town_water_used_today
+      web_server_sorting_weight: '28'
     
     water_yesterday:
-      name: "Water - Consumed Yesterday"
-      id: water_consumed_yesterday
-    
+      name: "TownWater - Used Yesterday"
+      id: town_water_used_yesterday
+      web_server_sorting_weight: '29'
+
     water_week:
-      name: "Water - Consumed Week"
-      id: water_consumed_week
+      name: "Town Water - Used Week"
+      id: town_water_used_week
+      web_server_sorting_weight: '30'
     
     water_month:
-      name: "Water - Consumed Month"
-      id: water_consumed_month
-    
+      name: "Town Water - Used Month"
+      id: town_water_used_month
+      web_server_sorting_weight: '31'
+
     water_year:
-      name: "Water - Consumed Year"
-      id: water_consumed_year
+      name: "Town Water - Used Year"
+      id: town_water_used_year
+      web_server_sorting_weight: '32'
 
   ################################################################################
   
