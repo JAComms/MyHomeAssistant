@@ -199,6 +199,43 @@ globals:
 
 #######################################################################################
 #
+# Number Inputs - Used to configure the values used to convert Gas M3 to MJ
+#
+
+number:
+  - platform: template
+    name: "Gas - Pressure Factor"
+    id: input_gas_pressure_factor
+    min_value: 0.9
+    max_value: 1.1
+    step: 0.0001
+    unit_of_measurement: ""
+    initial_value: 0.9864
+    restore_value: True
+    optimistic: true
+    mode: box
+    icon: "mdi:scale"
+    entity_category: config
+    web_server_sorting_weight: 23
+    
+  - platform: template
+    name: "Gas - Heating Value"
+    id: input_gas_heating_value
+    min_value: 34.0
+    max_value: 52.0
+    step: 0.01
+    unit_of_measurement: ""
+    initial_value: 37.98
+    restore_value: True
+    optimistic: true
+    mode: box
+    icon: "mdi:fire"
+    entity_category: config
+    web_server_sorting_weight: 24
+
+
+#######################################################################################
+#
 # RF 433mhz receiver configuration
 #
   
