@@ -93,11 +93,6 @@ external_components:
   - source: github://roving-ronin/myhomeassistant/components@main
     refresh: 0s
 
-  - source: github://pr#7488
-    components:
-      # list all components modified by this Pull Request here
-      - bl0906
-
 #####################################################################
 #
 # Button - Reset Energy Sensors
