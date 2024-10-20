@@ -282,7 +282,7 @@ button:
             value: '0.0'
         - bl0906.reset_energy: id_bl0906
     web_server:
-      sort_order: 4
+      sorting_weight: 4
 
 # COMMENT: Not sure if total_import_energy_persist and total_export_energy_persist are resetting when button pushed. Last time had to hit 'Factory Reset to Default' to wipe them.
 
