@@ -93,46 +93,43 @@ external_components:
   - source: github://roving-ronin/myhomeassistant/components@main
     refresh: 0s
 
+
 #####################################################################
 #
-# Button - Reset Energy Sensors
+# Combined with web_server settings in /common/base-configuration to
+# define a network information group
 #
 
-button:
+web_server:
+  sorting_groups:
+    - id: group_environmental_sensors
+      name: "Environmental Sensors"
+      sorting_weight: -48
+      
+    - id: group_electricity_sensors
+      name: "Electricity Sensors"
+      sorting_weight: -45
 
-  - platform: template
-    name: Reset - Total Energy
-    entity_category: config
-    icon: mdi:restart-alert
-    on_press:
-      then:
-        - globals.set:
-            id: id_energy_1_import_persist
-            value: '0.0'
-        - globals.set:
-            id: id_energy_2_import_persist
-            value: '0.0'
-        - globals.set:
-            id: id_energy_3_import_persist
-            value: '0.0'
-        - globals.set:
-            id: id_energy_4_import_persist
-            value: '0.0'
-        - globals.set:
-            id: id_energy_5_import_persist
-            value: '0.0'
-        - globals.set:
-            id: id_energy_6_import_persist
-            value: '0.0'
-        - globals.set:
-            id: total_import_energy_persist
-            value: '0.0'
-        - globals.set:
-            id: total_export_energy_persist
-            value: '0.0'
-        - bl0906.reset_energy: id_bl0906
+    - id: group_electricity_sensors_phase
+      name: "Electricity Sensors by Phase"
+      sorting_weight: -44
 
-# COMMENT: Not sure if total_import_energy_persist and total_export_energy_persist are resetting when button pushed. Last time had to hit 'Factory Reset to Default' to wipe them.
+    - id: group_electricity_sensors_circuit
+      name: "Electricity Sensors by Circuit"
+      sorting_weight: -43
+    
+    - id: group_energy_import_sensors
+      name: "Energy Sensors - Grid Import"
+      sorting_weight: -42
+
+    - id: group_energy_export_sensors
+      name: "Energy Sensors - Grid Export"
+      sorting_weight: -41
+
+    - id: group_light_controls
+      name: "Light Controls"
+      sorting_weight: -20
+
 
 #####################################################################
 #
@@ -236,6 +233,48 @@ uart:
   baud_rate: 19200
   id: uart_bl0906
 
+
+#####################################################################
+#
+# Button - Reset Energy Sensors
+#
+
+button:
+
+  - platform: template
+    name: Reset - Total Energy
+    entity_category: config
+    icon: mdi:restart-alert
+    on_press:
+      then:
+        - globals.set:
+            id: id_energy_1_import_persist
+            value: '0.0'
+        - globals.set:
+            id: id_energy_2_import_persist
+            value: '0.0'
+        - globals.set:
+            id: id_energy_3_import_persist
+            value: '0.0'
+        - globals.set:
+            id: id_energy_4_import_persist
+            value: '0.0'
+        - globals.set:
+            id: id_energy_5_import_persist
+            value: '0.0'
+        - globals.set:
+            id: id_energy_6_import_persist
+            value: '0.0'
+        - globals.set:
+            id: total_import_energy_persist
+            value: '0.0'
+        - globals.set:
+            id: total_export_energy_persist
+            value: '0.0'
+        - bl0906.reset_energy: id_bl0906
+
+# COMMENT: Not sure if total_import_energy_persist and total_export_energy_persist are resetting when button pushed. Last time had to hit 'Factory Reset to Default' to wipe them.
+
 #####################################################################
 #
 # Lights
@@ -247,7 +286,9 @@ light:
     id: blue_led
     disabled_by_default: true
     pin: $led_pin
-    web_server_sorting_weight: '-20'
+    web_server:
+      sorting_group_id: group_light_controls
+      sorting_weight: 1
 
 #####################################################################
 #
@@ -269,8 +310,7 @@ binary_sensor:
         then:
           - button.press: Reset
     entity_category: config
-    web_server_sorting_weight: '-19'
-
+# ??
 
 #####################################################################
 #
@@ -286,17 +326,22 @@ sensor:
     temperature:
       name: 'Temperature'
       id: 'Temperature'
-      web_server_sorting_weight: '-10'
+      web_server:
+        sorting_group_id: group_environmental_sensors
 
     frequency:
       name: 'Frequency'
       id: 'Frequency'
-      web_server_sorting_weight: '-9'
+      web_server:
+        sorting_group_id: group_electricity_sensors
+        sorting_weight: ??
 
     voltage:
       name: 'Voltage'
       id: 'Voltage'
-      web_server_sorting_weight: '-8'
+      web_server:
+        sorting_group_id: group_electricity_sensors
+        sorting_weight: ??
 
 #######################
 #
@@ -307,17 +352,20 @@ sensor:
       power:
         name: "${ct_sensor_1_name} - Power"
         id: 'power_1'
-        web_server_sorting_weight: '1'
-
+        web_server:
+          sorting_group_id: group_electricity_sensors_phase
+          sorting_weight: 1
+        
       current:
         name: "${ct_sensor_1_name} - Current"
         id: 'current_1'
-        web_server_sorting_weight: '2'
+        web_server:
+          sorting_group_id: group_electricity_sensors_phase
+          sorting_weight: 2
 
       energy:
         name: "${ct_sensor_1_name} - Energy Total"
         id: 'energy_1'
-        web_server_sorting_weight: '3'
         internal: true
 
 #######################
@@ -329,12 +377,16 @@ sensor:
       power:
         name: "${ct_sensor_2_name} - Power"
         id: 'power_2'
-        web_server_sorting_weight: '4'
+        web_server:
+          sorting_group_id: group_electricity_sensors_phase
+          sorting_weight: 3
 
       current:
         name: "${ct_sensor_2_name} - Current"
         id: 'current_2'
-        web_server_sorting_weight: '5'
+        web_server:
+          sorting_group_id: group_electricity_sensors_phase
+          sorting_weight: 4
 
       energy:
         name: "${ct_sensor_2_name} - Energy Total"
@@ -351,12 +403,16 @@ sensor:
       power:
         name: "${ct_sensor_3_name} - Power"
         id: 'power_3'
-        web_server_sorting_weight: '7'
+        web_server:
+          sorting_group_id: group_electricity_sensors_phase
+          sorting_weight: 5
 
       current:
         name: "${ct_sensor_3_name} - Current"
         id: 'current_3'
-        web_server_sorting_weight: '8'
+        web_server:
+          sorting_group_id: group_electricity_sensors_phase
+          sorting_weight: 6
 
       energy:
         name: "${ct_sensor_3_name} - Energy Total"
@@ -373,12 +429,16 @@ sensor:
       power:
         name: "${ct_sensor_4_name} - Power"
         id: 'power_4'
-        web_server_sorting_weight: '10'
+        web_server:
+          sorting_group_id: group_electricity_sensors_circuit
+          sorting_weight: 1
 
       current:
         name: "${ct_sensor_4_name} - Current"
         id: 'current_4'
-        web_server_sorting_weight: '11'
+        web_server:
+          sorting_group_id: group_electricity_sensors_circuit
+          sorting_weight: 2
 
       energy:
         name: "${ct_sensor_4_name} - Energy Total"
@@ -395,12 +455,16 @@ sensor:
       power:
         name: "${ct_sensor_5_name} - Power"
         id: 'power_5'
-        web_server_sorting_weight: '13'
+        web_server:
+          sorting_group_id: group_electricity_sensors_circuit
+          sorting_weight: 3
 
       current:
         name: "${ct_sensor_5_name} - Current"
         id: 'current_5'
-        web_server_sorting_weight: '14'
+        web_server:
+          sorting_group_id: group_electricity_sensors_circuit
+          sorting_weight: 4
 
       energy:
         name: "${ct_sensor_5_name} - Energy Total"
@@ -417,12 +481,16 @@ sensor:
       power:
         name: "${ct_sensor_6_name} - Power"
         id: 'power_6'
-        web_server_sorting_weight: '16'
+        web_server:
+          sorting_group_id: group_electricity_sensors_circuit
+          sorting_weight: 5
 
       current:
         name: "${ct_sensor_6_name} - Current"
         id: 'current_6'
-        web_server_sorting_weight: '17'
+        web_server:
+          sorting_group_id: group_electricity_sensors_circuit
+          sorting_weight: 6
 
       energy:
         name: "${ct_sensor_6_name} - Energy Total"
@@ -456,7 +524,9 @@ sensor:
     lambda: |-
       return id(power_1).state + id(power_2).state + id(power_3).state;
     update_interval: 5s
-    web_server_sorting_weight: '-50'
+    web_server:
+      sorting_group_id: group_electricity_sensors
+      sorting_weight: 5
 
     # Show the Import Power coming from the Grid/Mains. Derived from CT1, CT2 and CT3 Power
   - platform: template
@@ -481,7 +551,9 @@ sensor:
       }
       return sum > 0.0f ? sum : 0.0f;
     update_interval: ${update_interval}
-    web_server_sorting_weight: '-49'
+    web_server:
+      sorting_group_id: group_electricity_sensors
+      sorting_weight: 6
 
     # Show the Export Power going to the Grid/Mains. Derived from CT1, CT2 and CT3 Power
   - platform: template
@@ -506,7 +578,9 @@ sensor:
       }
       return sum < 0.0f ? sum : 0.0f;
     update_interval: ${update_interval}
-    web_server_sorting_weight: '-48'    
+    web_server:
+      sorting_group_id: group_electricity_sensors
+      sorting_weight: 7
 
     # Show the Export Power going to the Grid/Mains. Derived from CT1, CT2 and CT3 Power
     # Same as above sensor, but converts from Watts to KiloWatts, to be used Integration sensor to provide 'Energy Total Export' sensor
@@ -534,7 +608,9 @@ sensor:
     filters:
       - multiply: 0.001
     update_interval: ${update_interval}
-    web_server_sorting_weight: '-47'
+    web_server:
+      sorting_group_id: group_electricity_sensors
+      sorting_weight: 8
     internal: false
 
     # Conver the 'grid_power_export_kw' sensor into kWh, giving a sensor recoding the Lifetime Energy Export.
