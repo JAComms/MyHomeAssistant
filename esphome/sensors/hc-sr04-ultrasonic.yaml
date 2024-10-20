@@ -8,14 +8,19 @@ substitutions:
   sonar_trigger_pin: GPIO19
   sonar_echo_pin:    GPIO18
 
-#########################################################################
+  # Sensor name and ID
+  ultrasonic_sensor_name: "Ultrasonic Sensor"
+  ultrasonic_sensor_id: "ultrasonic_sensor"
+
+  
+########################## End of Substitutions ##########################
 
 sensor:
 
-  # HC-SR04+ Ultrasonic Sensor - Connected to 5V (with BME280) - 2cm to 450cm. Wide Voltage Operation: 3V-5.5V
+    # HC-SR04+ Ultrasonic Sensor - Connected to 5V (with BME280) - 2cm to 450cm. Wide Voltage Operation: 3V-5.5V
   - platform: ultrasonic
-    name: "Garage - Parking Sonar"
-    id: garage_ultrasonic_sensor
+    name: ${ultrasonic_sensor_name}
+    id: ${ultrasonic_sensor_id}
     disabled_by_default: $disable_by_default
     state_class: 'measurement'
 #    unit_of_measurement: cm  # Default is meters. If using cm then lambdas need to be changed to reflect
@@ -25,7 +30,10 @@ sensor:
 #    pulse_time: 20us
     filters:
       - filter_out: nan
-    # Maximum distance reading possible. Enter distance from sensor to floor.
+     # Maximum distance reading possible. Enter distance from sensor to floor.
     timeout: 3.0m
-    # Hides this sensor from ESPHome web interface
+     # Hides this sensor from ESPHome web interface
 #    internal: true
+    web_server:
+      sorting_group_id: ${ultrasonic_sensor_group_id}
+      sorting_weight: ${ultrasonic_sensor_group_sensor_weight}
