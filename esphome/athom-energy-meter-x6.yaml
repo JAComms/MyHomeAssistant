@@ -570,6 +570,7 @@ sensor:
       }
       return sum > 0.0f ? sum : 0.0f;
     update_interval: ${update_interval}
+    internal: ${disable_grid_export_sensors}
     web_server:
       sorting_group_id: group_electricity_sensors
       sorting_weight: 2
@@ -597,6 +598,7 @@ sensor:
       }
       return sum < 0.0f ? sum : 0.0f;
     update_interval: ${update_interval}
+    internal: ${disable_grid_export_sensors}
     web_server:
       sorting_group_id: group_electricity_sensors
       sorting_weight: 3
@@ -627,10 +629,10 @@ sensor:
     filters:
       - multiply: 0.001
     update_interval: ${update_interval}
+    internal: ${disable_grid_export_sensors}
     web_server:
       sorting_group_id: group_electricity_sensors
       sorting_weight: 4
-    internal: ${disable_grid_export_sensors}
 
     # Conver the 'grid_power_export_kw' sensor into kWh, giving a sensor recoding the Lifetime Energy Export.
   - platform: integration
@@ -649,7 +651,8 @@ sensor:
 #    restore: true
     internal: ${disable_grid_export_sensors}
     web_server:
-      sorting_weight: '-35'
+      sorting_group_id: group_energy_export_sensors
+      sorting_weight: 6
 
 
     # Show the Total (Lifetime) Energy FROM the Mains/Grid. 
@@ -666,7 +669,8 @@ sensor:
       return id(energy_1).state + id(energy_2).state + id(energy_3).state;
     update_interval: 5s
     web_server:
-      sorting_weight: '-41'
+      sorting_group_id: group_energy_import_sensors
+      sorting_weight: 6
 
 
 #####################################################################
@@ -683,34 +687,39 @@ sensor:
       name: "Grid Energy - Import Today"
       id: grid_energy_import_today
       web_server:
-        sorting_weight: '-46'
+        sorting_group_id: group_energy_import_sensors
+        sorting_weight: 1
 
      # Dentra Components - Adds Energy Yesterday
     energy_yesterday:
       name: "Grid Energy - Import Yesterday"
       id: grid_energy_import_yesterday
       web_server:
-        sorting_weight: '-45'
+        sorting_group_id: group_energy_import_sensors
+        sorting_weight:2
 
      # Dentra Components - Adds Energy Week
     energy_week:
       name: "Grid Energy - Import Week"
       id: grid_energy_import_week
       web_server:
-        sorting_weight: '-44'
+        sorting_group_id: group_energy_import_sensors
+        sorting_weight: 3
 
      # Dentra Components - Adds Energy Month
     energy_month:
       name: "Grid Energy - Import Month"
       id: grid_energy_import_month
       web_server:
-        sorting_weight: '-43'
+        sorting_group_id: group_energy_import_sensors
+        sorting_weight: 4
 
     energy_year:
       name: "Grid Energy - Import Year"
       id: grid_energy_import_year
       web_server:
-        sorting_weight: '-42'
+        sorting_group_id: group_energy_import_sensors
+        sorting_weight: 5
 
 
 #####################################################################
@@ -728,7 +737,8 @@ sensor:
       id: grid_energy_export_today
       internal: ${disable_grid_export_sensors}
       web_server:
-        sorting_weight: '-40'
+        sorting_group_id: group_energy_export_sensors
+        sorting_weight: 1
 
      # Dentra Components - Adds Energy Yesterday
     energy_yesterday:
@@ -736,7 +746,8 @@ sensor:
       id: grid_energy_export_yesterday
       internal: ${disable_grid_export_sensors}
       web_server:
-        sorting_weight: '-39'
+        sorting_group_id: group_energy_export_sensors
+        sorting_weight: 2
 
      # Dentra Components - Adds Energy Week
     energy_week:
@@ -744,7 +755,8 @@ sensor:
       id: grid_energy_export_week
       internal: ${disable_grid_export_sensors}
       web_server:
-        sorting_weight: '-38'
+        sorting_group_id: group_energy_export_sensors
+        sorting_weight: 3
 
      # Dentra Components - Adds Energy Month
     energy_month:
@@ -752,14 +764,16 @@ sensor:
       id: grid_energy_export_month
       internal: ${disable_grid_export_sensors}
       web_server:
-        sorting_weight: '-37'
+        sorting_group_id: group_energy_export_sensors
+        sorting_weight: 4
 
     energy_year:
       name: "Grid Energy - Export Year"
       internal: ${disable_grid_export_sensors}
       id: grid_energy_export_year
       web_server:
-        sorting_weight: '-36'
+        sorting_group_id: group_energy_export_sensors
+        sorting_weight: 5
 
 
 #####################################################################
