@@ -2,7 +2,20 @@
 #
 # Pacakge to configure the use of a device with a BME280 sensor
 #
-  
+
+#####################################################################
+#
+# Combined with web_server settings in /common/base-configuration to
+# define a network information group
+#
+
+web_server:
+  sorting_groups:
+    - id: group_environmental_sensors
+      name: "Environmental Sensors"
+      sorting_weight: -44  
+
+
 #########################################################################
 #
 # Configure the i2c bus, to find and operate the BME280 sensor
@@ -17,83 +30,115 @@ i2c:
 
 #########################################################################
 #
-# Sensors - Specific to the BME280 sensor.
+# Sensors - Specific to the BME280 sensor, on i2C Bus B.
 #
 
 sensor:
-
-#########################################################################
-#
-# BME sensor on i2C Bus B. Sensors are enabled disabled using
-#
 
   # BME280 Sensor in I2C Bus B
   - platform: bme280_i2c
     i2c_id: bus_b
     address: 0x76
-    update_interval: 30s
+    update_interval: 10s
 
      # Temperature in °C
     temperature:
       name: "${bme_sensor2_location}Temperature"
       id: bme280b_temperature
+      icon: 'mdi:thermometer'
       accuracy_decimals: 1
       filters:
-        offset: ${temperature_2_offset}
+        - offset: ${temperature_2_offset}
+        - median:
+            window_size: 7
+            send_every: 4
+            send_first_at: 1
+        - sliding_window_moving_average:
+            window_size: 15
+            send_every: 15
+      web_server:
+        sorting_group_id: group_environmental_sensors
+        sorting_weight: 7
 
      # Pressure in hPa
     pressure:
       name: "${bme_sensor2_location}Pressure"
       id: bme280b_pressure
+      icon: 'mdi:weather-hurricane'
       accuracy_decimals: 1
       filters:
-        offset: ${pressure_2_offset}
+        - offset: ${pressure_2_offset}
+        - median:
+            window_size: 7
+            send_every: 4
+            send_first_at: 1
+        - sliding_window_moving_average:
+            window_size: 15
+            send_every: 15
+      web_server:
+        sorting_group_id: group_environmental_sensors
+        sorting_weight: 11
       
      # Relative humidity %
     humidity:
       name: "${bme_sensor2_location}Humidity (Relative)"
       id: bme280b_humidity
+      icon: 'mdi:water-percent'
       accuracy_decimals: 1
       filters:
-        offset: ${humidity_2_offset}
+        - offset: ${humidity_2_offset}
+        - median:
+            window_size: 7
+            send_every: 4
+            send_first_at: 1
+        - sliding_window_moving_average:
+            window_size: 15
+            send_every: 15
+      web_server:
+        sorting_group_id: group_environmental_sensors
+        sorting_weight: 8
       
    # BME280 Sensor in I2C Port - Absolute Humidity
   - platform: absolute_humidity
     name: "${bme_sensor2_location}Humidity (Absolute)"
+    id: bme280b_humidity_absolute
+    icon: 'mdi:water-percent'    
     temperature: bme280b_temperature
     humidity: bme280b_humidity
     equation: Wobus   # Wobus (Default), optional Tetens or Buck
-
-   # Pressure in kPa
-#  - platform: template
-#    name: "${bme_sensor2_location}Pressure (kPa)"
-#    state_class: 'measurement'
-#    accuracy_decimals: 2
-#    lambda: |-
-#      return id(bme280b_pressure).state / 10.0 ;
-#    update_interval: 15s
-#    unit_of_measurement: 'kPa'
+    web_server:
+      sorting_group_id: group_environmental_sensors
+      sorting_weight: 9
 
    # BME280 Sensor in I2C Port - Dew Point
   - platform: template
     name: "${bme_sensor2_location}Dew Point"
+    id: bme280b_dew_point
+    icon: 'mdi:water-thermometer-outline'
     unit_of_measurement: °C
-    icon: 'mdi:thermometer-alert'    
     lambda: |-
       return (243.5*(log(id(bme280b_humidity).state/100)+((17.67*id(bme280b_temperature).state)/
       (243.5+id(bme280b_temperature).state)))/(17.67-log(id(bme280b_humidity).state/100)-
       ((17.67*id(bme280b_temperature).state)/(243.5+id(bme280b_temperature).state))));
+    web_server:
+      sorting_group_id: group_environmental_sensors
+      sorting_weight: 10
 
    # BME280 Sensor in I2C Port - Equivalent Sea Level Pressure 
    # Note: This is based on 655m for Goulburn North, NSW. Australia. Update for a different location.
   - platform: template
     name: "${bme_sensor2_location}Equivalent Sea Level Pressure"
+    id: bme280b_sea_level_pressure
+    icon: 'mdi:waves-arrow-up'
     unit_of_measurement: 'hPa'    
     lambda: |-
       const float STANDARD_ALTITUDE = 656; // in meters, see note
       return id(bme280b_pressure).state / powf(1 - ((0.0065 * STANDARD_ALTITUDE) /
         (id(bme280b_temperature).state + (0.0065 * STANDARD_ALTITUDE) + 273.15)), 5.257); // in hPa
     update_interval: 15s
+    web_server:
+      sorting_group_id: group_environmental_sensors_1
+      sorting_weight: 12
 
    # Note: Only Altitude OR Equivalent Sea Level Pressure can be run at one time, not both.
 #  - platform: template
