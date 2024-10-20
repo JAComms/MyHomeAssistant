@@ -16,14 +16,15 @@ substitutions:
   # Project Name
   project_name: "Athom Technology.Energy Monitor (6 Channels)"
   # Project version denotes the release version of the yaml file, allowing checking of deployed vs latest version
-  project_version: "2.0.3"
+  project_version: "2.0.4"
   # The phase in the home power supply, upon which this plug is utilsed. 1p = A. 3p = A, B or C.  (myHome GPO 1 = Phase C, GPO 2 = Phase A, GPO 3 = Phase B)
   power_circuit: "TBC"  
   # Sensor update interval
   update_interval: 5s
   # Hide, by making 'internal', the individual CT's energy sensors
   hide_non_grid_energy_sensors: "false"
-
+  # Disable sensors recording Grid EXPORTS (i.e. house with no solar installed)
+  disable_grid_export_sensors: "true"
 
   # Names to describe the usage of each CT sensor. i.e. Lights, GPO1, Grid etc. Used to then prefix all the associated sensors.
   ct_sensor_1_name: "CT 1"      # CT 1
@@ -108,14 +109,22 @@ web_server:
       
     - id: group_electricity_sensors
       name: "Electricity Sensors"
-      sorting_weight: -45
+      sorting_weight: -47
 
     - id: group_electricity_sensors_phase
       name: "Electricity Sensors by Phase"
+      sorting_weight: -46
+
+    - id: group_consumption_-__${ct_sensor_4_name}
+      name: "Consumption - ${ct_sensor_4_name}"
+      sorting_weight: -45
+
+    - id: group_consumption_-__${ct_sensor_5_name}
+      name: "Consumption - ${ct_sensor_5_name}"
       sorting_weight: -44
 
-    - id: group_electricity_sensors_circuit
-      name: "Electricity Sensors by Circuit"
+    - id: group_consumption_-__${ct_sensor_6_name}
+      name: "Consumption - ${ct_sensor_6_name}"
       sorting_weight: -43
     
     - id: group_energy_import_sensors
@@ -432,14 +441,14 @@ sensor:
         name: "${ct_sensor_4_name} - Power"
         id: 'power_4'
         web_server:
-          sorting_group_id: group_electricity_sensors_circuit
+          sorting_group_id: group_consumption_-__${ct_sensor_4_name}
           sorting_weight: 1
 
       current:
         name: "${ct_sensor_4_name} - Current"
         id: 'current_4'
         web_server:
-          sorting_group_id: group_electricity_sensors_circuit
+          sorting_group_id: group_consumption_-__${ct_sensor_4_name}
           sorting_weight: 2
 
       energy:
@@ -459,14 +468,14 @@ sensor:
         name: "${ct_sensor_5_name} - Power"
         id: 'power_5'
         web_server:
-          sorting_group_id: group_electricity_sensors_circuit
+          sorting_group_id: group_consumption_-__${ct_sensor_5_name}
           sorting_weight: 3
 
       current:
         name: "${ct_sensor_5_name} - Current"
         id: 'current_5'
         web_server:
-          sorting_group_id: group_electricity_sensors_circuit
+          sorting_group_id: group_consumption_-__${ct_sensor_5_name}
           sorting_weight: 4
 
       energy:
@@ -486,14 +495,14 @@ sensor:
         name: "${ct_sensor_6_name} - Power"
         id: 'power_6'
         web_server:
-          sorting_group_id: group_electricity_sensors_circuit
+          sorting_group_id: group_consumption_-__${ct_sensor_6_name}
           sorting_weight: 5
 
       current:
         name: "${ct_sensor_6_name} - Current"
         id: 'current_6'
         web_server:
-          sorting_group_id: group_electricity_sensors_circuit
+          sorting_group_id: group_consumption_-__${ct_sensor_6_name}
           sorting_weight: 6
 
       energy:
@@ -531,7 +540,7 @@ sensor:
     update_interval: 5s
     web_server:
       sorting_group_id: group_electricity_sensors
-      sorting_weight: 5
+      sorting_weight: 1
 
     # Show the Import Power coming from the Grid/Mains. Derived from CT1, CT2 and CT3 Power
   - platform: template
@@ -558,7 +567,7 @@ sensor:
     update_interval: ${update_interval}
     web_server:
       sorting_group_id: group_electricity_sensors
-      sorting_weight: 6
+      sorting_weight: 2
 
     # Show the Export Power going to the Grid/Mains. Derived from CT1, CT2 and CT3 Power
   - platform: template
@@ -585,7 +594,7 @@ sensor:
     update_interval: ${update_interval}
     web_server:
       sorting_group_id: group_electricity_sensors
-      sorting_weight: 7
+      sorting_weight: 3
 
     # Show the Export Power going to the Grid/Mains. Derived from CT1, CT2 and CT3 Power
     # Same as above sensor, but converts from Watts to KiloWatts, to be used Integration sensor to provide 'Energy Total Export' sensor
@@ -615,7 +624,7 @@ sensor:
     update_interval: ${update_interval}
     web_server:
       sorting_group_id: group_electricity_sensors
-      sorting_weight: 8
+      sorting_weight: 4
     internal: false
 
     # Conver the 'grid_power_export_kw' sensor into kWh, giving a sensor recoding the Lifetime Energy Export.
