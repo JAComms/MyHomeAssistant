@@ -115,15 +115,15 @@ web_server:
       name: "Electricity Sensors by Phase"
       sorting_weight: -46
 
-    - id: group_consumption_${ct_sensor_4_name}
+    - id: group_consumption_ct_sensor_4
       name: "Consumption - ${ct_sensor_4_name}"
       sorting_weight: -45
 
-    - id: group_consumption_${ct_sensor_5_name}
+    - id: group_consumption_ct_sensor_5
       name: "Consumption - ${ct_sensor_5_name}"
       sorting_weight: -44
 
-    - id: group_consumption_${ct_sensor_6_name}
+    - id: group_consumption_ct_sensor_6
       name: "Consumption - ${ct_sensor_6_name}"
       sorting_weight: -43
     
@@ -441,14 +441,14 @@ sensor:
         name: "${ct_sensor_4_name} - Power"
         id: 'power_4'
         web_server:
-          sorting_group_id: group_consumption_${ct_sensor_4_name}
+          sorting_group_id: group_consumption_ct_sensor_4
           sorting_weight: 1
 
       current:
         name: "${ct_sensor_4_name} - Current"
         id: 'current_4'
         web_server:
-          sorting_group_id: group_consumption_${ct_sensor_4_name}
+          sorting_group_id: group_consumption_ct_sensor_4
           sorting_weight: 2
 
       energy:
@@ -468,14 +468,14 @@ sensor:
         name: "${ct_sensor_5_name} - Power"
         id: 'power_5'
         web_server:
-          sorting_group_id: group_consumption_${ct_sensor_5_name}
+          sorting_group_id: group_consumption_ct_sensor_5
           sorting_weight: 3
 
       current:
         name: "${ct_sensor_5_name} - Current"
         id: 'current_5'
         web_server:
-          sorting_group_id: group_consumption_${ct_sensor_5_name}
+          sorting_group_id: group_consumption_ct_sensor_5
           sorting_weight: 4
 
       energy:
@@ -495,14 +495,14 @@ sensor:
         name: "${ct_sensor_6_name} - Power"
         id: 'power_6'
         web_server:
-          sorting_group_id: group_consumption_${ct_sensor_6_name}
+          sorting_group_id: group_consumption_ct_sensor_6
           sorting_weight: 5
 
       current:
         name: "${ct_sensor_6_name} - Current"
         id: 'current_6'
         web_server:
-          sorting_group_id: group_consumption_${ct_sensor_6_name}
+          sorting_group_id: group_consumption_ct_sensor_6
           sorting_weight: 6
 
       energy:
