@@ -461,7 +461,7 @@ sensor:
         id: 'energy_4'
         web_server:
           sorting_group_id: group_consumption_ct_sensor_4
-          sorting_weight: 3
+          sorting_weight: 4
         internal: ${hide_non_grid_energy_sensors}
       
 #######################
@@ -777,6 +777,45 @@ sensor:
       web_server:
         sorting_group_id: group_energy_export_sensors
         sorting_weight: 5
+
+
+#####################################################################
+#
+# Energy IMPORT - Today for CT4 / CT5 / CT6 ensors that track specific circuits in the house
+#
+
+     # Dentra Components - Define the id of the sensor tracking 'Total Energy' used
+  - platform: "energy_statistics"
+    total: energy_4
+    
+    energy_today:
+      name: "${ct_sensor_4_name} - Energy Today"
+      id: ct_sensor_4_ import_today
+      web_server:
+        sorting_group_id: group_consumption_ct_sensor_4
+        sorting_weight: 3
+
+
+  - platform: "energy_statistics"
+    total: energy_5
+    
+    energy_today:
+      name: "${ct_sensor_5_name} - Energy Today"
+      id: ct_sensor_5_ import_today
+      web_server:
+        sorting_group_id: group_consumption_ct_sensor_5
+        sorting_weight: 3
+
+
+  - platform: "energy_statistics"
+    total: energy_6
+    
+    energy_today:
+      name: "${ct_sensor_6_name} - Energy Today"
+      id: ct_sensor_6_ import_today
+      web_server:
+        sorting_group_id: group_consumption_ct_sensor_6
+        sorting_weight: 3
 
 
 #####################################################################
