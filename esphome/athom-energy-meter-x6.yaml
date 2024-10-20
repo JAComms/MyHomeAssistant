@@ -625,7 +625,7 @@ sensor:
     web_server:
       sorting_group_id: group_electricity_sensors
       sorting_weight: 4
-    internal: false
+    internal: ${disable_grid_export_sensors}
 
     # Conver the 'grid_power_export_kw' sensor into kWh, giving a sensor recoding the Lifetime Energy Export.
   - platform: integration
@@ -637,11 +637,12 @@ sensor:
     time_unit: h
     unit_of_measurement: 'kWh'
     accuracy_decimals: 3
+    icon: mdi:transmission-tower-export
     filters:
       # Add the accumulated value from the global variable
       - lambda: return x + id(total_export_energy_persist);
 #    restore: true
-    icon: mdi:transmission-tower-export
+    internal: ${disable_grid_export_sensors}
     web_server:
       sorting_weight: '-35'
 
@@ -720,6 +721,7 @@ sensor:
     energy_today:
       name: "Grid Energy - Export Today"
       id: grid_energy_export_today
+      internal: ${disable_grid_export_sensors}
       web_server:
         sorting_weight: '-40'
 
@@ -727,6 +729,7 @@ sensor:
     energy_yesterday:
       name: "Grid Energy - Export Yesterday"
       id: grid_energy_export_yesterday
+      internal: ${disable_grid_export_sensors}
       web_server:
         sorting_weight: '-39'
 
@@ -734,6 +737,7 @@ sensor:
     energy_week:
       name: "Grid Energy - Export Week"
       id: grid_energy_export_week
+      internal: ${disable_grid_export_sensors}
       web_server:
         sorting_weight: '-38'
 
@@ -741,11 +745,13 @@ sensor:
     energy_month:
       name: "Grid Energy - Export Month"
       id: grid_energy_export_month
+      internal: ${disable_grid_export_sensors}
       web_server:
         sorting_weight: '-37'
 
     energy_year:
       name: "Grid Energy - Export Year"
+      internal: ${disable_grid_export_sensors}
       id: grid_energy_export_year
       web_server:
         sorting_weight: '-36'
