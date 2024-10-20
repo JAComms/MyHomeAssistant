@@ -281,6 +281,8 @@ button:
             id: total_export_energy_persist
             value: '0.0'
         - bl0906.reset_energy: id_bl0906
+    web_server:
+      sort_order: 4
 
 # COMMENT: Not sure if total_import_energy_persist and total_export_energy_persist are resetting when button pushed. Last time had to hit 'Factory Reset to Default' to wipe them.
 
@@ -319,7 +321,7 @@ binary_sensor:
         then:
           - button.press: Reset
     entity_category: config
-# ??
+
 
 #####################################################################
 #
@@ -455,7 +457,8 @@ sensor:
         name: "${ct_sensor_4_name} - Energy Total"
         id: 'energy_4'
         web_server:
-          sorting_weight: '12'
+          sorting_group_id: group_consumption_ct_sensor_4
+          sorting_weight: 3
         internal: ${hide_non_grid_energy_sensors}
       
 #######################
@@ -482,7 +485,8 @@ sensor:
         name: "${ct_sensor_5_name} - Energy Total"
         id: 'energy_5'
         web_server:
-          sorting_weight: '15'
+          sorting_group_id: group_consumption_ct_sensor_5
+          sorting_weight: 3
         internal: ${hide_non_grid_energy_sensors}
       
 #######################
@@ -509,7 +513,8 @@ sensor:
         name: "${ct_sensor_6_name} - Energy Total"
         id: 'energy_6'
         web_server:
-          sorting_weight: '18'
+          sorting_group_id: group_consumption_ct_sensor_6
+          sorting_weight: 3
         internal: ${hide_non_grid_energy_sensors}
     
   
