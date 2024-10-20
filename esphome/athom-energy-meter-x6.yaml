@@ -790,7 +790,7 @@ sensor:
     
     energy_today:
       name: "${ct_sensor_4_name} - Energy Today"
-      id: ct_sensor_4_ import_today
+      id: ct_sensor_4_import_today
       web_server:
         sorting_group_id: group_consumption_ct_sensor_4
         sorting_weight: 3
@@ -801,7 +801,7 @@ sensor:
     
     energy_today:
       name: "${ct_sensor_5_name} - Energy Today"
-      id: ct_sensor_5_ import_today
+      id: ct_sensor_5_import_today
       web_server:
         sorting_group_id: group_consumption_ct_sensor_5
         sorting_weight: 3
@@ -812,7 +812,7 @@ sensor:
     
     energy_today:
       name: "${ct_sensor_6_name} - Energy Today"
-      id: ct_sensor_6_ import_today
+      id: ct_sensor_6_import_today
       web_server:
         sorting_group_id: group_consumption_ct_sensor_6
         sorting_weight: 3
