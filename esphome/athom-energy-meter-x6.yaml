@@ -472,21 +472,21 @@ sensor:
         id: 'power_5'
         web_server:
           sorting_group_id: group_consumption_ct_sensor_5
-          sorting_weight: 3
+          sorting_weight: 1
 
       current:
         name: "${ct_sensor_5_name} - Current"
         id: 'current_5'
         web_server:
           sorting_group_id: group_consumption_ct_sensor_5
-          sorting_weight: 4
+          sorting_weight: 2
 
       energy:
         name: "${ct_sensor_5_name} - Energy Total"
         id: 'energy_5'
         web_server:
           sorting_group_id: group_consumption_ct_sensor_5
-          sorting_weight: 3
+          sorting_weight: 4
         internal: ${hide_non_grid_energy_sensors}
       
 #######################
@@ -500,21 +500,21 @@ sensor:
         id: 'power_6'
         web_server:
           sorting_group_id: group_consumption_ct_sensor_6
-          sorting_weight: 5
+          sorting_weight: 1
 
       current:
         name: "${ct_sensor_6_name} - Current"
         id: 'current_6'
         web_server:
           sorting_group_id: group_consumption_ct_sensor_6
-          sorting_weight: 6
+          sorting_weight: 2
 
       energy:
         name: "${ct_sensor_6_name} - Energy Total"
         id: 'energy_6'
         web_server:
           sorting_group_id: group_consumption_ct_sensor_6
-          sorting_weight: 3
+          sorting_weight: 4
         internal: ${hide_non_grid_energy_sensors}
     
   
@@ -696,7 +696,7 @@ sensor:
       id: grid_energy_import_yesterday
       web_server:
         sorting_group_id: group_energy_import_sensors
-        sorting_weight:2
+        sorting_weight: 2
 
      # Dentra Components - Adds Energy Week
     energy_week:
