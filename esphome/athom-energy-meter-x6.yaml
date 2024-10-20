@@ -391,7 +391,8 @@ sensor:
       energy:
         name: "${ct_sensor_2_name} - Energy Total"
         id: 'energy_2'
-        web_server_sorting_weight: '6'
+        web_server:
+          sorting_weight: '6'
         internal: true
 
 #######################
@@ -417,7 +418,8 @@ sensor:
       energy:
         name: "${ct_sensor_3_name} - Energy Total"
         id: 'energy_3'
-        web_server_sorting_weight: '9'
+        web_server:
+          sorting_weight: '9'
         internal: true
 
 #######################
