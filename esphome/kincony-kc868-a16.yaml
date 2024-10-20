@@ -216,7 +216,8 @@ number:
     mode: box
     icon: "mdi:scale"
     entity_category: config
-    web_server_sorting_weight: 23
+    web_server:
+      sorting_weight: 23
     
   - platform: template
     name: "Gas - Heating Value"
@@ -231,7 +232,8 @@ number:
     mode: box
     icon: "mdi:fire"
     entity_category: config
-    web_server_sorting_weight: 24
+    web_server:
+      sorting_weight: 24
 
 
 #######################################################################################
@@ -952,7 +954,8 @@ sensor:
       mode:
         input: true
         pullup: true
-    web_server_sorting_weight: '10'
+    web_server:
+      sorting_weight: '10'
     
 
   - platform: pulse_meter
@@ -975,7 +978,8 @@ sensor:
     timeout: 3min
     filters:
       - multiply: 10.0   # 1 pulse = 10L. The gas counter 'helper' in Home Assistant must still be set to 'step size' = 10.
-    web_server_sorting_weight: '11'
+    web_server:
+      sorting_weight: '11'
 
     #  Uses the above pulse_meter and adds sensor and calculations for tracking m3
     total:    
@@ -1021,27 +1025,32 @@ sensor:
     gas_today:
       name: "Gas - Used Today"
       id: gas_used_today
-      web_server_sorting_weight: '12'
+      web_server:
+        sorting_weight: '12'
     
     gas_yesterday:
       name: "Gas - Used Yesterday"
       id: gas_used_yesterday
-      web_server_sorting_weight: '13'
+      web_server:
+        sorting_weight: '13'
 
     gas_week:
       name: "Gas - Used Week"
       id: gas_used_week
-      web_server_sorting_weight: '14'
+      web_server:
+        sorting_weight: '14'
     
     gas_month:
       name: "Gas - Used Month"
       id: gas_used_month
-      web_server_sorting_weight: '15'
+      web_server:
+        sorting_weight: '15'
 
     gas_year:
       name: "Gas - Used Year"
       id: gas_used_year
-      web_server_sorting_weight: '16'
+      web_server:
+        sorting_weight: '16'
 
   ################################################################################
 
@@ -1061,7 +1070,8 @@ sensor:
     update_interval: 1s
     filters:
       - delta : 0.001
-    web_server_sorting_weight: '17'
+    web_server:
+      sorting_weight: '17'
 
   ################################################################################
   #
@@ -1075,27 +1085,32 @@ sensor:
     gas_today:
       name: "Gas - Used Today (MJ)"
       id: gas_used_today_mj
-      web_server_sorting_weight: '18'
+      web_server:
+        sorting_weight: '18'
     
     gas_yesterday:
       name: "Gas - Used Yesterday (MJ)"
       id: gas_used_yesterday_mj
-      web_server_sorting_weight: '19'
+      web_server:
+        sorting_weight: '19'
 
     gas_week:
       name: "Gas - Used Week (MJ)"
       id: gas_used_week_mj
-      web_server_sorting_weight: '20'
+      web_server:
+        sorting_weight: '20'
     
     gas_month:
       name: "Gas - Used Month (MJ)"
       id: gas_used_month_mj
-      web_server_sorting_weight: '21'
+      web_server:
+        sorting_weight: '21'
 
     gas_year:
       name: "Gas - Used Year (MJ)"
       id: gas_used_year_mj
-      web_server_sorting_weight: '22'
+      web_server:
+        sorting_weight: '22'
 
   ################################################################################
   
@@ -1114,7 +1129,8 @@ sensor:
     update_interval: 1s
     filters:
       - delta : 0.001
-    web_server_sorting_weight: '23'
+    web_server:
+      sorting_weight: '23'
 
   ################################################################################
   #
@@ -1134,7 +1150,8 @@ sensor:
         pullup: true
     filters:
       - multiply: 5.0  # Convert pulse count to liters
-    web_server_sorting_weight: '25'
+    web_server:
+      sorting_weight: '25'
 
   - platform: pulse_meter
     name: "Water - Flow Rate"
@@ -1156,7 +1173,8 @@ sensor:
     timeout: 3min
     filters:
       - multiply: 5.0  # Each pulse equals 5 liters. The water counter 'helper' in Home Assistant must still be set to 'step size' = 5.
-    web_server_sorting_weight: '26'
+    web_server:
+      sorting_weight: '26'
 
     #  Uses the above pulse_meter and adds sensor and calculations for tracking current litres
     total:
@@ -1195,7 +1213,8 @@ sensor:
     update_interval: 1s
     filters:
       - delta : 0.001
-    web_server_sorting_weight: '33'
+    web_server:
+      sorting_weight: '33'
 
   ################################################################################
   #
@@ -1211,27 +1230,32 @@ sensor:
     water_today:
       name: "Town Water - Used Today"
       id: town_water_used_today
-      web_server_sorting_weight: '28'
+      web_server:
+        sorting_weight: '28'
     
     water_yesterday:
       name: "Town Water - Used Yesterday"
       id: town_water_used_yesterday
-      web_server_sorting_weight: '29'
+      web_server:
+        sorting_weight: '29'
 
     water_week:
       name: "Town Water - Used Week"
       id: town_water_used_week
-      web_server_sorting_weight: '30'
+      web_server:
+        sorting_weight: '30'
     
     water_month:
       name: "Town Water - Used Month"
       id: town_water_used_month
-      web_server_sorting_weight: '31'
+      web_server:
+        sorting_weight: '31'
 
     water_year:
       name: "Town Water - Used Year"
       id: town_water_used_year
-      web_server_sorting_weight: '32'
+      web_server:
+        sorting_weight: '32'
 
   ################################################################################
   
