@@ -334,14 +334,14 @@ sensor:
       id: 'Frequency'
       web_server:
         sorting_group_id: group_electricity_sensors
-        sorting_weight: ??
+        sorting_weight: 6
 
     voltage:
       name: 'Voltage'
       id: 'Voltage'
       web_server:
         sorting_group_id: group_electricity_sensors
-        sorting_weight: ??
+        sorting_weight: 5
 
 #######################
 #
@@ -443,7 +443,8 @@ sensor:
       energy:
         name: "${ct_sensor_4_name} - Energy Total"
         id: 'energy_4'
-        web_server_sorting_weight: '12'
+        web_server:
+          sorting_weight: '12'
         internal: ${hide_non_grid_energy_sensors}
       
 #######################
@@ -469,7 +470,8 @@ sensor:
       energy:
         name: "${ct_sensor_5_name} - Energy Total"
         id: 'energy_5'
-        web_server_sorting_weight: '15'
+        web_server:
+          sorting_weight: '15'
         internal: ${hide_non_grid_energy_sensors}
       
 #######################
@@ -495,7 +497,8 @@ sensor:
       energy:
         name: "${ct_sensor_6_name} - Energy Total"
         id: 'energy_6'
-        web_server_sorting_weight: '18'
+        web_server:
+          sorting_weight: '18'
         internal: ${hide_non_grid_energy_sensors}
     
   
@@ -628,7 +631,8 @@ sensor:
       - lambda: return x + id(total_export_energy_persist);
 #    restore: true
     icon: mdi:transmission-tower-export
-    web_server_sorting_weight: '-35'
+    web_server:
+      sorting_weight: '-35'
 
 
     # Show the Total (Lifetime) Energy FROM the Mains/Grid. 
@@ -644,7 +648,8 @@ sensor:
     lambda: |-
       return id(energy_1).state + id(energy_2).state + id(energy_3).state;
     update_interval: 5s
-    web_server_sorting_weight: '-41'
+    web_server:
+      sorting_weight: '-41'
 
 
 #####################################################################
@@ -660,30 +665,35 @@ sensor:
     energy_today:
       name: "Grid Energy - Import Today"
       id: grid_energy_import_today
-      web_server_sorting_weight: '-46'
+      web_server:
+        sorting_weight: '-46'
 
      # Dentra Components - Adds Energy Yesterday
     energy_yesterday:
       name: "Grid Energy - Import Yesterday"
       id: grid_energy_import_yesterday
-      web_server_sorting_weight: '-45'
+      web_server:
+        sorting_weight: '-45'
 
      # Dentra Components - Adds Energy Week
     energy_week:
       name: "Grid Energy - Import Week"
       id: grid_energy_import_week
-      web_server_sorting_weight: '-44'
+      web_server:
+        sorting_weight: '-44'
 
      # Dentra Components - Adds Energy Month
     energy_month:
       name: "Grid Energy - Import Month"
       id: grid_energy_import_month
-      web_server_sorting_weight: '-43'
+      web_server:
+        sorting_weight: '-43'
 
     energy_year:
       name: "Grid Energy - Import Year"
       id: grid_energy_import_year
-      web_server_sorting_weight: '-42'
+      web_server:
+        sorting_weight: '-42'
 
 
 #####################################################################
@@ -699,30 +709,35 @@ sensor:
     energy_today:
       name: "Grid Energy - Export Today"
       id: grid_energy_export_today
-      web_server_sorting_weight: '-40'
+      web_server:
+        sorting_weight: '-40'
 
      # Dentra Components - Adds Energy Yesterday
     energy_yesterday:
       name: "Grid Energy - Export Yesterday"
       id: grid_energy_export_yesterday
-      web_server_sorting_weight: '-39'
+      web_server:
+        sorting_weight: '-39'
 
      # Dentra Components - Adds Energy Week
     energy_week:
       name: "Grid Energy - Export Week"
       id: grid_energy_export_week
-      web_server_sorting_weight: '-38'
+      web_server:
+        sorting_weight: '-38'
 
      # Dentra Components - Adds Energy Month
     energy_month:
       name: "Grid Energy - Export Month"
       id: grid_energy_export_month
-      web_server_sorting_weight: '-37'
+      web_server:
+        sorting_weight: '-37'
 
     energy_year:
       name: "Grid Energy - Export Year"
       id: grid_energy_export_year
-      web_server_sorting_weight: '-36'
+      web_server:
+        sorting_weight: '-36'
 
 
 #####################################################################
