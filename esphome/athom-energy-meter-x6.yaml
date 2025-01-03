@@ -156,19 +156,16 @@ globals:
   - id: total_export_energy_persist
     type: float
     restore_value: no
-    initial_value: '0.0'
 
   - id: total_import_energy_persist
     type: float
     restore_value: no
-    initial_value: '0.0'
 
 #######################
 
   - id: id_energy_1_import_persist
     type: float
     restore_value: yes
-    initial_value: '0.0'
 
   - id: id_energy_1_import_lastvalue
     type: float
@@ -180,7 +177,6 @@ globals:
   - id: id_energy_2_import_persist
     type: float
     restore_value: yes
-    initial_value: '0.0'
 
   - id: id_energy_2_import_lastvalue
     type: float
@@ -192,7 +188,6 @@ globals:
   - id: id_energy_3_import_persist
     type: float
     restore_value: yes
-    initial_value: '0.0'
 
   - id: id_energy_3_import_lastvalue
     type: float
@@ -204,7 +199,6 @@ globals:
   - id: id_energy_4_import_persist
     type: float
     restore_value: yes
-    initial_value: '0.0'
   
   - id: id_energy_4_import_lastvalue
     type: float
@@ -216,7 +210,6 @@ globals:
   - id: id_energy_5_import_persist
     type: float
     restore_value: yes
-    initial_value: '0.0'
   
   - id: id_energy_5_import_lastvalue
     type: float
@@ -228,7 +221,6 @@ globals:
   - id: id_energy_6_import_persist
     type: float
     restore_value: yes
-    initial_value: '0.0'
   
   - id: id_energy_6_import_lastvalue
     type: float
@@ -562,8 +554,6 @@ sensor:
     state_class: "measurement"
     unit_of_measurement: "W"
     icon: mdi:transmission-tower-import
-#    lambda: |-
-#      return max(0.0f, id(power_1).state + id(power_2).state + id(power_3).state);
     lambda: |-
       float sum = 0.0f;
       if (id(power_1).state > 0.0f) {
@@ -590,8 +580,6 @@ sensor:
     state_class: "measurement"
     unit_of_measurement: "W"
     icon: mdi:transmission-tower-export
-#    lambda: |-
-#      return max(0.0f, -id(power_1).state + -id(power_2).state + -id(power_3).state);
     lambda: |-
       float sum = 0.0f;
       if (id(power_1).state < 0.0f) {
@@ -619,8 +607,6 @@ sensor:
     state_class: "measurement"
     unit_of_measurement: "kW"
     icon: mdi:transmission-tower-export
-#    lambda: |-
-#      return max(0.0f, -id(power_1).state + -id(power_2).state + -id(power_3).state);
     lambda: |-
       float sum = 0.0f;
       if (id(power_1).state < 0.0f) {
