@@ -89,8 +89,6 @@ packages:
 
 # Dentra Components - Adds 'Platform - Energy Statistics'
 external_components:
-#  - source: github://roving-ronin/myhomeassistant/components@statistics-partial-times
-#    refresh: 0s
   - source:
       type: git
       url: https://github.com/roving-ronin/myhomeassistant/
