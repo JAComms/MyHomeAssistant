@@ -55,7 +55,7 @@ substitutions:
    # Secondary DNS server to be utilised
   dns_server2: "1.1.1.1"
    # Define a domain for this device to use. i.e. iot.home.lan (so device will appear as athom-smart-plug-v2.iot.home.lan in DNS/DHCP logs)
-  dns_domain: ""
+  dns_domain: ".local"
 
 ########################## End of Substitutions #########################
 
