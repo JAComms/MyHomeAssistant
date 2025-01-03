@@ -87,12 +87,16 @@ packages:
 # External Components
 #
 
-external_components:
-
 # Dentra Components - Adds 'Platform - Energy Statistics'
-# https://github.com/dentra/esphome-components/tree/master/components/energy_statistics
-  - source: github://roving-ronin/myhomeassistant/components@main
+external_components:
+#  - source: github://roving-ronin/myhomeassistant/components@statistics-partial-times
+#    refresh: 0s
+  - source:
+      type: git
+      url: https://github.com/roving-ronin/myhomeassistant/
+      ref: main
     refresh: 0s
+    components: [ energy_statistics ]
 
 
 #####################################################################
