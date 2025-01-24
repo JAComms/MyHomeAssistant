@@ -27,7 +27,7 @@ substitutions:
   power_circuit: "TBC"  
   # Define logging level: NONE, ERROR, WARN, INFO, DEBUG (Default), VERBOSE, VERY_VERBOSE.
   # Use 'INFO' as at DEBUG the energy/water/gas statistics "Internal" sensors appear in the logs
-  log_level: "INFO"
+  log_level: "DEBUG"
   # Sensor update interval
   update_interval: 5s
   # Hide, by making 'internal', the individual CT's energy sensors
