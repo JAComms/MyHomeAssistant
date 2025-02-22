@@ -1,0 +1,768 @@
+# Base configuration file for the Kincony KC868-AI ESP32 board
+# used to control DMX lighting in the JAComms house
+#
+# Product: https://www.kincony.com/esp32-input-module.html
+
+
+
+# Roof Space - Front
+
+esphome:
+  name: ha-io-board-a
+  friendly_name: HA I/O Board A
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+ota:
+  platform: esphome
+
+api:
+
+logger:
+
+web_server:
+  port: 80 
+  version: 3
+
+i2c:
+  sda: 4
+  scl: 5
+  scan: true
+  id: bus_a
+
+ethernet:
+  type: LAN8720
+  mdc_pin: GPIO23
+  mdio_pin: GPIO18
+  clk_mode: GPIO17_OUT
+  phy_addr: 0
+
+#external_components:
+#  - source: github://andyboeh/esphome-dmx512
+
+external_components:
+#  - source: github://andyboeh/esphome-dmx512  (URL - https://github.com/andyboeh/esphome-dmx512 )
+  - source:
+      type: git
+      url: https://github.com/JAComms/myhomeassistant/
+      ref: main
+    refresh: 0s
+    components: [ dmx512 ]
+
+uart:
+  id: uart_bus
+  baud_rate: 250000
+  tx_pin: 
+    number: GPIO14
+    allow_other_uses: true
+  stop_bits: 2
+
+dmx512:
+  id: dmx1
+  uart_id: uart_bus
+  tx_pin: 
+    number: GPIO14
+    allow_other_uses: true
+  uart_num: 1
+
+output:
+  - platform: dmx512
+    channel: 1
+    universe: dmx1
+    id: dmx_1
+  - platform: dmx512
+    channel: 2
+    universe: dmx1
+    id: dmx_2
+  - platform: dmx512
+    channel: 3
+    universe: dmx1
+    id: dmx_3
+
+  - platform: dmx512
+    channel: 4
+    universe: dmx1
+    id: dmx_4
+  - platform: dmx512
+    channel: 5
+    universe: dmx1
+    id: dmx_5
+  - platform: dmx512
+    channel: 6
+    universe: dmx1
+    id: dmx_6
+
+  - platform: dmx512
+    channel: 7
+    universe: dmx1
+    id: dmx_7
+  - platform: dmx512
+    channel: 8
+    universe: dmx1
+    id: dmx_8
+  - platform: dmx512
+    channel: 9
+    universe: dmx1
+    id: dmx_9
+
+  - platform: dmx512
+    channel: 10
+    universe: dmx1
+    id: dmx_10
+  - platform: dmx512
+    channel: 11
+    universe: dmx1
+    id: dmx_11
+  - platform: dmx512
+    channel: 12
+    universe: dmx1
+    id: dmx_12
+
+  - platform: dmx512
+    channel: 13
+    universe: dmx1
+    id: dmx_13
+  - platform: dmx512
+    channel: 14
+    universe: dmx1
+    id: dmx_14
+  - platform: dmx512
+    channel: 15
+    universe: dmx1
+    id: dmx_15
+
+  - platform: dmx512
+    channel: 16
+    universe: dmx1
+    id: dmx_16
+  - platform: dmx512
+    channel: 17
+    universe: dmx1
+    id: dmx_17
+  - platform: dmx512
+    channel: 18
+    universe: dmx1
+    id: dmx_18
+
+  - platform: dmx512
+    channel: 19
+    universe: dmx1
+    id: dmx_19
+  - platform: dmx512
+    channel: 20
+    universe: dmx1
+    id: dmx_20
+  - platform: dmx512
+    channel: 21
+    universe: dmx1
+    id: dmx_21
+
+  - platform: dmx512
+    channel: 22
+    universe: dmx1
+    id: dmx_22
+  - platform: dmx512
+    channel: 23
+    universe: dmx1
+    id: dmx_23
+  - platform: dmx512
+    channel: 24
+    universe: dmx1
+    id: dmx_24
+
+  - platform: dmx512
+    channel: 25
+    universe: dmx1
+    id: dmx_25
+  - platform: dmx512
+    channel: 26
+    universe: dmx1
+    id: dmx_26
+  - platform: dmx512
+    channel: 27
+    universe: dmx1
+    id: dmx_27
+
+  - platform: dmx512
+    channel: 28
+    universe: dmx1
+    id: dmx_28
+  - platform: dmx512
+    channel: 29
+    universe: dmx1
+    id: dmx_29
+  - platform: dmx512
+    channel: 30
+    universe: dmx1
+    id: dmx_30
+
+light:
+  - platform: monochromatic
+    name: "Bed 1 - Entry"
+    output: dmx_1
+    id: light_bed1_entry
+    default_transition_length: 1s
+  - platform: monochromatic
+    name: "Bed 1 - Bedside"
+    output: dmx_2
+    id: light_bed1_bedside
+    default_transition_length: 1s
+  - platform: monochromatic
+    name: "Bed 1 - Bed"
+    output: dmx_3
+    id: light_bed1_bed
+    default_transition_length: 1s
+
+  - platform: monochromatic
+    name: "Bed 1 - Juz"
+    output: dmx_4
+    id: light_bed1_juz
+    default_transition_length: 1s
+  - platform: monochromatic
+    name: "Bed 1 - Nat"
+    output: dmx_5
+    id: light_bed1_nat
+    default_transition_length: 1s
+  - platform: monochromatic
+    name: "Bed 1 - Robe"
+    output: dmx_6
+    id: light_bed1_robe
+    default_transition_length: 1s
+
+  - platform: monochromatic
+    name: "Entry - Main"
+    output: dmx_7
+    id: light_entry_main
+    default_transition_length: 1s
+  - platform: monochromatic
+    name: "Entry - Stairs"
+    output: dmx_8
+    id: light_entry_stairs
+    default_transition_length: 1s
+  - platform: monochromatic
+    name: "Office - Row 1"
+    output: dmx_9
+    id: light_office_row1
+    default_transition_length: 1s
+
+  - platform: monochromatic
+    name: "Office - Row 2"
+    output: dmx_10
+    id: light_office_row2
+    default_transition_length: 1s
+  - platform: monochromatic
+    name: "Office - Row 3"
+    output: dmx_11
+    id: light_office_row3
+    default_transition_length: 1s
+  - platform: monochromatic
+    name: "Office - Row 4"
+    output: dmx_12
+    id: light_office_row4
+    default_transition_length: 1s
+
+  - platform: monochromatic
+    name: "Office - Row 5"
+    output: dmx_13
+    id: light_office_row5
+    default_transition_length: 1s
+  - platform: monochromatic
+    name: "Kitchen - Main"
+    output: dmx_14
+    id: light_kitchen_main
+    default_transition_length: 1s
+  - platform: monochromatic
+    name: "Kitchen - Pantry"
+    output: dmx_15
+    id: light_kitchen_pantry
+    default_transition_length: 1s
+
+  - platform: monochromatic
+    name: "Kitchen - Store"
+    output: dmx_16
+    id: light_kitchen_store
+    default_transition_length: 1s
+  - platform: monochromatic
+    name: "Kitchen - Entry"
+    output: dmx_17
+    id: light_kitchen_entry
+    default_transition_length: 1s
+  - platform: monochromatic
+    name: "Laundry -All"
+    output: dmx_18
+    id: light_laundry_all
+    default_transition_length: 1s
+
+  - platform: monochromatic
+    name: "DMX Ch19"
+    output: dmx_19
+    id: light_dmxch19
+    default_transition_length: 1s
+  - platform: monochromatic
+    name: "DMX Ch20"
+    output: dmx_20
+    id: light_dmxch20
+    default_transition_length: 1s
+  - platform: monochromatic
+    name: "DMX Ch 21"
+    output: dmx_21
+    id: light_dmxch21
+    default_transition_length: 1s
+
+  - platform: monochromatic
+    name: "BBQ Lights"
+    output: dmx_22
+    id: light_outside_bbq
+    default_transition_length: 1s
+  - platform: monochromatic
+    name: "DMX Ch23"
+    output: dmx_23
+    id: light_dmxch23
+    default_transition_length: 1s
+  - platform: monochromatic
+    name: "DMX Ch24"
+    output: dmx_24
+    id: light_dmxch24
+    default_transition_length: 1s
+
+  - platform: monochromatic
+    name: "DMX Ch25"
+    output: dmx_25
+    id: light_dmxch25
+    default_transition_length: 1s
+  - platform: monochromatic
+    name: "DMX Ch26"
+    output: dmx_26
+    id: light_dmxch26
+    default_transition_length: 1s
+  - platform: monochromatic
+    name: "DMX Ch27"
+    output: dmx_27
+    id: light_dmxch27
+    default_transition_length: 1s
+
+  - platform: monochromatic
+    name: "DMX Ch28"
+    output: dmx_28
+    id: light_dmxch28
+    default_transition_length: 1s
+  - platform: monochromatic
+    name: "DMX Ch29"
+    output: dmx_29
+    id: light_dmxch29
+    default_transition_length: 1s
+  - platform: monochromatic
+    name: "DMX Ch30"
+    output: dmx_30
+    id: light_dmxch30
+    default_transition_length: 1s
+ 
+pcf8574:
+  - id: 'pcf8574_hub_in_1'  # for input channel 1-8
+    address: 0x24
+
+  - id: 'pcf8574_hub_in_2'  # for input channel 9-16
+    address: 0x25
+
+  - id: 'pcf8574_hub_in_3'  # for input channel 17-24
+    address: 0x21
+
+  - id: 'pcf8574_hub_in_4'  # for input channel 25-32
+    address: 0x22
+
+  - id: 'pcf8574_hub_in_5'  # for input channel 33-40
+    address: 0x26
+
+  - id: 'pcf8574_hub_in_6'  # for input channel 41-48
+    address: 0x23
+
+binary_sensor:
+  - platform: gpio
+    name: "Bed 1 - Entry 1"
+    pin:
+      pcf8574: pcf8574_hub_in_1
+      number: 0
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Bed 1 - Entry 2"
+    pin:
+      pcf8574: pcf8574_hub_in_1
+      number: 1
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Bed 1 - Juz 1"
+    pin:
+      pcf8574: pcf8574_hub_in_1
+      number: 2
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Bed 1 Juz 2"
+    pin:
+      pcf8574: pcf8574_hub_in_1
+      number: 3
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Bed 1 - Nat 1"
+    pin:
+      pcf8574: pcf8574_hub_in_1
+      number: 4
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Bed 1 - Nat 2"
+    pin:
+      pcf8574: pcf8574_hub_in_1
+      number: 5
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Bed 1 - Robe 1"
+    pin:
+      pcf8574: pcf8574_hub_in_1
+      number: 6
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Bed 1 - Main PIR"
+    pin:
+      pcf8574: pcf8574_hub_in_1
+      number: 7
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Bed 1 - Robe PIR"
+    pin:
+      pcf8574: pcf8574_hub_in_2
+      number: 0
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Entry - Switch 1"
+    pin:
+      pcf8574: pcf8574_hub_in_2
+      number: 1
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Entry - Switch 2"
+    pin:
+      pcf8574: pcf8574_hub_in_2
+      number: 2
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Entry - Switch 3"
+    pin:
+      pcf8574: pcf8574_hub_in_2
+      number: 3
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Entry - Switch 4"
+    pin:
+      pcf8574: pcf8574_hub_in_2
+      number: 4
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Entry - PIR"
+    pin:
+      pcf8574: pcf8574_hub_in_2
+      number: 5
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Office - Switch 1"
+    pin:
+      pcf8574: pcf8574_hub_in_2
+      number: 6
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Office - Switch 2"
+    pin:
+      pcf8574: pcf8574_hub_in_2
+      number: 7
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Office - Switch 3"
+    pin:
+      pcf8574: pcf8574_hub_in_3
+      number: 0
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Office - Switch 4"
+    pin:
+      pcf8574: pcf8574_hub_in_3
+      number: 1
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Office - PIR"
+    pin:
+      pcf8574: pcf8574_hub_in_3
+      number: 2
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Kitchen - Store Reed "
+    pin:
+      pcf8574: pcf8574_hub_in_3
+      number: 3
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Kitchen - Store Switch 1"
+    pin:
+      pcf8574: pcf8574_hub_in_3
+      number: 4
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Kitchen - Store Switch 2"
+    pin:
+      pcf8574: pcf8574_hub_in_3
+      number: 5
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Kitchen - Store Switch 3"
+    pin:
+      pcf8574: pcf8574_hub_in_3
+      number: 6
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Kitchen - Store Switch 4"
+    pin:
+      pcf8574: pcf8574_hub_in_3
+      number: 7
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Kitchen - Pantry Reed"
+    pin:
+      pcf8574: pcf8574_hub_in_4
+      number: 0
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Kitchen - Pantry Switch 1"
+    pin:
+      pcf8574: pcf8574_hub_in_4
+      number: 1
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Kitchen - Pantry Switch 2"
+    pin:
+      pcf8574: pcf8574_hub_in_4
+      number: 2
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Kitchen - Pantry Switch 3"
+    pin:
+      pcf8574: pcf8574_hub_in_4
+      number: 3
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Kitchen - Pantry Switch 4"
+    pin:
+      pcf8574: pcf8574_hub_in_4
+      number: 4
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Kitchen - Entry PIR"
+    pin:
+      pcf8574: pcf8574_hub_in_4
+      number: 5
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Kitchen - Store PIR"
+    pin:
+      pcf8574: pcf8574_hub_in_4
+      number: 6
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Laundry - Entry Switch 1"
+    pin:
+      pcf8574: pcf8574_hub_in_4
+      number: 7
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Laundry - Entry Switch 2"
+    pin:
+      pcf8574: pcf8574_hub_in_5
+      number: 0
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Laundry - PA Switch 1"
+    pin:
+      pcf8574: pcf8574_hub_in_5
+      number: 1
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Laundry - PA Switch 2"
+    pin:
+      pcf8574: pcf8574_hub_in_5
+      number: 2
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Laundry - PIR"
+    pin:
+      pcf8574: pcf8574_hub_in_5
+      number: 3
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Input A-37"
+    pin:
+      pcf8574: pcf8574_hub_in_5
+      number: 4
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Input A-38"
+    pin:
+      pcf8574: pcf8574_hub_in_5
+      number: 5
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Input A-39"
+    pin:
+      pcf8574: pcf8574_hub_in_5
+      number: 6
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Input A-40"
+    pin:
+      pcf8574: pcf8574_hub_in_5
+      number: 7
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Input A-41"
+    pin:
+      pcf8574: pcf8574_hub_in_6
+      number: 0
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Input A-42"
+    pin:
+      pcf8574: pcf8574_hub_in_6
+      number: 1
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Input A-43"
+    pin:
+      pcf8574: pcf8574_hub_in_6
+      number: 2
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Input A-44"
+    pin:
+      pcf8574: pcf8574_hub_in_6
+      number: 3
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Input A-45"
+    pin:
+      pcf8574: pcf8574_hub_in_6
+      number: 4
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Input A-46"
+    pin:
+      pcf8574: pcf8574_hub_in_6
+      number: 5
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Input A-47"
+    pin:
+      pcf8574: pcf8574_hub_in_6
+      number: 6
+      mode: INPUT
+      inverted: true
+
+  - platform: gpio
+    name: "Input A-48"
+    pin:
+      pcf8574: pcf8574_hub_in_6
+      number: 7
+      mode: INPUT
+      inverted: true
+
+
+
+
