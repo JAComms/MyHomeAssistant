@@ -11,6 +11,8 @@
 # Substitutions
 #
 substitutions:
+  # Device name
+  name: ""
   # DMX ID, which is then called be I/O.
   dmx_id: "dmx-tbc"
 
