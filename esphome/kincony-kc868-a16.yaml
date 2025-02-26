@@ -112,37 +112,37 @@ api:
 
 #########################################################################
 
-button:
-  #  Reset the total energy entity (Gas - Current Reading)
-  - platform: template
-    name: 'Reset - Gas Statistics'
-    entity_category: config
-    icon: 'mdi:trash-can-outline'
-    id: button_reset_gas_statistics
-    on_press:
-      - lambda: |-
-          // Reset the total gas readings (m3 and MJ)
-          id(gas_total_mj) = 0;
-          id(gas_total_m3) = 0;
+#button:
+#  #  Reset the total energy entity (Gas - Current Reading)
+#  - platform: template
+#    name: 'Reset - Gas Statistics'
+#    entity_category: config
+#    icon: 'mdi:trash-can-outline'
+#    id: button_reset_gas_statistics
+#    on_press:
+#      - lambda: |-
+#          // Reset the total gas readings (m3 and MJ)
+#          id(gas_total_mj) = 0;
+#          id(gas_total_m3) = 0;
 
-          // Reset the gas statistics, as stored by the custom components
-          id(gas_statistics_component).reset_statistics();
-          id(gas_statistics_mj_component).reset_statistics();
+#          // Reset the gas statistics, as stored by the custom components
+#          id(gas_statistics_component).reset_statistics();
+#          id(gas_statistics_mj_component).reset_statistics();
 
   #  Reset the total energy entity (Water - Current Reading)
-  - platform: template
-    name: 'Reset - Water Statistics'
-    entity_category: config
-    icon: 'mdi:trash-can-outline'
-    id: button_reset_water_statistics
-    on_press:
-      - lambda: |-
-          // Reset the total water reading
-          id(town_water_used_total_litres) = 0;
-          id(town_water_used_litres).state = 0;
-
-          // Reset the gas statistics, as stored by the custom components
-          id(town_water_statistics_component).reset_statistics();
+#  - platform: template
+#    name: 'Reset - Water Statistics'
+#    entity_category: config
+#    icon: 'mdi:trash-can-outline'
+#    id: button_reset_water_statistics
+#    on_press:
+#      - lambda: |-
+#          // Reset the total water reading
+#          id(town_water_used_total_litres) = 0;
+#          id(town_water_used_litres).state = 0;
+#
+#          // Reset the gas statistics, as stored by the custom components
+#          id(town_water_statistics_component).reset_statistics();
 
 #########################################################################
 #
@@ -210,7 +210,7 @@ number:
     max_value: 1.1
     step: 0.0001
     unit_of_measurement: ""
-    initial_value: 0.9864
+    initial_value: 0.9519
     restore_value: True
     optimistic: true
     mode: box
@@ -226,7 +226,7 @@ number:
     max_value: 52.0
     step: 0.01
     unit_of_measurement: ""
-    initial_value: 37.98
+    initial_value: 38.68
     restore_value: True
     optimistic: true
     mode: box
