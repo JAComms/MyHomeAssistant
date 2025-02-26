@@ -98,17 +98,17 @@ external_components:
 
 api:
   # Define service that calls the 'button:' defined below to reset the Gas Meter - Current Reading'
-  services:
-    - service: reset_total_energy
-      then:
-        - button.press:
-            id: button_reset_gas_statistics
+#  services:
+#    - service: reset_total_energy
+#      then:
+#        - button.press:
+#            id: button_reset_gas_statistics
 
   # Define service that calls the 'button:' defined below to reset the Water - Current Reading'
-    - service: reset_total_energy
-      then:
-        - button.press:
-            id: button_reset_water_statistics
+#    - service: reset_total_energy
+#      then:
+#        - button.press:
+#            id: button_reset_water_statistics
 
 #########################################################################
 
