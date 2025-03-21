@@ -1185,6 +1185,8 @@ sensor:
       state_class: "total_increasing"
       device_class: water
       accuracy_decimals: 2
+      filters:
+        - multiply: 5.0  # Each pulse equals 5 liters
     #  Adds the calculation for 'Reading Total' 
       on_value: 
         then:
@@ -1193,8 +1195,7 @@ sensor:
               float current_town_water_used_litres_value = id(town_water_used_litres).state;
               id(town_water_used_total_litres) += current_town_water_used_litres_value - previous_town_water_used_litres_value;
               previous_town_water_used_litres_value = current_town_water_used_litres_value;
-      filters:
-        - multiply: 5.0  # Each pulse equals 5 liters
+              id(town_water_used_total).update();
       internal: true
 
 
@@ -1208,7 +1209,7 @@ sensor:
     icon: "mdi:counter"
     accuracy_decimals: 0   # As water meter only registers every 10L
     lambda: |-
-          return (id(town_water_used_total_litres) );
+          return id(town_water_used_total_litres);
     # Set interval that updates are sent to HA instance
     update_interval: 1s
     filters:
