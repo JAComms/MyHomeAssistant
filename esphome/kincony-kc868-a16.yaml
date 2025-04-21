@@ -72,7 +72,7 @@ esp32:
 #
 
 dashboard_import:
-  package_import_url: github://JAComms/myhomeassistant/esphome/kincony-kc868-a16.yaml.yaml@main
+  package_import_url: github://JAComms/myhomeassistant/esphome/kincony-kc868-a16.yaml@main
   import_full_config: false
 
 packages:
