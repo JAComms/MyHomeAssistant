@@ -22,7 +22,7 @@ substitutions:
   # Project Name
   project_name: "Kincony.KC868-A16"
   # Project version denotes the release version of the yaml file, allowing checking of deployed vs latest version
-  project_version: "1.5.1"
+  project_version: "1.5.2"
   # Restore the relay (GPO switch) upon reboot to state:
   relay_restore_mode: RESTORE_DEFAULT_OFF
   # Disable sensors
@@ -88,7 +88,7 @@ packages:
 #
 
 external_components:
-  - source: github://roving-ronin/myhomeassistant/components@main
+  - source: github://roving-ronin/myhomeassistant/components@development
     refresh: 0s
 
 #########################################################################
