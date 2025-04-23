@@ -88,7 +88,10 @@ packages:
 #
 
 external_components:
-  - source: github://roving-ronin/myhomeassistant/components@main
+  - source:
+      type: git
+      url: https://github.com/roving-ronin/myhomeassistant/
+      ref: main
     refresh: 0s
 
 #########################################################################
