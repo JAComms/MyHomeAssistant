@@ -525,18 +525,13 @@ binary_sensor:
    # Used to publish if the tap is On
   - platform: template
     name: "Town Water - Tap State"
-    id: town_water_tap_state
+    id: town_water_tap_state_sensor
     lambda: |-
-      if (id(water_flow_rate).state > 0.01) {
-        return true;  // Tap is OPEN
-      } else {
-        return false; // Tap is CLOSED
-      }
-    filters:
-      - delta: 0.01
-    web_server:
-      sorting_group_id: group_utility_meter_sensors
-      sorting_weight: 1
+      if (id(water_flow_rate).state > 0.01)
+    internal: true
+#    web_server:
+#      sorting_group_id: group_utility_meter_sensors
+#      sorting_weight: 1
 
 ################################################################################
 #  Digital Inputs - 1 to 16
@@ -1410,7 +1405,7 @@ sensor:
   #
 
   - platform: usage_tracker
-    on_off_sensor: town_water_tap_state
+    on_off_sensor: town_water_tap_state_sensor
 
     last_use:
       name: "Town Water - Last Use Duration"
