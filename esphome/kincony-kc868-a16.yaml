@@ -60,32 +60,7 @@ substitutions:
 # sensor specific template file, in this case the /sensors/hc-sr04-ultrasonic.yaml file.
 #
 
-web_server:
-  sorting_groups:
-      # This sort group is used by both the Water and Gas Meter senors (flow rate / pulse counter), so must be in at this level, not in the water vs gas sensor yaml
-    - id: group_utility_meter_sensors
-      name: "Gas & Water Meter Sensors"
-      sorting_weight: -44
 
-    - id: group_water_tank_sensors
-      name: "Water Tank Sensors"
-      sorting_weight: -40
-
-    - id: group_town_water_sensors
-      name: "Town Water Sensors"
-      sorting_weight: -39
-
-     - id: group_gas_mj_sensors
-      name: "Gas Sensors (MJ)"
-      sorting_weight: -38
-
-    - id: group_gas_m3_sensors
-      name: "Gas Sensors (m³)"
-      sorting_weight: -37
-      
-      - id: group_tank_water_sensors
-      name: "Tank Water Sensors"
-      sorting_weight: -39
 
 #########################################################################
 #
