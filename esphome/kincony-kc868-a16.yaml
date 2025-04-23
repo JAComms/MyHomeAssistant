@@ -22,7 +22,7 @@ substitutions:
   # Project Name
   project_name: "Kincony.KC868-A16"
   # Project version denotes the release version of the yaml file, allowing checking of deployed vs latest version
-  project_version: "1.5.4"
+  project_version: "1.5.2"
   # Restore the relay (GPO switch) upon reboot to state:
   relay_restore_mode: RESTORE_DEFAULT_OFF
   # Disable sensors
@@ -54,44 +54,7 @@ substitutions:
   humidity_1_offset: "0.0"
   humidity_2_offset: "0.0"
 
-  water_sensor_update_interval: 15s
-  # Multiplier used in the flow rate calculation. Set to the number of litres 1 rotation of the meter equals.
-  town_water_litres_per_pulse: "5.0"
-
 ########################## End of Substitutions #########################
-#
-# Web_server v3 Sort Groups - These substitutes are applied to overwrite the default ones supplied by the 
-# sensor specific template file, in this case the /sensors/hc-sr04-ultrasonic.yaml file.
-#
-
-web_server:
-  sorting_groups:
-  # This sort group is used by both the Water and Gas Meter senors (flow rate / pulse counter), so must be in at this level, not in the water vs gas sensor yaml
-    - id: group_utility_meter_sensors
-      name: "Gas & Water Meter Sensors"
-      sorting_weight: -44
-
-    - id: group_water_tank_sensors
-      name: "Water Tank Sensors"
-      sorting_weight: -40
-
-    - id: group_town_water_sensors
-      name: "Town Water Sensors"
-      sorting_weight: -39
-
-     - id: group_gas_mj_sensors
-      name: "Gas Sensors (MJ)"
-      sorting_weight: -38
-
-    - id: group_gas_m3_sensors
-      name: "Gas Sensors (m³)"
-      sorting_weight: -37
-      
-      - id: group_tank_water_sensors
-      name: "Tank Water Sensors"
-      sorting_weight: -39
-
-#########################################################################
 #
 # Defines the type of ESP chip used on the device. 
 # Must be in the local devices configuration file.
@@ -125,12 +88,8 @@ packages:
 #
 
 external_components:
-  - source:
-      type: git
-      url: https://github.com/roving-ronin/myhomeassistant/
-      ref: development
+  - source: github://roving-ronin/myhomeassistant/components@main
     refresh: 0s
-    components: [ gas_statistics, gas_statistics_mj, water_statistics, usage_tracker ]
 
 #########################################################################
 #
@@ -522,16 +481,6 @@ switch:
 #
 
 binary_sensor:
-   # Used to publish if the tap is On
-  - platform: template
-    name: "Town Water - Tap State"
-    id: town_water_tap_state_sensor
-    lambda: |-
-      if (id(water_flow_rate).state > 0.01)
-    internal: true
-#    web_server:
-#      sorting_group_id: group_utility_meter_sensors
-#      sorting_weight: 1
 
 ################################################################################
 #  Digital Inputs - 1 to 16
@@ -1006,8 +955,7 @@ sensor:
         input: true
         pullup: true
     web_server:
-      sorting_group_id: group_utility_meter_sensors
-      sorting_weight: 11
+      sorting_weight: '10'
     
 
   - platform: pulse_meter
@@ -1031,8 +979,7 @@ sensor:
     filters:
       - multiply: 10.0   # 1 pulse = 10L. The gas counter 'helper' in Home Assistant must still be set to 'step size' = 10.
     web_server:
-      sorting_group_id: group_utility_meter_sensors
-      sorting_weight: 10
+      sorting_weight: '11'
 
     #  Uses the above pulse_meter and adds sensor and calculations for tracking m3
     total:    
@@ -1079,36 +1026,31 @@ sensor:
       name: "Gas - Used Today"
       id: gas_used_today
       web_server:
-        sorting_group_id: group_gas_m3_sensors
-        sorting_weight: 1
+        sorting_weight: '12'
     
     gas_yesterday:
       name: "Gas - Used Yesterday"
       id: gas_used_yesterday
       web_server:
-        sorting_group_id: group_gas_m3_sensors
-        sorting_weight: 2
+        sorting_weight: '13'
 
     gas_week:
       name: "Gas - Used Week"
       id: gas_used_week
       web_server:
-        sorting_group_id: group_gas_m3_sensors
-        sorting_weight: 3   
+        sorting_weight: '14'
     
     gas_month:
       name: "Gas - Used Month"
       id: gas_used_month
       web_server:
-        sorting_group_id: group_gas_m3_sensors
-        sorting_weight: 4
+        sorting_weight: '15'
 
     gas_year:
       name: "Gas - Used Year"
       id: gas_used_year
       web_server:
-        sorting_group_id: group_gas_m3_sensors
-        sorting_weight: 5
+        sorting_weight: '16'
 
   ################################################################################
 
@@ -1129,8 +1071,7 @@ sensor:
     filters:
       - delta : 0.001
     web_server:
-      sorting_group_id: group_gas_m3_sensors
-      sorting_weight: 6
+      sorting_weight: '17'
 
   ################################################################################
   #
@@ -1145,36 +1086,31 @@ sensor:
       name: "Gas - Used Today (MJ)"
       id: gas_used_today_mj
       web_server:
-        sorting_group_id: group_gas_mj_sensors
-        sorting_weight: 1
+        sorting_weight: '18'
     
     gas_yesterday:
       name: "Gas - Used Yesterday (MJ)"
       id: gas_used_yesterday_mj
       web_server:
-        sorting_group_id: group_gas_mj_sensors
-        sorting_weight: 2
+        sorting_weight: '19'
 
     gas_week:
       name: "Gas - Used Week (MJ)"
       id: gas_used_week_mj
       web_server:
-        sorting_group_id: group_gas_mj_sensors
-        sorting_weight: 3
+        sorting_weight: '20'
     
     gas_month:
       name: "Gas - Used Month (MJ)"
       id: gas_used_month_mj
       web_server:
-        sorting_group_id: group_gas_mj_sensors
-        sorting_weight: 4
+        sorting_weight: '21'
 
     gas_year:
       name: "Gas - Used Year (MJ)"
       id: gas_used_year_mj
       web_server:
-        sorting_group_id: group_gas_mj_sensors
-        sorting_weight: 5
+        sorting_weight: '22'
 
   ################################################################################
   
@@ -1194,8 +1130,7 @@ sensor:
     filters:
       - delta : 0.001
     web_server:
-      sorting_group_id: group_gas_mj_sensors
-      sorting_weight: 6
+      sorting_weight: '23'
 
   ################################################################################
   #
@@ -1216,9 +1151,8 @@ sensor:
     filters:
       - multiply: 5.0  # Convert pulse count to liters
     web_server:
-      sorting_group_id: group_utility_meter_sensors
-      sorting_weight: 3
-      
+      sorting_weight: '25'
+
   - platform: pulse_meter
     name: "Water - Flow Rate"
     id: water_flow_rate
@@ -1240,8 +1174,7 @@ sensor:
     filters:
       - multiply: 5.0  # Each pulse equals 5 liters. The water counter 'helper' in Home Assistant must still be set to 'step size' = 5.
     web_server:
-      sorting_group_id: group_utility_meter_sensors
-      sorting_weight: 2
+      sorting_weight: '26'
 
     #  Uses the above pulse_meter and adds sensor and calculations for tracking current litres
     total:
@@ -1282,8 +1215,7 @@ sensor:
     filters:
       - delta : 0.001
     web_server:
-      sorting_group_id: group_town_water_sensors
-      sorting_weight: 6
+      sorting_weight: '33'
 
   ################################################################################
   #
@@ -1300,36 +1232,31 @@ sensor:
       name: "Town Water - Used Today"
       id: town_water_used_today
       web_server:
-        sorting_group_id: group_town_water_sensors
-        sorting_weight: 1
+        sorting_weight: '28'
     
     water_yesterday:
       name: "Town Water - Used Yesterday"
       id: town_water_used_yesterday
       web_server:
-        sorting_group_id: group_town_water_sensors
-        sorting_weight: 2
+        sorting_weight: '29'
 
     water_week:
       name: "Town Water - Used Week"
       id: town_water_used_week
       web_server:
-        sorting_group_id: group_town_water_sensors
-        sorting_weight: 3
+        sorting_weight: '30'
     
     water_month:
       name: "Town Water - Used Month"
       id: town_water_used_month
       web_server:
-        sorting_group_id: group_town_water_sensors
-        sorting_weight: 4
+        sorting_weight: '31'
 
     water_year:
       name: "Town Water - Used Year"
       id: town_water_used_year
       web_server:
-        sorting_group_id: group_town_water_sensors
-        sorting_weight: 5
+        sorting_weight: '32'
 
   ################################################################################
   
@@ -1398,24 +1325,3 @@ sensor:
 
         # https://www.sensorsone.com/liquid-level-to-pressure-calculator/?lval=241&lunit=centimetres+%28cm%29&lfctr=cm&sg=1&grav=9.79508&punit=kilopascals+%28kPa%29&pfctr=kPa
     internal: true
-
-  ################################################################################
-  #
-  #  Uses the Usage_Tracker custom component to publish duration of last tap OPEN.
-  #
-
-  - platform: usage_tracker
-    on_off_sensor: town_water_tap_state_sensor
-
-    last_use:
-      name: "Town Water - Last Use Duration"
-      unit_of_measurement: "min"
-      accuracy_decimals: 1
-      filters:
-        - lambda: |-
-            return x / 60.0;
-        - delta: 0.1         # Only update if change is ≥ 0.1 min
-      web_server:
-        sorting_group_id: group_utility_meter_sensors
-        sorting_weight: 4
-  ################################################################################
