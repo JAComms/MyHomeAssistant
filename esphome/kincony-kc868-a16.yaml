@@ -527,7 +527,11 @@ binary_sensor:
     name: "Town Water - Tap State"
     id: town_water_tap_state
     lambda: |-
-      if (id(water_flow_rate).state > 0.01)
+      if (id(water_flow_rate).state > 0.01) {
+        return true;  // Tap is OPEN
+      } else {
+        return false; // Tap is CLOSED
+      }
     filters:
       - delta: 0.01
     web_server:
