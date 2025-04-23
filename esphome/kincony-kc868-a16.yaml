@@ -22,7 +22,7 @@ substitutions:
   # Project Name
   project_name: "Kincony.KC868-A16"
   # Project version denotes the release version of the yaml file, allowing checking of deployed vs latest version
-  project_version: "1.5.3"
+  project_version: "1.5.4"
   # Restore the relay (GPO switch) upon reboot to state:
   relay_restore_mode: RESTORE_DEFAULT_OFF
   # Disable sensors
@@ -532,8 +532,8 @@ binary_sensor:
       } else {
         return false; // Tap is CLOSED
       }
-    filters:
-      - delta: 0.01
+#    filters:
+#      - delta: 0.01
     web_server:
       sorting_group_id: group_utility_meter_sensors
       sorting_weight: 1
