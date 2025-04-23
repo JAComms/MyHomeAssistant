@@ -125,7 +125,7 @@ packages:
 #
 
 external_components:
-  - source: github://roving-ronin/myhomeassistant/components@main
+  - source: github://roving-ronin/myhomeassistant/components@development
     refresh: 0s
 
 #########################################################################
