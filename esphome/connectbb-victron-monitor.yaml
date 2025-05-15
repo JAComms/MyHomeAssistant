@@ -72,6 +72,7 @@ dashboard_import:
 packages:
   base-config:             !include common/base-configuration.yaml              # Base configuration applied to all ESPHome devices
   network-config:          !include common/network-ethernet-w5500.yaml          # Configure Ethernet port on this system board
+  webserver-groups:        !include common/web-server-groups.yaml               # Central file consolidating the web server groups and their sort orders
   bme280a-sensors:         !include sensors/bme280-bus-a.yaml                   # Temperature, Humidity, Pressure sensor probe
   dallas-temp-sensors:     !include sensors/ds18b20-1wire.yaml                  # One Wire / Dallas Temp Probe Sensors
   esp32-system-board:      !include boards/kincony-esp32-s3-core.yaml           # Model of ESP Board being used. This is Kincony S3 Core with JAComms add-on HAT board.
