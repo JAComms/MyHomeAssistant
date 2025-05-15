@@ -3,25 +3,12 @@
 #
 web_server:
   sorting_groups:
-  
-    - id: group_network_info
-      name: "Network Information"
-      sorting_weight: -10
 
-    # Used by: athom-power-plug-no-relay.yaml and athom-power-plugs.yaml
+      # Used by: athom-power-plug-no-relay.yaml and athom-power-plugs.yaml
     - id: group_electricity
       name: "Electricity Sensors"
       sorting_weight: -50
 
-    # # Used by: athom-power-plug-no-relay.yaml and athom-power-plugs.yaml
-    - id: group_energy
-      name: "Energy Sensors"
-      sorting_weight: -40
-
-    # Used by: athom-power-plugs.yaml for the light and GPO Switch on Athom 
-    - id: group_controls
-      name: "Controls"
-      sorting_weight: -30
 
     # Used by : bme280-bus-a.yaml
     - id: group_environmental_sensors
@@ -34,7 +21,28 @@ web_server:
       name: "Environmental Sensors"
       sorting_weight: -44
 
+    # # Used by: athom-power-plug-no-relay.yaml and athom-power-plugs.yaml
+    - id: group_energy
+      name: "Energy Sensors"
+      sorting_weight: -40
+
+
     # Used by: cylinder-liquid-pressure-tl136.yaml
     - id: group_tank_water_sensors
       name: "Tank Water Sensors"
       sorting_weight: -39
+
+    # Used by: athom-power-plugs.yaml for the light and GPO Switch on Athom 
+    - id: group_controls
+      name: "Controls"
+      sorting_weight: -30
+
+      
+    - id: group_network_info
+      name: "Network Information"
+      sorting_weight: -10
+
+
+
+
+
