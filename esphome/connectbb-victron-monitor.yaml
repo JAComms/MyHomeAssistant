@@ -26,7 +26,7 @@ substitutions:
   # Project Name
   project_name: "JAComms.Victron Monitor"
   # Project version denotes the release version of the yaml file, allowing checking of deployed vs latest version
-  project_version: "0.1.0"
+  project_version: "0.1.1"
   # The phase in the locations power supply, upon which this device is utilsed. 1p = A. 3p = A, B or C.  (GPO 1 = Phase A, GPO 2 = Phase B, GPO 3 = Phase C).
   # Used to populate a Text Sensor with this information, that may be used to loadshed in future, or trace outages to electrical faults.
   power_circuit: "TBA"
@@ -72,7 +72,7 @@ dashboard_import:
 packages:
   base-config:             !include common/base-configuration.yaml              # Base configuration applied to all ESPHome devices
   network-config:          !include common/network-ethernet-w5500.yaml          # Configure Ethernet port on this system board
-  webserver-groups:        !include common/web-server-groups.yaml               # Central file consolidating the web server groups and their sort orders
+  webserver-groups:        !include common/webserver-groups.yaml                # Central file consolidating the web server groups and their sort orders
   bme280a-sensors:         !include sensors/bme280-bus-a.yaml                   # Temperature, Humidity, Pressure sensor probe
   dallas-temp-sensors:     !include sensors/ds18b20-1wire.yaml                  # One Wire / Dallas Temp Probe Sensors
   esp32-system-board:      !include boards/kincony-esp32-s3-core.yaml           # Model of ESP Board being used. This is Kincony S3 Core with JAComms add-on HAT board.
