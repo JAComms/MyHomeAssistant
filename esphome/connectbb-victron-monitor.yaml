@@ -153,18 +153,6 @@ victron:
     uart_id: uart_1
     throttle: 10s
     
-#########################################################################
-#
-# Configure the i2c bus, to find and operate the BME280 sensor
-#
-
-i2c:
-  - id: bus_a
-    sda: ${bus_a_sda_pin}
-    scl: ${bus_a_scl_pin}
-    scan: true
-    frequency: ${bus_a_frequency}
-
 
 #########################################################################
 #
