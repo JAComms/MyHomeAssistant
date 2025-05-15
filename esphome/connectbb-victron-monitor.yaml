@@ -1,0 +1,308 @@
+#########################################################################
+#
+# Environmental monitoring using Kincony S3 Core board with JAComms HAT
+# to monitor remote WISP sites with Victron battery configuration
+#
+
+##########################################################################
+# VERSION UPATES:
+#
+# v1.0.0 - xx-May-2025 - Initial Release
+#
+
+   # Provides substitutions or variables that are then called elsewhere multiple times in the config
+substitutions:
+  # Default name  
+  name: "victron-monitor-s3-core"
+  # Default friendly name 
+  friendly_name: "Victron Monitor - JAComms S3 Core"
+  # Description as appears in ESPHome & top of webserver page
+  device_description: "WISP Site - Remote Monitoring"
+  # Allows ESP device to be automatically lined to an 'Area' in Home Assistant. Enter the remote stations site name here.
+  location: "Site-name"
+  # Location geographical height, in meters. Used for calculations in sensors such as BME280/BME680 and Water Tank sensors. Goulburn (673)
+  location_height: "673"
+  # Project Name
+  project_name: "JAComms.Victron Monitor"
+  # Project version denotes the release version of the yaml file, allowing checking of deployed vs latest version
+  project_version: "0.1.0"
+  # The phase in the locations power supply, upon which this device is utilsed. 1p = A. 3p = A, B or C.  (GPO 1 = Phase A, GPO 2 = Phase B, GPO 3 = Phase C).
+  # Used to populate a Text Sensor with this information, that may be used to loadshed in future, or trace outages to electrical faults.
+  power_circuit: "TBA"
+  # Define logging level: NONE, ERROR, WARN, INFO, DEBUG (Default), VERBOSE, VERY_VERBOSE.
+  # Use 'INFO' as at DEBUG the energy/water/gas statistics "Internal" sensors appear in the logs
+  log_level: "DEBUG"
+
+  # PIN usage upon the JAComms S3-Core Board Add-on HAT Board
+  gpio_xxx_pin: ""
+  gpio_yyy_pin: ""
+
+
+########################## End of Substitutions #########################
+#
+# Remote Packages to be utilised
+#
+
+dashboard_import:
+  package_import_url: github://jacomms/myhomeassistant/esphome/connectbb-victron-monitor.yaml@main
+  import_full_config: false
+
+packages:
+  base-config:             !include common/base-configuration.yaml              # Base configuration applied to all ESPHome devices
+  network-config:          !include common/network-ethernet-w5500.yaml          # Configure Ethernet port on this system board
+  bme280a-sensors:         !include sensors/bme280-bus-a.yaml                   # Temperature, Humidity, Pressure sensor probe
+
+  consumption-gas:         !include sensors/utilities-gas.yaml                  # Sensors to monitor and calculate gas usage
+  consumption-town-water:  !include sensors/utilities-town-water.yaml           # Sensors to monitor and calculate gas usage
+
+  esp32-system-board:      !include boards/kincony-esp32-s3-core.yaml           # Model of ESP Board being used. This is Kincony S3 Core with JAComms add-on HAT board.
+
+#########################################################################
+#
+# Custom Components to be utilised - For Gas and Water Statistics
+#
+
+external_components:
+  - source:
+      type: git
+      url: https://github.com/roving-ronin/myhomeassistant/
+      ref: main
+    refresh: 0s
+    components: [ energy_statistics ]
+
+
+#########################################################################
+#
+# Web_server v3 Sort Groups - These substitutes are applied to overwrite the default ones supplied by the 
+# sensor specific template file, in this case the /sensors/hc-sr04-ultrasonic.yaml file.
+#
+
+web_server:
+  sorting_groups:
+      # This sort group is used by both the Water and Gas Meter senors (flow rate / pulse counter), so must be in at this level, not in the water vs gas sensor yaml
+    - id: group_utility_meter_sensors
+      name: "Gas & Water Meter Sensors"
+      sorting_weight: -44
+
+#########################################################################
+
+
+esphome:
+  name: s3-core-victron
+  friendly_name: S3-Core-Victron
+  platformio_options:
+    board_build.flash_mode: dio
+
+esp32:
+  board: esp32-s3-devkitc-1
+  framework:
+    type: esp-idf
+
+logger:
+  level: NONE
+
+api:
+  encryption:
+
+
+ota:
+  - platform: esphome
+    password: "07ec6b8575a62bacb38ca4872a6d72a4"
+
+
+time:
+    platform: sntp
+
+mdns:
+  disabled: false
+
+web_server:
+  port: 80 
+  version: 3
+
+ethernet:
+  type: W5500
+  clk_pin: GPIO43
+  mosi_pin: GPIO44
+  miso_pin: GPIO42
+  cs_pin: GPIO41
+  interrupt_pin: GPIO2
+  reset_pin: GPIO1
+
+
+connectbb-victron-monitor.yaml
+
+external_components:
+  - source: github://KinDR007/VictronMPPT-ESPHOME@main
+
+uart:
+  - id: uart_0
+    tx_pin: GPIO10
+    rx_pin: GPIO11
+    baud_rate: 19200
+    rx_buffer_size: 256
+  - id: uart_1
+    tx_pin: GPIO12  
+    rx_pin: GPIO13
+    baud_rate: 19200
+    rx_buffer_size: 256
+
+i2c:
+  sda: GPIO38
+  scl: GPIO39
+  scan: true 
+
+one_wire:
+  - platform: gpio
+    pin: GPIO8
+
+victron:
+  - id: victron0
+    uart_id: uart_0
+    throttle: 10s
+  - id: victron1
+    uart_id: uart_1
+    throttle: 10s
+
+sensor:
+  - platform: victron
+    victron_id: victron0
+    battery_voltage:
+      name: "SmartShunt - battery voltage"
+    auxiliary_battery_voltage:
+      name: "SmartShunt - auxiliary battery voltage"
+    midpoint_voltage_of_the_battery_bank:
+      name: "SmartShunt - midpoint voltage of the battery bank"
+    midpoint_deviation_of_the_battery_bank:
+      name: "SmartShunt - midpoint deviation of the battery bank"
+    battery_current:
+      name: "SmartShunt - battery current"
+    battery_temperature:
+      name: "SmartShunt - battery temperature"
+    instantaneous_power:
+      name: "SmartShunt - instantaneous power"
+    consumed_amp_hours:
+      name: "SmartShunt - consumed amp hours"
+    state_of_charge:
+      name: "SmartShunt - state of charge"
+    time_to_go:
+      name: "SmartShunt - time to go"
+    depth_of_the_deepest_discharge:
+      name: "SmartShunt - depth of the deepest discharge"
+    depth_of_the_last_discharge:
+      name: "SmartShunt - depth of the last discharge"
+    depth_of_the_average_discharge:
+      name: "SmartShunt - depth of the average discharge"
+    number_of_charge_cycles:
+      name: "SmartShunt - number of charge cycles"
+    number_of_full_discharges:
+      name: "SmartShunt - number of full discharges"
+    cumulative_amp_hours_drawn:
+      name: "SmartShunt - cumulative amp hours drawn"
+    min_battery_voltage:
+      name: "SmartShunt - min battery voltage"
+    max_battery_voltage:
+      name: "SmartShunt - max battery voltage"
+    last_full_charge:
+      name: "SmartShunt - last full charge"
+    number_of_automatic_synchronizations:
+      name: "SmartShunt - number of automatic synchronizations"
+    number_of_low_main_voltage_alarms:
+      name: "SmartShunt - number of low main voltage alarms"
+    number_of_high_main_voltage_alarms:
+      name: "SmartShunt - number of high main voltage alarms"
+    number_of_low_auxiliary_voltage_alarms:
+      name: "SmartShunt - number of low auxiliary voltage alarms"
+    number_of_high_auxiliary_voltage_alarms:
+      name: "SmartShunt - number of high auxiliary voltage alarms"
+    min_auxiliary_battery_voltage:
+      name: "SmartShunt - min auxiliary battery voltage"
+    max_auxiliary_battery_voltage:
+      name: "SmartShunt - max auxiliary battery voltage"
+    amount_of_discharged_energy:
+      name: "SmartShunt - amount of discharged energy"
+    amount_of_charged_energy:
+      name: "SmartShunt - amount of charged energy"
+    dc_monitor_mode_id:
+      name: "SmartShunt - dc monitor mode id"
+  
+  - platform: victron
+    victron_id: victron1
+    max_power_yesterday:
+      name: "SmartSolar - max power yesterday"
+    max_power_today:
+      name: "SmartSolar - max power today"
+    yield_total:
+      name: "SmartSolar - yield total"
+    yield_yesterday:
+      name: "SmartSolar - yield yesterday"
+    yield_today:
+      name: "SmartSolar - yield today"
+    panel_voltage:
+      name: "SmartSolar - panel voltage"
+    panel_power:
+      name: "SmartSolar - panel power"
+    battery_current:
+      name: "SmartSolar - panel current"
+    battery_voltage:
+      name: "SmartSolar - battery voltage"
+    day_number:
+      name: "SmartSolar - day number"
+    charging_mode_id:
+      name: "SmartSolar - charging mode id"
+    error_code:
+      name: "SmartSolar - error code"
+    tracking_mode_id:
+      name: "SmartSolar - tracking mode id"
+    load_current:
+      name: "SmartSolar - load current"
+          
+  - platform: bme280_i2c
+    temperature:
+      name: "BME280 Temperature"
+    pressure:
+      name: "BME280 Pressure"
+    humidity:
+      name: "BME280 Humidity"
+    address: 0x76
+    update_interval: 10s 
+
+  - platform: dallas_temp
+    address: 0x4f0b2374ee7fa928
+    name: "DS18B20 Temperature"
+    icon: "mdi:temperature-celsius"
+    update_interval: 10s
+
+text_sensor:
+  - platform: victron
+    victron_id: victron0
+    alarm_condition_active:
+      name: "SmartShunt - alarm condition active"
+    alarm_reason:
+      name: "SmartShunt - alarm reason"
+    model_description:
+      name: "SmartShunt - model description"
+    firmware_version:
+      name: "SmartShunt - firmware version"
+    device_type:
+      name: "SmartShunt - device type"
+    serial_number:
+      name: "SmartShunt -serial number"
+    dc_monitor_mode:
+      name: "SmartShunt - dc monitor mode"
+
+  - platform: victron
+    victron_id: victron1		
+    charging_mode:
+      name: "SmartSolar - charging mode"
+    error:
+      name: "SmartSolar - error"
+    tracking_mode:
+      name: "SmartSolar - tracking mode"
+    firmware_version:
+      name: "SmartSolar - firmware version"
+    device_type:
+      name: "SmartSolar - device type"
+    serial_number:
+      name: "SmartSolar - serial number"
+
