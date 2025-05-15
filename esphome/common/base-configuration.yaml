@@ -39,7 +39,7 @@ substitutions:
    # Set the update interval for sensors  
   sensor_update_interval: 10s   
    # Define logging level: NONE, ERROR, WARN, INFO, DEBUG (Default), VERBOSE, VERY_VERBOSE
-  log_level: "INFO"
+  log_level: "DEBUG"
 
 ###############################
 # Network Settings - Static IP
@@ -66,7 +66,7 @@ esphome:
   comment: '${device_description}'
   area: "${location}"
   name_add_mac_suffix: true
-  min_version: 2025.2.2
+  min_version: 2025.4.1
   project:
     name: "${project_name}"
     version: "${project_version}"
@@ -115,7 +115,7 @@ network:
 #  device_version: !include common/everything-presence-one-sen0395-stable.yaml
 #  sen0395_base: !include common/sen0395-common.yaml
 
-##########################################################################
+#########################################################################
 #
 # Buttons - To trigger actions, such as reboot, reset
 #
@@ -125,21 +125,21 @@ button:
     name: 'Restart Device'
     entity_category: config
     web_server:
-      sorting_weight: 25
+      sorting_weight: 45
 
   - platform: safe_mode
     name: "Safe Mode"
     internal: false
     entity_category: config
     web_server:
-      sorting_weight: 26
+      sorting_weight: 46
 
   - platform: factory_reset
     name: Reset - Factory Default
     id: Reset
     entity_category: config
     web_server:
-      sorting_weight: 27
+      sorting_weight: 47
 
 #########################################################################
 #
@@ -155,7 +155,7 @@ binary_sensor:
     web_server:
       sorting_weight: 35
 
-##########################################################################
+#########################################################################
 #
 # Sensors
 #
@@ -222,8 +222,18 @@ text_sensor:
     icon: "mdi:electric-switch"
     entity_category: diagnostic
     lambda: |-
-      return {"${power_circuit}"};
-    update_interval: 6h
+        static String last_value = "";
+        String new_value = "${power_circuit}";
+        if (last_value != new_value) {
+          last_value = new_value;
+          return new_value;
+        }
+        return {};
+      on_value:
+        then:
+          - sensor.template.publish:
+              id: power_circuit
+              state: !lambda 'return x;'    
     web_server:
       sorting_weight: 38
 
@@ -234,8 +244,18 @@ text_sensor:
     icon: "mdi:label-outline"
     entity_category: diagnostic
     lambda: |-
-      return {"${project_name}"};
-    update_interval: 6h
+        static String last_value = "";
+        String new_value = "${project_name}";
+        if (last_value != new_value) {
+          last_value = new_value;
+          return new_value;
+        }
+        return {};
+      on_value:
+        then:
+          - sensor.template.publish:
+              id: project_name
+              state: !lambda 'return x;'
     web_server:
       sorting_weight: 39
 
@@ -246,8 +266,18 @@ text_sensor:
     icon: "mdi:label-outline"
     entity_category: diagnostic
     lambda: |-
-      return {"${project_version}"};
-    update_interval: 6h
+        static String last_value = "";
+        String new_value = "${project_version}";
+        if (last_value != new_value) {
+          last_value = new_value;
+          return new_value;
+        }
+        return {};
+      on_value:
+        then:
+          - sensor.template.publish:
+              id: project_version
+              state: !lambda 'return x;'    
     web_server:
       sorting_weight: 40
 
@@ -275,3 +305,8 @@ time:
               - text_sensor.template.publish:
                   id: device_last_restart
                   state: !lambda 'return id(sntp_time).now().strftime("%a %d %b %Y - %I:%M:%S %p");'
+        # Log a message when the time is synchronized
+        - logger.log:
+            format: "SNTP: Synchronized system clock"
+
+#########################################################################
