@@ -3,6 +3,7 @@
 # Environmental monitoring using Kincony S3 Core board with JAComms HAT
 # to monitor remote WISP sites with Victron battery configuration
 #
+   # Dallas Temp ID: 0x4f0b2374ee7fa928
 
 ##########################################################################
 # VERSION UPATES:
@@ -60,9 +61,13 @@ substitutions:
   humidity_2_offset: "0.0"
 
 
-  # PIN usage upon the JAComms S3-Core Board Add-on HAT Board
-  gpio_xxx_pin: ""
-  gpio_yyy_pin: ""
+   # Enable logs to DEBUG and determine the ds18b20 address and paste below
+#  ds18b20_address: "0x4f0b2374ee7fa928"
+   # ds18b20 Sensor
+   # Location of ds18b20 Sensor. Used to prefix sensor if there are two. Leave empty if only 1. Add a " - " to the end of each entry if used.
+  ds18b20_sensor_location: ""
+   # Calibrate the outpute of the temperature sensor(s).
+  ds18b20_temperature_offset: "0.0"
 
 
 ########################## End of Substitutions #########################
@@ -78,8 +83,7 @@ packages:
   base-config:             !include common/base-configuration.yaml              # Base configuration applied to all ESPHome devices
   network-config:          !include common/network-ethernet-w5500.yaml          # Configure Ethernet port on this system board
   bme280a-sensors:         !include sensors/bme280-bus-a.yaml                   # Temperature, Humidity, Pressure sensor probe
-#  consumption-gas:         !include sensors/utilities-gas.yaml                  # Sensors to monitor and calculate gas usage
-#  consumption-town-water:  !include sensors/utilities-town-water.yaml           # Sensors to monitor and calculate gas usage
+  dallas-temp-sensors:     !include sensors/ds18b20-1wire.yaml                  # One Wire / Dallas Temp Probe Sensors
   esp32-system-board:      !include boards/kincony-esp32-s3-core.yaml           # Model of ESP Board being used. This is Kincony S3 Core with JAComms add-on HAT board.
 
 #########################################################################
@@ -264,22 +268,7 @@ sensor:
       name: "SmartSolar - tracking mode id"
     load_current:
       name: "SmartSolar - load current"
-          
-  - platform: bme280_i2c
-    temperature:
-      name: "BME280 Temperature"
-    pressure:
-      name: "BME280 Pressure"
-    humidity:
-      name: "BME280 Humidity"
-    address: 0x76
-    update_interval: 10s 
 
-  - platform: dallas_temp
-    address: 0x4f0b2374ee7fa928
-    name: "DS18B20 Temperature"
-    icon: "mdi:temperature-celsius"
-    update_interval: 10s
 
 text_sensor:
   - platform: victron
