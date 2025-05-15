@@ -18,10 +18,6 @@ substitutions:
   bus_b_sda_pin: "GPIO14"
   bus_b_scl_pin: "GPIO21"
   bus_b_frequency: "100kHz"    # Optional: 100kHz
-
-  bus_c_sda_pin: "GPIO47"
-  bus_c_scl_pin: "GPIO48"
-  bus_c_frequency: "100kHz"    # Optional: 100kHz
   
 # Configure the ADC Ports PINS.
   analog_1: "GPIO7"
