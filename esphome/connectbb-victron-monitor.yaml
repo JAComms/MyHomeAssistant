@@ -116,10 +116,25 @@ external_components:
 
 web_server:
   sorting_groups:
-      # This sort group is used by both the Water and Gas Meter senors (flow rate / pulse counter), so must be in at this level, not in the water vs gas sensor yaml
-    - id: group_utility_meter_sensors
-      name: "Gas & Water Meter Sensors"
-      sorting_weight: -44
+
+#     name: "Environmental Sensors"
+#     sorting_weight: -45  
+      
+      # This sort group is used .................
+    - id: group_victron_smartshunt_sensors
+      name: "Victron - Smartshunt Sensors"
+      sorting_weight: 1
+
+      # This sort group is used .................
+    - id: group_victron_solar_sensors
+      name: "Victron - Solar Sensors"
+      sorting_weight: 5
+
+      # This sort group is used .................
+    - id: group_victron_alarm_sensors
+      name: "Victron - Alarms Sensors"
+      sorting_weight: 10
+
 
 #########################################################################
 #
