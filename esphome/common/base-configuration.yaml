@@ -103,20 +103,6 @@ network:
 
 #########################################################################
 #
-# Remote Packages to be utilised
-#
-
-# dashboard_import:
-#  package_import_url: github://roving-ronin/myhomeassistant/esphome/common/base-configuration.yaml@main
-#  import_full_config: false
-
-#packages:
-#  device_base: !include common/base-configuration-wifi.yaml
-#  device_version: !include common/everything-presence-one-sen0395-stable.yaml
-#  sen0395_base: !include common/sen0395-common.yaml
-
-#########################################################################
-#
 # Buttons - To trigger actions, such as reboot, reset
 #
 
@@ -161,7 +147,6 @@ binary_sensor:
 #
 
 sensor:
-
    # Sensor uptime in seconds
   - platform: uptime
     name: "Uptime Seconds"
@@ -222,18 +207,7 @@ text_sensor:
     icon: "mdi:electric-switch"
     entity_category: diagnostic
     lambda: |-
-        static String last_value = "";
-        String new_value = "${power_circuit}";
-        if (last_value != new_value) {
-          last_value = new_value;
-          return new_value;
-        }
-        return {};
-      on_value:
-        then:
-          - sensor.template.publish:
-              id: power_circuit
-              state: !lambda 'return x;'    
+      return {"${power_circuit}"};
     web_server:
       sorting_weight: 38
 
@@ -244,18 +218,7 @@ text_sensor:
     icon: "mdi:label-outline"
     entity_category: diagnostic
     lambda: |-
-        static String last_value = "";
-        String new_value = "${project_name}";
-        if (last_value != new_value) {
-          last_value = new_value;
-          return new_value;
-        }
-        return {};
-      on_value:
-        then:
-          - sensor.template.publish:
-              id: project_name
-              state: !lambda 'return x;'
+      return {"${project_name}"};
     web_server:
       sorting_weight: 39
 
@@ -266,20 +229,10 @@ text_sensor:
     icon: "mdi:label-outline"
     entity_category: diagnostic
     lambda: |-
-        static String last_value = "";
-        String new_value = "${project_version}";
-        if (last_value != new_value) {
-          last_value = new_value;
-          return new_value;
-        }
-        return {};
-      on_value:
-        then:
-          - sensor.template.publish:
-              id: project_version
-              state: !lambda 'return x;'    
+      return {"${project_version}"};
     web_server:
       sorting_weight: 40
+
 
    # Updates the system time using SNTP. Upon boot also publishes when the device was started.
 time:
