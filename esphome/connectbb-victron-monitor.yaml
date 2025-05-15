@@ -105,26 +105,26 @@ external_components:
 # sensor specific template file, in this case the /sensors/hc-sr04-ultrasonic.yaml file.
 #
 
-web_server:
-  sorting_groups:
+#web_server:
+#  sorting_groups:
 
 #     name: "Environmental Sensors"
 #     sorting_weight: -45  
       
       # This sort group is used .................
-    - id: group_victron_smartshunt_sensors
-      name: "Victron - Smartshunt Sensors"
-      sorting_weight: 1
+#    - id: group_victron_smartshunt_sensors
+#      name: "Victron - Smartshunt Sensors"
+#      sorting_weight: 1
 
       # This sort group is used .................
-    - id: group_victron_solar_sensors
-      name: "Victron - Solar Sensors"
-      sorting_weight: 5
+ #   - id: group_victron_solar_sensors
+ #     name: "Victron - Solar Sensors"
+ #     sorting_weight: 5
 
       # This sort group is used .................
-    - id: group_victron_alarm_sensors
-      name: "Victron - Alarms Sensors"
-      sorting_weight: 10
+#    - id: group_victron_alarm_sensors
+#      name: "Victron - Alarms Sensors"
+#      sorting_weight: 10
 
 
 #########################################################################
