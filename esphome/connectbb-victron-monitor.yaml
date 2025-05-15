@@ -166,11 +166,13 @@ sensor:
 
     battery_voltage:
       name: "Battery Voltage"   # SmartShunt - 
+    web_server:
       sorting_group_id: group_victron_battery_sensors
       sorting_weight: 2
       
     auxiliary_battery_voltage:
       name: "Auxiliary Battery Voltage"  # SmartShunt - 
+    web_server:
       sorting_group_id: group_victron_battery_sensors
       sorting_weight: 3
 
@@ -182,6 +184,7 @@ sensor:
 
     battery_current:
       name: "Battery Current"   # SmartShunt - 
+    web_server:
       sorting_group_id: group_victron_battery_sensors
       sorting_weight: 4
 
@@ -196,6 +199,7 @@ sensor:
 
     state_of_charge:
       name: "State of Charge"  # SmartShunt - 
+    web_server:
       sorting_group_id: group_victron_battery_sensors
       sorting_weight: 5
 
