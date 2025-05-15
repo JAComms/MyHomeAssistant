@@ -196,6 +196,7 @@ sensor:
 
     battery_temperature:
       name: "Shunt - battery temperature"
+      icon: 'mdi:temperature-celsius'
       web_server:
         sorting_group_id: group_victron_battery_sensors
         sorting_weight: 5
