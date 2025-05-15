@@ -4,22 +4,21 @@
 web_server:
   sorting_groups:
 
-      # Used by: athom-power-plug-no-relay.yaml and athom-power-plugs.yaml
-    - id: group_electricity
-      name: "Electricity Sensors"
-      sorting_weight: -50
-
-
     # Used by : bme280-bus-a.yaml
     - id: group_environmental_sensors
       name: "Environmental Sensors"
-      sorting_weight: -45
+      sorting_weight: -48
 
     # Used by : bme280-bus-b.yaml
     # TO DO - MERGE and Nunmber Bus A from 1 to 19 and Bus B from 20 to 39
     - id: group_environmental_sensors_2
       name: "Environmental Sensors"
-      sorting_weight: -44
+      sorting_weight: -46
+
+      # Used by: athom-power-plug-no-relay.yaml and athom-power-plugs.yaml
+    - id: group_electricity
+      name: "Electricity Sensors"
+      sorting_weight: -50
 
     # # Used by: athom-power-plug-no-relay.yaml and athom-power-plugs.yaml
     - id: group_energy
@@ -32,7 +31,7 @@ web_server:
       name: "Tank Water Sensors"
       sorting_weight: -39
 
-    # Used by: athom-power-plugs.yaml for the light and GPO Switch on Athom 
+    # Used by: athom-power-plugs.yaml for the light and GPO Switch or Power on State on Athom Plugs
     - id: group_controls
       name: "Controls"
       sorting_weight: -30
