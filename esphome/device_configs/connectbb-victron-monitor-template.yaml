@@ -1,0 +1,35 @@
+substitutions:
+
+  # Device name  
+  name: "victron-monitor-s3-core"
+  # Device friendly name 
+  friendly_name: "Victron Monitor - JAComms S3 Core"
+  # Description as appears in ESPHome & top of webserver page
+  device_description: "WISP Site - Remote Monitoring"
+  # Allows ESP device to be automatically lined to an 'Area' in Home Assistant. Enter the remote stations site name here.
+  location: "Site-name"
+  # Location geographical height, in meters. Used for calculations in sensors such as BME280/BME680 and Water Tank sensors. Goulburn (673)
+  location_height: "673"
+
+  # Define logging level: NONE, ERROR, WARN, INFO, DEBUG (Default), VERBOSE, VERY_VERBOSE.
+  # Use 'INFO' as at DEBUG the energy/water/gas statistics "Internal" sensors appear in the logs
+  log_level: "DEBUG"
+
+  # BME 280 / BME680 Sensor
+  # Location of BME280/680 Sensor #1. Used to prefix sensor if there are two. Leave empty if only 1. Add a " - " to the end of each entry if used.
+  bme_sensor1_location: ""
+  # Calibrate the outpute of the temperature sensor(s).
+  temperature_1_offset: "0.0"
+  # Calibrate the outpute of the pressure sensor(s).
+  pressure_1_offset: "0.0"
+  # Calibrate the outpute of the humidity sensor(s).
+  humidity_1_offset: "0.0"
+
+  # DS18B20 Sensor
+  # Enable logs to DEBUG and determine the ds18b20 address and paste below
+  ds18b20_address: "0x????????????????"
+  # Location of ds18b20 Sensor. Used to prefix sensor if there are two. Leave empty if only 1. Add a " - " to the end of each entry if used.
+  ds18b20_sensor_location: ""
+  # Calibrate the outpute of the temperature sensor(s).
+  ds18b20_temperature_offset: "0.0"
+  
