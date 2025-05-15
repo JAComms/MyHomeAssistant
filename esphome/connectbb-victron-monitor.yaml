@@ -51,10 +51,8 @@ packages:
   base-config:             !include common/base-configuration.yaml              # Base configuration applied to all ESPHome devices
   network-config:          !include common/network-ethernet-w5500.yaml          # Configure Ethernet port on this system board
   bme280a-sensors:         !include sensors/bme280-bus-a.yaml                   # Temperature, Humidity, Pressure sensor probe
-
-  consumption-gas:         !include sensors/utilities-gas.yaml                  # Sensors to monitor and calculate gas usage
-  consumption-town-water:  !include sensors/utilities-town-water.yaml           # Sensors to monitor and calculate gas usage
-
+#  consumption-gas:         !include sensors/utilities-gas.yaml                  # Sensors to monitor and calculate gas usage
+#  consumption-town-water:  !include sensors/utilities-town-water.yaml           # Sensors to monitor and calculate gas usage
   esp32-system-board:      !include boards/kincony-esp32-s3-core.yaml           # Model of ESP Board being used. This is Kincony S3 Core with JAComms add-on HAT board.
 
 #########################################################################
@@ -63,13 +61,21 @@ packages:
 #
 
 external_components:
+  # Load energy sensors for time period based kWh consumption reporting
   - source:
       type: git
-      url: https://github.com/roving-ronin/myhomeassistant/
+      url: https://github.com/jacomms/myhomeassistant/
       ref: main
     refresh: 0s
     components: [ energy_statistics ]
 
+  # Load Victron MPPT sensors
+  - source:
+      type: git
+      url: https://github.com/KinDR007/VictronMPPT-ESPHOME
+      ref: main
+    refresh: 0s
+    components: [ victron ]
 
 #########################################################################
 #
@@ -85,55 +91,6 @@ web_server:
       sorting_weight: -44
 
 #########################################################################
-
-
-esphome:
-  name: s3-core-victron
-  friendly_name: S3-Core-Victron
-  platformio_options:
-    board_build.flash_mode: dio
-
-esp32:
-  board: esp32-s3-devkitc-1
-  framework:
-    type: esp-idf
-
-logger:
-  level: NONE
-
-api:
-  encryption:
-
-
-ota:
-  - platform: esphome
-    password: "07ec6b8575a62bacb38ca4872a6d72a4"
-
-
-time:
-    platform: sntp
-
-mdns:
-  disabled: false
-
-web_server:
-  port: 80 
-  version: 3
-
-ethernet:
-  type: W5500
-  clk_pin: GPIO43
-  mosi_pin: GPIO44
-  miso_pin: GPIO42
-  cs_pin: GPIO41
-  interrupt_pin: GPIO2
-  reset_pin: GPIO1
-
-
-connectbb-victron-monitor.yaml
-
-external_components:
-  - source: github://KinDR007/VictronMPPT-ESPHOME@main
 
 uart:
   - id: uart_0
