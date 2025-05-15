@@ -165,10 +165,14 @@ sensor:
     victron_id: victron0
 
     battery_voltage:
-      name: "SmartShunt - battery voltage"
-
+      name: "Battery Voltage"   # SmartShunt - 
+      sorting_group_id: group_victron_battery_sensors
+      sorting_weight: 2
+      
     auxiliary_battery_voltage:
-      name: "SmartShunt - auxiliary battery voltage"
+      name: "Auxiliary Battery Voltage"  # SmartShunt - 
+      sorting_group_id: group_victron_battery_sensors
+      sorting_weight: 3
 
     midpoint_voltage_of_the_battery_bank:
       name: "SmartShunt - midpoint voltage of the battery bank"
@@ -177,7 +181,9 @@ sensor:
       name: "SmartShunt - midpoint deviation of the battery bank"
 
     battery_current:
-      name: "SmartShunt - battery current"
+      name: "Battery Current"   # SmartShunt - 
+      sorting_group_id: group_victron_battery_sensors
+      sorting_weight: 4
 
     battery_temperature:
       name: "SmartShunt - battery temperature"
@@ -189,7 +195,9 @@ sensor:
       name: "SmartShunt - consumed amp hours"
 
     state_of_charge:
-      name: "SmartShunt - state of charge"
+      name: "State of Charge"  # SmartShunt - 
+      sorting_group_id: group_victron_battery_sensors
+      sorting_weight: 5
 
     time_to_go:
       name: "SmartShunt - time to go"
