@@ -9,11 +9,11 @@
 # define a network information group
 #
 
-web_server:
-  sorting_groups:
-    - id: group_environmental_sensors
-      name: "Environmental Sensors"
-      sorting_weight: -44  
+#web_server:
+#  sorting_groups:
+#    - id: group_environmental_sensors
+#      name: "Environmental Sensors"
+#      sorting_weight: -44  
 
 
 #########################################################################
