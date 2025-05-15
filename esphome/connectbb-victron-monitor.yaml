@@ -177,10 +177,16 @@ sensor:
         sorting_weight: 3
 
     midpoint_voltage_of_the_battery_bank:
-      name: "SmartShunt - midpoint voltage of the battery bank"
+      name: "SSh - midpoint voltage of the battery bank"
+      web_server:
+        sorting_group_id: group_victron_battery_sensors
+        sorting_weight: 10
 
     midpoint_deviation_of_the_battery_bank:
-      name: "SmartShunt - midpoint deviation of the battery bank"
+      name: "SSh - midpoint deviation of the battery bank"
+      web_server:
+        sorting_group_id: group_victron_battery_sensors
+        sorting_weight: 11
 
     battery_current:
       name: "Battery Current"   # SmartShunt - 
@@ -189,13 +195,22 @@ sensor:
         sorting_weight: 4
 
     battery_temperature:
-      name: "SmartShunt - battery temperature"
+      name: "SSh - battery temperature"
+      web_server:
+        sorting_group_id: group_victron_battery_sensors
+        sorting_weight: 5
 
     instantaneous_power:
-      name: "SmartShunt - instantaneous power"
+      name: "SSh - instantaneous power"
+      web_server:
+        sorting_group_id: group_victron_battery_sensors
+        sorting_weight: 6
 
     consumed_amp_hours:
-      name: "SmartShunt - consumed amp hours"
+      name: "SSh - consumed amp hours"
+      web_server:
+        sorting_group_id: group_victron_battery_sensors
+        sorting_weight: 12
 
     state_of_charge:
       name: "State of Charge"  # SmartShunt - 
@@ -204,111 +219,214 @@ sensor:
         sorting_weight: 5
 
     time_to_go:
-      name: "SmartShunt - time to go"
+      name: "SSh - time to go"
+      web_server:
+        sorting_group_id: group_victron_battery_sensors
+        sorting_weight: 13
 
     depth_of_the_deepest_discharge:
-      name: "SmartShunt - depth of the deepest discharge"
+      name: "SSh - depth of the deepest discharge"
+      web_server:
+        sorting_group_id: group_victron_battery_sensors
+        sorting_weight: 14
 
     depth_of_the_last_discharge:
-      name: "SmartShunt - depth of the last discharge"
+      name: "SSh - depth of the last discharge"
+      web_server:
+        sorting_group_id: group_victron_battery_sensors
+        sorting_weight: 15
 
     depth_of_the_average_discharge:
-      name: "SmartShunt - depth of the average discharge"
+      name: "SSh - depth of the average discharge"
+      web_server:
+        sorting_group_id: group_victron_battery_sensors
+        sorting_weight: 16
 
     number_of_charge_cycles:
-      name: "SmartShunt - number of charge cycles"
+      name: "SSh - number of charge cycles"
+      web_server:
+        sorting_group_id: group_victron_battery_sensors
+        sorting_weight: 17
 
     number_of_full_discharges:
-      name: "SmartShunt - number of full discharges"
+      name: "SSh - number of full discharges"
+      web_server:
+        sorting_group_id: group_victron_battery_sensors
+        sorting_weight: 18
     
     cumulative_amp_hours_drawn:
-      name: "SmartShunt - cumulative amp hours drawn"
+      name: "SSh - cumulative amp hours drawn"
+      web_server:
+        sorting_group_id: group_victron_battery_sensors
+        sorting_weight: 19
     
     min_battery_voltage:
-      name: "SmartShunt - min battery voltage"
+      name: "SSh - min battery voltage"
+      web_server:
+        sorting_group_id: group_victron_battery_sensors
+        sorting_weight: 20
     
     max_battery_voltage:
-      name: "SmartShunt - max battery voltage"
+      name: "SSh - max battery voltage"
+      web_server:
+        sorting_group_id: group_victron_battery_sensors
+        sorting_weight: 21
     
     last_full_charge:
-      name: "SmartShunt - last full charge"
+      name: "SSh - last full charge"
+      web_server:
+        sorting_group_id: group_victron_battery_sensors
+        sorting_weight: 22
     
     number_of_automatic_synchronizations:
-      name: "SmartShunt - number of automatic synchronizations"
+      name: "SSh - number of automatic synchronizations"
+      web_server:
+        sorting_group_id: group_victron_battery_sensors
+        sorting_weight: 23
     
     number_of_low_main_voltage_alarms:
-      name: "SmartShunt - number of low main voltage alarms"
+      name: "SSh - number of low main voltage alarms"
+      web_server:
+        sorting_group_id: group_victron_alarm_sensors
+        sorting_weight: 1
     
     number_of_high_main_voltage_alarms:
-      name: "SmartShunt - number of high main voltage alarms"
+      name: "SSh - number of high main voltage alarms"
+      web_server:
+        sorting_group_id: group_victron_alarm_sensors
+        sorting_weight: 2
     
     number_of_low_auxiliary_voltage_alarms:
-      name: "SmartShunt - number of low auxiliary voltage alarms"
+      name: "SSh - number of low auxiliary voltage alarms"
+      web_server:
+        sorting_group_id: group_victron_alarm_sensors
+        sorting_weight: 3
     
     number_of_high_auxiliary_voltage_alarms:
-      name: "SmartShunt - number of high auxiliary voltage alarms"
+      name: "SSh - number of high auxiliary voltage alarms"
+      web_server:
+        sorting_group_id: group_victron_alarm_sensors
+        sorting_weight: 4
     
     min_auxiliary_battery_voltage:
-      name: "SmartShunt - min auxiliary battery voltage"
+      name: "SSh - min auxiliary battery voltage"
+      web_server:
+        sorting_group_id: group_victron_battery_sensors
+        sorting_weight: 24
     
     max_auxiliary_battery_voltage:
-      name: "SmartShunt - max auxiliary battery voltage"
+      name: "SSh - max auxiliary battery voltage"
+      web_server:
+        sorting_group_id: group_victron_battery_sensors
+        sorting_weight: 25
     
     amount_of_discharged_energy:
-      name: "SmartShunt - amount of discharged energy"
+      name: "SSh - amount of discharged energy"
+      web_server:
+        sorting_group_id: group_victron_battery_sensors
+        sorting_weight: 26
     
     amount_of_charged_energy:
-      name: "SmartShunt - amount of charged energy"
+      name: "SSh - amount of charged energy"
+      web_server:
+        sorting_group_id: group_victron_battery_sensors
+        sorting_weight: 27
     
     dc_monitor_mode_id:
-      name: "SmartShunt - dc monitor mode id"
+      name: "SSh - dc monitor mode id"
+      web_server:
+        sorting_group_id: group_victron_battery_sensors
+        sorting_weight: 28
 
   ##########################################################################
   
   - platform: victron
     victron_id: victron1
+
+    max_power_today:
+      name: "Solar - max power today"
+      web_server:
+        sorting_group_id: group_victron_power_sensors
+        sorting_weight: 1
   
     max_power_yesterday:
-      name: "SmartSolar - max power yesterday"
-    
-    max_power_today:
-      name: "SmartSolar - max power today"
-    
-    yield_total:
-      name: "SmartSolar - yield total"
-    
-    yield_yesterday:
-      name: "SmartSolar - yield yesterday"
-    
+      name: "Solar - max power yesterday"
+      web_server:
+        sorting_group_id: group_victron_power_sensors
+        sorting_weight: 2
+       
     yield_today:
-      name: "SmartSolar - yield today"
-    
-    panel_voltage:
-      name: "SmartSolar - panel voltage"
+      name: "Solar - yield today"
+      web_server:
+        sorting_group_id: group_victron_power_sensors
+        sorting_weight: 3
+
+    yield_yesterday:
+      name: "Solar - yield yesterday"
+      web_server:
+        sorting_group_id: group_victron_power_sensors
+        sorting_weight: 4
+
+    yield_total:
+      name: "Solar - yield total"
+      web_server:
+        sorting_group_id: group_victron_power_sensors
+        sorting_weight: 5
     
     panel_power:
-      name: "SmartSolar - panel power"
+      name: "Solar - panel power"
+      web_server:
+        sorting_group_id: group_victron_solar_sensors
+        sorting_weight: 1
+
+    panel_voltage:
+      name: "Solar - panel voltage"
+      web_server:
+        sorting_group_id: group_victron_solar_sensors
+        sorting_weight: 2
     
     battery_current:
-      name: "SmartSolar - panel current"
+      name: "Solar - panel current"
+      web_server:
+        sorting_group_id: group_victron_solar_sensors
+        sorting_weight: 3
     
     battery_voltage:
-      name: "SmartSolar - battery voltage"
+      name: "Solar - battery voltage"
+      web_server:
+        sorting_group_id: group_victron_solar_sensors
+        sorting_weight: 4
     
     day_number:
-      name: "SmartSolar - day number"
+      name: "Solar - day number"
+      web_server:
+        sorting_group_id: group_victron_solar_sensors
+        sorting_weight: 5
     
     charging_mode_id:
-      name: "SmartSolar - charging mode id"
+      name: "Solar - charging mode id"
+      web_server:
+        sorting_group_id: group_victron_solar_sensors
+        sorting_weight: 6
     
     error_code:
-      name: "SmartSolar - error code"
+      name: "Solar - error code"
+      web_server:
+        sorting_group_id: group_victron_solar_sensors
+        sorting_weight: 7
     
     tracking_mode_id:
-      name: "SmartSolar - tracking mode id"
+      name: "Solar - tracking mode id"
+      web_server:
+        sorting_group_id: group_victron_solar_sensors
+        sorting_weight: 8
     
     load_current:
-      name: "SmartSolar - load current"
+      name: "Solar - load current"
+      web_server:
+        sorting_group_id: group_victron_solar_sensors
+        sorting_weight: 9
+      
 
 ##########################################################################
 
@@ -317,25 +435,34 @@ text_sensor:
     victron_id: victron0
 
     alarm_condition_active:
-      name: "SmartShunt - alarm condition active"
+      name: "SSh - alarm condition active"
+      web_server:
+        sorting_group_id: group_victron_alarm_sensors
+        sorting_weight: 5
 
     alarm_reason:
-      name: "SmartShunt - alarm reason"
+      name: "SSh - alarm reason"
+      web_server:
+        sorting_group_id: group_victron_alarm_sensors
+        sorting_weight: 6
     
     model_description:
-      name: "SmartShunt - model description"
+      name: "SSh - model description"
+      web_server:
+        sorting_group_id: group_victron_alarm_sensors
+        sorting_weight: 7
     
     firmware_version:
-      name: "SmartShunt - firmware version"
+      name: "SSh - firmware version"
     
     device_type:
-      name: "SmartShunt - device type"
+      name: "SSh - device type"
     
     serial_number:
       name: "SmartShunt -serial number"
     
     dc_monitor_mode:
-      name: "SmartShunt - dc monitor mode"
+      name: "SSh - dc monitor mode"
 
 ##########################################################################
 
@@ -343,21 +470,39 @@ text_sensor:
     victron_id: victron1		
 
     charging_mode:
-      name: "SmartSolar - charging mode"
+      name: "Solar - charging mode"
+      web_server:
+        sorting_group_id: group_victron_solar_sensors
+        sorting_weight: 10
     
     error:
-      name: "SmartSolar - error"
+      name: "Solar - error"
+      web_server:
+        sorting_group_id: group_victron_solar_sensors
+        sorting_weight: 11
     
     tracking_mode:
-      name: "SmartSolar - tracking mode"
+      name: "Solar - tracking mode"
+      web_server:
+        sorting_group_id: group_victron_solar_sensors
+        sorting_weight: 12
     
     firmware_version:
-      name: "SmartSolar - firmware version"
+      name: "Solar - firmware version"
+      web_server:
+        sorting_group_id: group_victron_solar_sensors
+        sorting_weight: 13
     
     device_type:
-      name: "SmartSolar - device type"
+      name: "Solar - device type"
+      web_server:
+        sorting_group_id: group_victron_solar_sensors
+        sorting_weight: 14
     
     serial_number:
-      name: "SmartSolar - serial number"
+      name: "Solar - serial number"
+      web_server:
+        sorting_group_id: group_victron_solar_sensors
+        sorting_weight: 5
 
 ##########################################################################
