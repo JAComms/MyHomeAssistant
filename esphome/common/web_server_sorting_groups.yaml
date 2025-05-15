@@ -37,12 +37,46 @@ web_server:
       name: "Controls"
       sorting_weight: -30
 
+################################################## 
+#
+#  Used in ATHOM x6 Energy Meter
+#
+
+    - id: group_electricity_sensors
+      name: "Electricity Sensors"
+      sorting_weight: -47
+
+    - id: group_energy_import_sensors
+      name: "Energy Sensors - Grid Import"
+      sorting_weight: -46
+
+    - id: group_energy_export_sensors
+      name: "Energy Sensors - Grid Export"
+      sorting_weight: -45
+
+    - id: group_electricity_sensors_phase
+      name: "Electricity Sensors by Phase"
+      sorting_weight: -44
+
+    - id: group_consumption_ct_sensor_4
+      name: "Consumption - ${ct_sensor_4_name}"
+      sorting_weight: -43
+
+    - id: group_consumption_ct_sensor_5
+      name: "Consumption - ${ct_sensor_5_name}"
+      sorting_weight: -42
+
+    - id: group_consumption_ct_sensor_6
+      name: "Consumption - ${ct_sensor_6_name}"
+      sorting_weight: -41
+
+    - id: group_light_controls
+      name: "Light Controls"
+      sorting_weight: -20
+
+##################################################
+
       
     - id: group_network_info
       name: "Network Information"
       sorting_weight: -10
-
-
-
-
-
