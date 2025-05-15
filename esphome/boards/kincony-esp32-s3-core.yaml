@@ -11,8 +11,8 @@
 substitutions:
 
    # Configure the i2c bus, to Kincony S3-Core Board PINs
-  bus_a_sda_pin: "GPIO38"
-  bus_a_scl_pin: "GPIO39"
+  bus_a_sda_pin: "GPIO39"
+  bus_a_scl_pin: "GPIO38"
   bus_a_frequency: "100kHz"    # Optional: 100kHz
 
 # Configure the ADC Ports PINS.
