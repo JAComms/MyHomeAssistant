@@ -12,11 +12,11 @@ substitutions:
 # define a network information group
 #
 
-web_server:
-  sorting_groups:
-    - id: group_network_info
-      name: "Network Information"
-      sorting_weight: -10
+#web_server:
+#  sorting_groups:
+#    - id: group_network_info
+#      name: "Network Information"
+#      sorting_weight: -10
 
 ##########################################################################
 # Configuration to add WiFi network connection to ESP Devices
