@@ -203,158 +203,149 @@ sensor:
   - platform: victron
     victron_id: victron0
 
+    instantaneous_power:
+      name: "Shunt - Instantaneous Power"
+      web_server:
+        sorting_group_id: group_victron_battery_sensors
+        sorting_weight: 1
+        
     battery_voltage:
       name: "Battery Voltage"   # SmartShunt - 
       web_server:
         sorting_group_id: group_victron_battery_sensors
         sorting_weight: 2
-      
-    auxiliary_battery_voltage:
-      name: "Auxiliary Battery Voltage"  # SmartShunt - 
-      web_server:
-        sorting_group_id: group_victron_battery_sensors
-        sorting_weight: 3
-
-    midpoint_voltage_of_the_battery_bank:
-      name: "Shunt - Midpoint Voltage of the Battery Bank"
-      web_server:
-        sorting_group_id: group_victron_battery_sensors
-        sorting_weight: 10
-
-    midpoint_deviation_of_the_battery_bank:
-      name: "Shunt - Midpoint Deviation of the Battery Bank"
-      web_server:
-        sorting_group_id: group_victron_battery_sensors
-        sorting_weight: 11
 
     battery_current:
       name: "Battery Current"   # SmartShunt - 
       web_server:
         sorting_group_id: group_victron_battery_sensors
+        sorting_weight: 3
+
+    state_of_charge:
+      name: "State of Charge"  # SmartShunt - 
+      web_server:
+        sorting_group_id: group_victron_battery_sensors
         sorting_weight: 4
+
+    time_to_go:
+      name: "Shunt - Time to Go"    # Battery Runtime
+      web_server:
+        sorting_group_id: group_victron_battery_sensors
+        sorting_weight: 5
 
     battery_temperature:
       name: "Shunt - Battery Temperature"
       icon: 'mdi:temperature-celsius'
       web_server:
         sorting_group_id: group_victron_battery_sensors
-        sorting_weight: 5
-
-    instantaneous_power:
-      name: "Shunt - Instantaneous Power"
-      web_server:
-        sorting_group_id: group_victron_battery_sensors
         sorting_weight: 6
-
+        
     consumed_amp_hours:
       name: "Shunt - Consumed Amp Hours"
       web_server:
         sorting_group_id: group_victron_battery_sensors
-        sorting_weight: 12
+        sorting_weight: 7
 
-    state_of_charge:
-      name: "State of Charge"  # SmartShunt - 
+    cumulative_amp_hours_drawn:
+      name: "Shunt - Cumulative Amp Hours Drawn"
       web_server:
         sorting_group_id: group_victron_battery_sensors
-        sorting_weight: 5
+        sorting_weight: 8
 
-    time_to_go:
-      name: "Shunt - Time to Go"
+    amount_of_charged_energy:
+      name: "Shunt - Amount of Charged Energy"
       web_server:
         sorting_group_id: group_victron_battery_sensors
-        sorting_weight: 13
+        sorting_weight: 9
 
-    depth_of_the_deepest_discharge:
-      name: "Shunt - Depth of the Deepest Discharge"
+    amount_of_discharged_energy:
+      name: "Shunt - Amount of Discharged Energy"
       web_server:
         sorting_group_id: group_victron_battery_sensors
-        sorting_weight: 14
+        sorting_weight: 10
 
     depth_of_the_last_discharge:
       name: "Shunt - Depth of the Last Discharge"
       web_server:
         sorting_group_id: group_victron_battery_sensors
-        sorting_weight: 15
-
+        sorting_weight: 11
+    
     depth_of_the_average_discharge:
       name: "Shunt - Depth of the Average Discharge"
       web_server:
         sorting_group_id: group_victron_battery_sensors
-        sorting_weight: 16
+        sorting_weight: 12
+
+    depth_of_the_deepest_discharge:
+      name: "Shunt - Depth of the Deepest Discharge"
+      web_server:
+        sorting_group_id: group_victron_battery_sensors
+        sorting_weight: 13        
 
     number_of_charge_cycles:
       name: "Shunt - Number of Charge Cycles"
       icon: 'mdi:numeric'
       web_server:
         sorting_group_id: group_victron_battery_sensors
-        sorting_weight: 17
+        sorting_weight: 14
 
     number_of_full_discharges:
       name: "Shunt - Number of Full Discharges"
       icon: 'mdi:numeric'
       web_server:
         sorting_group_id: group_victron_battery_sensors
-        sorting_weight: 18
-    
-    cumulative_amp_hours_drawn:
-      name: "Shunt - Cumulative Amp Hours Drawn"
-      web_server:
-        sorting_group_id: group_victron_battery_sensors
-        sorting_weight: 19
-    
-    min_battery_voltage:
-      name: "Shunt - Min Battery Voltage"
-      web_server:
-        sorting_group_id: group_victron_battery_sensors
-        sorting_weight: 20
-    
-    max_battery_voltage:
-      name: "Shunt - Max Battery Voltage"
-      web_server:
-        sorting_group_id: group_victron_battery_sensors
-        sorting_weight: 21
+        sorting_weight: 15
     
     last_full_charge:
       name: "Shunt - Last Full Charge"
       web_server:
         sorting_group_id: group_victron_battery_sensors
-        sorting_weight: 22
+        sorting_weight: 16
+        
+    min_battery_voltage:
+      name: "Shunt - Min Battery Voltage"
+      web_server:
+        sorting_group_id: group_victron_battery_sensors
+        sorting_weight: 17
     
+    max_battery_voltage:
+      name: "Shunt - Max Battery Voltage"
+      web_server:
+        sorting_group_id: group_victron_battery_sensors
+        sorting_weight: 18
+
     number_of_automatic_synchronizations:
       name: "Shunt - Automatic Synchronizations"
       icon: 'mdi:numeric'
       web_server:
         sorting_group_id: group_victron_battery_sensors
+        sorting_weight: 19
+
+    midpoint_voltage_of_the_battery_bank:
+      name: "Shunt - Midpoint Voltage of the Battery Bank"
+      web_server:
+        sorting_group_id: group_victron_battery_sensors
+        sorting_weight: 20
+
+    midpoint_deviation_of_the_battery_bank:
+      name: "Shunt - Midpoint Deviation of the Battery Bank"
+      web_server:
+        sorting_group_id: group_victron_battery_sensors
+        sorting_weight: 21
+        
+    dc_monitor_mode_id:
+      name: "Shunt - DC Monitor Mode ID"
+      icon: 'mdi:id-card'
+      web_server:
+        sorting_group_id: group_victron_battery_sensors
+        sorting_weight: 22
+
+    auxiliary_battery_voltage:
+      name: "Auxiliary Battery Voltage"  # SmartShunt - 
+      web_server:
+        sorting_group_id: group_victron_battery_sensors
         sorting_weight: 23
-    
-    number_of_low_main_voltage_alarms:
-      name: "Shunt - Low Main Voltage Alarms"
-      icon: 'mdi:numeric'
-      web_server:
-        sorting_group_id: group_victron_alarm_sensors
-        sorting_weight: 1
-    
-    number_of_high_main_voltage_alarms:
-      name: "Shunt - High Main Voltage Alarms"
-      icon: 'mdi:numeric'
-      web_server:
-        sorting_group_id: group_victron_alarm_sensors
-        sorting_weight: 2
-    
-    number_of_low_auxiliary_voltage_alarms:
-      name: "Shunt - Low Auxiliary Voltage Alarms"
-      icon: 'mdi:numeric'
-      web_server:
-        sorting_group_id: group_victron_alarm_sensors
-        sorting_weight: 3
-    
-    number_of_high_auxiliary_voltage_alarms:
-      name: "Shunt - High Auxiliary Voltage Alarms"
-      icon: 'mdi:numeric'
-      web_server:
-        sorting_group_id: group_victron_alarm_sensors
-        sorting_weight: 4
-    
+
     min_auxiliary_battery_voltage:
       name: "Shunt - Min Auxiliary Battery Voltage"
       web_server:
@@ -366,25 +357,36 @@ sensor:
       web_server:
         sorting_group_id: group_victron_battery_sensors
         sorting_weight: 25
-    
-    amount_of_discharged_energy:
-      name: "Shunt - Amount of Discharged Energy"
+
+
+    number_of_high_main_voltage_alarms:
+      name: "Shunt - High Main Voltage Alarms"
+      icon: 'mdi:numeric'
       web_server:
-        sorting_group_id: group_victron_battery_sensors
-        sorting_weight: 26
-    
-    amount_of_charged_energy:
-      name: "Shunt - Amount of Charged Energy"
+        sorting_group_id: group_victron_alarm_sensors
+        sorting_weight: 3
+
+    number_of_low_main_voltage_alarms:
+      name: "Shunt - Low Main Voltage Alarms"
+      icon: 'mdi:numeric'
       web_server:
-        sorting_group_id: group_victron_battery_sensors
-        sorting_weight: 27
-    
-    dc_monitor_mode_id:
-      name: "Shunt - DC Monitor Mode ID"
-      icon: 'mdi:id-card'
+        sorting_group_id: group_victron_alarm_sensors
+        sorting_weight: 4
+
+    number_of_high_auxiliary_voltage_alarms:
+      name: "Shunt - High Auxiliary Voltage Alarms"
+      icon: 'mdi:numeric'
       web_server:
-        sorting_group_id: group_victron_battery_sensors
-        sorting_weight: 28
+        sorting_group_id: group_victron_alarm_sensors
+        sorting_weight: 5
+    
+    number_of_low_auxiliary_voltage_alarms:
+      name: "Shunt - Low Auxiliary Voltage Alarms"
+      icon: 'mdi:numeric'
+      web_server:
+        sorting_group_id: group_victron_alarm_sensors
+        sorting_weight: 6
+    
 
   ##########################################################################
   
@@ -491,14 +493,14 @@ text_sensor:
       icon: 'mdi:alarm-light-outline'
       web_server:
         sorting_group_id: group_victron_alarm_sensors
-        sorting_weight: 5
+        sorting_weight: 1
 
     alarm_reason:
       name: "Shunt - Alarm Reason"
       icon: 'mdi:alarm-light-outline'
       web_server:
         sorting_group_id: group_victron_alarm_sensors
-        sorting_weight: 6
+        sorting_weight: 2
     
     model_description:
       name: "Shunt - Model Description"
