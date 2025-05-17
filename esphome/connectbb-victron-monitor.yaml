@@ -104,7 +104,7 @@ packages:
   esp32_system_board:
     url: https://github.com/roving-ronin/myhomeassistant
     ref: main
-    files: [esphome/sensors/kincony-esp32-s3-core.yaml]
+    files: [esphome/boards/kincony-esp32-s3-core.yaml]
     refresh: 0s        
 
 
