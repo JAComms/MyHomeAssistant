@@ -321,35 +321,35 @@ sensor:
         sorting_weight: 22
     
     number_of_automatic_synchronizations:
-      name: "Shunt - Number of Automatic Synchronizations"
+      name: "Shunt - Automatic Synchronizations"
       icon: 'mdi:numeric'
       web_server:
         sorting_group_id: group_victron_battery_sensors
         sorting_weight: 23
     
     number_of_low_main_voltage_alarms:
-      name: "Shunt - Number of Low Main Voltage Alarms"
+      name: "Shunt - Low Main Voltage Alarms"
       icon: 'mdi:numeric'
       web_server:
         sorting_group_id: group_victron_alarm_sensors
         sorting_weight: 1
     
     number_of_high_main_voltage_alarms:
-      name: "Shunt - Number of High Main Voltage Alarms"
+      name: "Shunt - High Main Voltage Alarms"
       icon: 'mdi:numeric'
       web_server:
         sorting_group_id: group_victron_alarm_sensors
         sorting_weight: 2
     
     number_of_low_auxiliary_voltage_alarms:
-      name: "Shunt - Number of Low Auxiliary Voltage Alarms"
+      name: "Shunt - Low Auxiliary Voltage Alarms"
       icon: 'mdi:numeric'
       web_server:
         sorting_group_id: group_victron_alarm_sensors
         sorting_weight: 3
     
     number_of_high_auxiliary_voltage_alarms:
-      name: "Shunt - Number of High Auxiliary Voltage Alarms"
+      name: "Shunt - High Auxiliary Voltage Alarms"
       icon: 'mdi:numeric'
       web_server:
         sorting_group_id: group_victron_alarm_sensors
@@ -519,7 +519,8 @@ text_sensor:
         sorting_weight: 5
     
     serial_number:
-      name: "SmartShunt - Serial Number"
+      name: "Shunt - Serial Number"
+      icon: 'mdi:barcode'
       web_server:
         sorting_group_id: group_victron_device_information
         sorting_weight: 6
