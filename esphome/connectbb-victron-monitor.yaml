@@ -508,32 +508,33 @@ text_sensor:
       web_server:
         sorting_group_id: group_victron_device_information
         sorting_weight: 1
-    
-    firmware_version:
-      name: "Shunt - Firmware Version"
-      web_server:
-        sorting_group_id: group_victron_device_information
-        sorting_weight: 7
-    
+
     device_type:
       name: "Shunt - Device Type"
       web_server:
         sorting_group_id: group_victron_device_information
-        sorting_weight: 5
+        sorting_weight: 2
+
+    firmware_version:
+      name: "Shunt - Firmware Version"
+      web_server:
+        sorting_group_id: group_victron_device_information
+        sorting_weight: 3
     
     serial_number:
       name: "Shunt - Serial Number"
       icon: 'mdi:barcode'
       web_server:
         sorting_group_id: group_victron_device_information
-        sorting_weight: 6
-    
+        sorting_weight: 4
+
     dc_monitor_mode:
       name: "Shunt - DC Monitor Mode"
       icon: 'mdi:auto-mode'
       web_server:
         sorting_group_id: group_victron_device_information
-        sorting_weight: 8
+        sorting_weight: 5
+
 
 ##########################################################################
 
@@ -561,23 +562,23 @@ text_sensor:
         sorting_group_id: group_victron_solar_sensors
         sorting_weight: 9
     
-    firmware_version:
-      name: "Solar - Firmware Version"
-      web_server:
-        sorting_group_id: group_victron_device_information
-        sorting_weight: 3
-    
     device_type:
       name: "Solar - Device Type"
       web_server:
         sorting_group_id: group_victron_device_information
-        sorting_weight: 1
+        sorting_weight: 10
     
+    firmware_version:
+      name: "Solar - Firmware Version"
+      web_server:
+        sorting_group_id: group_victron_device_information
+        sorting_weight: 11
+        
     serial_number:
       name: "Solar - Serial Number"
       icon: 'mdi:barcode'
       web_server:
         sorting_group_id: group_victron_device_information
-        sorting_weight: 2
+        sorting_weight: 12
 
 ##########################################################################
