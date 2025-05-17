@@ -75,37 +75,37 @@ packages:
     url: https://github.com/jacomms/myhomeassistant
     ref: main
     files: [esphome/common/base-configuration.yaml]
-    refresh: 0s
+    refresh: 1d
     
   network_config:
     url: https://github.com/jacomms/myhomeassistant
     ref: main
     files: [esphome/common/network-ethernet-w5500.yaml]
-    refresh: 0s
+    refresh: 1d
 
   webserver_groups:
     url: https://github.com/jacomms/myhomeassistant
     ref: main
     files: [esphome/common/webserver-groups.yaml]
-    refresh: 0s
+    refresh: 5s
 
   bme280a_sensors:
     url: https://github.com/jacomms/myhomeassistant
     ref: main
     files: [esphome/sensors/bme280-bus-a.yaml]
-    refresh: 0s    
+    refresh: 1h    
 
   dallas_temp_sensors:
     url: https://github.com/jacomms/myhomeassistant
     ref: main
     files: [esphome/sensors/ds18b20-1wire.yaml]
-    refresh: 0s   
+    refresh: 1h   
 
   esp32_system_board:
     url: https://github.com/jacomms/myhomeassistant
     ref: main
     files: [esphome/boards/kincony-esp32-s3-core.yaml]
-    refresh: 0s        
+    refresh: 1d        
 
 
 #packages:
