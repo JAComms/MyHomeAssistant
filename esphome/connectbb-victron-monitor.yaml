@@ -393,35 +393,36 @@ sensor:
   - platform: victron
     victron_id: victron1
 
-    max_power_today:
-      name: "Solar - Max Power Today"
-      web_server:
-        sorting_group_id: group_victron_power_sensors
-        sorting_weight: 1
-  
-    max_power_yesterday:
-      name: "Solar - Max Power Yesterday"
-      web_server:
-        sorting_group_id: group_victron_power_sensors
-        sorting_weight: 2
-       
     yield_today:
       name: "Solar - Yield Today"
       web_server:
         sorting_group_id: group_victron_power_sensors
-        sorting_weight: 3
+        sorting_weight: 1
 
     yield_yesterday:
       name: "Solar - Yield Yesterday"
       web_server:
         sorting_group_id: group_victron_power_sensors
-        sorting_weight: 4
+        sorting_weight: 2
 
     yield_total:
       name: "Solar - Yield Total"
       web_server:
         sorting_group_id: group_victron_power_sensors
+        sorting_weight: 3
+
+    max_power_today:
+      name: "Solar - Max Power Today"
+      web_server:
+        sorting_group_id: group_victron_power_sensors
+        sorting_weight: 4
+  
+    max_power_yesterday:
+      name: "Solar - Max Power Yesterday"
+      web_server:
+        sorting_group_id: group_victron_power_sensors
         sorting_weight: 5
+        
     
     panel_power:
       name: "Solar - Panel Power"
