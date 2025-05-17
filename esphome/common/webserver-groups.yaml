@@ -92,16 +92,16 @@ web_server:
 
 ##################################################
 
-    - id: group_victron_battery_sensors
-      name: Victron - Battery Sensors
+    - id: group_victron_smartshunt_sensors
+      name: Victron - SmartShunt Sensors
       sorting_weight: -12
 
     - id: group_victron_energy_sensors
       name: Victron - Energy Sensors
       sorting_weight: -10      
 
-    - id: group_victron_smartshunt_sensors
-      name: Victron - Smartshunt Sensors
+    - id: group_victron_smartshunt_statistics
+      name: Victron - SmartShunt Statistics
       sorting_weight: -8
 
     - id: group_victron_power_sensors
