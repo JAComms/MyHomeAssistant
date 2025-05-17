@@ -116,7 +116,9 @@ web_server:
       name: Victron - Alarm Sensors
       sorting_weight: -2
   
-
+    - id: group_victron_device_information
+      name: Victron - Device Information
+      sorting_weight: 0
 ##################################################
 
 
