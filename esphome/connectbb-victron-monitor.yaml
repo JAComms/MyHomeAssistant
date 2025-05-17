@@ -464,20 +464,20 @@ sensor:
       icon: 'mdi:alert-box-outline'
       web_server:
         sorting_group_id: group_victron_solar_sensors
-        sorting_weight: 7
+        sorting_weight: 11
     
     tracking_mode_id:
       name: "Solar - Tracking Mode ID"
       icon: 'mdi:numeric'
       web_server:
         sorting_group_id: group_victron_solar_sensors
-        sorting_weight: 8
+        sorting_weight: 7
     
     load_current:
       name: "Solar - Load Current"
       web_server:
         sorting_group_id: group_victron_solar_sensors
-        sorting_weight: 9
+        sorting_weight: 8
       
 
 ##########################################################################
@@ -542,13 +542,14 @@ text_sensor:
       icon: 'mdi:auto-mode'
       web_server:
         sorting_group_id: group_victron_solar_sensors
-        sorting_weight: 10
+        sorting_weight: 9
     
     error:
       name: "Solar - Error"
+      icon: 'mdi:alert-circle-outline'
       web_server:
         sorting_group_id: group_victron_solar_sensors
-        sorting_weight: 11
+        sorting_weight: 10
     
     tracking_mode:
       name: "Solar - Tracking Mode"
