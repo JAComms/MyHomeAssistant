@@ -177,13 +177,13 @@ sensor:
         sorting_weight: 3
 
     midpoint_voltage_of_the_battery_bank:
-      name: "Shunt - midpoint voltage of the battery bank"
+      name: "Shunt - Midpoint Voltage of the Battery Bank"
       web_server:
         sorting_group_id: group_victron_battery_sensors
         sorting_weight: 10
 
     midpoint_deviation_of_the_battery_bank:
-      name: "Shunt - midpoint deviation of the battery bank"
+      name: "Shunt - Midpoint Deviation of the Battery Bank"
       web_server:
         sorting_group_id: group_victron_battery_sensors
         sorting_weight: 11
@@ -195,20 +195,20 @@ sensor:
         sorting_weight: 4
 
     battery_temperature:
-      name: "Shunt - battery temperature"
+      name: "Shunt - Battery Temperature"
       icon: 'mdi:temperature-celsius'
       web_server:
         sorting_group_id: group_victron_battery_sensors
         sorting_weight: 5
 
     instantaneous_power:
-      name: "Shunt - instantaneous power"
+      name: "Shunt - Instantaneous Power"
       web_server:
         sorting_group_id: group_victron_battery_sensors
         sorting_weight: 6
 
     consumed_amp_hours:
-      name: "Shunt - consumed amp hours"
+      name: "Shunt - Consumed Amp Hours"
       web_server:
         sorting_group_id: group_victron_battery_sensors
         sorting_weight: 12
@@ -220,121 +220,121 @@ sensor:
         sorting_weight: 5
 
     time_to_go:
-      name: "Shunt - time to go"
+      name: "Shunt - Time to Go"
       web_server:
         sorting_group_id: group_victron_battery_sensors
         sorting_weight: 13
 
     depth_of_the_deepest_discharge:
-      name: "Shunt - depth of the deepest discharge"
+      name: "Shunt - Depth of the Deepest Discharge"
       web_server:
         sorting_group_id: group_victron_battery_sensors
         sorting_weight: 14
 
     depth_of_the_last_discharge:
-      name: "Shunt - depth of the last discharge"
+      name: "Shunt - Depth of the Last Discharge"
       web_server:
         sorting_group_id: group_victron_battery_sensors
         sorting_weight: 15
 
     depth_of_the_average_discharge:
-      name: "Shunt - depth of the average discharge"
+      name: "Shunt - Depth of the Average Discharge"
       web_server:
         sorting_group_id: group_victron_battery_sensors
         sorting_weight: 16
 
     number_of_charge_cycles:
-      name: "Shunt - number of charge cycles"
+      name: "Shunt - Number of Charge Cycles"
       web_server:
         sorting_group_id: group_victron_battery_sensors
         sorting_weight: 17
 
     number_of_full_discharges:
-      name: "Shunt - number of full discharges"
+      name: "Shunt - Number of Full Discharges"
       web_server:
         sorting_group_id: group_victron_battery_sensors
         sorting_weight: 18
     
     cumulative_amp_hours_drawn:
-      name: "Shunt - cumulative amp hours drawn"
+      name: "Shunt - Cumulative Amp Hours Drawn"
       web_server:
         sorting_group_id: group_victron_battery_sensors
         sorting_weight: 19
     
     min_battery_voltage:
-      name: "Shunt - min battery voltage"
+      name: "Shunt - Min Battery Voltage"
       web_server:
         sorting_group_id: group_victron_battery_sensors
         sorting_weight: 20
     
     max_battery_voltage:
-      name: "Shunt - max battery voltage"
+      name: "Shunt - Max Battery Voltage"
       web_server:
         sorting_group_id: group_victron_battery_sensors
         sorting_weight: 21
     
     last_full_charge:
-      name: "Shunt - last full charge"
+      name: "Shunt - Last Full Charge"
       web_server:
         sorting_group_id: group_victron_battery_sensors
         sorting_weight: 22
     
     number_of_automatic_synchronizations:
-      name: "Shunt - number of automatic synchronizations"
+      name: "Shunt - Number of Automatic Synchronizations"
       web_server:
         sorting_group_id: group_victron_battery_sensors
         sorting_weight: 23
     
     number_of_low_main_voltage_alarms:
-      name: "Shunt - number of low main voltage alarms"
+      name: "Shunt - Number of Low Main Voltage Alarms"
       web_server:
         sorting_group_id: group_victron_alarm_sensors
         sorting_weight: 1
     
     number_of_high_main_voltage_alarms:
-      name: "Shunt - number of high main voltage alarms"
+      name: "Shunt - Number of High Main Voltage Alarms"
       web_server:
         sorting_group_id: group_victron_alarm_sensors
         sorting_weight: 2
     
     number_of_low_auxiliary_voltage_alarms:
-      name: "Shunt - number of low auxiliary voltage alarms"
+      name: "Shunt - Number of Low Auxiliary Voltage Alarms"
       web_server:
         sorting_group_id: group_victron_alarm_sensors
         sorting_weight: 3
     
     number_of_high_auxiliary_voltage_alarms:
-      name: "Shunt - number of high auxiliary voltage alarms"
+      name: "Shunt - Number of High Auxiliary Voltage Alarms"
       web_server:
         sorting_group_id: group_victron_alarm_sensors
         sorting_weight: 4
     
     min_auxiliary_battery_voltage:
-      name: "Shunt - min auxiliary battery voltage"
+      name: "Shunt - Min Auxiliary Battery Voltage"
       web_server:
         sorting_group_id: group_victron_battery_sensors
         sorting_weight: 24
     
     max_auxiliary_battery_voltage:
-      name: "Shunt - max auxiliary battery voltage"
+      name: "Shunt - Max Auxiliary Battery Voltage"
       web_server:
         sorting_group_id: group_victron_battery_sensors
         sorting_weight: 25
     
     amount_of_discharged_energy:
-      name: "Shunt - amount of discharged energy"
+      name: "Shunt - Amount of Discharged Energy"
       web_server:
         sorting_group_id: group_victron_battery_sensors
         sorting_weight: 26
     
     amount_of_charged_energy:
-      name: "Shunt - amount of charged energy"
+      name: "Shunt - Amount of Charged Energy"
       web_server:
         sorting_group_id: group_victron_battery_sensors
         sorting_weight: 27
     
     dc_monitor_mode_id:
-      name: "Shunt - dc monitor mode id"
+      name: "Shunt - DC Monitor Mode ID"
       web_server:
         sorting_group_id: group_victron_battery_sensors
         sorting_weight: 28
@@ -345,85 +345,85 @@ sensor:
     victron_id: victron1
 
     max_power_today:
-      name: "Solar - max power today"
+      name: "Solar - Max Power Today"
       web_server:
         sorting_group_id: group_victron_power_sensors
         sorting_weight: 1
   
     max_power_yesterday:
-      name: "Solar - max power yesterday"
+      name: "Solar - Max Power Yesterday"
       web_server:
         sorting_group_id: group_victron_power_sensors
         sorting_weight: 2
        
     yield_today:
-      name: "Solar - yield today"
+      name: "Solar - Yield Today"
       web_server:
         sorting_group_id: group_victron_power_sensors
         sorting_weight: 3
 
     yield_yesterday:
-      name: "Solar - yield yesterday"
+      name: "Solar - Yield Yesterday"
       web_server:
         sorting_group_id: group_victron_power_sensors
         sorting_weight: 4
 
     yield_total:
-      name: "Solar - yield total"
+      name: "Solar - Yield Total"
       web_server:
         sorting_group_id: group_victron_power_sensors
         sorting_weight: 5
     
     panel_power:
-      name: "Solar - panel power"
+      name: "Solar - Panel Power"
       web_server:
         sorting_group_id: group_victron_solar_sensors
         sorting_weight: 1
 
     panel_voltage:
-      name: "Solar - panel voltage"
+      name: "Solar - Panel Voltage"
       web_server:
         sorting_group_id: group_victron_solar_sensors
         sorting_weight: 2
     
     battery_current:
-      name: "Solar - panel current"
+      name: "Solar - Panel Current"
       web_server:
         sorting_group_id: group_victron_solar_sensors
         sorting_weight: 3
     
     battery_voltage:
-      name: "Solar - battery voltage"
+      name: "Solar - Battery Voltage"
       web_server:
         sorting_group_id: group_victron_solar_sensors
         sorting_weight: 4
     
     day_number:
-      name: "Solar - day number"
+      name: "Solar - Day Number"
       web_server:
         sorting_group_id: group_victron_solar_sensors
         sorting_weight: 5
     
     charging_mode_id:
-      name: "Solar - charging mode id"
+      name: "Solar - Charging Mode ID"
       web_server:
         sorting_group_id: group_victron_solar_sensors
         sorting_weight: 6
     
     error_code:
-      name: "Solar - error code"
+      name: "Solar - Error Code"
       web_server:
         sorting_group_id: group_victron_solar_sensors
         sorting_weight: 7
     
     tracking_mode_id:
-      name: "Solar - tracking mode id"
+      name: "Solar - Tracking Mode ID"
       web_server:
         sorting_group_id: group_victron_solar_sensors
         sorting_weight: 8
     
     load_current:
-      name: "Solar - load current"
+      name: "Solar - Load Current"
       web_server:
         sorting_group_id: group_victron_solar_sensors
         sorting_weight: 9
@@ -436,34 +436,34 @@ text_sensor:
     victron_id: victron0
 
     alarm_condition_active:
-      name: "Shunt - alarm condition active"
+      name: "Shunt - Alarm Condition Active"
       web_server:
         sorting_group_id: group_victron_alarm_sensors
         sorting_weight: 5
 
     alarm_reason:
-      name: "Shunt - alarm reason"
+      name: "Shunt - Alarm Reason"
       web_server:
         sorting_group_id: group_victron_alarm_sensors
         sorting_weight: 6
     
     model_description:
-      name: "Shunt - model description"
+      name: "Shunt - Model Description"
       web_server:
         sorting_group_id: group_victron_alarm_sensors
         sorting_weight: 7
     
     firmware_version:
-      name: "Shunt - firmware version"
+      name: "Shunt - Firmware Version"
     
     device_type:
-      name: "Shunt - device type"
+      name: "Shunt - Device Type"
     
     serial_number:
-      name: "SmartShunt -serial number"
+      name: "SmartShunt - Serial NNumber"
     
     dc_monitor_mode:
-      name: "Shunt - dc monitor mode"
+      name: "Shunt - DC Monitor Mode"
 
 ##########################################################################
 
@@ -471,37 +471,37 @@ text_sensor:
     victron_id: victron1		
 
     charging_mode:
-      name: "Solar - charging mode"
+      name: "Solar - Charging Mode"
       web_server:
         sorting_group_id: group_victron_solar_sensors
         sorting_weight: 10
     
     error:
-      name: "Solar - error"
+      name: "Solar - Error"
       web_server:
         sorting_group_id: group_victron_solar_sensors
         sorting_weight: 11
     
     tracking_mode:
-      name: "Solar - tracking mode"
+      name: "Solar - Tracking Mode"
       web_server:
         sorting_group_id: group_victron_solar_sensors
         sorting_weight: 12
     
     firmware_version:
-      name: "Solar - firmware version"
+      name: "Solar - Firmware Version"
       web_server:
         sorting_group_id: group_victron_solar_sensors
         sorting_weight: 13
     
     device_type:
-      name: "Solar - device type"
+      name: "Solar - Device Type"
       web_server:
         sorting_group_id: group_victron_solar_sensors
         sorting_weight: 14
     
     serial_number:
-      name: "Solar - serial number"
+      name: "Solar - Serial Number"
       web_server:
         sorting_group_id: group_victron_solar_sensors
         sorting_weight: 5
