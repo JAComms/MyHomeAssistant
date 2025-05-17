@@ -453,9 +453,8 @@ sensor:
         sorting_weight: 5
     
     charging_mode_id:
-    icon: 'mdi:numeric'
       name: "Solar - Charging Mode ID"
-      
+      icon: 'mdi:numeric'
       web_server:
         sorting_group_id: group_victron_solar_sensors
         sorting_weight: 6
