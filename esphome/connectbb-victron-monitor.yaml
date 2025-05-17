@@ -462,7 +462,6 @@ sensor:
     
     error_code:
       name: "Solar - Error Code"
-      icon: 'mdi:numeric'
       icon: 'mdi:alert-box-outline'
       web_server:
         sorting_group_id: group_victron_solar_sensors
