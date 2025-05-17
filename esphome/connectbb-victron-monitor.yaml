@@ -245,12 +245,14 @@ sensor:
 
     number_of_charge_cycles:
       name: "Shunt - Number of Charge Cycles"
+      icon: 'mdi:numeric'
       web_server:
         sorting_group_id: group_victron_battery_sensors
         sorting_weight: 17
 
     number_of_full_discharges:
       name: "Shunt - Number of Full Discharges"
+      icon: 'mdi:numeric'
       web_server:
         sorting_group_id: group_victron_battery_sensors
         sorting_weight: 18
@@ -281,30 +283,35 @@ sensor:
     
     number_of_automatic_synchronizations:
       name: "Shunt - Number of Automatic Synchronizations"
+      icon: 'mdi:numeric'
       web_server:
         sorting_group_id: group_victron_battery_sensors
         sorting_weight: 23
     
     number_of_low_main_voltage_alarms:
       name: "Shunt - Number of Low Main Voltage Alarms"
+      icon: 'mdi:numeric'
       web_server:
         sorting_group_id: group_victron_alarm_sensors
         sorting_weight: 1
     
     number_of_high_main_voltage_alarms:
       name: "Shunt - Number of High Main Voltage Alarms"
+      icon: 'mdi:numeric'
       web_server:
         sorting_group_id: group_victron_alarm_sensors
         sorting_weight: 2
     
     number_of_low_auxiliary_voltage_alarms:
       name: "Shunt - Number of Low Auxiliary Voltage Alarms"
+      icon: 'mdi:numeric'
       web_server:
         sorting_group_id: group_victron_alarm_sensors
         sorting_weight: 3
     
     number_of_high_auxiliary_voltage_alarms:
       name: "Shunt - Number of High Auxiliary Voltage Alarms"
+      icon: 'mdi:numeric'
       web_server:
         sorting_group_id: group_victron_alarm_sensors
         sorting_weight: 4
@@ -335,6 +342,7 @@ sensor:
     
     dc_monitor_mode_id:
       name: "Shunt - DC Monitor Mode ID"
+      icon: 'mdi:id-card'
       web_server:
         sorting_group_id: group_victron_battery_sensors
         sorting_weight: 28
@@ -400,24 +408,30 @@ sensor:
     
     day_number:
       name: "Solar - Day Number"
+      icon: 'mdi:counter'
       web_server:
         sorting_group_id: group_victron_solar_sensors
         sorting_weight: 5
     
     charging_mode_id:
+    icon: 'mdi:numeric'
       name: "Solar - Charging Mode ID"
+      
       web_server:
         sorting_group_id: group_victron_solar_sensors
         sorting_weight: 6
     
     error_code:
       name: "Solar - Error Code"
+      icon: 'mdi:numeric'
+      icon: 'mdi:alert-box-outline'
       web_server:
         sorting_group_id: group_victron_solar_sensors
         sorting_weight: 7
     
     tracking_mode_id:
       name: "Solar - Tracking Mode ID"
+      icon: 'mdi:numeric'
       web_server:
         sorting_group_id: group_victron_solar_sensors
         sorting_weight: 8
@@ -502,6 +516,7 @@ text_sensor:
     
     serial_number:
       name: "Solar - Serial Number"
+      icon: 'mdi:barcode'
       web_server:
         sorting_group_id: group_victron_solar_sensors
         sorting_weight: 5
