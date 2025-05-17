@@ -488,12 +488,14 @@ text_sensor:
 
     alarm_condition_active:
       name: "Shunt - Alarm Condition Active"
+      icon: ''mdi:alarm-light-outline'
       web_server:
         sorting_group_id: group_victron_alarm_sensors
         sorting_weight: 5
 
     alarm_reason:
       name: "Shunt - Alarm Reason"
+      icon: ''mdi:alarm-light-outline'
       web_server:
         sorting_group_id: group_victron_alarm_sensors
         sorting_weight: 6
@@ -501,20 +503,33 @@ text_sensor:
     model_description:
       name: "Shunt - Model Description"
       web_server:
-        sorting_group_id: group_victron_alarm_sensors
-        sorting_weight: 7
+        sorting_group_id: group_victron_device_information
+        sorting_weight: 1
     
     firmware_version:
       name: "Shunt - Firmware Version"
+      web_server:
+        sorting_group_id: group_victron_device_information
+        sorting_weight: 7
     
     device_type:
       name: "Shunt - Device Type"
+      web_server:
+        sorting_group_id: group_victron_device_information
+        sorting_weight: 5
     
     serial_number:
-      name: "SmartShunt - Serial NNumber"
+      name: "SmartShunt - Serial Number"
+      web_server:
+        sorting_group_id: group_victron_device_information
+        sorting_weight: 6
     
     dc_monitor_mode:
       name: "Shunt - DC Monitor Mode"
+      icon: 'mdi:auto-mode'
+      web_server:
+        sorting_group_id: group_victron_device_information
+        sorting_weight: 8
 
 ##########################################################################
 
@@ -523,6 +538,7 @@ text_sensor:
 
     charging_mode:
       name: "Solar - Charging Mode"
+      icon: 'mdi:auto-mode'
       web_server:
         sorting_group_id: group_victron_solar_sensors
         sorting_weight: 10
@@ -535,6 +551,7 @@ text_sensor:
     
     tracking_mode:
       name: "Solar - Tracking Mode"
+      icon: 'mdi:auto-mode'
       web_server:
         sorting_group_id: group_victron_solar_sensors
         sorting_weight: 12
@@ -542,20 +559,20 @@ text_sensor:
     firmware_version:
       name: "Solar - Firmware Version"
       web_server:
-        sorting_group_id: group_victron_solar_sensors
-        sorting_weight: 13
+        sorting_group_id: group_victron_device_information
+        sorting_weight: 3
     
     device_type:
       name: "Solar - Device Type"
       web_server:
-        sorting_group_id: group_victron_solar_sensors
-        sorting_weight: 14
+        sorting_group_id: group_victron_device_information
+        sorting_weight: 1
     
     serial_number:
       name: "Solar - Serial Number"
       icon: 'mdi:barcode'
       web_server:
-        sorting_group_id: group_victron_solar_sensors
-        sorting_weight: 5
+        sorting_group_id: group_victron_device_information
+        sorting_weight: 2
 
 ##########################################################################
