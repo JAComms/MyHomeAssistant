@@ -287,19 +287,19 @@ sensor:
         sorting_weight: 12
 
     auxiliary_battery_voltage:
-      name: "Auxiliary - Battery Voltage"  # SmartShunt - 
+      name: "Battery - Auxiliary Voltage"  # SmartShunt - 
       web_server:
         sorting_group_id: group_victron_smartshunt_sensors
         sorting_weight: 13
 
     min_auxiliary_battery_voltage:
-      name: "Auxiliary - Battery Minimum Voltage"
+      name: "Battery - Auxiliary Minimum Voltage"
       web_server:
         sorting_group_id: group_victron_smartshunt_sensors
         sorting_weight: 14
     
     max_auxiliary_battery_voltage:
-      name: "Auxiliary - Battery Maximum Voltage"
+      name: "Battery - Auxiliary Maximum Voltage"
       web_server:
         sorting_group_id: group_victron_smartshunt_sensors
         sorting_weight: 15
