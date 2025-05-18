@@ -237,9 +237,7 @@ number:
       then:
         - globals.set:
             id: global_solar_array_size
-            value: !lambda "return x;"
-    webserver:
-      sorting_weight: 40
+            value: !lambda "return x;"    
 
 ##########################################################################
 #
@@ -250,7 +248,7 @@ binary_sensor:
     victron_id: victron0
     relay_state:
       name: "Shunt Relay State"
-      icon: 'mdi:connection'
+
 
 ##########################################################################
 #
@@ -457,7 +455,7 @@ sensor:
 
 
   ##########################################################################
-  
+
   - platform: victron
     victron_id: victron1
 
