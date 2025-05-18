@@ -209,27 +209,6 @@ victron:
 # Number Inputs - Used to configure the values used to convert Gas M3 to MJ
 #
 
-number:
-  - platform: template
-    name: "Solar - Array Size"
-    id: input_solar_array_size
-    min_value: 100
-    max_value: 600
-    step: 1.0
-    unit_of_measurement: "W"
-    device_class: "Power"
-    optimistic: true
-    mode: box
-    icon: "mdi:scale"
-    entity_category: config
-    set_action:
-      then:
-        - globals.set:
-            id: global_solar_array_size
-            value: !lambda "return x;"    
-#    web_server:
-#      sorting_weight: 20
-
 
 ##########################################################################
 #
