@@ -255,26 +255,26 @@ sensor:
         sorting_weight: 2
 
     amount_of_charged_energy:
-      name: "Battery - Amount of Charged Energy"
+      name: "Battery - Energy Charged"
       web_server:
         sorting_group_id: group_victron_energy_sensors
         sorting_weight: 3
 
     amount_of_discharged_energy:
-      name: "Battery - Amount of Discharged Energy"
+      name: "Battery - Energy Discharged"
       web_server:
         sorting_group_id: group_victron_energy_sensors
         sorting_weight: 4
 
 
     midpoint_voltage_of_the_battery_bank:
-      name: "Battery - Midpoint Voltage of the Battery Bank"
+      name: "Battery - Battery Bank Midpoint Voltage"
       web_server:
         sorting_group_id: group_victron_smartshunt_sensors
         sorting_weight: 10
 
     midpoint_deviation_of_the_battery_bank:
-      name: "Battery - Midpoint Deviation of the Battery Bank"
+      name: "Battery - Battery Bank Midpoint Deviation"
       web_server:
         sorting_group_id: group_victron_smartshunt_sensors
         sorting_weight: 11
@@ -308,32 +308,32 @@ sensor:
 
 
     depth_of_the_last_discharge:
-      name: "Battery - Depth of the Last Discharge"
+      name: "Battery - Depth Last Discharge"
       web_server:
         sorting_group_id: group_victron_smartshunt_statistics
         sorting_weight: 11
     
     depth_of_the_average_discharge:
-      name: "Battery - Depth of the Average Discharge"
+      name: "Battery - Depth Average Discharge"
       web_server:
         sorting_group_id: group_victron_smartshunt_statistics
         sorting_weight: 12
 
     depth_of_the_deepest_discharge:
-      name: "Battery - Depth of the Deepest Discharge"
+      name: "Battery - Depth Deepest Discharge"
       web_server:
         sorting_group_id: group_victron_smartshunt_statistics
         sorting_weight: 13        
 
     number_of_charge_cycles:
-      name: "Battery - Number of Charge Cycles"
+      name: "Battery - Charge Cycles"
       icon: 'mdi:numeric'
       web_server:
         sorting_group_id: group_victron_smartshunt_statistics
         sorting_weight: 14
 
     number_of_full_discharges:
-      name: "Battery - Number of Full Discharges"
+      name: "Battery - Full Discharges"
       icon: 'mdi:numeric'
       web_server:
         sorting_group_id: group_victron_smartshunt_statistics
