@@ -251,7 +251,6 @@ binary_sensor:
     victron_id: victron0
     relay_state:
       name: "Shunt - Relay State"
-      icon: 'mdi:connection'
 
 
 ##########################################################################
