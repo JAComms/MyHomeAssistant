@@ -244,7 +244,7 @@ number:
 
 ##########################################################################
 #
-# Sensors
+# Binary Sensors
 #
 binary_sensor:
   - platform: victron
@@ -253,6 +253,10 @@ binary_sensor:
       name: "Shunt Relay State"
 
 
+##########################################################################
+#
+# Sensors
+#
 
 sensor:
   - platform: victron
@@ -561,42 +565,7 @@ sensor:
 
 #######################################################################
 
-  - platform: template   # median generated day energy
-    name: "Solar - Yield Daily Median" 
-    id: solar_yield_daily_median
-    icon: "mdi:gauge"
-    unit_of_measurement: "kWh"
-    device_class: "power"
-    lambda: |-
-        return (id(yield_total).state) / (id(solar_day_number).state);
-    update_interval: 10s
-    accuracy_decimals: 3
-    web_server:
-      sorting_group_id: group_victron_solar_statistics
-      sorting_weight: 5
-
-     # Calculates PV panel productivity as compared to total array size
-     # 1000 in Lamba below refers to 1000W array size, update to relect each site
-  - platform: template  
-    name: "Panel Productivity"
-    id: panel_productivity
-    icon: "mdi:gauge"
-    unit_of_measurement: "%"
-    device_class: power_factor
-    state_class: measurement
-    accuracy_decimals: 1
-    lambda: |-
-        if (id(input_solar_array_size).state == 0) {
-          return NAN;
-        }
-        if (((((id(solar_panel_power).state) / id(input_solar_array_size).state ) * 100) >= 120) || ((((id(solar_panel_power).state) / id(input_solar_array_size).state) * 100) < 0)) {
-          return NAN;
-        }
-        return (((id(solar_panel_power).state) / id(input_solar_array_size).state ) * 100);    
-    update_interval: 10s
-    web_server:
-      sorting_group_id: group_victron_solar_statistics
-      sorting_weight: 6
+    # Median generated day energy
 
       
 ##########################################################################
