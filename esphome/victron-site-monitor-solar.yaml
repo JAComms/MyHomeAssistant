@@ -18,13 +18,13 @@ substitutions:
   # Default friendly name 
   friendly_name: "Victron Monitor - JAComms S3 Core"
   # Description as appears in ESPHome & top of webserver page
-  device_description: "WISP Site - Remote Monitoring"
+  device_description: "Remote Site Monitor - Solar & Battery"
   # Allows ESP device to be automatically lined to an 'Area' in Home Assistant. Enter the remote stations site name here.
   location: "Site-name"
   # Location geographical height, in meters. Used for calculations in sensors such as BME280/BME680 and Water Tank sensors. Goulburn (673)
   location_height: "673"
   # Project Name
-  project_name: "JAComms.Victron Monitor"
+  project_name: "JAComms.Victron Site Monitor - Solar"
   # Project version denotes the release version of the yaml file, allowing checking of deployed vs latest version
   project_version: "0.2.0"
   # The phase in the locations power supply, upon which this device is utilsed. 1p = A. 3p = A, B or C.  (GPO 1 = Phase A, GPO 2 = Phase B, GPO 3 = Phase C).
