@@ -419,7 +419,7 @@ sensor:
         sorting_group_id: group_victron_alarm_sensors
         sorting_weight: 6
     
-
+TAB
   ##########################################################################
   
   - platform: victron
