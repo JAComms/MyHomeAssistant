@@ -64,12 +64,7 @@ substitutions:
 #
 # Restore input values from the valued stored by their respective globals
 #
-esphome:
-  on_boot:
-    priority: -10  # Ensure this runs before other components rely on the numbers' values
-    then:
-      - lambda: |-
-          id(input_solar_array_size).publish_state(id(global_solar_array_size));
+
 
 
 #########################################################################
@@ -338,7 +333,7 @@ sensor:
       web_server:
         sorting_group_id: group_victron_smartshunt_sensors
         sorting_weight: 11
-        
+
     dc_monitor_mode_id:
       name: "Battery - DC Monitor Mode ID"
       icon: 'mdi:id-card'
@@ -357,7 +352,7 @@ sensor:
       web_server:
         sorting_group_id: group_victron_smartshunt_sensors
         sorting_weight: 14
-    
+
     max_auxiliary_battery_voltage:
       name: "Battery - Auxiliary Maximum Voltage"
       web_server:
@@ -566,6 +561,42 @@ sensor:
 #######################################################################
 
     # Median generated day energy
+  - platform: template   
+    name: "Solar - Yield Daily Median" 
+    id: solar_yield_daily_median
+    unit_of_measurement: "kWh"
+    device_class: "power"
+    icon: "mdi:gauge"
+    lambda: |-
+        return (id(yield_total).state) / (id(solar_day_number).state);
+    update_interval: 10s
+    accuracy_decimals: 3
+    web_server:
+      sorting_group_id: group_victron_solar_statistics
+      sorting_weight: 5
+
+    # Calculates PV panel productivity as compared to total array size
+    # 1000 in Lamba below refers to 1000W array size, update to relect each site
+  - platform: template  
+    name: "Panel Productivity"
+    id: panel_productivity
+    unit_of_measurement: "%"
+    device_class: power_factor
+    state_class: measurement
+    icon: "mdi:gauge"
+    accuracy_decimals: 1
+    lambda: |-
+        if (id(input_solar_array_size).state == 0) {
+          return NAN;
+        }
+        if (((((id(solar_panel_power).state) / id(input_solar_array_size).state ) * 100) >= 120) || ((((id(solar_panel_power).state) / id(input_solar_array_size).state) * 100) < 0)) {
+          return NAN;
+        }
+        return (((id(solar_panel_power).state) / id(input_solar_array_size).state ) * 100);    
+    update_interval: 10s
+    web_server:
+      sorting_group_id: group_victron_solar_statistics
+      sorting_weight: 6
 
       
 ##########################################################################
