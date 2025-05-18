@@ -515,18 +515,21 @@ text_sensor:
     
     model_description:
       name: "Shunt - Model Description"
+      icon: 'mdi:card-text-outline'
       web_server:
         sorting_group_id: group_victron_device_information
         sorting_weight: 1
 
     device_type:
       name: "Shunt - Device Type"
+      icon: 'mdi:format-list-bulleted-type'
       web_server:
         sorting_group_id: group_victron_device_information
         sorting_weight: 2
 
     firmware_version:
       name: "Shunt - Firmware Version"
+      icon: 'mdi:numeric'
       web_server:
         sorting_group_id: group_victron_device_information
         sorting_weight: 3
@@ -574,12 +577,14 @@ text_sensor:
     
     device_type:
       name: "Solar - Device Type"
+      icon: 'mdi:format-list-bulleted-type'
       web_server:
         sorting_group_id: group_victron_device_information
         sorting_weight: 10
     
     firmware_version:
       name: "Solar - Firmware Version"
+      icon: 'mdi:numeric'
       web_server:
         sorting_group_id: group_victron_device_information
         sorting_weight: 11
