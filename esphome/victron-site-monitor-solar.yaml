@@ -225,7 +225,7 @@ number:
     name: "Solar - Array Size"
     id: input_solar_array_size
     min_value: 100
-    max_value: 5000
+    max_value: 600
     step: 1.0
     unit_of_measurement: "W"
     device_class: "Power"
@@ -238,8 +238,8 @@ number:
         - globals.set:
             id: global_solar_array_size
             value: !lambda "return x;"    
-    web_server:
-      sorting_weight: 1
+#    web_server:
+#      sorting_weight: 20
 
 
 ##########################################################################
@@ -541,21 +541,21 @@ sensor:
       web_server:
         sorting_group_id: group_victron_solar_sensors
         sorting_weight: 7
-    
+
     charging_mode_id:
       name: "Solar - Charging Mode ID"
       icon: 'mdi:numeric'
       web_server:
         sorting_group_id: group_victron_solar_sensors
         sorting_weight: 9
-       
+
     tracking_mode_id:
       name: "Solar - Tracking Mode ID"
       icon: 'mdi:numeric'
       web_server:
         sorting_group_id: group_victron_solar_sensors
         sorting_weight: 11
-    
+
     error_code:
       name: "Solar - Error Code"
       icon: 'mdi:alert-box-outline'
@@ -622,7 +622,7 @@ text_sensor:
       web_server:
         sorting_group_id: group_victron_alarm_sensors
         sorting_weight: 2
-    
+
     model_description:
       name: "Shunt - Model Description"
       icon: 'mdi:card-text-outline'
@@ -707,4 +707,3 @@ text_sensor:
         sorting_weight: 12
 
 ##########################################################################
-      
