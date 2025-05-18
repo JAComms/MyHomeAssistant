@@ -104,14 +104,14 @@ web_server:
       name: Victron - SmartShunt Statistics
       sorting_weight: -8
 
-    - id: group_victron_power_sensors
-      name: Victron - Power Sensors
-      sorting_weight: -6
-    
     - id: group_victron_solar_sensors
       name: Victron - Solar Sensors
-      sorting_weight: -4
+      sorting_weight: -6
 
+    - id: group_victron_solar_statistics
+      name: Victron - Solar Statistics
+      sorting_weight: -4
+    
     - id: group_victron_alarm_sensors
       name: Victron - Alarm Sensors
       sorting_weight: -2
