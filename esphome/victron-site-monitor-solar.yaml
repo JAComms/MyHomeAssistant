@@ -26,7 +26,7 @@ substitutions:
   # Project Name
   project_name: "JAComms.Site Monitor - Solar"
   # Project version denotes the release version of the yaml file, allowing checking of deployed vs latest version
-  project_version: "0.2.1"
+  project_version: "0.3.0"
   # The phase in the locations power supply, upon which this device is utilsed. 1p = A. 3p = A, B or C.  (GPO 1 = Phase A, GPO 2 = Phase B, GPO 3 = Phase C).
   # Used to populate a Text Sensor with this information, that may be used to loadshed in future, or trace outages to electrical faults.
   power_circuit: "TBA"
@@ -233,13 +233,13 @@ number:
     mode: box
     icon: "mdi:scale"
     entity_category: config
+    webserver:
+      sorting_weight: 40
     set_action:
       then:
         - globals.set:
             id: global_solar_array_size
             value: !lambda "return x;"
-    webserver:
-      sorting_weight: 40
 
 ##########################################################################
 #
