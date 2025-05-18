@@ -64,7 +64,12 @@ substitutions:
 #
 # Restore input values from the valued stored by their respective globals
 #
-
+esphome:
+  on_boot:
+    priority: -10  # Ensure this runs before other components rely on the numbers' values
+    then:
+      - lambda: |-
+          id(input_solar_array_size).publish_state(id(global_solar_array_size));
 
 
 #########################################################################
@@ -147,6 +152,12 @@ external_components:
 
 #######################################################################################
 
+globals:
+
+  - id: global_solar_array_size
+    type: float
+    restore_value: true
+
 
 #########################################################################
 #
@@ -202,4 +213,89 @@ victron:
   - id: victron1
     uart_id: uart_1
     throttle: 10s
+
+
+#######################################################################################
+#
+# Number Inputs - Used to configure the values used to convert Gas M3 to MJ
+#
+
+number:
+  - platform: template
+    name: "Solar - Array Size"
+    id: input_solar_array_size
+    min_value: 100
+    max_value: 600
+    step: 1.0
+    unit_of_measurement: "W"
+    device_class: "Power"
+    optimistic: true
+    mode: box
+    icon: "mdi:scale"
+    entity_category: config
+    set_action:
+      then:
+        - globals.set:
+            id: global_solar_array_size
+            value: !lambda "return x;"    
+#    web_server:
+#      sorting_weight: 20
+
+
+##########################################################################
+#
+# Binary Sensors
+#
+binary_sensor:
+  - platform: victron
+    victron_id: victron0
+    relay_state:
+      name: "Shunt Relay State"
+
+
+##########################################################################
+#
+# Sensors
+#
+
+sensor:
+  - platform: victron
+    victron_id: victron0
+
+    instantaneous_power:
+      name: "Battery - Instantaneous Power"
+      web_server:
+        sorting_group_id: group_victron_smartshunt_sensors
+        sorting_weight: 1
+        
+    battery_voltage:
+      name: "Battery - Voltage"   # SmartShunt - 
+      web_server:
+        sorting_group_id: group_victron_smartshunt_sensors
+        sorting_weight: 2
+
+    battery_current:
+      name: "Battery - Current"   # SmartShunt - 
+      web_server:
+        sorting_group_id: group_victron_smartshunt_sensors
+        sorting_weight: 3
+
+    state_of_charge:
+      name: "Battery - State of Charge"  # SmartShunt - 
+      web_server:
+        sorting_group_id: group_victron_smartshunt_sensors
+        sorting_weight: 4
+
+    time_to_go:
+      name: "Battery - Runtime"    # Battery Runtime
+      web_server:
+        sorting_group_id: group_victron_smartshunt_sensors
+        sorting_weight: 5
+
+    battery_temperature:
+      name: "Battery - Temperature"
+      icon: 'mdi:temperature-celsius'
+      web_server:
+        sorting_group_id: group_victron_smartshunt_sensors
+        sorting_weight: 6
 
