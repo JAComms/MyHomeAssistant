@@ -62,6 +62,18 @@ substitutions:
 
 ########################## End of Substitutions #########################
 #
+# Restore input values from the valued stored by their respective globals
+#
+esphome:
+  on_boot:
+    priority: -10  # Ensure this runs before other components rely on the numbers' values
+    then:
+      - lambda: |-
+          id(input_solar_array_size).publish_state(id(global_solar_array_size));
+
+
+#########################################################################
+#
 # Remote Packages to be utilised
 #
 
@@ -138,6 +150,15 @@ external_components:
     refresh: 0s
     components: [ victron ]
 
+#######################################################################################
+
+globals:
+
+  - id: global_solar_array_size
+    type: float
+    restore_value: true
+
+
 #########################################################################
 #
 # Web_server v3 Sort Groups - These substitutes are applied to overwrite the default ones supplied by the 
@@ -192,7 +213,34 @@ victron:
   - id: victron1
     uart_id: uart_1
     throttle: 10s
-    
+
+
+#######################################################################################
+#
+# Number Inputs - Used to configure the values used to convert Gas M3 to MJ
+#
+
+number:
+  - platform: template
+    name: "Solar - Array Size"
+    id: input_solar_array_size
+    min_value: 100
+    max_value: 600
+    step: 1.0
+    unit_of_measurement: "W"
+    device_class: "Power"
+    optimistic: true
+    mode: box
+    icon: "mdi:scale"
+    entity_category: config
+    set_action:
+      then:
+        - globals.set:
+            id: global_solar_array_size
+            value: !lambda "return x;"    
+#    web_server:
+#      sorting_weight: 20
+
 
 ##########################################################################
 #
@@ -247,7 +295,7 @@ sensor:
         sorting_group_id: group_victron_smartshunt_sensors
         sorting_weight: 6
 
-
+##############################################################################
         
     consumed_amp_hours:
       name: "Battery - Consumed Amp Hours"
@@ -273,6 +321,7 @@ sensor:
         sorting_group_id: group_victron_energy_sensors
         sorting_weight: 4
 
+###############################################################################
 
     midpoint_voltage_of_the_battery_bank:
       name: "Battery - Bank Midpoint Voltage"
@@ -311,8 +360,7 @@ sensor:
         sorting_group_id: group_victron_smartshunt_sensors
         sorting_weight: 15
 
-
-
+############################################################################
 
     depth_of_the_last_discharge:
       name: "Battery - Depth Last Discharge"
@@ -373,7 +421,7 @@ sensor:
         sorting_weight: 19
 
 
-
+##########################################################################
 
 
     number_of_high_main_voltage_alarms:
@@ -413,36 +461,76 @@ sensor:
     yield_today:
       name: "Solar - Yield Today"
       web_server:
-        sorting_group_id: group_victron_power_sensors
+        sorting_group_id: group_victron_solar_statistics
         sorting_weight: 1
 
     yield_yesterday:
       name: "Solar - Yield Yesterday"
       web_server:
-        sorting_group_id: group_victron_power_sensors
+        sorting_group_id: group_victron_solar_statistics
         sorting_weight: 2
 
     yield_total:
       name: "Solar - Yield Total"
+      id: solar_yield_total
       web_server:
-        sorting_group_id: group_victron_power_sensors
+        sorting_group_id: group_victron_solar_statistics
         sorting_weight: 3
 
     max_power_today:
       name: "Solar - Max Power Today"
       web_server:
-        sorting_group_id: group_victron_power_sensors
-        sorting_weight: 4
+        sorting_group_id: group_victron_solar_statistics
+        sorting_weight: 5
   
     max_power_yesterday:
       name: "Solar - Max Power Yesterday"
       web_server:
-        sorting_group_id: group_victron_power_sensors
-        sorting_weight: 5
+        sorting_group_id: group_victron_solar_statistics
+        sorting_weight: 6
+
+  - platform: template   # median generated day energy
+    name: "Solar - Yield Daily Media" 
+    id: solar_yield_median
+    icon: "mdi:gauge"
+    unit_of_measurement: "kWh"
+    device_class: "power"
+    lambda: |-
+        return (id(yield_total).state) / (id(solar_day_number).state);
+    update_interval: 10s
+    accuracy_decimals: 3
+    web_server:
+      sorting_group_id: group_victron_solar_statistics
+      sorting_weight: 5
+
+     # Calculates PV panel productivity as compared to total array size
+     # 1000 in Lamba below refers to 1000W array size, update to relect each site
+  - platform: template  
+    name: "Panel Productivity"
+    id: panel_productivity
+    icon: "mdi:gauge"
+    unit_of_measurement: "%"
+    device_class: power_factor
+    state_class: measurement
+    accuracy_decimals: 1
+    lambda: |-
+        if (id(input_solar_array_size).state == 0) {
+          return NAN;
+        }
+        if (((((id(solar_panel_power).state) / id(input_solar_array_size).state ) * 100) >= 120) || ((((id(solar_panel_power).state) / id(input_solar_array_size).state) * 100) < 0)) {
+          return NAN;
+        }
+        return (((id(solar_panel_power).state) / id(input_solar_array_size).state ) * 100);    
+    update_interval: 10s
+    web_server:
+      sorting_group_id: group_victron_solar_statistics
+      sorting_weight: 6
         
+#######################################################################
     
     panel_power:
       name: "Solar - Panel Power"
+      id: solar_panel_power
       web_server:
         sorting_group_id: group_victron_solar_sensors
         sorting_weight: 1
@@ -464,40 +552,47 @@ sensor:
       web_server:
         sorting_group_id: group_victron_solar_sensors
         sorting_weight: 4
-    
-    day_number:
-      name: "Solar - Day Number"
-      icon: 'mdi:counter'
+
+    battery_current:
+      name: "Solar - Battery Current"
       web_server:
         sorting_group_id: group_victron_solar_sensors
         sorting_weight: 5
+    
+    day_number:
+      name: "Solar - Day Number"
+      id: solar_day_number
+      icon: 'mdi:counter'
+      web_server:
+        sorting_group_id: group_victron_solar_sensors
+        sorting_weight: 6
 
     load_current:
       name: "Solar - Load Current"
       web_server:
         sorting_group_id: group_victron_solar_sensors
-        sorting_weight: 6
+        sorting_weight: 7
     
     charging_mode_id:
       name: "Solar - Charging Mode ID"
       icon: 'mdi:numeric'
       web_server:
         sorting_group_id: group_victron_solar_sensors
-        sorting_weight: 8
+        sorting_weight: 9
        
     tracking_mode_id:
       name: "Solar - Tracking Mode ID"
       icon: 'mdi:numeric'
       web_server:
         sorting_group_id: group_victron_solar_sensors
-        sorting_weight: 10
+        sorting_weight: 11
     
     error_code:
       name: "Solar - Error Code"
       icon: 'mdi:alert-box-outline'
       web_server:
         sorting_group_id: group_victron_solar_sensors
-        sorting_weight: 12
+        sorting_weight: 13
       
 
 ##########################################################################
