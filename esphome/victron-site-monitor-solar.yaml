@@ -264,7 +264,7 @@ sensor:
       web_server:
         sorting_group_id: group_victron_smartshunt_sensors
         sorting_weight: 1
-        
+
     battery_voltage:
       name: "Battery - Voltage"   # SmartShunt - 
       web_server:
@@ -297,7 +297,7 @@ sensor:
         sorting_weight: 6
 
 ##############################################################################
-        
+
     consumed_amp_hours:
       name: "Battery - Consumed Amp Hours"
       web_server:
@@ -354,7 +354,7 @@ sensor:
       web_server:
         sorting_group_id: group_victron_smartshunt_sensors
         sorting_weight: 14
-    
+
     max_auxiliary_battery_voltage:
       name: "Battery - Auxiliary Maximum Voltage"
       web_server:
@@ -368,7 +368,7 @@ sensor:
       web_server:
         sorting_group_id: group_victron_smartshunt_statistics
         sorting_weight: 11
-    
+
     depth_of_the_average_discharge:
       name: "Battery - Depth Average Discharge"
       web_server:
@@ -394,19 +394,19 @@ sensor:
       web_server:
         sorting_group_id: group_victron_smartshunt_statistics
         sorting_weight: 15
-    
+
     last_full_charge:
       name: "Battery - Last Full Charge"
       web_server:
         sorting_group_id: group_victron_smartshunt_statistics
         sorting_weight: 16
-        
+
     min_battery_voltage:
       name: "Battery - Min Battery Voltage"
       web_server:
         sorting_group_id: group_victron_smartshunt_statistics
         sorting_weight: 17
-    
+
     max_battery_voltage:
       name: "Battery - Max Battery Voltage"
       web_server:
@@ -445,7 +445,7 @@ sensor:
       web_server:
         sorting_group_id: group_victron_alarm_sensors
         sorting_weight: 5
-    
+
     number_of_low_auxiliary_voltage_alarms:
       name: "Battery - Low Auxiliary Voltage Alarms"
       icon: 'mdi:numeric'
@@ -455,7 +455,7 @@ sensor:
 
 
   ##########################################################################
-
+  
   - platform: victron
     victron_id: victron1
 
@@ -482,16 +482,16 @@ sensor:
       name: "Solar - Max Power Today"
       web_server:
         sorting_group_id: group_victron_solar_statistics
-        sorting_weight: 5
-  
+        sorting_weight: 6
+
     max_power_yesterday:
       name: "Solar - Max Power Yesterday"
       web_server:
         sorting_group_id: group_victron_solar_statistics
-        sorting_weight: 6
+        sorting_weight: 7
 
 #######################################################################
-    
+
     panel_power:
       name: "Solar - Panel Power"
       id: solar_panel_power
@@ -504,13 +504,13 @@ sensor:
       web_server:
         sorting_group_id: group_victron_solar_sensors
         sorting_weight: 2
-    
+
     battery_current:
       name: "Solar - Panel Current"
       web_server:
         sorting_group_id: group_victron_solar_sensors
         sorting_weight: 3
-    
+
     battery_voltage:
       name: "Solar - Battery Voltage"
       web_server:
@@ -522,7 +522,7 @@ sensor:
       web_server:
         sorting_group_id: group_victron_solar_sensors
         sorting_weight: 5
-    
+
     day_number:
       name: "Solar - Day Number"
       id: solar_day_number
@@ -573,7 +573,7 @@ sensor:
     accuracy_decimals: 3
     web_server:
       sorting_group_id: group_victron_solar_statistics
-      sorting_weight: 5
+      sorting_weight: 4
 
     # Calculates PV panel productivity as compared to total array size
     # 1000 in Lamba below refers to 1000W array size, update to relect each site
@@ -596,7 +596,7 @@ sensor:
     update_interval: 10s
     web_server:
       sorting_group_id: group_victron_solar_statistics
-      sorting_weight: 6
+      sorting_weight: 5
 
 ##########################################################################
 
