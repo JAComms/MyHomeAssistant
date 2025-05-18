@@ -233,8 +233,6 @@ number:
     mode: box
     icon: "mdi:scale"
     entity_category: config
-    webserver:
-      sorting_weight: 40
     set_action:
       then:
         - globals.set:
