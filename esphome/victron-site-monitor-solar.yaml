@@ -225,7 +225,7 @@ number:
     name: "Solar - Array Size"
     id: input_solar_array_size
     min_value: 100
-    max_value: 600
+    max_value: 5000
     step: 1.0
     unit_of_measurement: "W"
     device_class: "Power"
@@ -238,9 +238,6 @@ number:
         - globals.set:
             id: global_solar_array_size
             value: !lambda "return x;"    
-#    web_server:
-#      sorting_weight: 20
-
 
 ##########################################################################
 #
@@ -424,66 +421,6 @@ sensor:
         sorting_group_id: group_victron_smartshunt_statistics
         sorting_weight: 19
 
-############################################################################
-
-    depth_of_the_last_discharge:
-      name: "Battery - Depth Last Discharge"
-      web_server:
-        sorting_group_id: group_victron_smartshunt_statistics
-        sorting_weight: 11
-    
-    depth_of_the_average_discharge:
-      name: "Battery - Depth Average Discharge"
-      web_server:
-        sorting_group_id: group_victron_smartshunt_statistics
-        sorting_weight: 12
-
-    depth_of_the_deepest_discharge:
-      name: "Battery - Depth Deepest Discharge"
-      web_server:
-        sorting_group_id: group_victron_smartshunt_statistics
-        sorting_weight: 13        
-
-    number_of_charge_cycles:
-      name: "Battery - Charge Cycles"
-      icon: 'mdi:numeric'
-      web_server:
-        sorting_group_id: group_victron_smartshunt_statistics
-        sorting_weight: 14
-
-    number_of_full_discharges:
-      name: "Battery - Full Discharges"
-      icon: 'mdi:numeric'
-      web_server:
-        sorting_group_id: group_victron_smartshunt_statistics
-        sorting_weight: 15
-    
-    last_full_charge:
-      name: "Battery - Last Full Charge"
-      web_server:
-        sorting_group_id: group_victron_smartshunt_statistics
-        sorting_weight: 16
-        
-    min_battery_voltage:
-      name: "Battery - Min Battery Voltage"
-      web_server:
-        sorting_group_id: group_victron_smartshunt_statistics
-        sorting_weight: 17
-    
-    max_battery_voltage:
-      name: "Battery - Max Battery Voltage"
-      web_server:
-        sorting_group_id: group_victron_smartshunt_statistics
-        sorting_weight: 18
-
-
-    number_of_automatic_synchronizations:
-      name: "Battery - Automatic Synchronizations"
-      icon: 'mdi:numeric'
-      web_server:
-        sorting_group_id: group_victron_smartshunt_statistics
-        sorting_weight: 19
-
 
 ##########################################################################
 
@@ -518,7 +455,6 @@ sensor:
 
 
   ##########################################################################
-
   
   - platform: victron
     victron_id: victron1
@@ -557,7 +493,7 @@ sensor:
 #   This sensor group continued at line: 564
 
 #######################################################################
-
+    
     panel_power:
       name: "Solar - Panel Power"
       id: solar_panel_power
