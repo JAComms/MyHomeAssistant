@@ -335,7 +335,7 @@ sensor:
       web_server:
         sorting_group_id: group_victron_smartshunt_sensors
         sorting_weight: 11
-        
+
     dc_monitor_mode_id:
       name: "Battery - DC Monitor Mode ID"
       icon: 'mdi:id-card'
@@ -493,7 +493,7 @@ sensor:
 #   This sensor group continued at line: 564
 
 #######################################################################
-    
+
     panel_power:
       name: "Solar - Panel Power"
       id: solar_panel_power
