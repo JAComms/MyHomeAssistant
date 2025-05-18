@@ -93,32 +93,33 @@ web_server:
 ##################################################
 
     - id: group_victron_smartshunt_sensors
-      name: Victron - SmartShunt Sensors
+      name: "Victron - SmartShunt Sensors"
       sorting_weight: -12
 
     - id: group_victron_energy_sensors
-      name: Victron - Energy Sensors
-      sorting_weight: -10      
+      name: "Victron - Energy Sensors"
+      sorting_weight: -10
 
     - id: group_victron_smartshunt_statistics
-      name: Victron - SmartShunt Statistics
+      name: "Victron - SmartShunt Statistics"
       sorting_weight: -8
 
     - id: group_victron_solar_sensors
-      name: Victron - Solar Sensors
+      name: "Victron - Solar Sensors"
       sorting_weight: -6
 
     - id: group_victron_solar_statistics
-      name: Victron - Solar Statistics
+      name: "Victron - Solar Statistics"
       sorting_weight: -4
-    
+
     - id: group_victron_alarm_sensors
-      name: Victron - Alarm Sensors
+      name: ""Victron - Alarm Sensors"
       sorting_weight: -2
-  
+
     - id: group_victron_device_information
-      name: Victron - Device Information
+      name: "Victron - Device Information"
       sorting_weight: 0
+
 ##################################################
 
 
