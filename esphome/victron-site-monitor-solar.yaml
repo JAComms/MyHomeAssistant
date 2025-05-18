@@ -490,8 +490,8 @@ sensor:
         sorting_weight: 6
 
   - platform: template   # median generated day energy
-    name: "Solar - Yield Daily Media" 
-    id: solar_yield_median
+    name: "Solar - Yield Daily Median" 
+    id: solar_yield_daily_median
     icon: "mdi:gauge"
     unit_of_measurement: "kWh"
     device_class: "power"
