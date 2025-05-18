@@ -722,3 +722,49 @@ text_sensor:
 
 ##########################################################################
 
+  - platform: victron
+    victron_id: victron1		
+
+    charging_mode:
+      name: "Solar - Charging Mode"
+      icon: 'mdi:auto-mode'
+      web_server:
+        sorting_group_id: group_victron_solar_sensors
+        sorting_weight: 7
+
+    error:
+      name: "Solar - Error"
+      icon: 'mdi:alert-circle-outline'
+      web_server:
+        sorting_group_id: group_victron_solar_sensors
+        sorting_weight: 11
+
+    tracking_mode:
+      name: "Solar - Tracking Mode"
+      icon: 'mdi:auto-mode'
+      web_server:
+        sorting_group_id: group_victron_solar_sensors
+        sorting_weight: 9
+
+    device_type:
+      name: "Solar - Device Type"
+      icon: 'mdi:format-list-bulleted-type'
+      web_server:
+        sorting_group_id: group_victron_device_information
+        sorting_weight: 10
+
+    firmware_version:
+      name: "Solar - Firmware Version"
+      icon: 'mdi:numeric'
+      web_server:
+        sorting_group_id: group_victron_device_information
+        sorting_weight: 11
+
+    serial_number:
+      name: "Solar - Serial Number"
+      icon: 'mdi:barcode'
+      web_server:
+        sorting_group_id: group_victron_device_information
+        sorting_weight: 12
+
+##########################################################################
