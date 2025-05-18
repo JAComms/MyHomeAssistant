@@ -225,7 +225,7 @@ number:
     name: "Solar - Array Size"
     id: input_solar_array_size
     min_value: 100
-    max_value: 600
+    max_value: 5000
     step: 1.0
     unit_of_measurement: "W"
     device_class: "Power"
@@ -238,8 +238,8 @@ number:
         - globals.set:
             id: global_solar_array_size
             value: !lambda "return x;"    
-#    web_server:
-#      sorting_weight: 20
+    web_server:
+      sorting_weight: 1
 
 
 ##########################################################################
