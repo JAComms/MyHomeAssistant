@@ -268,13 +268,13 @@ sensor:
 
 
     midpoint_voltage_of_the_battery_bank:
-      name: "Battery - Battery Bank Midpoint Voltage"
+      name: "Battery - Bank Midpoint Voltage"
       web_server:
         sorting_group_id: group_victron_smartshunt_sensors
         sorting_weight: 10
 
     midpoint_deviation_of_the_battery_bank:
-      name: "Battery - Battery Bank Midpoint Deviation"
+      name: "Battery - Bank Midpoint Deviation"
       web_server:
         sorting_group_id: group_victron_smartshunt_sensors
         sorting_weight: 11
