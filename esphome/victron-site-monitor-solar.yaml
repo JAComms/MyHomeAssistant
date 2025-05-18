@@ -225,7 +225,7 @@ number:
     name: "Solar - Array Size"
     id: input_solar_array_size
     min_value: 100
-    max_value: 600
+    max_value: 5000
     step: 1.0
     unit_of_measurement: "W"
     device_class: "Power"
@@ -250,7 +250,7 @@ binary_sensor:
   - platform: victron
     victron_id: victron0
     relay_state:
-      name: "Shunt Relay State"
+      name: "Shunt - Relay State"
       icon: 'mdi:connection'
 
 
