@@ -423,3 +423,98 @@ sensor:
       web_server:
         sorting_group_id: group_victron_smartshunt_statistics
         sorting_weight: 19
+
+############################################################################
+
+    depth_of_the_last_discharge:
+      name: "Battery - Depth Last Discharge"
+      web_server:
+        sorting_group_id: group_victron_smartshunt_statistics
+        sorting_weight: 11
+    
+    depth_of_the_average_discharge:
+      name: "Battery - Depth Average Discharge"
+      web_server:
+        sorting_group_id: group_victron_smartshunt_statistics
+        sorting_weight: 12
+
+    depth_of_the_deepest_discharge:
+      name: "Battery - Depth Deepest Discharge"
+      web_server:
+        sorting_group_id: group_victron_smartshunt_statistics
+        sorting_weight: 13        
+
+    number_of_charge_cycles:
+      name: "Battery - Charge Cycles"
+      icon: 'mdi:numeric'
+      web_server:
+        sorting_group_id: group_victron_smartshunt_statistics
+        sorting_weight: 14
+
+    number_of_full_discharges:
+      name: "Battery - Full Discharges"
+      icon: 'mdi:numeric'
+      web_server:
+        sorting_group_id: group_victron_smartshunt_statistics
+        sorting_weight: 15
+    
+    last_full_charge:
+      name: "Battery - Last Full Charge"
+      web_server:
+        sorting_group_id: group_victron_smartshunt_statistics
+        sorting_weight: 16
+        
+    min_battery_voltage:
+      name: "Battery - Min Battery Voltage"
+      web_server:
+        sorting_group_id: group_victron_smartshunt_statistics
+        sorting_weight: 17
+    
+    max_battery_voltage:
+      name: "Battery - Max Battery Voltage"
+      web_server:
+        sorting_group_id: group_victron_smartshunt_statistics
+        sorting_weight: 18
+
+
+    number_of_automatic_synchronizations:
+      name: "Battery - Automatic Synchronizations"
+      icon: 'mdi:numeric'
+      web_server:
+        sorting_group_id: group_victron_smartshunt_statistics
+        sorting_weight: 19
+
+
+##########################################################################
+
+
+    number_of_high_main_voltage_alarms:
+      name: "Battery - High Main Voltage Alarms"
+      icon: 'mdi:numeric'
+      web_server:
+        sorting_group_id: group_victron_alarm_sensors
+        sorting_weight: 3
+
+    number_of_low_main_voltage_alarms:
+      name: "Battery - Low Main Voltage Alarms"
+      icon: 'mdi:numeric'
+      web_server:
+        sorting_group_id: group_victron_alarm_sensors
+        sorting_weight: 4
+
+    number_of_high_auxiliary_voltage_alarms:
+      name: "Battery - High Auxiliary Voltage Alarms"
+      icon: 'mdi:numeric'
+      web_server:
+        sorting_group_id: group_victron_alarm_sensors
+        sorting_weight: 5
+    
+    number_of_low_auxiliary_voltage_alarms:
+      name: "Battery - Low Auxiliary Voltage Alarms"
+      icon: 'mdi:numeric'
+      web_server:
+        sorting_group_id: group_victron_alarm_sensors
+        sorting_weight: 6
+
+
+  ##########################################################################
