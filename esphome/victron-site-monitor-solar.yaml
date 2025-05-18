@@ -456,8 +456,6 @@ sensor:
         sorting_group_id: group_victron_solar_statistics
         sorting_weight: 6
 
-#   This sensor group continued at line: 564
-
 #######################################################################
     
     panel_power:
