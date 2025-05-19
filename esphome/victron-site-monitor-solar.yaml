@@ -83,7 +83,7 @@ dashboard_import:
 
 
 packages:
-  utilities_monitor:
+  base_config:
     url: https://github.com/jacomms/myhomeassistant
     ref: main
     files: [esphome/common/base-configuration.yaml]
@@ -99,19 +99,19 @@ packages:
     url: https://github.com/jacomms/myhomeassistant
     ref: main
     files: [esphome/common/webserver-groups.yaml]
-    refresh: 5s
+    refresh: 1h
 
   bme280a_sensors:
     url: https://github.com/jacomms/myhomeassistant
     ref: main
     files: [esphome/sensors/bme280-bus-a.yaml]
-    refresh: 1h    
+    refresh: 5s
 
   dallas_temp_sensors:
     url: https://github.com/jacomms/myhomeassistant
     ref: main
     files: [esphome/sensors/ds18b20-1wire.yaml]
-    refresh: 1h   
+    refresh: 5s   
 
   esp32_system_board:
     url: https://github.com/jacomms/myhomeassistant
