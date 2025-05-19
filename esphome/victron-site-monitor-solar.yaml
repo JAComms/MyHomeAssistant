@@ -228,6 +228,24 @@ victron:
 # Date Input
 #
 
+#datetime:
+#  - platform: template
+#    name: Battery - Installed Date
+#    id: input_battery_installed_date
+#    type: date
+#    initial_value: "2020-01-01"
+#    optimistic: yes
+#    icon: 'mdi:calendar'
+#    set_action:
+#      then:
+#        - globals.set:
+#            id: global_battery_installed_date
+#            value: !lambda "return x;"
+#    entity_category: config
+#    web_server:
+#      sorting_weight: 50
+
+
 datetime:
   - platform: template
     name: Battery - Installed Date
@@ -240,11 +258,16 @@ datetime:
       then:
         - globals.set:
             id: global_battery_installed_date
-            value: !lambda "return x;"
+            value: !lambda |-
+              char buffer[11];
+              snprintf(buffer, sizeof(buffer), "%04d-%02d-%02d", x.year, x.month, x.day);
+              return std::string(buffer);
+        - logger.log:
+            format: "Set battery installed date: %s"
+            args: ["x.to_string().c_str()"]
     entity_category: config
     web_server:
       sorting_weight: 50
-
 
 #######################################################################################
 #
