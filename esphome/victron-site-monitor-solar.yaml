@@ -490,3 +490,214 @@ sensor:
         sorting_group_id: group_victron_solar_statistics
         sorting_weight: 7
 
+#######################################################################
+
+    panel_power:
+      name: "Solar - Panel Power"
+      id: solar_panel_power
+      web_server:
+        sorting_group_id: group_victron_solar_sensors
+        sorting_weight: 1
+
+    panel_voltage:
+      name: "Solar - Panel Voltage"
+      web_server:
+        sorting_group_id: group_victron_solar_sensors
+        sorting_weight: 2
+
+    battery_current:
+      name: "Solar - Panel Current"
+      web_server:
+        sorting_group_id: group_victron_solar_sensors
+        sorting_weight: 3
+
+    battery_voltage:
+      name: "Solar - Battery Voltage"
+      web_server:
+        sorting_group_id: group_victron_solar_sensors
+        sorting_weight: 4
+
+    battery_current:
+      name: "Solar - Battery Current"
+      web_server:
+        sorting_group_id: group_victron_solar_sensors
+        sorting_weight: 5
+
+    day_number:
+      name: "Solar - Day Number"
+      id: solar_day_number
+      icon: 'mdi:counter'
+      web_server:
+        sorting_group_id: group_victron_solar_sensors
+        sorting_weight: 6
+
+    load_current:
+      name: "Solar - Load Current"
+      web_server:
+        sorting_group_id: group_victron_solar_sensors
+        sorting_weight: 7
+
+    charging_mode_id:
+      name: "Solar - Charging Mode ID"
+      icon: 'mdi:numeric'
+      web_server:
+        sorting_group_id: group_victron_solar_sensors
+        sorting_weight: 9
+
+    tracking_mode_id:
+      name: "Solar - Tracking Mode ID"
+      icon: 'mdi:numeric'
+      web_server:
+        sorting_group_id: group_victron_solar_sensors
+        sorting_weight: 11
+
+    error_code:
+      name: "Solar - Error Code"
+      icon: 'mdi:alert-box-outline'
+      web_server:
+        sorting_group_id: group_victron_solar_sensors
+        sorting_weight: 13
+
+#######################################################################
+
+    # Median generated day energy
+  - platform: template   
+    name: "Solar - Yield Daily Median" 
+    id: solar_yield_daily_median
+    unit_of_measurement: "kWh"
+    device_class: "power"
+    icon: "mdi:gauge"
+    lambda: |-
+        return (id(yield_total).state) / (id(solar_day_number).state);
+    update_interval: 10s
+    accuracy_decimals: 3
+    web_server:
+      sorting_group_id: group_victron_solar_statistics
+      sorting_weight: 4
+
+    # Calculates PV panel productivity as compared to total array size
+    # 1000 in Lamba below refers to 1000W array size, update to relect each site
+  - platform: template  
+    name: "Panel Productivity"
+    id: panel_productivity
+    unit_of_measurement: "%"
+    device_class: power_factor
+    state_class: measurement
+    icon: "mdi:gauge"
+    accuracy_decimals: 1
+    lambda: |-
+        if (id(input_solar_array_size).state == 0) {
+          return NAN;
+        }
+        if (((((id(solar_panel_power).state) / id(input_solar_array_size).state ) * 100) >= 120) || ((((id(solar_panel_power).state) / id(input_solar_array_size).state) * 100) < 0)) {
+          return NAN;
+        }
+        return (((id(solar_panel_power).state) / id(input_solar_array_size).state ) * 100);    
+    update_interval: 10s
+    web_server:
+      sorting_group_id: group_victron_solar_statistics
+      sorting_weight: 5
+
+##########################################################################
+
+text_sensor:
+  - platform: victron
+    victron_id: victron0
+
+    alarm_condition_active:
+      name: "Shunt - Alarm Condition Active"
+      icon: 'mdi:alarm-light-outline'
+      web_server:
+        sorting_group_id: group_victron_alarm_sensors
+        sorting_weight: 1
+
+    alarm_reason:
+      name: "Shunt - Alarm Reason"
+      icon: 'mdi:alarm-light-outline'
+      web_server:
+        sorting_group_id: group_victron_alarm_sensors
+        sorting_weight: 2
+
+    model_description:
+      name: "Shunt - Model Description"
+      icon: 'mdi:card-text-outline'
+      web_server:
+        sorting_group_id: group_victron_device_information
+        sorting_weight: 1
+
+    device_type:
+      name: "Shunt - Device Type"
+      icon: 'mdi:format-list-bulleted-type'
+      web_server:
+        sorting_group_id: group_victron_device_information
+        sorting_weight: 2
+
+    firmware_version:
+      name: "Shunt - Firmware Version"
+      icon: 'mdi:numeric'
+      web_server:
+        sorting_group_id: group_victron_device_information
+        sorting_weight: 3
+
+    serial_number:
+      name: "Shunt - Serial Number"
+      icon: 'mdi:barcode'
+      web_server:
+        sorting_group_id: group_victron_device_information
+        sorting_weight: 4
+
+    dc_monitor_mode:
+      name: "Shunt - DC Monitor Mode"
+      icon: 'mdi:auto-mode'
+      web_server:
+        sorting_group_id: group_victron_device_information
+        sorting_weight: 5
+
+##########################################################################
+
+  - platform: victron
+    victron_id: victron1		
+
+    charging_mode:
+      name: "Solar - Charging Mode"
+      icon: 'mdi:auto-mode'
+      web_server:
+        sorting_group_id: group_victron_solar_sensors
+        sorting_weight: 7
+
+    error:
+      name: "Solar - Error"
+      icon: 'mdi:alert-circle-outline'
+      web_server:
+        sorting_group_id: group_victron_solar_sensors
+        sorting_weight: 11
+
+    tracking_mode:
+      name: "Solar - Tracking Mode"
+      icon: 'mdi:auto-mode'
+      web_server:
+        sorting_group_id: group_victron_solar_sensors
+        sorting_weight: 9
+
+    device_type:
+      name: "Solar - Device Type"
+      icon: 'mdi:format-list-bulleted-type'
+      web_server:
+        sorting_group_id: group_victron_device_information
+        sorting_weight: 10
+
+    firmware_version:
+      name: "Solar - Firmware Version"
+      icon: 'mdi:numeric'
+      web_server:
+        sorting_group_id: group_victron_device_information
+        sorting_weight: 11
+
+    serial_number:
+      name: "Solar - Serial Number"
+      icon: 'mdi:barcode'
+      web_server:
+        sorting_group_id: group_victron_device_information
+        sorting_weight: 12
+
+##########################################################################
