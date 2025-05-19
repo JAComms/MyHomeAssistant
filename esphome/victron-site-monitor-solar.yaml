@@ -26,7 +26,7 @@ substitutions:
   # Project Name
   project_name: "JAComms.Site Monitor - Solar"
   # Project version denotes the release version of the yaml file, allowing checking of deployed vs latest version
-  project_version: "0.2.1"
+  project_version: "0.2.5"
   # The phase in the locations power supply, upon which this device is utilsed. 1p = A. 3p = A, B or C.  (GPO 1 = Phase A, GPO 2 = Phase B, GPO 3 = Phase C).
   # Used to populate a Text Sensor with this information, that may be used to loadshed in future, or trace outages to electrical faults.
   power_circuit: "TBA"
@@ -490,70 +490,3 @@ sensor:
         sorting_group_id: group_victron_solar_statistics
         sorting_weight: 7
 
-#######################################################################
-
-    panel_power:
-      name: "Solar - Panel Power"
-      id: solar_panel_power
-      web_server:
-        sorting_group_id: group_victron_solar_sensors
-        sorting_weight: 1
-
-    panel_voltage:
-      name: "Solar - Panel Voltage"
-      web_server:
-        sorting_group_id: group_victron_solar_sensors
-        sorting_weight: 2
-
-    battery_current:
-      name: "Solar - Panel Current"
-      web_server:
-        sorting_group_id: group_victron_solar_sensors
-        sorting_weight: 3
-
-    battery_voltage:
-      name: "Solar - Battery Voltage"
-      web_server:
-        sorting_group_id: group_victron_solar_sensors
-        sorting_weight: 4
-
-    battery_current:
-      name: "Solar - Battery Current"
-      web_server:
-        sorting_group_id: group_victron_solar_sensors
-        sorting_weight: 5
-
-    day_number:
-      name: "Solar - Day Number"
-      id: solar_day_number
-      icon: 'mdi:counter'
-      web_server:
-        sorting_group_id: group_victron_solar_sensors
-        sorting_weight: 6
-
-    load_current:
-      name: "Solar - Load Current"
-      web_server:
-        sorting_group_id: group_victron_solar_sensors
-        sorting_weight: 7
-
-    charging_mode_id:
-      name: "Solar - Charging Mode ID"
-      icon: 'mdi:numeric'
-      web_server:
-        sorting_group_id: group_victron_solar_sensors
-        sorting_weight: 9
-
-    tracking_mode_id:
-      name: "Solar - Tracking Mode ID"
-      icon: 'mdi:numeric'
-      web_server:
-        sorting_group_id: group_victron_solar_sensors
-        sorting_weight: 11
-
-    error_code:
-      name: "Solar - Error Code"
-      icon: 'mdi:alert-box-outline'
-      web_server:
-        sorting_group_id: group_victron_solar_sensors
-        sorting_weight: 13
