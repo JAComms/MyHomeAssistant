@@ -26,7 +26,7 @@ substitutions:
   # Project Name
   project_name: "JAComms.Site Monitor - Solar"
   # Project version denotes the release version of the yaml file, allowing checking of deployed vs latest version
-  project_version: "0.3.6"
+  project_version: "0.3.7"
   # The phase in the locations power supply, upon which this device is utilsed. 1p = A. 3p = A, B or C.  (GPO 1 = Phase A, GPO 2 = Phase B, GPO 3 = Phase C).
   # Used to populate a Text Sensor with this information, that may be used to loadshed in future, or trace outages to electrical faults.
   power_circuit: "TBA"
@@ -163,8 +163,10 @@ globals:
     restore_value: true
 
   - id: global_battery_installed_date
-    type: float
-    restore_value: true
+    type: std::string
+    restore_value: yes
+    initial_value: '"2020-01-01"'
+
 
 #########################################################################
 #
@@ -234,11 +236,11 @@ datetime:
     initial_value: "2020-01-01"
     optimistic: yes
     icon: 'mdi:calendar'
-#    set_action:
-#      then:
-#        - globals.set:
-#            id: global_battery_installed_date
-#            value: !lambda "return x;"
+    set_action:
+      then:
+        - globals.set:
+            id: global_battery_installed_date
+            value: !lambda "return x;"
     entity_category: config
     web_server:
       sorting_weight: 50
