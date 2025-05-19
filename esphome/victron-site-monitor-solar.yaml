@@ -26,7 +26,7 @@ substitutions:
   # Project Name
   project_name: "JAComms.Site Monitor - Solar"
   # Project version denotes the release version of the yaml file, allowing checking of deployed vs latest version
-  project_version: "0.3.0"
+  project_version: "0.3.1"
   # The phase in the locations power supply, upon which this device is utilsed. 1p = A. 3p = A, B or C.  (GPO 1 = Phase A, GPO 2 = Phase B, GPO 3 = Phase C).
   # Used to populate a Text Sensor with this information, that may be used to loadshed in future, or trace outages to electrical faults.
   power_circuit: "TBA"
@@ -158,6 +158,9 @@ globals:
     type: float
     restore_value: true
 
+  - id: global_battery_ah_size
+    type: float
+    restore_value: true
 
 #########################################################################
 #
@@ -228,8 +231,7 @@ number:
     max_value: 5000
     initial_value: 750
     step: 1
-#    unit_of_measurement: "W"
-#    device_class: "Power"
+    unit_of_measurement: "W"
     optimistic: true
     mode: box
     icon: "mdi:solar-panel"
@@ -238,7 +240,26 @@ number:
       then:
         - globals.set:
             id: global_solar_array_size
-            value: !lambda "return x;"    
+            value: !lambda "return x;"
+
+
+  - platform: template
+    name: "Battery - Capacity (Ah)"
+    id: input_battery_ah_size
+    min_value: 0
+    max_value: 500
+    initial_value: 0
+    step: 1
+    unit_of_measurement: "Ah"
+    optimistic: true
+    mode: box
+    icon: "mdi:battery-high"
+    entity_category: config
+    set_action:
+      then:
+        - globals.set:
+            id: global_battery_ah_size
+            value: !lambda "return x;"
 
 
 ##########################################################################
