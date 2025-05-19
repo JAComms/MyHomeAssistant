@@ -26,7 +26,7 @@ substitutions:
   # Project Name
   project_name: "JAComms.Site Monitor - Solar"
   # Project version denotes the release version of the yaml file, allowing checking of deployed vs latest version
-  project_version: "0.3.0"
+  project_version: "0.2.6"
   # The phase in the locations power supply, upon which this device is utilsed. 1p = A. 3p = A, B or C.  (GPO 1 = Phase A, GPO 2 = Phase B, GPO 3 = Phase C).
   # Used to populate a Text Sensor with this information, that may be used to loadshed in future, or trace outages to electrical faults.
   power_circuit: "TBA"
@@ -569,7 +569,7 @@ sensor:
     device_class: "power"
     icon: "mdi:gauge"
     lambda: |-
-        return (id(yield_total).state) / (id(solar_day_number).state);
+        return (id(solar_yield_total).state) / (id(solar_day_number).state);
     update_interval: 10s
     accuracy_decimals: 3
     web_server:
@@ -579,8 +579,8 @@ sensor:
     # Calculates PV panel productivity as compared to total array size
     # 1000 in Lamba below refers to 1000W array size, update to relect each site
   - platform: template  
-    name: "Solar - Panel Productivity"
-    id: solar_panel_productivity
+    name: "Panel Productivity"
+    id: panel_productivity
     unit_of_measurement: "%"
     device_class: power_factor
     state_class: measurement
@@ -664,21 +664,21 @@ text_sensor:
       icon: 'mdi:auto-mode'
       web_server:
         sorting_group_id: group_victron_solar_sensors
-        sorting_weight: 7
-
-    error:
-      name: "Solar - Error"
-      icon: 'mdi:alert-circle-outline'
-      web_server:
-        sorting_group_id: group_victron_solar_sensors
-        sorting_weight: 11
+        sorting_weight: 8
 
     tracking_mode:
       name: "Solar - Tracking Mode"
       icon: 'mdi:auto-mode'
       web_server:
         sorting_group_id: group_victron_solar_sensors
-        sorting_weight: 9
+        sorting_weight: 10
+
+    error:
+      name: "Solar - Error"
+      icon: 'mdi:alert-circle-outline'
+      web_server:
+        sorting_group_id: group_victron_solar_sensors
+        sorting_weight: 12
 
     device_type:
       name: "Solar - Device Type"
