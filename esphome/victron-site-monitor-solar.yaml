@@ -513,13 +513,13 @@ sensor:
       name: "Solar - Max Power Today"
       web_server:
         sorting_group_id: group_victron_solar_statistics
-        sorting_weight: 6
+        sorting_weight: 5
 
     max_power_yesterday:
       name: "Solar - Max Power Yesterday"
       web_server:
         sorting_group_id: group_victron_solar_statistics
-        sorting_weight: 7
+        sorting_weight: 6
 
 #######################################################################
 
@@ -603,8 +603,8 @@ sensor:
     # Calculates PV panel productivity as compared to total array size
     # 1000 in Lamba below refers to 1000W array size, update to relect each site
   - platform: template  
-    name: "Panel Productivity"
-    id: panel_productivity
+    name: "Solar - Panel Productivity"
+    id: solar_panel_productivity
     unit_of_measurement: "%"
     device_class: power_factor
     state_class: measurement
@@ -621,7 +621,7 @@ sensor:
     update_interval: 10s
     web_server:
       sorting_group_id: group_victron_solar_statistics
-      sorting_weight: 5
+      sorting_weight: 7
 
 ##########################################################################
 
