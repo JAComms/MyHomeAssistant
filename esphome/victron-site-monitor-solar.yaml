@@ -26,7 +26,7 @@ substitutions:
   # Project Name
   project_name: "JAComms.Site Monitor - Solar"
   # Project version denotes the release version of the yaml file, allowing checking of deployed vs latest version
-  project_version: "0.2.6"
+  project_version: "0.3.0"
   # The phase in the locations power supply, upon which this device is utilsed. 1p = A. 3p = A, B or C.  (GPO 1 = Phase A, GPO 2 = Phase B, GPO 3 = Phase C).
   # Used to populate a Text Sensor with this information, that may be used to loadshed in future, or trace outages to electrical faults.
   power_circuit: "TBA"
@@ -226,29 +226,19 @@ number:
     id: input_solar_array_size
     min_value: 0
     max_value: 5000
-    initial_value: 1000
+    initial_value: 750
     step: 1
 #    unit_of_measurement: "W"
 #    device_class: "Power"
     optimistic: true
     mode: box
-    icon: "mdi:scale"
+    icon: "mdi:solar-panel"
     entity_category: config
     set_action:
       then:
         - globals.set:
             id: global_solar_array_size
             value: !lambda "return x;"    
-
-##########################################################################
-#
-# Binary Sensors
-#
-binary_sensor:
-  - platform: victron
-    victron_id: victron0
-    relay_state:
-      name: "Shunt Relay State"
 
 
 ##########################################################################
@@ -431,28 +421,28 @@ sensor:
       icon: 'mdi:numeric'
       web_server:
         sorting_group_id: group_victron_alarm_sensors
-        sorting_weight: 3
+        sorting_weight: 5
 
     number_of_low_main_voltage_alarms:
       name: "Battery - Low Main Voltage Alarms"
       icon: 'mdi:numeric'
       web_server:
         sorting_group_id: group_victron_alarm_sensors
-        sorting_weight: 4
+        sorting_weight: 6
 
     number_of_high_auxiliary_voltage_alarms:
       name: "Battery - High Auxiliary Voltage Alarms"
       icon: 'mdi:numeric'
       web_server:
         sorting_group_id: group_victron_alarm_sensors
-        sorting_weight: 5
+        sorting_weight: 7
 
     number_of_low_auxiliary_voltage_alarms:
       name: "Battery - Low Auxiliary Voltage Alarms"
       icon: 'mdi:numeric'
       web_server:
         sorting_group_id: group_victron_alarm_sensors
-        sorting_weight: 6
+        sorting_weight: 8
 
 
   ##########################################################################
@@ -550,8 +540,8 @@ sensor:
       name: "Solar - Error Code"
       icon: 'mdi:alert-box-outline'
       web_server:
-        sorting_group_id: group_victron_solar_sensors
-        sorting_weight: 12
+        sorting_group_id: group_victron_alarm_sensors
+        sorting_weight: 4
 
 #######################################################################
 
@@ -559,7 +549,7 @@ sensor:
   - platform: template   
     name: "Solar - Yield Daily Median" 
     id: solar_yield_daily_median
-    unit_of_measurement: "kWh"
+    unit_of_measurement: "Wh"
     device_class: "power"
     icon: "mdi:gauge"
     lambda: |-
@@ -671,8 +661,8 @@ text_sensor:
       name: "Solar - Error"
       icon: 'mdi:alert-circle-outline'
       web_server:
-        sorting_group_id: group_victron_solar_sensors
-        sorting_weight: 12
+        sorting_group_id: group_victron_alarm_sensors
+        sorting_weight: 3
 
     device_type:
       name: "Solar - Device Type"
