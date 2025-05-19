@@ -26,7 +26,7 @@ substitutions:
   # Project Name
   project_name: "JAComms.Site Monitor - Solar"
   # Project version denotes the release version of the yaml file, allowing checking of deployed vs latest version
-  project_version: "0.3.4"
+  project_version: "0.3.5"
   # The phase in the locations power supply, upon which this device is utilsed. 1p = A. 3p = A, B or C.  (GPO 1 = Phase A, GPO 2 = Phase B, GPO 3 = Phase C).
   # Used to populate a Text Sensor with this information, that may be used to loadshed in future, or trace outages to electrical faults.
   power_circuit: "TBA"
@@ -226,12 +226,14 @@ datetime:
   - platform: template
     id: battery_installed_date
     type: date
-    name: Battery Installed Date
+    name: Battery - Installed Date
     optimistic: yes
     icon: 'mdi:calendar'
     entity_category: config
     initial_value: "2020-01-01"
     restore_value: true
+    web_server:
+      sorting_weight: 50
 
 #######################################################################################
 #
@@ -256,7 +258,8 @@ number:
         - globals.set:
             id: global_solar_array_size
             value: !lambda "return x;"
-
+    web_server:
+      sorting_weight: 47
 
   - platform: template
     name: "Battery - Capacity (Ah)"
@@ -275,7 +278,8 @@ number:
         - globals.set:
             id: global_battery_ah_size
             value: !lambda "return x;"
-
+    web_server:
+      sorting_weight: 49
 
 ##########################################################################
 #
