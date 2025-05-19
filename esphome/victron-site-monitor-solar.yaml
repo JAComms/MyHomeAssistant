@@ -229,7 +229,7 @@ victron:
 datetime:
   - platform: template
     name: Battery - Installed Date
-    id: battery_installed_date
+    id: input_battery_installed_date
     type: date
     initial_value: "2020-01-01"
     optimistic: yes
