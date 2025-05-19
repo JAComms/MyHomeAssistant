@@ -258,13 +258,10 @@ datetime:
       then:
         - globals.set:
             id: global_battery_installed_date
-            value: !lambda |-
-              char buffer[11];
-              snprintf(buffer, sizeof(buffer), "%04d-%02d-%02d", x.year, x.month, x.day);
-              return std::string(buffer);
+            value: !lambda "return x;"
         - logger.log:
             format: "Set battery installed date: %s"
-            args: ["x.to_string().c_str()"]
+            args: ["x.c_str()"]
     entity_category: config
     web_server:
       sorting_weight: 50
