@@ -113,7 +113,7 @@ web_server:
       sorting_weight: -4
 
     - id: group_victron_alarm_sensors
-      name: ""Victron - Alarm Sensors"
+      name: "Victron - Alarm Sensors"
       sorting_weight: -2
 
     - id: group_victron_device_information
