@@ -26,7 +26,7 @@ substitutions:
   # Project Name
   project_name: "JAComms.Site Monitor - Solar"
   # Project version denotes the release version of the yaml file, allowing checking of deployed vs latest version
-  project_version: "0.3.1"
+  project_version: "0.3.2"
   # The phase in the locations power supply, upon which this device is utilsed. 1p = A. 3p = A, B or C.  (GPO 1 = Phase A, GPO 2 = Phase B, GPO 3 = Phase C).
   # Used to populate a Text Sensor with this information, that may be used to loadshed in future, or trace outages to electrical faults.
   power_circuit: "TBA"
@@ -217,10 +217,24 @@ victron:
     uart_id: uart_1
     throttle: 10s
 
+#######################################################################################
+#
+# Date Input
+#
+
+datetime:
+  - platform: template
+    id: battery_installed_date
+    type: date
+    name: Battery Installed Date
+    optimistic: yes
+    icon: 'mdi:calendar'
+    initial_value: "2020-01-01"
+    restore_value: true
 
 #######################################################################################
 #
-# Number Inputs - Used to configure the values used to convert Gas M3 to MJ
+# Number Inputs
 #
 
 number:
