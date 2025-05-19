@@ -264,7 +264,7 @@ datetime:
               return std::string(buffer);
         - logger.log:
             format: "Set battery installed date: %s"
-            args: ["id(input_battery_installed_date).state.c_str()"]
+            args: ["id(global_battery_installed_date).c_str()"]
     entity_category: config
     web_server:
       sorting_weight: 50
