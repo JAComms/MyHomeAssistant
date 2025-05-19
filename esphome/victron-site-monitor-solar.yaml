@@ -234,11 +234,11 @@ datetime:
     initial_value: "2020-01-01"
     optimistic: yes
     icon: 'mdi:calendar'
-    set_action:
-      then:
-        - globals.set:
-            id: global_battery_installed_date
-            value: !lambda "return x;"
+#    set_action:
+#      then:
+#        - globals.set:
+#            id: global_battery_installed_date
+#            value: !lambda "return x;"
     entity_category: config
     web_server:
       sorting_weight: 50
