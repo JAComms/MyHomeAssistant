@@ -518,46 +518,40 @@ sensor:
         sorting_group_id: group_victron_solar_sensors
         sorting_weight: 4
 
-    battery_current:
-      name: "Solar - Battery Current"
-      web_server:
-        sorting_group_id: group_victron_solar_sensors
-        sorting_weight: 5
-
     day_number:
       name: "Solar - Day Number"
       id: solar_day_number
       icon: 'mdi:counter'
       web_server:
         sorting_group_id: group_victron_solar_sensors
-        sorting_weight: 6
+        sorting_weight: 5
 
     load_current:
       name: "Solar - Load Current"
       web_server:
         sorting_group_id: group_victron_solar_sensors
-        sorting_weight: 7
+        sorting_weight: 6
 
     charging_mode_id:
       name: "Solar - Charging Mode ID"
       icon: 'mdi:numeric'
       web_server:
         sorting_group_id: group_victron_solar_sensors
-        sorting_weight: 9
+        sorting_weight: 8
 
     tracking_mode_id:
       name: "Solar - Tracking Mode ID"
       icon: 'mdi:numeric'
       web_server:
         sorting_group_id: group_victron_solar_sensors
-        sorting_weight: 11
+        sorting_weight: 10
 
     error_code:
       name: "Solar - Error Code"
       icon: 'mdi:alert-box-outline'
       web_server:
         sorting_group_id: group_victron_solar_sensors
-        sorting_weight: 13
+        sorting_weight: 12
 
 #######################################################################
 
@@ -664,14 +658,14 @@ text_sensor:
       icon: 'mdi:auto-mode'
       web_server:
         sorting_group_id: group_victron_solar_sensors
-        sorting_weight: 8
+        sorting_weight: 7
 
     tracking_mode:
       name: "Solar - Tracking Mode"
       icon: 'mdi:auto-mode'
       web_server:
         sorting_group_id: group_victron_solar_sensors
-        sorting_weight: 10
+        sorting_weight: 9
 
     error:
       name: "Solar - Error"
