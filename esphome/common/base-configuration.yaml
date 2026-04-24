@@ -12,8 +12,10 @@ substitutions:
   site: ""
    # Allows ESP device to be automatically lined to an 'Area' in Home Assistant. Typically used for areas such as 'Lounge Room', 'Kitchen' etc  
   location: ""
-   # The phase in the home power supply, upon which this device is utilsed. 1p = A. 3p = A, B or C.  (myHome GPO 1 = Phase C, GPO 2 = Phase A, GPO 3 = Phase B)  
-  power_circuit: "TBA"  
+   # The phase in the home power supply, upon which this device is utilsed. A, B or C.  (myHome GPO 1 = Phase A, GPO 2 = Phase B, GPO 3 = Phase C)  
+  power_phase: "TBA"
+   # The circuit breaker / RCBO that the load is attached to.  
+  power_rcbo: "TBA" 
 
 ###############################
 # Time Update Settings:
@@ -39,7 +41,7 @@ substitutions:
    # Set the update interval for sensors  
   sensor_update_interval: 10s   
    # Define logging level: NONE, ERROR, WARN, INFO, DEBUG (Default), VERBOSE, VERY_VERBOSE
-  log_level: "DEBUG"
+  log_level: "INFO"
 
 ###############################
 # Network Settings - Static IP
@@ -66,7 +68,7 @@ esphome:
   comment: '${device_description}'
   area: "${location}"
   name_add_mac_suffix: true
-  min_version: 2025.4.1
+  min_version: 2026.4.1
   project:
     name: "${project_name}"
     version: "${project_version}"
@@ -78,9 +80,11 @@ preferences:
   flash_write_interval: 5min
 
 api:
+  reboot_timeout: 4h  # If connectvitiy with Home Assistant server lost, reboot device period
 
 ota:
   - platform: esphome
+  - platform: web_server
   
 logger:
   level: ${log_level}
@@ -139,7 +143,7 @@ binary_sensor:
     entity_category: diagnostic
     icon: "mdi:check-network-outline"
     web_server:
-      sorting_weight: 35
+      sorting_weight: 34
 
 #########################################################################
 #
@@ -165,7 +169,7 @@ text_sensor:
     format:
       separator: " "
     web_server:
-      sorting_weight: 36
+      sorting_weight: 35
     
    # Creates a sensor showing when the device was last restarted
   - platform: template
@@ -174,16 +178,28 @@ text_sensor:
     icon: mdi:clock
     entity_category: diagnostic
     web_server:
-      sorting_weight: 37
+      sorting_weight: 36
 
   #  Creates a sensor showing power circuit / phase of the device
   - platform: template
-    name: 'Power Circuit'
-    id: power_circuit
+    name: 'Power Phase'
+    id: power_phase
     icon: "mdi:electric-switch"
     entity_category: diagnostic
     lambda: |-
-      return {"${power_circuit}"};
+      return {"${power_phase}"};
+    web_server:
+      sorting_weight: 37
+
+  #  Creates a sensor showing power circuit / breaker the device it connected to
+  - platform: template
+    name: 'Power RCBO'
+    id: power_rcbo
+    icon: "mdi:electric-switch"
+    entity_category: diagnostic
+    lambda: |-
+      return {"${power_rcbo}"};
+#    update_interval: 1h
     web_server:
       sorting_weight: 38
 
