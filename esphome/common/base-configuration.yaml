@@ -146,14 +146,7 @@ binary_sensor:
 # Sensors
 #
 
-sensor:
-   # Sensor uptime in seconds
-  - platform: uptime
-    name: "Uptime Seconds"
-    id: uptime_seconds
-    entity_category: diagnostic
-    update_interval: 10s
-    internal: True
+#sensor:
 
 ##########################################################################
 #
@@ -163,31 +156,14 @@ sensor:
 text_sensor:
 
    # Creates a sensor of the uptime of the device, in formatted days, hours, minutes and seconds
-   # from : https://community.home-assistant.io/t/uptime-sensor-in-hours-or-days/116392/29
-  - platform: template
+   # WAS from : https://community.home-assistant.io/t/uptime-sensor-in-hours-or-days/116392/29
+  - platform: uptime
     name: "Device Uptime"
-    entity_category: diagnostic
-    lambda: |-
-      int seconds = (id(uptime_seconds).state);
-      int days = seconds / (24 * 3600);
-      seconds = seconds % (24 * 3600);
-      int hours = seconds / 3600;
-      seconds = seconds % 3600;
-      int minutes = seconds /  60;
-      seconds = seconds % 60;
-      if ( days > 3650 ) {
-        return { "Starting up" };
-      } else if ( days ) {
-        return { (String(days) +"d " + String(hours) +"h " + String(minutes) +"m "+ String(seconds) +"s").c_str() };
-      } else if ( hours ) {
-        return { (String(hours) +"h " + String(minutes) +"m "+ String(seconds) +"s").c_str() };
-      } else if ( minutes ) {
-        return { (String(minutes) +"m "+ String(seconds) +"s").c_str() };
-      } else {
-        return { (String(seconds) +"s").c_str() };
-      }
-    update_interval: ${sensor_update_interval}
     icon: mdi:clock-start
+    entity_category: diagnostic
+    update_interval: ${sensor_update_interval}
+    format:
+      separator: " "
     web_server:
       sorting_weight: 36
     
